@@ -1,0 +1,312 @@
+Number of relations: 3472
+Number of variables: 192
+Number of target variables: 192
+Number of known variables: 32
+Number of guessed variables: 15
+Number of state copies (max_steps): 22
+An upper bound for the number of guessed variables given by user (max_guess): 15
+192 out of 192 state variables are known after 22 state copies
+############################################################
+The following 15 variable(s) are guessed:
+K_0_1_1, K_1_2_3, K_2_0_0, K_2_1_0, X_2_1_1, X_2_1_2, W_1_1_3, K_2_1_3, K_2_2_0, K_2_3_2, W_1_3_3, K_2_3_3, K_3_0_2, K_3_1_3, W_2_2_2
+############################################################
+The following 32 variable(s) are initially known:
+P_0_0, P_0_1, P_0_2, P_0_3, P_1_0, P_1_1, P_1_2, P_1_3, P_2_0, P_2_1, P_2_2, P_2_3, P_3_0, P_3_1, P_3_2, P_3_3, X_3_0_0, X_3_0_1, X_3_0_2, X_3_0_3, X_3_1_0, X_3_1_1, X_3_1_2, X_3_1_3, X_3_2_0, X_3_2_1, X_3_2_2, X_3_2_3, X_3_3_0, X_3_3_1, X_3_3_2, X_3_3_3
+############################################################
+Target variables:
+P_0_0, K_0_0_0, X_0_0_0, P_0_1, K_0_0_1, X_0_0_1, P_0_2, K_0_0_2, X_0_0_2, P_0_3, K_0_0_3, X_0_0_3, P_1_0, K_0_1_0, X_0_1_0, P_1_1, K_0_1_1, X_0_1_1, P_1_2, K_0_1_2, X_0_1_2, P_1_3, K_0_1_3, X_0_1_3, P_2_0, K_0_2_0, X_0_2_0, P_2_1, K_0_2_1, X_0_2_1, P_2_2, K_0_2_2, X_0_2_2, P_2_3, K_0_2_3, X_0_2_3, P_3_0, K_0_3_0, X_0_3_0, P_3_1, K_0_3_1, X_0_3_1, P_3_2, K_0_3_2, X_0_3_2, P_3_3, K_0_3_3, X_0_3_3, W_0_0_0, K_1_0_0, X_1_0_0, W_0_0_1, K_1_0_1, X_1_0_1, W_0_0_2, K_1_0_2, X_1_0_2, W_0_0_3, K_1_0_3, X_1_0_3, W_0_1_0, K_1_1_0, X_1_1_0, W_0_1_1, K_1_1_1, X_1_1_1, W_0_1_2, K_1_1_2, X_1_1_2, W_0_1_3, K_1_1_3, X_1_1_3, W_0_2_0, K_1_2_0, X_1_2_0, W_0_2_1, K_1_2_1, X_1_2_1, W_0_2_2, K_1_2_2, X_1_2_2, W_0_2_3, K_1_2_3, X_1_2_3, W_0_3_0, K_1_3_0, X_1_3_0, W_0_3_1, K_1_3_1, X_1_3_1, W_0_3_2, K_1_3_2, X_1_3_2, W_0_3_3, K_1_3_3, X_1_3_3, W_1_0_0, K_2_0_0, X_2_0_0, W_1_0_1, K_2_0_1, X_2_0_1, W_1_0_2, K_2_0_2, X_2_0_2, W_1_0_3, K_2_0_3, X_2_0_3, W_1_1_0, K_2_1_0, X_2_1_0, W_1_1_1, K_2_1_1, X_2_1_1, W_1_1_2, K_2_1_2, X_2_1_2, W_1_1_3, K_2_1_3, X_2_1_3, W_1_2_0, K_2_2_0, X_2_2_0, W_1_2_1, K_2_2_1, X_2_2_1, W_1_2_2, K_2_2_2, X_2_2_2, W_1_2_3, K_2_2_3, X_2_2_3, W_1_3_0, K_2_3_0, X_2_3_0, W_1_3_1, K_2_3_1, X_2_3_1, W_1_3_2, K_2_3_2, X_2_3_2, W_1_3_3, K_2_3_3, X_2_3_3, W_2_0_0, K_3_0_0, X_3_0_0, W_2_0_1, K_3_0_1, X_3_0_1, W_2_0_2, K_3_0_2, X_3_0_2, W_2_0_3, K_3_0_3, X_3_0_3, W_2_1_0, K_3_1_0, X_3_1_0, W_2_1_1, K_3_1_1, X_3_1_1, W_2_1_2, K_3_1_2, X_3_1_2, W_2_1_3, K_3_1_3, X_3_1_3, W_2_2_0, K_3_2_0, X_3_2_0, W_2_2_1, K_3_2_1, X_3_2_1, W_2_2_2, K_3_2_2, X_3_2_2, W_2_2_3, K_3_2_3, X_3_2_3, W_2_3_0, K_3_3_0, X_3_3_0, W_2_3_1, K_3_3_1, X_3_3_1, W_2_3_2, K_3_3_2, X_3_3_2, W_2_3_3, K_3_3_3, X_3_3_3
+############################################################
+Determination flow:
+
+State 0:
+P_1_1, K_0_1_1 in symmetric relation [P_1_1, K_0_1_1, X_0_1_1] are known: P_1_1, K_0_1_1 ===> X_0_1_1
+W_1_1_3, K_2_1_3 in symmetric relation [W_1_1_3, K_2_1_3, X_2_1_3] are known: W_1_1_3, K_2_1_3 ===> X_2_1_3
+W_1_3_3, K_2_3_3 in symmetric relation [W_1_3_3, K_2_3_3, X_2_3_3] are known: W_1_3_3, K_2_3_3 ===> X_2_3_3
+K_2_3_2, K_2_3_3 in symmetric relation [K_1_3_3, K_2_3_2, K_2_3_3] are known: K_2_3_2, K_2_3_3 ===> K_1_3_3
+K_1_2_3, K_2_1_0 in symmetric relation [K_1_1_0, K_1_2_3, K_2_1_0] are known: K_1_2_3, K_2_1_0 ===> K_1_1_0
+K_3_0_2, X_3_0_2 in symmetric relation [W_2_0_2, K_3_0_2, X_3_0_2] are known: K_3_0_2, X_3_0_2 ===> W_2_0_2
+K_3_1_3, X_3_1_3 in symmetric relation [W_2_1_3, K_3_1_3, X_3_1_3] are known: K_3_1_3, X_3_1_3 ===> W_2_1_3
+W_2_2_2, X_3_2_2 in symmetric relation [W_2_2_2, K_3_2_2, X_3_2_2] are known: W_2_2_2, X_3_2_2 ===> K_3_2_2
+K_2_2_0, K_2_3_3 in symmetric relation [K_2_2_0, K_2_3_3, K_3_2_0] are known: K_2_2_0, K_2_3_3 ===> K_3_2_0
+K_2_1_3, K_3_1_3 in symmetric relation [K_2_1_3, K_3_1_2, K_3_1_3] are known: K_2_1_3, K_3_1_3 ===> K_3_1_2
+K_2_0_0, K_2_1_3 in symmetric relation [K_2_0_0, K_2_1_3, K_3_0_0] are known: K_2_0_0, K_2_1_3 ===> K_3_0_0
+############################################################
+State 1:
+K_0_1_1, K_1_1_0 in symmetric relation [K_0_1_1, K_1_1_0, K_1_1_1] are known: K_0_1_1, K_1_1_0 ===> K_1_1_1
+K_1_3_3, K_2_2_0 in symmetric relation [K_1_2_0, K_1_3_3, K_2_2_0] are known: K_1_3_3, K_2_2_0 ===> K_1_2_0
+K_3_0_0, X_3_0_0 in symmetric relation [W_2_0_0, K_3_0_0, X_3_0_0] are known: K_3_0_0, X_3_0_0 ===> W_2_0_0
+K_3_1_2, X_3_1_2 in symmetric relation [W_2_1_2, K_3_1_2, X_3_1_2] are known: K_3_1_2, X_3_1_2 ===> W_2_1_2
+K_3_2_0, X_3_2_0 in symmetric relation [W_2_2_0, K_3_2_0, X_3_2_0] are known: K_3_2_0, X_3_2_0 ===> W_2_2_0
+############################################################
+State 2:
+K_1_1_1, K_2_1_0 in symmetric relation [K_1_1_1, K_2_1_0, K_2_1_1] are known: K_1_1_1, K_2_1_0 ===> K_2_1_1
+X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0 in implication relation [X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0, X_2_0_0] are known: X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0 ===> X_2_0_0
+X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0 in implication relation [X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0, X_2_2_2] are known: X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0 ===> X_2_2_2
+X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0 in implication relation [X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0, W_2_1_0] are known: X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0 ===> W_2_1_0
+X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0 in implication relation [X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0, W_2_3_0] are known: X_2_1_1, X_2_3_3, W_2_0_0, W_2_2_0 ===> W_2_3_0
+X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2 in implication relation [X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2, X_2_0_2] are known: X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2 ===> X_2_0_2
+X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2 in implication relation [X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2, X_2_2_0] are known: X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2 ===> X_2_2_0
+X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2 in implication relation [X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2, X_2_3_1] are known: X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2 ===> X_2_3_1
+X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2 in implication relation [X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2, W_2_3_2] are known: X_2_1_3, W_2_0_2, W_2_1_2, W_2_2_2 ===> W_2_3_2
+############################################################
+State 3:
+K_2_0_0, X_2_0_0 in symmetric relation [W_1_0_0, K_2_0_0, X_2_0_0] are known: K_2_0_0, X_2_0_0 ===> W_1_0_0
+K_2_1_1, X_2_1_1 in symmetric relation [W_1_1_1, K_2_1_1, X_2_1_1] are known: K_2_1_1, X_2_1_1 ===> W_1_1_1
+K_2_2_0, X_2_2_0 in symmetric relation [W_1_2_0, K_2_2_0, X_2_2_0] are known: K_2_2_0, X_2_2_0 ===> W_1_2_0
+W_2_1_0, X_3_1_0 in symmetric relation [W_2_1_0, K_3_1_0, X_3_1_0] are known: W_2_1_0, X_3_1_0 ===> K_3_1_0
+W_2_3_0, X_3_3_0 in symmetric relation [W_2_3_0, K_3_3_0, X_3_3_0] are known: W_2_3_0, X_3_3_0 ===> K_3_3_0
+W_2_3_2, X_3_3_2 in symmetric relation [W_2_3_2, K_3_3_2, X_3_3_2] are known: W_2_3_2, X_3_3_2 ===> K_3_3_2
+############################################################
+State 4:
+K_2_3_3, K_3_3_2 in symmetric relation [K_2_3_3, K_3_3_2, K_3_3_3] are known: K_2_3_3, K_3_3_2 ===> K_3_3_3
+K_2_3_2, K_3_3_2 in symmetric relation [K_2_3_2, K_3_3_1, K_3_3_2] are known: K_2_3_2, K_3_3_2 ===> K_3_3_1
+K_2_1_1, K_3_1_0 in symmetric relation [K_2_1_1, K_3_1_0, K_3_1_1] are known: K_2_1_1, K_3_1_0 ===> K_3_1_1
+K_2_1_0, K_3_1_0 in symmetric relation [K_2_1_0, K_2_2_3, K_3_1_0] are known: K_2_1_0, K_3_1_0 ===> K_2_2_3
+############################################################
+State 5:
+K_1_2_3, K_2_2_3 in symmetric relation [K_1_2_3, K_2_2_2, K_2_2_3] are known: K_1_2_3, K_2_2_3 ===> K_2_2_2
+K_3_1_1, X_3_1_1 in symmetric relation [W_2_1_1, K_3_1_1, X_3_1_1] are known: K_3_1_1, X_3_1_1 ===> W_2_1_1
+K_3_3_1, X_3_3_1 in symmetric relation [W_2_3_1, K_3_3_1, X_3_3_1] are known: K_3_3_1, X_3_3_1 ===> W_2_3_1
+K_3_3_3, X_3_3_3 in symmetric relation [W_2_3_3, K_3_3_3, X_3_3_3] are known: K_3_3_3, X_3_3_3 ===> W_2_3_3
+K_3_3_0, K_3_3_1 in symmetric relation [K_2_3_1, K_3_3_0, K_3_3_1] are known: K_3_3_0, K_3_3_1 ===> K_2_3_1
+K_2_2_3, K_3_2_2 in symmetric relation [K_2_2_3, K_3_2_2, K_3_2_3] are known: K_2_2_3, K_3_2_2 ===> K_3_2_3
+K_3_1_1, K_3_1_2 in symmetric relation [K_2_1_2, K_3_1_1, K_3_1_2] are known: K_3_1_1, K_3_1_2 ===> K_2_1_2
+############################################################
+State 6:
+K_2_1_2, X_2_1_2 in symmetric relation [W_1_1_2, K_2_1_2, X_2_1_2] are known: K_2_1_2, X_2_1_2 ===> W_1_1_2
+K_2_2_2, X_2_2_2 in symmetric relation [W_1_2_2, K_2_2_2, X_2_2_2] are known: K_2_2_2, X_2_2_2 ===> W_1_2_2
+K_2_3_1, X_2_3_1 in symmetric relation [W_1_3_1, K_2_3_1, X_2_3_1] are known: K_2_3_1, X_2_3_1 ===> W_1_3_1
+K_2_3_1, K_2_3_2 in symmetric relation [K_1_3_2, K_2_3_1, K_2_3_2] are known: K_2_3_1, K_2_3_2 ===> K_1_3_2
+K_2_1_2, K_2_1_3 in symmetric relation [K_1_1_3, K_2_1_2, K_2_1_3] are known: K_2_1_2, K_2_1_3 ===> K_1_1_3
+K_2_1_1, K_2_1_2 in symmetric relation [K_1_1_2, K_2_1_1, K_2_1_2] are known: K_2_1_1, K_2_1_2 ===> K_1_1_2
+K_3_2_3, X_3_2_3 in symmetric relation [W_2_2_3, K_3_2_3, X_3_2_3] are known: K_3_2_3, X_3_2_3 ===> W_2_2_3
+K_2_2_2, K_3_2_2 in symmetric relation [K_2_2_2, K_3_2_1, K_3_2_2] are known: K_2_2_2, K_3_2_2 ===> K_3_2_1
+############################################################
+State 7:
+K_1_3_2, K_1_3_3 in symmetric relation [K_0_3_3, K_1_3_2, K_1_3_3] are known: K_1_3_2, K_1_3_3 ===> K_0_3_3
+K_1_1_2, K_1_1_3 in symmetric relation [K_0_1_3, K_1_1_2, K_1_1_3] are known: K_1_1_2, K_1_1_3 ===> K_0_1_3
+K_1_1_1, K_1_1_2 in symmetric relation [K_0_1_2, K_1_1_1, K_1_1_2] are known: K_1_1_1, K_1_1_2 ===> K_0_1_2
+K_1_1_3, K_2_0_0 in symmetric relation [K_1_0_0, K_1_1_3, K_2_0_0] are known: K_1_1_3, K_2_0_0 ===> K_1_0_0
+K_3_2_1, X_3_2_1 in symmetric relation [W_2_2_1, K_3_2_1, X_3_2_1] are known: K_3_2_1, X_3_2_1 ===> W_2_2_1
+K_3_2_0, K_3_2_1 in symmetric relation [K_2_2_1, K_3_2_0, K_3_2_1] are known: K_3_2_0, K_3_2_1 ===> K_2_2_1
+############################################################
+State 8:
+P_1_2, K_0_1_2 in symmetric relation [P_1_2, K_0_1_2, X_0_1_2] are known: P_1_2, K_0_1_2 ===> X_0_1_2
+P_1_3, K_0_1_3 in symmetric relation [P_1_3, K_0_1_3, X_0_1_3] are known: P_1_3, K_0_1_3 ===> X_0_1_3
+P_3_3, K_0_3_3 in symmetric relation [P_3_3, K_0_3_3, X_0_3_3] are known: P_3_3, K_0_3_3 ===> X_0_3_3
+K_0_3_3, K_1_2_0 in symmetric relation [K_0_2_0, K_0_3_3, K_1_2_0] are known: K_0_3_3, K_1_2_0 ===> K_0_2_0
+K_0_1_3, K_1_0_0 in symmetric relation [K_0_0_0, K_0_1_3, K_1_0_0] are known: K_0_1_3, K_1_0_0 ===> K_0_0_0
+K_2_2_1, K_2_2_2 in symmetric relation [K_1_2_2, K_2_2_1, K_2_2_2] are known: K_2_2_1, K_2_2_2 ===> K_1_2_2
+K_2_2_0, K_2_2_1 in symmetric relation [K_1_2_1, K_2_2_0, K_2_2_1] are known: K_2_2_0, K_2_2_1 ===> K_1_2_1
+X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1 in implication relation [X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1, X_2_0_1] are known: X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1 ===> X_2_0_1
+X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1 in implication relation [X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1, X_2_2_3] are known: X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1 ===> X_2_2_3
+X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1 in implication relation [X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1, X_2_3_0] are known: X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1 ===> X_2_3_0
+X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1 in implication relation [X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1, W_2_0_1] are known: X_2_1_2, W_2_1_1, W_2_2_1, W_2_3_1 ===> W_2_0_1
+############################################################
+State 9:
+P_0_0, K_0_0_0 in symmetric relation [P_0_0, K_0_0_0, X_0_0_0] are known: P_0_0, K_0_0_0 ===> X_0_0_0
+P_2_0, K_0_2_0 in symmetric relation [P_2_0, K_0_2_0, X_0_2_0] are known: P_2_0, K_0_2_0 ===> X_0_2_0
+K_1_2_2, K_1_2_3 in symmetric relation [K_0_2_3, K_1_2_2, K_1_2_3] are known: K_1_2_2, K_1_2_3 ===> K_0_2_3
+K_1_2_1, K_1_2_2 in symmetric relation [K_0_2_2, K_1_2_1, K_1_2_2] are known: K_1_2_1, K_1_2_2 ===> K_0_2_2
+K_1_2_0, K_1_2_1 in symmetric relation [K_0_2_1, K_1_2_0, K_1_2_1] are known: K_1_2_0, K_1_2_1 ===> K_0_2_1
+K_2_2_3, X_2_2_3 in symmetric relation [W_1_2_3, K_2_2_3, X_2_2_3] are known: K_2_2_3, X_2_2_3 ===> W_1_2_3
+W_2_0_1, X_3_0_1 in symmetric relation [W_2_0_1, K_3_0_1, X_3_0_1] are known: W_2_0_1, X_3_0_1 ===> K_3_0_1
+############################################################
+State 10:
+P_2_1, K_0_2_1 in symmetric relation [P_2_1, K_0_2_1, X_0_2_1] are known: P_2_1, K_0_2_1 ===> X_0_2_1
+P_2_2, K_0_2_2 in symmetric relation [P_2_2, K_0_2_2, X_0_2_2] are known: P_2_2, K_0_2_2 ===> X_0_2_2
+P_2_3, K_0_2_3 in symmetric relation [P_2_3, K_0_2_3, X_0_2_3] are known: P_2_3, K_0_2_3 ===> X_0_2_3
+K_0_2_3, K_1_1_0 in symmetric relation [K_0_1_0, K_0_2_3, K_1_1_0] are known: K_0_2_3, K_1_1_0 ===> K_0_1_0
+K_3_0_1, K_3_0_2 in symmetric relation [K_2_0_2, K_3_0_1, K_3_0_2] are known: K_3_0_1, K_3_0_2 ===> K_2_0_2
+K_3_0_0, K_3_0_1 in symmetric relation [K_2_0_1, K_3_0_0, K_3_0_1] are known: K_3_0_0, K_3_0_1 ===> K_2_0_1
+############################################################
+State 11:
+P_1_0, K_0_1_0 in symmetric relation [P_1_0, K_0_1_0, X_0_1_0] are known: P_1_0, K_0_1_0 ===> X_0_1_0
+K_2_0_1, X_2_0_1 in symmetric relation [W_1_0_1, K_2_0_1, X_2_0_1] are known: K_2_0_1, X_2_0_1 ===> W_1_0_1
+K_2_0_2, X_2_0_2 in symmetric relation [W_1_0_2, K_2_0_2, X_2_0_2] are known: K_2_0_2, X_2_0_2 ===> W_1_0_2
+K_2_0_1, K_2_0_2 in symmetric relation [K_1_0_2, K_2_0_1, K_2_0_2] are known: K_2_0_1, K_2_0_2 ===> K_1_0_2
+K_2_0_0, K_2_0_1 in symmetric relation [K_1_0_1, K_2_0_0, K_2_0_1] are known: K_2_0_0, K_2_0_1 ===> K_1_0_1
+X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3 in implication relation [X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3, W_0_0_0] are known: X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3 ===> W_0_0_0
+X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3 in implication relation [X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3, W_0_1_0] are known: X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3 ===> W_0_1_0
+X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3 in implication relation [X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3, W_0_2_0] are known: X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3 ===> W_0_2_0
+X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3 in implication relation [X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3, W_0_3_0] are known: X_0_0_0, X_0_1_1, X_0_2_2, X_0_3_3 ===> W_0_3_0
+############################################################
+State 12:
+W_0_0_0, K_1_0_0 in symmetric relation [W_0_0_0, K_1_0_0, X_1_0_0] are known: W_0_0_0, K_1_0_0 ===> X_1_0_0
+W_0_1_0, K_1_1_0 in symmetric relation [W_0_1_0, K_1_1_0, X_1_1_0] are known: W_0_1_0, K_1_1_0 ===> X_1_1_0
+W_0_2_0, K_1_2_0 in symmetric relation [W_0_2_0, K_1_2_0, X_1_2_0] are known: W_0_2_0, K_1_2_0 ===> X_1_2_0
+K_1_0_1, K_1_0_2 in symmetric relation [K_0_0_2, K_1_0_1, K_1_0_2] are known: K_1_0_1, K_1_0_2 ===> K_0_0_2
+K_1_0_0, K_1_0_1 in symmetric relation [K_0_0_1, K_1_0_0, K_1_0_1] are known: K_1_0_0, K_1_0_1 ===> K_0_0_1
+############################################################
+State 13:
+P_0_1, K_0_0_1 in symmetric relation [P_0_1, K_0_0_1, X_0_0_1] are known: P_0_1, K_0_0_1 ===> X_0_0_1
+P_0_2, K_0_0_2 in symmetric relation [P_0_2, K_0_0_2, X_0_0_2] are known: P_0_2, K_0_0_2 ===> X_0_0_2
+X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2 in implication relation [X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2, X_1_0_2] are known: X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2 ===> X_1_0_2
+X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2 in implication relation [X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2, X_1_1_3] are known: X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2 ===> X_1_1_3
+X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2 in implication relation [X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2, X_1_3_1] are known: X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2 ===> X_1_3_1
+X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2 in implication relation [X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2, W_1_3_2] are known: X_1_2_0, W_1_0_2, W_1_1_2, W_1_2_2 ===> W_1_3_2
+X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3 in implication relation [X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3, X_1_0_3] are known: X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3 ===> X_1_0_3
+X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3 in implication relation [X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3, X_1_2_1] are known: X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3 ===> X_1_2_1
+X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3 in implication relation [X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3, X_1_3_2] are known: X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3 ===> X_1_3_2
+X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3 in implication relation [X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3, W_1_0_3] are known: X_1_1_0, W_1_1_3, W_1_2_3, W_1_3_3 ===> W_1_0_3
+############################################################
+State 14:
+K_1_0_2, X_1_0_2 in symmetric relation [W_0_0_2, K_1_0_2, X_1_0_2] are known: K_1_0_2, X_1_0_2 ===> W_0_0_2
+K_1_1_3, X_1_1_3 in symmetric relation [W_0_1_3, K_1_1_3, X_1_1_3] are known: K_1_1_3, X_1_1_3 ===> W_0_1_3
+K_1_2_1, X_1_2_1 in symmetric relation [W_0_2_1, K_1_2_1, X_1_2_1] are known: K_1_2_1, X_1_2_1 ===> W_0_2_1
+K_1_3_2, X_1_3_2 in symmetric relation [W_0_3_2, K_1_3_2, X_1_3_2] are known: K_1_3_2, X_1_3_2 ===> W_0_3_2
+W_1_3_2, K_2_3_2 in symmetric relation [W_1_3_2, K_2_3_2, X_2_3_2] are known: W_1_3_2, K_2_3_2 ===> X_2_3_2
+############################################################
+State 15:
+X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1 in implication relation [X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1, X_0_3_0] are known: X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1 ===> X_0_3_0
+X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1 in implication relation [X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1, W_0_0_1] are known: X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1 ===> W_0_0_1
+X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1 in implication relation [X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1, W_0_1_1] are known: X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1 ===> W_0_1_1
+X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1 in implication relation [X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1, W_0_3_1] are known: X_0_0_1, X_0_1_2, X_0_2_3, W_0_2_1 ===> W_0_3_1
+X_0_0_2, X_0_1_3, X_0_2_0, W_0_0_2 in implication relation [X_0_0_2, X_0_1_3, X_0_2_0, W_0_0_2, X_0_3_1] are known: X_0_0_2, X_0_1_3, X_0_2_0, W_0_0_2 ===> X_0_3_1
+X_0_0_2, X_0_1_3, X_0_2_0, W_0_0_2 in implication relation [X_0_0_2, X_0_1_3, X_0_2_0, W_0_0_2, W_0_1_2] are known: X_0_0_2, X_0_1_3, X_0_2_0, W_0_0_2 ===> W_0_1_2
+X_0_0_2, X_0_1_3, X_0_2_0, W_0_0_2 in implication relation [X_0_0_2, X_0_1_3, X_0_2_0, W_0_0_2, W_0_2_2] are known: X_0_0_2, X_0_1_3, X_0_2_0, W_0_0_2 ===> W_0_2_2
+X_0_0_2, X_0_1_3, X_0_2_0, W_0_3_2 in implication relation [X_0_0_2, X_0_1_3, X_0_2_0, W_0_3_2, X_0_3_1] are known: X_0_0_2, X_0_1_3, X_0_2_0, W_0_3_2 ===> X_0_3_1
+X_0_0_2, X_0_1_3, X_0_2_0, W_0_3_2 in implication relation [X_0_0_2, X_0_1_3, X_0_2_0, W_0_3_2, W_0_1_2] are known: X_0_0_2, X_0_1_3, X_0_2_0, W_0_3_2 ===> W_0_1_2
+X_0_0_2, X_0_1_3, X_0_2_0, W_0_3_2 in implication relation [X_0_0_2, X_0_1_3, X_0_2_0, W_0_3_2, W_0_2_2] are known: X_0_0_2, X_0_1_3, X_0_2_0, W_0_3_2 ===> W_0_2_2
+X_0_0_2, X_0_1_3, W_0_0_2, W_0_3_2 in implication relation [X_0_0_2, X_0_1_3, W_0_0_2, W_0_3_2, X_0_3_1] are known: X_0_0_2, X_0_1_3, W_0_0_2, W_0_3_2 ===> X_0_3_1
+X_0_0_2, X_0_1_3, W_0_0_2, W_0_3_2 in implication relation [X_0_0_2, X_0_1_3, W_0_0_2, W_0_3_2, W_0_1_2] are known: X_0_0_2, X_0_1_3, W_0_0_2, W_0_3_2 ===> W_0_1_2
+X_0_0_2, X_0_1_3, W_0_0_2, W_0_3_2 in implication relation [X_0_0_2, X_0_1_3, W_0_0_2, W_0_3_2, W_0_2_2] are known: X_0_0_2, X_0_1_3, W_0_0_2, W_0_3_2 ===> W_0_2_2
+X_0_0_2, X_0_2_0, W_0_0_2, W_0_3_2 in implication relation [X_0_0_2, X_0_2_0, W_0_0_2, W_0_3_2, X_0_3_1] are known: X_0_0_2, X_0_2_0, W_0_0_2, W_0_3_2 ===> X_0_3_1
+X_0_0_2, X_0_2_0, W_0_0_2, W_0_3_2 in implication relation [X_0_0_2, X_0_2_0, W_0_0_2, W_0_3_2, W_0_1_2] are known: X_0_0_2, X_0_2_0, W_0_0_2, W_0_3_2 ===> W_0_1_2
+X_0_0_2, X_0_2_0, W_0_0_2, W_0_3_2 in implication relation [X_0_0_2, X_0_2_0, W_0_0_2, W_0_3_2, W_0_2_2] are known: X_0_0_2, X_0_2_0, W_0_0_2, W_0_3_2 ===> W_0_2_2
+X_0_1_3, X_0_2_0, W_0_0_2, W_0_3_2 in implication relation [X_0_1_3, X_0_2_0, W_0_0_2, W_0_3_2, X_0_3_1] are known: X_0_1_3, X_0_2_0, W_0_0_2, W_0_3_2 ===> X_0_3_1
+X_0_1_3, X_0_2_0, W_0_0_2, W_0_3_2 in implication relation [X_0_1_3, X_0_2_0, W_0_0_2, W_0_3_2, W_0_1_2] are known: X_0_1_3, X_0_2_0, W_0_0_2, W_0_3_2 ===> W_0_1_2
+X_0_1_3, X_0_2_0, W_0_0_2, W_0_3_2 in implication relation [X_0_1_3, X_0_2_0, W_0_0_2, W_0_3_2, W_0_2_2] are known: X_0_1_3, X_0_2_0, W_0_0_2, W_0_3_2 ===> W_0_2_2
+X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3 in implication relation [X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3, X_2_0_3] are known: X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3 ===> X_2_0_3
+X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3 in implication relation [X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3, X_2_1_0] are known: X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3 ===> X_2_1_0
+X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3 in implication relation [X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3, X_2_2_1] are known: X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3 ===> X_2_2_1
+X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3 in implication relation [X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3, W_2_0_3] are known: X_2_3_2, W_2_1_3, W_2_2_3, W_2_3_3 ===> W_2_0_3
+############################################################
+State 16:
+P_3_0, X_0_3_0 in symmetric relation [P_3_0, K_0_3_0, X_0_3_0] are known: P_3_0, X_0_3_0 ===> K_0_3_0
+P_3_1, X_0_3_1 in symmetric relation [P_3_1, K_0_3_1, X_0_3_1] are known: P_3_1, X_0_3_1 ===> K_0_3_1
+W_0_0_1, K_1_0_1 in symmetric relation [W_0_0_1, K_1_0_1, X_1_0_1] are known: W_0_0_1, K_1_0_1 ===> X_1_0_1
+W_0_1_1, K_1_1_1 in symmetric relation [W_0_1_1, K_1_1_1, X_1_1_1] are known: W_0_1_1, K_1_1_1 ===> X_1_1_1
+W_0_1_2, K_1_1_2 in symmetric relation [W_0_1_2, K_1_1_2, X_1_1_2] are known: W_0_1_2, K_1_1_2 ===> X_1_1_2
+W_0_2_2, K_1_2_2 in symmetric relation [W_0_2_2, K_1_2_2, X_1_2_2] are known: W_0_2_2, K_1_2_2 ===> X_1_2_2
+W_0_3_1, X_1_3_1 in symmetric relation [W_0_3_1, K_1_3_1, X_1_3_1] are known: W_0_3_1, X_1_3_1 ===> K_1_3_1
+W_1_0_3, X_2_0_3 in symmetric relation [W_1_0_3, K_2_0_3, X_2_0_3] are known: W_1_0_3, X_2_0_3 ===> K_2_0_3
+K_2_1_0, X_2_1_0 in symmetric relation [W_1_1_0, K_2_1_0, X_2_1_0] are known: K_2_1_0, X_2_1_0 ===> W_1_1_0
+K_2_2_1, X_2_2_1 in symmetric relation [W_1_2_1, K_2_2_1, X_2_2_1] are known: K_2_2_1, X_2_2_1 ===> W_1_2_1
+W_2_0_3, X_3_0_3 in symmetric relation [W_2_0_3, K_3_0_3, X_3_0_3] are known: W_2_0_3, X_3_0_3 ===> K_3_0_3
+############################################################
+State 17:
+K_1_3_1, K_1_3_2 in symmetric relation [K_0_3_2, K_1_3_1, K_1_3_2] are known: K_1_3_1, K_1_3_2 ===> K_0_3_2
+K_0_3_1, K_1_3_1 in symmetric relation [K_0_3_1, K_1_3_0, K_1_3_1] are known: K_0_3_1, K_1_3_1 ===> K_1_3_0
+K_1_3_1, K_2_3_1 in symmetric relation [K_1_3_1, K_2_3_0, K_2_3_1] are known: K_1_3_1, K_2_3_1 ===> K_2_3_0
+K_2_0_2, K_2_0_3 in symmetric relation [K_1_0_3, K_2_0_2, K_2_0_3] are known: K_2_0_2, K_2_0_3 ===> K_1_0_3
+K_2_0_3, K_3_3_0 in symmetric relation [K_2_0_3, K_2_3_0, K_3_3_0] are known: K_2_0_3, K_3_3_0 ===> K_2_3_0
+X_1_0_0, X_1_1_1, X_1_2_2, W_1_0_0 in implication relation [X_1_0_0, X_1_1_1, X_1_2_2, W_1_0_0, X_1_3_3] are known: X_1_0_0, X_1_1_1, X_1_2_2, W_1_0_0 ===> X_1_3_3
+X_1_0_0, X_1_1_1, X_1_2_2, W_1_0_0 in implication relation [X_1_0_0, X_1_1_1, X_1_2_2, W_1_0_0, W_1_3_0] are known: X_1_0_0, X_1_1_1, X_1_2_2, W_1_0_0 ===> W_1_3_0
+X_1_0_0, X_1_1_1, X_1_2_2, W_1_1_0 in implication relation [X_1_0_0, X_1_1_1, X_1_2_2, W_1_1_0, X_1_3_3] are known: X_1_0_0, X_1_1_1, X_1_2_2, W_1_1_0 ===> X_1_3_3
+X_1_0_0, X_1_1_1, X_1_2_2, W_1_1_0 in implication relation [X_1_0_0, X_1_1_1, X_1_2_2, W_1_1_0, W_1_3_0] are known: X_1_0_0, X_1_1_1, X_1_2_2, W_1_1_0 ===> W_1_3_0
+X_1_0_0, X_1_1_1, X_1_2_2, W_1_2_0 in implication relation [X_1_0_0, X_1_1_1, X_1_2_2, W_1_2_0, X_1_3_3] are known: X_1_0_0, X_1_1_1, X_1_2_2, W_1_2_0 ===> X_1_3_3
+X_1_0_0, X_1_1_1, X_1_2_2, W_1_2_0 in implication relation [X_1_0_0, X_1_1_1, X_1_2_2, W_1_2_0, W_1_3_0] are known: X_1_0_0, X_1_1_1, X_1_2_2, W_1_2_0 ===> W_1_3_0
+X_1_0_0, X_1_1_1, W_1_0_0, W_1_1_0 in implication relation [X_1_0_0, X_1_1_1, W_1_0_0, W_1_1_0, X_1_3_3] are known: X_1_0_0, X_1_1_1, W_1_0_0, W_1_1_0 ===> X_1_3_3
+X_1_0_0, X_1_1_1, W_1_0_0, W_1_1_0 in implication relation [X_1_0_0, X_1_1_1, W_1_0_0, W_1_1_0, W_1_3_0] are known: X_1_0_0, X_1_1_1, W_1_0_0, W_1_1_0 ===> W_1_3_0
+X_1_0_0, X_1_1_1, W_1_0_0, W_1_2_0 in implication relation [X_1_0_0, X_1_1_1, W_1_0_0, W_1_2_0, X_1_3_3] are known: X_1_0_0, X_1_1_1, W_1_0_0, W_1_2_0 ===> X_1_3_3
+X_1_0_0, X_1_1_1, W_1_0_0, W_1_2_0 in implication relation [X_1_0_0, X_1_1_1, W_1_0_0, W_1_2_0, W_1_3_0] are known: X_1_0_0, X_1_1_1, W_1_0_0, W_1_2_0 ===> W_1_3_0
+X_1_0_0, X_1_1_1, W_1_1_0, W_1_2_0 in implication relation [X_1_0_0, X_1_1_1, W_1_1_0, W_1_2_0, X_1_3_3] are known: X_1_0_0, X_1_1_1, W_1_1_0, W_1_2_0 ===> X_1_3_3
+X_1_0_0, X_1_1_1, W_1_1_0, W_1_2_0 in implication relation [X_1_0_0, X_1_1_1, W_1_1_0, W_1_2_0, W_1_3_0] are known: X_1_0_0, X_1_1_1, W_1_1_0, W_1_2_0 ===> W_1_3_0
+X_1_0_0, X_1_2_2, W_1_0_0, W_1_1_0 in implication relation [X_1_0_0, X_1_2_2, W_1_0_0, W_1_1_0, X_1_3_3] are known: X_1_0_0, X_1_2_2, W_1_0_0, W_1_1_0 ===> X_1_3_3
+X_1_0_0, X_1_2_2, W_1_0_0, W_1_1_0 in implication relation [X_1_0_0, X_1_2_2, W_1_0_0, W_1_1_0, W_1_3_0] are known: X_1_0_0, X_1_2_2, W_1_0_0, W_1_1_0 ===> W_1_3_0
+X_1_0_0, X_1_2_2, W_1_0_0, W_1_2_0 in implication relation [X_1_0_0, X_1_2_2, W_1_0_0, W_1_2_0, X_1_3_3] are known: X_1_0_0, X_1_2_2, W_1_0_0, W_1_2_0 ===> X_1_3_3
+X_1_0_0, X_1_2_2, W_1_0_0, W_1_2_0 in implication relation [X_1_0_0, X_1_2_2, W_1_0_0, W_1_2_0, W_1_3_0] are known: X_1_0_0, X_1_2_2, W_1_0_0, W_1_2_0 ===> W_1_3_0
+X_1_0_0, X_1_2_2, W_1_1_0, W_1_2_0 in implication relation [X_1_0_0, X_1_2_2, W_1_1_0, W_1_2_0, X_1_3_3] are known: X_1_0_0, X_1_2_2, W_1_1_0, W_1_2_0 ===> X_1_3_3
+X_1_0_0, X_1_2_2, W_1_1_0, W_1_2_0 in implication relation [X_1_0_0, X_1_2_2, W_1_1_0, W_1_2_0, W_1_3_0] are known: X_1_0_0, X_1_2_2, W_1_1_0, W_1_2_0 ===> W_1_3_0
+X_1_0_0, W_1_0_0, W_1_1_0, W_1_2_0 in implication relation [X_1_0_0, W_1_0_0, W_1_1_0, W_1_2_0, X_1_3_3] are known: X_1_0_0, W_1_0_0, W_1_1_0, W_1_2_0 ===> X_1_3_3
+X_1_0_0, W_1_0_0, W_1_1_0, W_1_2_0 in implication relation [X_1_0_0, W_1_0_0, W_1_1_0, W_1_2_0, W_1_3_0] are known: X_1_0_0, W_1_0_0, W_1_1_0, W_1_2_0 ===> W_1_3_0
+X_1_1_1, X_1_2_2, W_1_0_0, W_1_1_0 in implication relation [X_1_1_1, X_1_2_2, W_1_0_0, W_1_1_0, X_1_3_3] are known: X_1_1_1, X_1_2_2, W_1_0_0, W_1_1_0 ===> X_1_3_3
+X_1_1_1, X_1_2_2, W_1_0_0, W_1_1_0 in implication relation [X_1_1_1, X_1_2_2, W_1_0_0, W_1_1_0, W_1_3_0] are known: X_1_1_1, X_1_2_2, W_1_0_0, W_1_1_0 ===> W_1_3_0
+X_1_1_1, X_1_2_2, W_1_0_0, W_1_2_0 in implication relation [X_1_1_1, X_1_2_2, W_1_0_0, W_1_2_0, X_1_3_3] are known: X_1_1_1, X_1_2_2, W_1_0_0, W_1_2_0 ===> X_1_3_3
+X_1_1_1, X_1_2_2, W_1_0_0, W_1_2_0 in implication relation [X_1_1_1, X_1_2_2, W_1_0_0, W_1_2_0, W_1_3_0] are known: X_1_1_1, X_1_2_2, W_1_0_0, W_1_2_0 ===> W_1_3_0
+X_1_1_1, X_1_2_2, W_1_1_0, W_1_2_0 in implication relation [X_1_1_1, X_1_2_2, W_1_1_0, W_1_2_0, X_1_3_3] are known: X_1_1_1, X_1_2_2, W_1_1_0, W_1_2_0 ===> X_1_3_3
+X_1_1_1, X_1_2_2, W_1_1_0, W_1_2_0 in implication relation [X_1_1_1, X_1_2_2, W_1_1_0, W_1_2_0, W_1_3_0] are known: X_1_1_1, X_1_2_2, W_1_1_0, W_1_2_0 ===> W_1_3_0
+X_1_1_1, W_1_0_0, W_1_1_0, W_1_2_0 in implication relation [X_1_1_1, W_1_0_0, W_1_1_0, W_1_2_0, X_1_3_3] are known: X_1_1_1, W_1_0_0, W_1_1_0, W_1_2_0 ===> X_1_3_3
+X_1_1_1, W_1_0_0, W_1_1_0, W_1_2_0 in implication relation [X_1_1_1, W_1_0_0, W_1_1_0, W_1_2_0, W_1_3_0] are known: X_1_1_1, W_1_0_0, W_1_1_0, W_1_2_0 ===> W_1_3_0
+X_1_2_2, W_1_0_0, W_1_1_0, W_1_2_0 in implication relation [X_1_2_2, W_1_0_0, W_1_1_0, W_1_2_0, X_1_3_3] are known: X_1_2_2, W_1_0_0, W_1_1_0, W_1_2_0 ===> X_1_3_3
+X_1_2_2, W_1_0_0, W_1_1_0, W_1_2_0 in implication relation [X_1_2_2, W_1_0_0, W_1_1_0, W_1_2_0, W_1_3_0] are known: X_1_2_2, W_1_0_0, W_1_1_0, W_1_2_0 ===> W_1_3_0
+X_1_0_1, X_1_1_2, W_1_0_1, W_1_1_1 in implication relation [X_1_0_1, X_1_1_2, W_1_0_1, W_1_1_1, X_1_2_3] are known: X_1_0_1, X_1_1_2, W_1_0_1, W_1_1_1 ===> X_1_2_3
+X_1_0_1, X_1_1_2, W_1_0_1, W_1_1_1 in implication relation [X_1_0_1, X_1_1_2, W_1_0_1, W_1_1_1, X_1_3_0] are known: X_1_0_1, X_1_1_2, W_1_0_1, W_1_1_1 ===> X_1_3_0
+X_1_0_1, X_1_1_2, W_1_0_1, W_1_2_1 in implication relation [X_1_0_1, X_1_1_2, W_1_0_1, W_1_2_1, X_1_2_3] are known: X_1_0_1, X_1_1_2, W_1_0_1, W_1_2_1 ===> X_1_2_3
+X_1_0_1, X_1_1_2, W_1_0_1, W_1_2_1 in implication relation [X_1_0_1, X_1_1_2, W_1_0_1, W_1_2_1, X_1_3_0] are known: X_1_0_1, X_1_1_2, W_1_0_1, W_1_2_1 ===> X_1_3_0
+X_1_0_1, X_1_1_2, W_1_0_1, W_1_3_1 in implication relation [X_1_0_1, X_1_1_2, W_1_0_1, W_1_3_1, X_1_2_3] are known: X_1_0_1, X_1_1_2, W_1_0_1, W_1_3_1 ===> X_1_2_3
+X_1_0_1, X_1_1_2, W_1_0_1, W_1_3_1 in implication relation [X_1_0_1, X_1_1_2, W_1_0_1, W_1_3_1, X_1_3_0] are known: X_1_0_1, X_1_1_2, W_1_0_1, W_1_3_1 ===> X_1_3_0
+X_1_0_1, X_1_1_2, W_1_1_1, W_1_2_1 in implication relation [X_1_0_1, X_1_1_2, W_1_1_1, W_1_2_1, X_1_2_3] are known: X_1_0_1, X_1_1_2, W_1_1_1, W_1_2_1 ===> X_1_2_3
+X_1_0_1, X_1_1_2, W_1_1_1, W_1_2_1 in implication relation [X_1_0_1, X_1_1_2, W_1_1_1, W_1_2_1, X_1_3_0] are known: X_1_0_1, X_1_1_2, W_1_1_1, W_1_2_1 ===> X_1_3_0
+X_1_0_1, X_1_1_2, W_1_1_1, W_1_3_1 in implication relation [X_1_0_1, X_1_1_2, W_1_1_1, W_1_3_1, X_1_2_3] are known: X_1_0_1, X_1_1_2, W_1_1_1, W_1_3_1 ===> X_1_2_3
+X_1_0_1, X_1_1_2, W_1_1_1, W_1_3_1 in implication relation [X_1_0_1, X_1_1_2, W_1_1_1, W_1_3_1, X_1_3_0] are known: X_1_0_1, X_1_1_2, W_1_1_1, W_1_3_1 ===> X_1_3_0
+X_1_0_1, X_1_1_2, W_1_2_1, W_1_3_1 in implication relation [X_1_0_1, X_1_1_2, W_1_2_1, W_1_3_1, X_1_2_3] are known: X_1_0_1, X_1_1_2, W_1_2_1, W_1_3_1 ===> X_1_2_3
+X_1_0_1, X_1_1_2, W_1_2_1, W_1_3_1 in implication relation [X_1_0_1, X_1_1_2, W_1_2_1, W_1_3_1, X_1_3_0] are known: X_1_0_1, X_1_1_2, W_1_2_1, W_1_3_1 ===> X_1_3_0
+X_1_0_1, W_1_0_1, W_1_1_1, W_1_2_1 in implication relation [X_1_0_1, W_1_0_1, W_1_1_1, W_1_2_1, X_1_2_3] are known: X_1_0_1, W_1_0_1, W_1_1_1, W_1_2_1 ===> X_1_2_3
+X_1_0_1, W_1_0_1, W_1_1_1, W_1_2_1 in implication relation [X_1_0_1, W_1_0_1, W_1_1_1, W_1_2_1, X_1_3_0] are known: X_1_0_1, W_1_0_1, W_1_1_1, W_1_2_1 ===> X_1_3_0
+X_1_0_1, W_1_0_1, W_1_1_1, W_1_3_1 in implication relation [X_1_0_1, W_1_0_1, W_1_1_1, W_1_3_1, X_1_2_3] are known: X_1_0_1, W_1_0_1, W_1_1_1, W_1_3_1 ===> X_1_2_3
+X_1_0_1, W_1_0_1, W_1_1_1, W_1_3_1 in implication relation [X_1_0_1, W_1_0_1, W_1_1_1, W_1_3_1, X_1_3_0] are known: X_1_0_1, W_1_0_1, W_1_1_1, W_1_3_1 ===> X_1_3_0
+X_1_0_1, W_1_0_1, W_1_2_1, W_1_3_1 in implication relation [X_1_0_1, W_1_0_1, W_1_2_1, W_1_3_1, X_1_2_3] are known: X_1_0_1, W_1_0_1, W_1_2_1, W_1_3_1 ===> X_1_2_3
+X_1_0_1, W_1_0_1, W_1_2_1, W_1_3_1 in implication relation [X_1_0_1, W_1_0_1, W_1_2_1, W_1_3_1, X_1_3_0] are known: X_1_0_1, W_1_0_1, W_1_2_1, W_1_3_1 ===> X_1_3_0
+X_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1 in implication relation [X_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1, X_1_2_3] are known: X_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1 ===> X_1_2_3
+X_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1 in implication relation [X_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1, X_1_3_0] are known: X_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1 ===> X_1_3_0
+X_1_1_2, W_1_0_1, W_1_1_1, W_1_2_1 in implication relation [X_1_1_2, W_1_0_1, W_1_1_1, W_1_2_1, X_1_2_3] are known: X_1_1_2, W_1_0_1, W_1_1_1, W_1_2_1 ===> X_1_2_3
+X_1_1_2, W_1_0_1, W_1_1_1, W_1_2_1 in implication relation [X_1_1_2, W_1_0_1, W_1_1_1, W_1_2_1, X_1_3_0] are known: X_1_1_2, W_1_0_1, W_1_1_1, W_1_2_1 ===> X_1_3_0
+X_1_1_2, W_1_0_1, W_1_1_1, W_1_3_1 in implication relation [X_1_1_2, W_1_0_1, W_1_1_1, W_1_3_1, X_1_2_3] are known: X_1_1_2, W_1_0_1, W_1_1_1, W_1_3_1 ===> X_1_2_3
+X_1_1_2, W_1_0_1, W_1_1_1, W_1_3_1 in implication relation [X_1_1_2, W_1_0_1, W_1_1_1, W_1_3_1, X_1_3_0] are known: X_1_1_2, W_1_0_1, W_1_1_1, W_1_3_1 ===> X_1_3_0
+X_1_1_2, W_1_0_1, W_1_2_1, W_1_3_1 in implication relation [X_1_1_2, W_1_0_1, W_1_2_1, W_1_3_1, X_1_2_3] are known: X_1_1_2, W_1_0_1, W_1_2_1, W_1_3_1 ===> X_1_2_3
+X_1_1_2, W_1_0_1, W_1_2_1, W_1_3_1 in implication relation [X_1_1_2, W_1_0_1, W_1_2_1, W_1_3_1, X_1_3_0] are known: X_1_1_2, W_1_0_1, W_1_2_1, W_1_3_1 ===> X_1_3_0
+X_1_1_2, W_1_1_1, W_1_2_1, W_1_3_1 in implication relation [X_1_1_2, W_1_1_1, W_1_2_1, W_1_3_1, X_1_2_3] are known: X_1_1_2, W_1_1_1, W_1_2_1, W_1_3_1 ===> X_1_2_3
+X_1_1_2, W_1_1_1, W_1_2_1, W_1_3_1 in implication relation [X_1_1_2, W_1_1_1, W_1_2_1, W_1_3_1, X_1_3_0] are known: X_1_1_2, W_1_1_1, W_1_2_1, W_1_3_1 ===> X_1_3_0
+W_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1 in implication relation [W_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1, X_1_2_3] are known: W_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1 ===> X_1_2_3
+W_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1 in implication relation [W_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1, X_1_3_0] are known: W_1_0_1, W_1_1_1, W_1_2_1, W_1_3_1 ===> X_1_3_0
+############################################################
+State 18:
+P_3_2, K_0_3_2 in symmetric relation [P_3_2, K_0_3_2, X_0_3_2] are known: P_3_2, K_0_3_2 ===> X_0_3_2
+K_1_0_3, X_1_0_3 in symmetric relation [W_0_0_3, K_1_0_3, X_1_0_3] are known: K_1_0_3, X_1_0_3 ===> W_0_0_3
+K_1_2_3, X_1_2_3 in symmetric relation [W_0_2_3, K_1_2_3, X_1_2_3] are known: K_1_2_3, X_1_2_3 ===> W_0_2_3
+K_1_3_3, X_1_3_3 in symmetric relation [W_0_3_3, K_1_3_3, X_1_3_3] are known: K_1_3_3, X_1_3_3 ===> W_0_3_3
+K_0_3_0, K_1_3_0 in symmetric relation [K_0_0_3, K_0_3_0, K_1_3_0] are known: K_0_3_0, K_1_3_0 ===> K_0_0_3
+K_1_0_2, K_1_0_3 in symmetric relation [K_0_0_3, K_1_0_2, K_1_0_3] are known: K_1_0_2, K_1_0_3 ===> K_0_0_3
+############################################################
+State 19:
+P_0_3, K_0_0_3 in symmetric relation [P_0_3, K_0_0_3, X_0_0_3] are known: P_0_3, K_0_0_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, X_0_3_2, W_0_0_3 in implication relation [X_0_1_0, X_0_2_1, X_0_3_2, W_0_0_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, X_0_3_2, W_0_0_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, X_0_3_2, W_0_1_3 in implication relation [X_0_1_0, X_0_2_1, X_0_3_2, W_0_1_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, X_0_3_2, W_0_1_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, X_0_3_2, W_0_2_3 in implication relation [X_0_1_0, X_0_2_1, X_0_3_2, W_0_2_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, X_0_3_2, W_0_2_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, X_0_3_2, W_0_3_3 in implication relation [X_0_1_0, X_0_2_1, X_0_3_2, W_0_3_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, X_0_3_2, W_0_3_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, W_0_0_3, W_0_1_3 in implication relation [X_0_1_0, X_0_2_1, W_0_0_3, W_0_1_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, W_0_0_3, W_0_1_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, W_0_0_3, W_0_2_3 in implication relation [X_0_1_0, X_0_2_1, W_0_0_3, W_0_2_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, W_0_0_3, W_0_2_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, W_0_0_3, W_0_3_3 in implication relation [X_0_1_0, X_0_2_1, W_0_0_3, W_0_3_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, W_0_0_3, W_0_3_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, W_0_1_3, W_0_2_3 in implication relation [X_0_1_0, X_0_2_1, W_0_1_3, W_0_2_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, W_0_1_3, W_0_2_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, W_0_1_3, W_0_3_3 in implication relation [X_0_1_0, X_0_2_1, W_0_1_3, W_0_3_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, W_0_1_3, W_0_3_3 ===> X_0_0_3
+X_0_1_0, X_0_2_1, W_0_2_3, W_0_3_3 in implication relation [X_0_1_0, X_0_2_1, W_0_2_3, W_0_3_3, X_0_0_3] are known: X_0_1_0, X_0_2_1, W_0_2_3, W_0_3_3 ===> X_0_0_3
+X_0_1_0, X_0_3_2, W_0_0_3, W_0_1_3 in implication relation [X_0_1_0, X_0_3_2, W_0_0_3, W_0_1_3, X_0_0_3] are known: X_0_1_0, X_0_3_2, W_0_0_3, W_0_1_3 ===> X_0_0_3
+X_0_1_0, X_0_3_2, W_0_0_3, W_0_2_3 in implication relation [X_0_1_0, X_0_3_2, W_0_0_3, W_0_2_3, X_0_0_3] are known: X_0_1_0, X_0_3_2, W_0_0_3, W_0_2_3 ===> X_0_0_3
+X_0_1_0, X_0_3_2, W_0_0_3, W_0_3_3 in implication relation [X_0_1_0, X_0_3_2, W_0_0_3, W_0_3_3, X_0_0_3] are known: X_0_1_0, X_0_3_2, W_0_0_3, W_0_3_3 ===> X_0_0_3
+X_0_1_0, X_0_3_2, W_0_1_3, W_0_2_3 in implication relation [X_0_1_0, X_0_3_2, W_0_1_3, W_0_2_3, X_0_0_3] are known: X_0_1_0, X_0_3_2, W_0_1_3, W_0_2_3 ===> X_0_0_3
+X_0_1_0, X_0_3_2, W_0_1_3, W_0_3_3 in implication relation [X_0_1_0, X_0_3_2, W_0_1_3, W_0_3_3, X_0_0_3] are known: X_0_1_0, X_0_3_2, W_0_1_3, W_0_3_3 ===> X_0_0_3
+X_0_1_0, X_0_3_2, W_0_2_3, W_0_3_3 in implication relation [X_0_1_0, X_0_3_2, W_0_2_3, W_0_3_3, X_0_0_3] are known: X_0_1_0, X_0_3_2, W_0_2_3, W_0_3_3 ===> X_0_0_3
+X_0_1_0, W_0_0_3, W_0_1_3, W_0_2_3 in implication relation [X_0_1_0, W_0_0_3, W_0_1_3, W_0_2_3, X_0_0_3] are known: X_0_1_0, W_0_0_3, W_0_1_3, W_0_2_3 ===> X_0_0_3
+X_0_1_0, W_0_0_3, W_0_1_3, W_0_3_3 in implication relation [X_0_1_0, W_0_0_3, W_0_1_3, W_0_3_3, X_0_0_3] are known: X_0_1_0, W_0_0_3, W_0_1_3, W_0_3_3 ===> X_0_0_3
+X_0_1_0, W_0_0_3, W_0_2_3, W_0_3_3 in implication relation [X_0_1_0, W_0_0_3, W_0_2_3, W_0_3_3, X_0_0_3] are known: X_0_1_0, W_0_0_3, W_0_2_3, W_0_3_3 ===> X_0_0_3
+X_0_1_0, W_0_1_3, W_0_2_3, W_0_3_3 in implication relation [X_0_1_0, W_0_1_3, W_0_2_3, W_0_3_3, X_0_0_3] are known: X_0_1_0, W_0_1_3, W_0_2_3, W_0_3_3 ===> X_0_0_3
+X_0_2_1, X_0_3_2, W_0_0_3, W_0_1_3 in implication relation [X_0_2_1, X_0_3_2, W_0_0_3, W_0_1_3, X_0_0_3] are known: X_0_2_1, X_0_3_2, W_0_0_3, W_0_1_3 ===> X_0_0_3
+X_0_2_1, X_0_3_2, W_0_0_3, W_0_2_3 in implication relation [X_0_2_1, X_0_3_2, W_0_0_3, W_0_2_3, X_0_0_3] are known: X_0_2_1, X_0_3_2, W_0_0_3, W_0_2_3 ===> X_0_0_3
+X_0_2_1, X_0_3_2, W_0_0_3, W_0_3_3 in implication relation [X_0_2_1, X_0_3_2, W_0_0_3, W_0_3_3, X_0_0_3] are known: X_0_2_1, X_0_3_2, W_0_0_3, W_0_3_3 ===> X_0_0_3
+X_0_2_1, X_0_3_2, W_0_1_3, W_0_2_3 in implication relation [X_0_2_1, X_0_3_2, W_0_1_3, W_0_2_3, X_0_0_3] are known: X_0_2_1, X_0_3_2, W_0_1_3, W_0_2_3 ===> X_0_0_3
+X_0_2_1, X_0_3_2, W_0_1_3, W_0_3_3 in implication relation [X_0_2_1, X_0_3_2, W_0_1_3, W_0_3_3, X_0_0_3] are known: X_0_2_1, X_0_3_2, W_0_1_3, W_0_3_3 ===> X_0_0_3
+X_0_2_1, X_0_3_2, W_0_2_3, W_0_3_3 in implication relation [X_0_2_1, X_0_3_2, W_0_2_3, W_0_3_3, X_0_0_3] are known: X_0_2_1, X_0_3_2, W_0_2_3, W_0_3_3 ===> X_0_0_3
+X_0_2_1, W_0_0_3, W_0_1_3, W_0_2_3 in implication relation [X_0_2_1, W_0_0_3, W_0_1_3, W_0_2_3, X_0_0_3] are known: X_0_2_1, W_0_0_3, W_0_1_3, W_0_2_3 ===> X_0_0_3
+X_0_2_1, W_0_0_3, W_0_1_3, W_0_3_3 in implication relation [X_0_2_1, W_0_0_3, W_0_1_3, W_0_3_3, X_0_0_3] are known: X_0_2_1, W_0_0_3, W_0_1_3, W_0_3_3 ===> X_0_0_3
+X_0_2_1, W_0_0_3, W_0_2_3, W_0_3_3 in implication relation [X_0_2_1, W_0_0_3, W_0_2_3, W_0_3_3, X_0_0_3] are known: X_0_2_1, W_0_0_3, W_0_2_3, W_0_3_3 ===> X_0_0_3
+X_0_2_1, W_0_1_3, W_0_2_3, W_0_3_3 in implication relation [X_0_2_1, W_0_1_3, W_0_2_3, W_0_3_3, X_0_0_3] are known: X_0_2_1, W_0_1_3, W_0_2_3, W_0_3_3 ===> X_0_0_3
+X_0_3_2, W_0_0_3, W_0_1_3, W_0_2_3 in implication relation [X_0_3_2, W_0_0_3, W_0_1_3, W_0_2_3, X_0_0_3] are known: X_0_3_2, W_0_0_3, W_0_1_3, W_0_2_3 ===> X_0_0_3
+X_0_3_2, W_0_0_3, W_0_1_3, W_0_3_3 in implication relation [X_0_3_2, W_0_0_3, W_0_1_3, W_0_3_3, X_0_0_3] are known: X_0_3_2, W_0_0_3, W_0_1_3, W_0_3_3 ===> X_0_0_3
+X_0_3_2, W_0_0_3, W_0_2_3, W_0_3_3 in implication relation [X_0_3_2, W_0_0_3, W_0_2_3, W_0_3_3, X_0_0_3] are known: X_0_3_2, W_0_0_3, W_0_2_3, W_0_3_3 ===> X_0_0_3
+X_0_3_2, W_0_1_3, W_0_2_3, W_0_3_3 in implication relation [X_0_3_2, W_0_1_3, W_0_2_3, W_0_3_3, X_0_0_3] are known: X_0_3_2, W_0_1_3, W_0_2_3, W_0_3_3 ===> X_0_0_3
+W_0_0_3, W_0_1_3, W_0_2_3, W_0_3_3 in implication relation [W_0_0_3, W_0_1_3, W_0_2_3, W_0_3_3, X_0_0_3] are known: W_0_0_3, W_0_1_3, W_0_2_3, W_0_3_3 ===> X_0_0_3
+############################################################
+The following variables are known in final state:
+P_0_0, K_0_0_0, X_0_0_0, P_0_1, K_0_0_1, X_0_0_1, P_0_2, K_0_0_2, X_0_0_2, P_0_3, K_0_0_3, X_0_0_3, P_1_0, K_0_1_0, X_0_1_0, P_1_1, K_0_1_1, X_0_1_1, P_1_2, K_0_1_2, X_0_1_2, P_1_3, K_0_1_3, X_0_1_3, P_2_0, K_0_2_0, X_0_2_0, P_2_1, K_0_2_1, X_0_2_1, P_2_2, K_0_2_2, X_0_2_2, P_2_3, K_0_2_3, X_0_2_3, P_3_0, K_0_3_0, X_0_3_0, P_3_1, K_0_3_1, X_0_3_1, P_3_2, K_0_3_2, X_0_3_2, P_3_3, K_0_3_3, X_0_3_3, W_0_0_0, K_1_0_0, X_1_0_0, W_0_0_1, K_1_0_1, X_1_0_1, W_0_0_2, K_1_0_2, X_1_0_2, W_0_0_3, K_1_0_3, X_1_0_3, W_0_1_0, K_1_1_0, X_1_1_0, W_0_1_1, K_1_1_1, X_1_1_1, W_0_1_2, K_1_1_2, X_1_1_2, W_0_1_3, K_1_1_3, X_1_1_3, W_0_2_0, K_1_2_0, X_1_2_0, W_0_2_1, K_1_2_1, X_1_2_1, W_0_2_2, K_1_2_2, X_1_2_2, W_0_2_3, K_1_2_3, X_1_2_3, W_0_3_0, K_1_3_0, X_1_3_0, W_0_3_1, K_1_3_1, X_1_3_1, W_0_3_2, K_1_3_2, X_1_3_2, W_0_3_3, K_1_3_3, X_1_3_3, W_1_0_0, K_2_0_0, X_2_0_0, W_1_0_1, K_2_0_1, X_2_0_1, W_1_0_2, K_2_0_2, X_2_0_2, W_1_0_3, K_2_0_3, X_2_0_3, W_1_1_0, K_2_1_0, X_2_1_0, W_1_1_1, K_2_1_1, X_2_1_1, W_1_1_2, K_2_1_2, X_2_1_2, W_1_1_3, K_2_1_3, X_2_1_3, W_1_2_0, K_2_2_0, X_2_2_0, W_1_2_1, K_2_2_1, X_2_2_1, W_1_2_2, K_2_2_2, X_2_2_2, W_1_2_3, K_2_2_3, X_2_2_3, W_1_3_0, K_2_3_0, X_2_3_0, W_1_3_1, K_2_3_1, X_2_3_1, W_1_3_2, K_2_3_2, X_2_3_2, W_1_3_3, K_2_3_3, X_2_3_3, W_2_0_0, K_3_0_0, X_3_0_0, W_2_0_1, K_3_0_1, X_3_0_1, W_2_0_2, K_3_0_2, X_3_0_2, W_2_0_3, K_3_0_3, X_3_0_3, W_2_1_0, K_3_1_0, X_3_1_0, W_2_1_1, K_3_1_1, X_3_1_1, W_2_1_2, K_3_1_2, X_3_1_2, W_2_1_3, K_3_1_3, X_3_1_3, W_2_2_0, K_3_2_0, X_3_2_0, W_2_2_1, K_3_2_1, X_3_2_1, W_2_2_2, K_3_2_2, X_3_2_2, W_2_2_3, K_3_2_3, X_3_2_3, W_2_3_0, K_3_3_0, X_3_3_0, W_2_3_1, K_3_3_1, X_3_3_1, W_2_3_2, K_3_3_2, X_3_3_2, W_2_3_3, K_3_3_3, X_3_3_3

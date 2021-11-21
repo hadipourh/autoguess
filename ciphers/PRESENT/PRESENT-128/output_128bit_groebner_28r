@@ -1,0 +1,63 @@
+user@user-System-Product-Name:~/Programs/Autoguess$ lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              16
+On-line CPU(s) list: 0-15
+Thread(s) per core:  2
+Core(s) per socket:  8
+Socket(s):           1
+NUMA node(s):        1
+Vendor ID:           GenuineIntel
+CPU family:          6
+Model:               158
+Model name:          Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz
+Stepping:            13
+CPU MHz:             4838.337
+CPU max MHz:         5000.0000
+CPU min MHz:         800.0000
+BogoMIPS:            7200.00
+Virtualization:      VT-x
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            256K
+L3 cache:            16384K
+NUMA node0 CPU(s):   0-15
+Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d arch_capabilities
+
+
+user@user-System-Product-Name:~/Programs/Autoguess$ python3.8 autoguess.py --inputfile ciphers/PRESENT/PRESENT-128/relationfile_present_kb_28r_mg115_ms30.txt --solver groebner
+Preprocessing phase was started - 2021-03-31 13:17:18.922173
+Macaulay matrix was generated in full matrixspace of 3360 by 3696 sparse matrices over finite field of size 2
+Gaussian elimination was started - 2021-03-31 13:21:44.107496
+Gaussian elimination was finished after 0.05 seconds
+Writing the results into the temp/macaulay_basis.txt - 2021-03-31 13:21:44.160407
+Result were written into temp/macaulay_basis.txt after 1.77 seconds
+Preprocessing phase was finished after 267.0034 seconds
+Generating the Boolean Polynomial Ring in 3712 variabels
+Geneartion of the Boolean polynomial ring was finished after 0.01 seconds
+CNF to ANF conversion using the block-wise method was started - 2021-03-31 13:21:49.609114
+Results were written into the temp/anf_f4c5324aeebf5d793dcec5718cd6e8.anf
+Algebraic representation in ANF form was generated after 3918.91 seconds
+Computing the Groebner basis was started - 2021-03-31 14:27:08.542584
+Computing the Groebner basis was finished after 3969.01 seconds
+Number of guesses: 115
+The following 115 variable(s) are guessed:
+k_28_127, k_28_126, k_28_125, k_28_124, k_28_123, k_28_122, k_28_121, k_28_120, k_28_119, k_28_118, k_28_117, k_28_116, k_28_115, k_28_114, k_28_113, k_28_112, k_28_111, k_28_110, k_28_109, k_28_108, k_28_107, k_28_106, k_28_105, k_28_104, k_28_103, k_28_102, k_28_101, k_28_100, k_28_99, k_28_98, k_28_97, k_28_96, k_28_95, k_28_94, k_28_93, k_28_92, k_28_91, k_28_90, k_28_89, k_28_88, k_28_87, k_28_86, k_28_85, k_28_84, k_28_83, k_28_81, k_28_79, k_28_77, k_28_75, k_28_69, k_28_67, k_28_63, k_28_62, k_28_61, k_28_60, k_28_59, k_28_58, k_28_57, k_28_56, k_28_55, k_28_54, k_28_53, k_28_52, k_28_51, k_28_50, k_28_49, k_28_48, k_28_47, k_28_46, k_28_45, k_28_44, k_28_43, k_28_42, k_28_41, k_28_40, k_28_39, k_28_38, k_28_37, k_28_36, k_28_35, k_28_34, k_28_33, k_28_32, k_28_31, k_28_30, k_28_29, k_28_28, k_28_27, k_28_26, k_28_25, k_28_24, k_28_23, k_28_22, k_28_21, k_28_20, k_28_19, k_28_18, k_28_17, k_28_16, k_28_15, k_28_14, k_28_13, k_28_12, k_28_11, k_28_10, k_28_8, k_26_125, k_26_124, k_26_123, k_26_122, k_21_125, k_5_126, k_28_7, k_28_6, k_28_4
+
+
+
+Number of relations: 7168
+Number of variables: 3712
+Number of target variables: 156
+Number of known variables: 0
+Number of guessed variables: 115
+############################################################
+The following 115 variable(s) are guessed:
+k_28_127, k_28_126, k_28_125, k_28_124, k_28_123, k_28_122, k_28_121, k_28_120, k_28_119, k_28_118, k_28_117, k_28_116, k_28_115, k_28_114, k_28_113, k_28_112, k_28_111, k_28_110, k_28_109, k_28_108, k_28_107, k_28_106, k_28_105, k_28_104, k_28_103, k_28_102, k_28_101, k_28_100, k_28_99, k_28_98, k_28_97, k_28_96, k_28_95, k_28_94, k_28_93, k_28_92, k_28_91, k_28_90, k_28_89, k_28_88, k_28_87, k_28_86, k_28_85, k_28_84, k_28_83, k_28_81, k_28_79, k_28_77, k_28_75, k_28_69, k_28_67, k_28_63, k_28_62, k_28_61, k_28_60, k_28_59, k_28_58, k_28_57, k_28_56, k_28_55, k_28_54, k_28_53, k_28_52, k_28_51, k_28_50, k_28_49, k_28_48, k_28_47, k_28_46, k_28_45, k_28_44, k_28_43, k_28_42, k_28_41, k_28_40, k_28_39, k_28_38, k_28_37, k_28_36, k_28_35, k_28_34, k_28_33, k_28_32, k_28_31, k_28_30, k_28_29, k_28_28, k_28_27, k_28_26, k_28_25, k_28_24, k_28_23, k_28_22, k_28_21, k_28_20, k_28_19, k_28_18, k_28_17, k_28_16, k_28_15, k_28_14, k_28_13, k_28_12, k_28_11, k_28_10, k_28_8, k_26_125, k_26_124, k_26_123, k_26_122, k_21_125, k_5_126, k_28_7, k_28_6, k_28_4
+############################################################
+The following 0 variable(s) are initially known:
+
+############################################################
+Target variables:
+k_0_0, k_0_1, k_0_2, k_0_3, k_0_4, k_0_5, k_0_6, k_0_7, k_0_8, k_0_9, k_0_10, k_0_11, k_0_12, k_0_13, k_0_14, k_0_15, k_0_16, k_0_17, k_0_18, k_0_19, k_0_20, k_0_21, k_0_22, k_0_23, k_0_24, k_0_25, k_0_26, k_0_27, k_0_28, k_0_29, k_0_30, k_0_31, k_0_32, k_0_33, k_0_34, k_0_35, k_0_36, k_0_37, k_0_38, k_0_39, k_0_40, k_0_41, k_0_42, k_0_43, k_0_44, k_0_45, k_0_46, k_0_47, k_1_0, k_1_1, k_1_2, k_1_3, k_1_4, k_1_5, k_1_6, k_1_7, k_1_8, k_1_9, k_1_10, k_1_11, k_1_16, k_1_17, k_1_18, k_1_19, k_1_20, k_1_21, k_1_22, k_1_23, k_1_24, k_1_25, k_1_26, k_1_27, k_1_32, k_1_33, k_1_34, k_1_35, k_1_36, k_1_37, k_1_38, k_1_39, k_1_40, k_1_41, k_1_42, k_1_43, k_27_0, k_27_2, k_27_8, k_27_10, k_27_12, k_27_14, k_27_16, k_27_18, k_27_24, k_27_26, k_27_28, k_27_30, k_27_32, k_27_34, k_27_40, k_27_42, k_27_44, k_27_46, k_27_48, k_27_50, k_27_56, k_27_58, k_27_60, k_27_62, k_28_0, k_28_2, k_28_3, k_28_4, k_28_6, k_28_7, k_28_8, k_28_10, k_28_11, k_28_12, k_28_14, k_28_15, k_28_16, k_28_18, k_28_19, k_28_20, k_28_22, k_28_23, k_28_24, k_28_26, k_28_27, k_28_28, k_28_30, k_28_31, k_28_32, k_28_34, k_28_35, k_28_36, k_28_38, k_28_39, k_28_40, k_28_42, k_28_43, k_28_44, k_28_46, k_28_47, k_28_48, k_28_50, k_28_51, k_28_52, k_28_54, k_28_55, k_28_56, k_28_58, k_28_59, k_28_60, k_28_62, k_28_63

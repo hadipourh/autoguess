@@ -1,0 +1,354 @@
+Number of relations: 616
+Number of variables: 640
+Number of target variables: 128
+Number of known variables: 0
+Number of guessed variables: 69
+Number of state copies (max_steps): 3
+An upper bound for the number of guessed variables given by user (max_guess): 69
+395 out of 640 state variables are known after 3 state copies
+############################################################
+The following 69 variable(s) are guessed:
+k_18_18, k_18_20, k_19_2, k_19_12, k_19_19, k_19_20, k_19_23, k_19_25, k_19_29, k_19_30, k_19_31, k_19_32, k_19_68, k_19_70, k_20_4, k_20_5, k_20_6, k_20_7, k_20_10, k_20_20, k_20_22, k_20_25, k_20_26, k_20_28, k_20_44, k_20_56, k_20_57, k_20_62, k_20_64, k_20_66, k_20_72, k_20_77, k_21_0, k_21_1, k_21_2, k_21_3, k_21_5, k_21_6, k_21_9, k_21_25, k_21_36, k_21_46, k_21_49, k_21_50, k_21_74, k_21_78, k_22_1, k_22_2, k_22_3, k_22_30, k_22_31, k_22_37, k_22_38, k_22_43, k_22_58, k_22_65, k_23_4, k_23_5, k_23_6, k_23_7, k_23_10, k_23_11, k_23_12, k_23_30, k_23_51, k_24_19, k_24_37, k_24_68, k_24_77
+############################################################
+The following 0 variable(s) are initially known:
+
+############################################################
+Target variables:
+k_17_8, k_17_9, k_17_10, k_17_11, k_18_4, k_18_5, k_18_6, k_18_7, k_19_24, k_19_25, k_19_26, k_19_27, k_20_16, k_20_17, k_20_18, k_20_19, k_20_20, k_20_21, k_20_22, k_20_23, k_21_0, k_21_1, k_21_2, k_21_3, k_21_8, k_21_9, k_21_10, k_21_11, k_21_28, k_21_29, k_21_30, k_21_31, k_22_28, k_22_29, k_22_30, k_22_31, k_22_20, k_22_21, k_22_22, k_22_23, k_22_16, k_22_17, k_22_18, k_22_19, k_22_4, k_22_5, k_22_6, k_22_7, k_22_0, k_22_1, k_22_2, k_22_3, k_23_28, k_23_29, k_23_30, k_23_31, k_23_24, k_23_25, k_23_26, k_23_27, k_23_16, k_23_17, k_23_18, k_23_19, k_23_12, k_23_13, k_23_14, k_23_15, k_23_8, k_23_9, k_23_10, k_23_11, k_23_4, k_23_5, k_23_6, k_23_7, k_23_0, k_23_1, k_23_2, k_23_3, k_19_12, k_19_13, k_19_14, k_19_15, k_20_12, k_20_13, k_20_14, k_20_15, k_21_24, k_21_25, k_21_26, k_21_27, k_21_12, k_21_13, k_21_14, k_21_15, k_22_24, k_22_25, k_22_26, k_22_27, k_22_20, k_22_21, k_22_22, k_22_23, k_22_12, k_22_13, k_22_14, k_22_15, k_23_28, k_23_29, k_23_30, k_23_31, k_23_24, k_23_25, k_23_26, k_23_27, k_23_20, k_23_21, k_23_22, k_23_23, k_23_12, k_23_13, k_23_14, k_23_15, k_23_8, k_23_9, k_23_10, k_23_11
+############################################################
+Determination flow:
+
+State 0:
+k_18_18 in symmetric relation [k_17_47, k_18_18] are known: k_18_18 ===> k_17_47
+k_18_20 in symmetric relation [k_17_49, k_18_20] are known: k_18_20 ===> k_17_49
+k_19_12 in symmetric relation [k_18_41, k_19_12] are known: k_19_12 ===> k_18_41
+k_19_19 in symmetric relation [k_18_48, k_19_19] are known: k_19_19 ===> k_18_48
+k_19_20 in symmetric relation [k_18_49, k_19_20] are known: k_19_20 ===> k_18_49
+k_19_23 in symmetric relation [k_18_52, k_19_23] are known: k_19_23 ===> k_18_52
+k_19_25 in symmetric relation [k_18_54, k_19_25] are known: k_19_25 ===> k_18_54
+k_19_29 in symmetric relation [k_18_58, k_19_29] are known: k_19_29 ===> k_18_58
+k_19_30 in symmetric relation [k_18_59, k_19_30] are known: k_19_30 ===> k_18_59
+k_19_31 in symmetric relation [k_18_60, k_19_31] are known: k_19_31 ===> k_18_60
+k_19_32 in symmetric relation [k_18_61, k_19_32] are known: k_19_32 ===> k_18_61
+k_19_68 in symmetric relation [k_18_17, k_19_68] are known: k_19_68 ===> k_18_17
+k_18_18 in symmetric relation [k_18_18, k_19_69] are known: k_18_18 ===> k_19_69
+k_19_70 in symmetric relation [k_18_19, k_19_70] are known: k_19_70 ===> k_18_19
+k_18_20 in symmetric relation [k_18_20, k_19_71] are known: k_18_20 ===> k_19_71
+k_20_10 in symmetric relation [k_19_39, k_20_10] are known: k_20_10 ===> k_19_39
+k_20_20 in symmetric relation [k_19_49, k_20_20] are known: k_20_20 ===> k_19_49
+k_20_22 in symmetric relation [k_19_51, k_20_22] are known: k_20_22 ===> k_19_51
+k_20_25 in symmetric relation [k_19_54, k_20_25] are known: k_20_25 ===> k_19_54
+k_20_26 in symmetric relation [k_19_55, k_20_26] are known: k_20_26 ===> k_19_55
+k_20_28 in symmetric relation [k_19_57, k_20_28] are known: k_20_28 ===> k_19_57
+k_19_68 in symmetric relation [k_19_68, k_20_39] are known: k_19_68 ===> k_20_39
+k_19_70 in symmetric relation [k_19_70, k_20_41] are known: k_19_70 ===> k_20_41
+k_20_44 in symmetric relation [k_19_73, k_20_44] are known: k_20_44 ===> k_19_73
+k_19_2 in symmetric relation [k_19_2, k_20_53] are known: k_19_2 ===> k_20_53
+k_20_56 in symmetric relation [k_19_5, k_20_56] are known: k_20_56 ===> k_19_5
+k_20_57 in symmetric relation [k_19_6, k_20_57] are known: k_20_57 ===> k_19_6
+k_20_62 in symmetric relation [k_19_11, k_20_62] are known: k_20_62 ===> k_19_11
+k_19_12 in symmetric relation [k_19_12, k_20_63] are known: k_19_12 ===> k_20_63
+k_20_64 in symmetric relation [k_19_13, k_20_64] are known: k_20_64 ===> k_19_13
+k_20_66 in symmetric relation [k_19_15, k_20_66] are known: k_20_66 ===> k_19_15
+k_19_19 in symmetric relation [k_19_19, k_20_70] are known: k_19_19 ===> k_20_70
+k_19_20 in symmetric relation [k_19_20, k_20_71] are known: k_19_20 ===> k_20_71
+k_20_72 in symmetric relation [k_19_21, k_20_72] are known: k_20_72 ===> k_19_21
+k_19_23 in symmetric relation [k_19_23, k_20_74] are known: k_19_23 ===> k_20_74
+k_19_25 in symmetric relation [k_19_25, k_20_76] are known: k_19_25 ===> k_20_76
+k_20_77 in symmetric relation [k_19_26, k_20_77] are known: k_20_77 ===> k_19_26
+k_21_9 in symmetric relation [k_20_38, k_21_9] are known: k_21_9 ===> k_20_38
+k_20_44 in symmetric relation [k_20_44, k_21_15] are known: k_20_44 ===> k_21_15
+k_21_25 in symmetric relation [k_20_54, k_21_25] are known: k_21_25 ===> k_20_54
+k_20_56 in symmetric relation [k_20_56, k_21_27] are known: k_20_56 ===> k_21_27
+k_20_57 in symmetric relation [k_20_57, k_21_28] are known: k_20_57 ===> k_21_28
+k_20_62 in symmetric relation [k_20_62, k_21_33] are known: k_20_62 ===> k_21_33
+k_20_64 in symmetric relation [k_20_64, k_21_35] are known: k_20_64 ===> k_21_35
+k_21_36 in symmetric relation [k_20_65, k_21_36] are known: k_21_36 ===> k_20_65
+k_20_66 in symmetric relation [k_20_66, k_21_37] are known: k_20_66 ===> k_21_37
+k_20_72 in symmetric relation [k_20_72, k_21_43] are known: k_20_72 ===> k_21_43
+k_21_46 in symmetric relation [k_20_75, k_21_46] are known: k_21_46 ===> k_20_75
+k_20_77 in symmetric relation [k_20_77, k_21_48] are known: k_20_77 ===> k_21_48
+k_21_49 in symmetric relation [k_20_78, k_21_49] are known: k_21_49 ===> k_20_78
+k_21_50 in symmetric relation [k_20_79, k_21_50] are known: k_21_50 ===> k_20_79
+k_20_4 in symmetric relation [k_20_4, k_21_55] are known: k_20_4 ===> k_21_55
+k_20_5 in symmetric relation [k_20_5, k_21_56] are known: k_20_5 ===> k_21_56
+k_20_6 in symmetric relation [k_20_6, k_21_57] are known: k_20_6 ===> k_21_57
+k_20_7 in symmetric relation [k_20_7, k_21_58] are known: k_20_7 ===> k_21_58
+k_20_10 in symmetric relation [k_20_10, k_21_61] are known: k_20_10 ===> k_21_61
+k_20_20 in symmetric relation [k_20_20, k_21_71] are known: k_20_20 ===> k_21_71
+k_20_22 in symmetric relation [k_20_22, k_21_73] are known: k_20_22 ===> k_21_73
+k_21_74 in symmetric relation [k_20_23, k_21_74] are known: k_21_74 ===> k_20_23
+k_20_25 in symmetric relation [k_20_25, k_21_76] are known: k_20_25 ===> k_21_76
+k_20_26 in symmetric relation [k_20_26, k_21_77] are known: k_20_26 ===> k_21_77
+k_21_78 in symmetric relation [k_20_27, k_21_78] are known: k_21_78 ===> k_20_27
+k_20_28 in symmetric relation [k_20_28, k_21_79] are known: k_20_28 ===> k_21_79
+k_21_46 in symmetric relation [k_21_46, k_22_17] are known: k_21_46 ===> k_22_17
+k_21_49 in symmetric relation [k_21_49, k_22_20] are known: k_21_49 ===> k_22_20
+k_21_50 in symmetric relation [k_21_50, k_22_21] are known: k_21_50 ===> k_22_21
+k_22_30 in symmetric relation [k_21_59, k_22_30] are known: k_22_30 ===> k_21_59
+k_22_31 in symmetric relation [k_21_60, k_22_31] are known: k_22_31 ===> k_21_60
+k_22_37 in symmetric relation [k_21_66, k_22_37] are known: k_22_37 ===> k_21_66
+k_22_38 in symmetric relation [k_21_67, k_22_38] are known: k_22_38 ===> k_21_67
+k_22_43 in symmetric relation [k_21_72, k_22_43] are known: k_22_43 ===> k_21_72
+k_21_74 in symmetric relation [k_21_74, k_22_45] are known: k_21_74 ===> k_22_45
+k_21_78 in symmetric relation [k_21_78, k_22_49] are known: k_21_78 ===> k_22_49
+k_21_0 in symmetric relation [k_21_0, k_22_51] are known: k_21_0 ===> k_22_51
+k_21_1 in symmetric relation [k_21_1, k_22_52] are known: k_21_1 ===> k_22_52
+k_21_2 in symmetric relation [k_21_2, k_22_53] are known: k_21_2 ===> k_22_53
+k_21_3 in symmetric relation [k_21_3, k_22_54] are known: k_21_3 ===> k_22_54
+k_21_5 in symmetric relation [k_21_5, k_22_56] are known: k_21_5 ===> k_22_56
+k_21_6 in symmetric relation [k_21_6, k_22_57] are known: k_21_6 ===> k_22_57
+k_22_58 in symmetric relation [k_21_7, k_22_58] are known: k_22_58 ===> k_21_7
+k_21_9 in symmetric relation [k_21_9, k_22_60] are known: k_21_9 ===> k_22_60
+k_22_65 in symmetric relation [k_21_14, k_22_65] are known: k_22_65 ===> k_21_14
+k_21_25 in symmetric relation [k_21_25, k_22_76] are known: k_21_25 ===> k_22_76
+k_22_37 in symmetric relation [k_22_37, k_23_8] are known: k_22_37 ===> k_23_8
+k_22_38 in symmetric relation [k_22_38, k_23_9] are known: k_22_38 ===> k_23_9
+k_23_10 in symmetric relation [k_22_39, k_23_10] are known: k_23_10 ===> k_22_39
+k_23_11 in symmetric relation [k_22_40, k_23_11] are known: k_23_11 ===> k_22_40
+k_23_12 in symmetric relation [k_22_41, k_23_12] are known: k_23_12 ===> k_22_41
+k_22_43 in symmetric relation [k_22_43, k_23_14] are known: k_22_43 ===> k_23_14
+k_22_58 in symmetric relation [k_22_58, k_23_29] are known: k_22_58 ===> k_23_29
+k_23_30 in symmetric relation [k_22_59, k_23_30] are known: k_23_30 ===> k_22_59
+k_22_65 in symmetric relation [k_22_65, k_23_36] are known: k_22_65 ===> k_23_36
+k_23_51 in symmetric relation [k_22_0, k_23_51] are known: k_23_51 ===> k_22_0
+k_22_1 in symmetric relation [k_22_1, k_23_52] are known: k_22_1 ===> k_23_52
+k_22_2 in symmetric relation [k_22_2, k_23_53] are known: k_22_2 ===> k_23_53
+k_22_3 in symmetric relation [k_22_3, k_23_54] are known: k_22_3 ===> k_23_54
+k_24_19 in symmetric relation [k_23_48, k_24_19] are known: k_24_19 ===> k_23_48
+k_23_51 in symmetric relation [k_23_51, k_24_22] are known: k_23_51 ===> k_24_22
+k_24_37 in symmetric relation [k_23_66, k_24_37] are known: k_24_37 ===> k_23_66
+k_23_4 in symmetric relation [k_23_4, k_24_55] are known: k_23_4 ===> k_24_55
+k_23_5 in symmetric relation [k_23_5, k_24_56] are known: k_23_5 ===> k_24_56
+k_23_6 in symmetric relation [k_23_6, k_24_57] are known: k_23_6 ===> k_24_57
+k_23_7 in symmetric relation [k_23_7, k_24_58] are known: k_23_7 ===> k_24_58
+k_23_10 in symmetric relation [k_23_10, k_24_61] are known: k_23_10 ===> k_24_61
+k_23_11 in symmetric relation [k_23_11, k_24_62] are known: k_23_11 ===> k_24_62
+k_23_12 in symmetric relation [k_23_12, k_24_63] are known: k_23_12 ===> k_24_63
+k_24_68 in symmetric relation [k_23_17, k_24_68] are known: k_24_68 ===> k_23_17
+k_24_77 in symmetric relation [k_23_26, k_24_77] are known: k_24_77 ===> k_23_26
+k_19_29, k_19_30, k_19_31, k_19_32 in implication relation [k_19_29, k_19_30, k_19_31, k_19_32, k_20_0] are known: k_19_29, k_19_30, k_19_31, k_19_32 ===> k_20_0
+k_19_29, k_19_30, k_19_31, k_19_32 in implication relation [k_19_29, k_19_30, k_19_31, k_19_32, k_20_1] are known: k_19_29, k_19_30, k_19_31, k_19_32 ===> k_20_1
+k_19_29, k_19_30, k_19_31, k_19_32 in implication relation [k_19_29, k_19_30, k_19_31, k_19_32, k_20_2] are known: k_19_29, k_19_30, k_19_31, k_19_32 ===> k_20_2
+k_19_29, k_19_30, k_19_31, k_19_32 in implication relation [k_19_29, k_19_30, k_19_31, k_19_32, k_20_3] are known: k_19_29, k_19_30, k_19_31, k_19_32 ===> k_20_3
+k_20_4, k_20_5, k_20_6, k_20_7 in implication relation [k_20_4, k_20_5, k_20_6, k_20_7, k_19_33] are known: k_20_4, k_20_5, k_20_6, k_20_7 ===> k_19_33
+k_20_4, k_20_5, k_20_6, k_20_7 in implication relation [k_20_4, k_20_5, k_20_6, k_20_7, k_19_34] are known: k_20_4, k_20_5, k_20_6, k_20_7 ===> k_19_34
+k_20_4, k_20_5, k_20_6, k_20_7 in implication relation [k_20_4, k_20_5, k_20_6, k_20_7, k_19_35] are known: k_20_4, k_20_5, k_20_6, k_20_7 ===> k_19_35
+k_20_4, k_20_5, k_20_6, k_20_7 in implication relation [k_20_4, k_20_5, k_20_6, k_20_7, k_19_36] are known: k_20_4, k_20_5, k_20_6, k_20_7 ===> k_19_36
+k_21_0, k_21_1, k_21_2, k_21_3 in implication relation [k_21_0, k_21_1, k_21_2, k_21_3, k_20_29] are known: k_21_0, k_21_1, k_21_2, k_21_3 ===> k_20_29
+k_21_0, k_21_1, k_21_2, k_21_3 in implication relation [k_21_0, k_21_1, k_21_2, k_21_3, k_20_30] are known: k_21_0, k_21_1, k_21_2, k_21_3 ===> k_20_30
+k_21_0, k_21_1, k_21_2, k_21_3 in implication relation [k_21_0, k_21_1, k_21_2, k_21_3, k_20_31] are known: k_21_0, k_21_1, k_21_2, k_21_3 ===> k_20_31
+k_21_0, k_21_1, k_21_2, k_21_3 in implication relation [k_21_0, k_21_1, k_21_2, k_21_3, k_20_32] are known: k_21_0, k_21_1, k_21_2, k_21_3 ===> k_20_32
+k_23_4, k_23_5, k_23_6, k_23_7 in implication relation [k_23_4, k_23_5, k_23_6, k_23_7, k_22_33] are known: k_23_4, k_23_5, k_23_6, k_23_7 ===> k_22_33
+k_23_4, k_23_5, k_23_6, k_23_7 in implication relation [k_23_4, k_23_5, k_23_6, k_23_7, k_22_34] are known: k_23_4, k_23_5, k_23_6, k_23_7 ===> k_22_34
+k_23_4, k_23_5, k_23_6, k_23_7 in implication relation [k_23_4, k_23_5, k_23_6, k_23_7, k_22_35] are known: k_23_4, k_23_5, k_23_6, k_23_7 ===> k_22_35
+k_23_4, k_23_5, k_23_6, k_23_7 in implication relation [k_23_4, k_23_5, k_23_6, k_23_7, k_22_36] are known: k_23_4, k_23_5, k_23_6, k_23_7 ===> k_22_36
+############################################################
+State 1:
+k_18_17 in symmetric relation [k_17_46, k_18_17] are known: k_18_17 ===> k_17_46
+k_18_19 in symmetric relation [k_17_48, k_18_19] are known: k_18_19 ===> k_17_48
+k_18_41 in symmetric relation [k_17_70, k_18_41] are known: k_18_41 ===> k_17_70
+k_18_48 in symmetric relation [k_17_77, k_18_48] are known: k_18_48 ===> k_17_77
+k_18_49 in symmetric relation [k_17_78, k_18_49] are known: k_18_49 ===> k_17_78
+k_18_52 in symmetric relation [k_17_1, k_18_52] are known: k_18_52 ===> k_17_1
+k_18_54 in symmetric relation [k_17_3, k_18_54] are known: k_18_54 ===> k_17_3
+k_18_58 in symmetric relation [k_17_7, k_18_58] are known: k_18_58 ===> k_17_7
+k_18_59 in symmetric relation [k_17_8, k_18_59] are known: k_18_59 ===> k_17_8
+k_18_60 in symmetric relation [k_17_9, k_18_60] are known: k_18_60 ===> k_17_9
+k_18_61 in symmetric relation [k_17_10, k_18_61] are known: k_18_61 ===> k_17_10
+k_19_11 in symmetric relation [k_18_40, k_19_11] are known: k_19_11 ===> k_18_40
+k_19_13 in symmetric relation [k_18_42, k_19_13] are known: k_19_13 ===> k_18_42
+k_19_15 in symmetric relation [k_18_44, k_19_15] are known: k_19_15 ===> k_18_44
+k_19_21 in symmetric relation [k_18_50, k_19_21] are known: k_19_21 ===> k_18_50
+k_19_26 in symmetric relation [k_18_55, k_19_26] are known: k_19_26 ===> k_18_55
+k_19_33 in symmetric relation [k_18_62, k_19_33] are known: k_19_33 ===> k_18_62
+k_19_34 in symmetric relation [k_18_63, k_19_34] are known: k_19_34 ===> k_18_63
+k_19_35 in symmetric relation [k_18_64, k_19_35] are known: k_19_35 ===> k_18_64
+k_19_36 in symmetric relation [k_18_65, k_19_36] are known: k_19_36 ===> k_18_65
+k_19_39 in symmetric relation [k_18_68, k_19_39] are known: k_19_39 ===> k_18_68
+k_19_49 in symmetric relation [k_18_78, k_19_49] are known: k_19_49 ===> k_18_78
+k_19_51 in symmetric relation [k_18_0, k_19_51] are known: k_19_51 ===> k_18_0
+k_19_54 in symmetric relation [k_18_3, k_19_54] are known: k_19_54 ===> k_18_3
+k_19_55 in symmetric relation [k_18_4, k_19_55] are known: k_19_55 ===> k_18_4
+k_19_57 in symmetric relation [k_18_6, k_19_57] are known: k_19_57 ===> k_18_6
+k_19_73 in symmetric relation [k_18_22, k_19_73] are known: k_19_73 ===> k_18_22
+k_20_23 in symmetric relation [k_19_52, k_20_23] are known: k_20_23 ===> k_19_52
+k_20_27 in symmetric relation [k_19_56, k_20_27] are known: k_20_27 ===> k_19_56
+k_20_29 in symmetric relation [k_19_58, k_20_29] are known: k_20_29 ===> k_19_58
+k_20_30 in symmetric relation [k_19_59, k_20_30] are known: k_20_30 ===> k_19_59
+k_20_31 in symmetric relation [k_19_60, k_20_31] are known: k_20_31 ===> k_19_60
+k_20_32 in symmetric relation [k_19_61, k_20_32] are known: k_20_32 ===> k_19_61
+k_20_38 in symmetric relation [k_19_67, k_20_38] are known: k_20_38 ===> k_19_67
+k_19_69 in symmetric relation [k_19_69, k_20_40] are known: k_19_69 ===> k_20_40
+k_19_71 in symmetric relation [k_19_71, k_20_42] are known: k_19_71 ===> k_20_42
+k_20_54 in symmetric relation [k_19_3, k_20_54] are known: k_20_54 ===> k_19_3
+k_20_65 in symmetric relation [k_19_14, k_20_65] are known: k_20_65 ===> k_19_14
+k_20_75 in symmetric relation [k_19_24, k_20_75] are known: k_20_75 ===> k_19_24
+k_20_78 in symmetric relation [k_19_27, k_20_78] are known: k_20_78 ===> k_19_27
+k_20_79 in symmetric relation [k_19_28, k_20_79] are known: k_20_79 ===> k_19_28
+k_20_39 in symmetric relation [k_20_39, k_21_10] are known: k_20_39 ===> k_21_10
+k_20_41 in symmetric relation [k_20_41, k_21_12] are known: k_20_41 ===> k_21_12
+k_21_14 in symmetric relation [k_20_43, k_21_14] are known: k_21_14 ===> k_20_43
+k_20_53 in symmetric relation [k_20_53, k_21_24] are known: k_20_53 ===> k_21_24
+k_20_63 in symmetric relation [k_20_63, k_21_34] are known: k_20_63 ===> k_21_34
+k_20_70 in symmetric relation [k_20_70, k_21_41] are known: k_20_70 ===> k_21_41
+k_20_71 in symmetric relation [k_20_71, k_21_42] are known: k_20_71 ===> k_21_42
+k_20_74 in symmetric relation [k_20_74, k_21_45] are known: k_20_74 ===> k_21_45
+k_20_76 in symmetric relation [k_20_76, k_21_47] are known: k_20_76 ===> k_21_47
+k_20_0 in symmetric relation [k_20_0, k_21_51] are known: k_20_0 ===> k_21_51
+k_20_1 in symmetric relation [k_20_1, k_21_52] are known: k_20_1 ===> k_21_52
+k_20_2 in symmetric relation [k_20_2, k_21_53] are known: k_20_2 ===> k_21_53
+k_20_3 in symmetric relation [k_20_3, k_21_54] are known: k_20_3 ===> k_21_54
+k_21_59 in symmetric relation [k_20_8, k_21_59] are known: k_21_59 ===> k_20_8
+k_21_60 in symmetric relation [k_20_9, k_21_60] are known: k_21_60 ===> k_20_9
+k_21_66 in symmetric relation [k_20_15, k_21_66] are known: k_21_66 ===> k_20_15
+k_21_67 in symmetric relation [k_20_16, k_21_67] are known: k_21_67 ===> k_20_16
+k_21_72 in symmetric relation [k_20_21, k_21_72] are known: k_21_72 ===> k_20_21
+k_21_37 in symmetric relation [k_21_37, k_22_8] are known: k_21_37 ===> k_22_8
+k_21_43 in symmetric relation [k_21_43, k_22_14] are known: k_21_43 ===> k_22_14
+k_21_48 in symmetric relation [k_21_48, k_22_19] are known: k_21_48 ===> k_22_19
+k_21_55 in symmetric relation [k_21_55, k_22_26] are known: k_21_55 ===> k_22_26
+k_21_56 in symmetric relation [k_21_56, k_22_27] are known: k_21_56 ===> k_22_27
+k_21_57 in symmetric relation [k_21_57, k_22_28] are known: k_21_57 ===> k_22_28
+k_21_58 in symmetric relation [k_21_58, k_22_29] are known: k_21_58 ===> k_22_29
+k_21_61 in symmetric relation [k_21_61, k_22_32] are known: k_21_61 ===> k_22_32
+k_22_33 in symmetric relation [k_21_62, k_22_33] are known: k_22_33 ===> k_21_62
+k_22_34 in symmetric relation [k_21_63, k_22_34] are known: k_22_34 ===> k_21_63
+k_22_35 in symmetric relation [k_21_64, k_22_35] are known: k_22_35 ===> k_21_64
+k_22_36 in symmetric relation [k_21_65, k_22_36] are known: k_22_36 ===> k_21_65
+k_22_39 in symmetric relation [k_21_68, k_22_39] are known: k_22_39 ===> k_21_68
+k_22_40 in symmetric relation [k_21_69, k_22_40] are known: k_22_40 ===> k_21_69
+k_22_41 in symmetric relation [k_21_70, k_22_41] are known: k_22_41 ===> k_21_70
+k_21_71 in symmetric relation [k_21_71, k_22_42] are known: k_21_71 ===> k_22_42
+k_21_73 in symmetric relation [k_21_73, k_22_44] are known: k_21_73 ===> k_22_44
+k_21_76 in symmetric relation [k_21_76, k_22_47] are known: k_21_76 ===> k_22_47
+k_21_77 in symmetric relation [k_21_77, k_22_48] are known: k_21_77 ===> k_22_48
+k_21_79 in symmetric relation [k_21_79, k_22_50] are known: k_21_79 ===> k_22_50
+k_22_59 in symmetric relation [k_21_8, k_22_59] are known: k_22_59 ===> k_21_8
+k_21_15 in symmetric relation [k_21_15, k_22_66] are known: k_21_15 ===> k_22_66
+k_21_27 in symmetric relation [k_21_27, k_22_78] are known: k_21_27 ===> k_22_78
+k_21_28 in symmetric relation [k_21_28, k_22_79] are known: k_21_28 ===> k_22_79
+k_22_45 in symmetric relation [k_22_45, k_23_16] are known: k_22_45 ===> k_23_16
+k_23_17 in symmetric relation [k_22_46, k_23_17] are known: k_23_17 ===> k_22_46
+k_22_49 in symmetric relation [k_22_49, k_23_20] are known: k_22_49 ===> k_23_20
+k_22_51 in symmetric relation [k_22_51, k_23_22] are known: k_22_51 ===> k_23_22
+k_22_52 in symmetric relation [k_22_52, k_23_23] are known: k_22_52 ===> k_23_23
+k_22_53 in symmetric relation [k_22_53, k_23_24] are known: k_22_53 ===> k_23_24
+k_22_54 in symmetric relation [k_22_54, k_23_25] are known: k_22_54 ===> k_23_25
+k_23_26 in symmetric relation [k_22_55, k_23_26] are known: k_23_26 ===> k_22_55
+k_22_56 in symmetric relation [k_22_56, k_23_27] are known: k_22_56 ===> k_23_27
+k_22_57 in symmetric relation [k_22_57, k_23_28] are known: k_22_57 ===> k_23_28
+k_22_60 in symmetric relation [k_22_60, k_23_31] are known: k_22_60 ===> k_23_31
+k_22_76 in symmetric relation [k_22_76, k_23_47] are known: k_22_76 ===> k_23_47
+k_23_48 in symmetric relation [k_22_77, k_23_48] are known: k_23_48 ===> k_22_77
+k_23_66 in symmetric relation [k_22_15, k_23_66] are known: k_23_66 ===> k_22_15
+k_22_17 in symmetric relation [k_22_17, k_23_68] are known: k_22_17 ===> k_23_68
+k_22_20 in symmetric relation [k_22_20, k_23_71] are known: k_22_20 ===> k_23_71
+k_22_21 in symmetric relation [k_22_21, k_23_72] are known: k_22_21 ===> k_23_72
+k_23_52 in symmetric relation [k_23_52, k_24_23] are known: k_23_52 ===> k_24_23
+k_23_53 in symmetric relation [k_23_53, k_24_24] are known: k_23_53 ===> k_24_24
+k_23_54 in symmetric relation [k_23_54, k_24_25] are known: k_23_54 ===> k_24_25
+k_23_8 in symmetric relation [k_23_8, k_24_59] are known: k_23_8 ===> k_24_59
+k_23_9 in symmetric relation [k_23_9, k_24_60] are known: k_23_9 ===> k_24_60
+k_23_14 in symmetric relation [k_23_14, k_24_65] are known: k_23_14 ===> k_24_65
+k_22_0, k_22_1, k_22_2, k_22_3 in implication relation [k_22_0, k_22_1, k_22_2, k_22_3, k_21_29] are known: k_22_0, k_22_1, k_22_2, k_22_3 ===> k_21_29
+k_22_0, k_22_1, k_22_2, k_22_3 in implication relation [k_22_0, k_22_1, k_22_2, k_22_3, k_21_30] are known: k_22_0, k_22_1, k_22_2, k_22_3 ===> k_21_30
+k_22_0, k_22_1, k_22_2, k_22_3 in implication relation [k_22_0, k_22_1, k_22_2, k_22_3, k_21_31] are known: k_22_0, k_22_1, k_22_2, k_22_3 ===> k_21_31
+k_22_0, k_22_1, k_22_2, k_22_3 in implication relation [k_22_0, k_22_1, k_22_2, k_22_3, k_21_32] are known: k_22_0, k_22_1, k_22_2, k_22_3 ===> k_21_32
+############################################################
+State 2:
+k_18_22 in symmetric relation [k_17_51, k_18_22] are known: k_18_22 ===> k_17_51
+k_18_40 in symmetric relation [k_17_69, k_18_40] are known: k_18_40 ===> k_17_69
+k_18_42 in symmetric relation [k_17_71, k_18_42] are known: k_18_42 ===> k_17_71
+k_18_44 in symmetric relation [k_17_73, k_18_44] are known: k_18_44 ===> k_17_73
+k_18_50 in symmetric relation [k_17_79, k_18_50] are known: k_18_50 ===> k_17_79
+k_18_55 in symmetric relation [k_17_4, k_18_55] are known: k_18_55 ===> k_17_4
+k_18_62 in symmetric relation [k_17_11, k_18_62] are known: k_18_62 ===> k_17_11
+k_18_63 in symmetric relation [k_17_12, k_18_63] are known: k_18_63 ===> k_17_12
+k_18_64 in symmetric relation [k_17_13, k_18_64] are known: k_18_64 ===> k_17_13
+k_18_65 in symmetric relation [k_17_14, k_18_65] are known: k_18_65 ===> k_17_14
+k_18_68 in symmetric relation [k_17_17, k_18_68] are known: k_18_68 ===> k_17_17
+k_18_78 in symmetric relation [k_17_27, k_18_78] are known: k_18_78 ===> k_17_27
+k_19_14 in symmetric relation [k_18_43, k_19_14] are known: k_19_14 ===> k_18_43
+k_19_24 in symmetric relation [k_18_53, k_19_24] are known: k_19_24 ===> k_18_53
+k_19_27 in symmetric relation [k_18_56, k_19_27] are known: k_19_27 ===> k_18_56
+k_19_28 in symmetric relation [k_18_57, k_19_28] are known: k_19_28 ===> k_18_57
+k_19_52 in symmetric relation [k_18_1, k_19_52] are known: k_19_52 ===> k_18_1
+k_19_56 in symmetric relation [k_18_5, k_19_56] are known: k_19_56 ===> k_18_5
+k_19_58 in symmetric relation [k_18_7, k_19_58] are known: k_19_58 ===> k_18_7
+k_19_59 in symmetric relation [k_18_8, k_19_59] are known: k_19_59 ===> k_18_8
+k_19_60 in symmetric relation [k_18_9, k_19_60] are known: k_19_60 ===> k_18_9
+k_19_61 in symmetric relation [k_18_10, k_19_61] are known: k_19_61 ===> k_18_10
+k_19_67 in symmetric relation [k_18_16, k_19_67] are known: k_19_67 ===> k_18_16
+k_20_8 in symmetric relation [k_19_37, k_20_8] are known: k_20_8 ===> k_19_37
+k_20_9 in symmetric relation [k_19_38, k_20_9] are known: k_20_9 ===> k_19_38
+k_20_15 in symmetric relation [k_19_44, k_20_15] are known: k_20_15 ===> k_19_44
+k_20_16 in symmetric relation [k_19_45, k_20_16] are known: k_20_16 ===> k_19_45
+k_20_21 in symmetric relation [k_19_50, k_20_21] are known: k_20_21 ===> k_19_50
+k_20_43 in symmetric relation [k_19_72, k_20_43] are known: k_20_43 ===> k_19_72
+k_21_8 in symmetric relation [k_20_37, k_21_8] are known: k_21_8 ===> k_20_37
+k_20_40 in symmetric relation [k_20_40, k_21_11] are known: k_20_40 ===> k_21_11
+k_20_42 in symmetric relation [k_20_42, k_21_13] are known: k_20_42 ===> k_21_13
+k_21_29 in symmetric relation [k_20_58, k_21_29] are known: k_21_29 ===> k_20_58
+k_21_30 in symmetric relation [k_20_59, k_21_30] are known: k_21_30 ===> k_20_59
+k_21_31 in symmetric relation [k_20_60, k_21_31] are known: k_21_31 ===> k_20_60
+k_21_32 in symmetric relation [k_20_61, k_21_32] are known: k_21_32 ===> k_20_61
+k_21_62 in symmetric relation [k_20_11, k_21_62] are known: k_21_62 ===> k_20_11
+k_21_63 in symmetric relation [k_20_12, k_21_63] are known: k_21_63 ===> k_20_12
+k_21_64 in symmetric relation [k_20_13, k_21_64] are known: k_21_64 ===> k_20_13
+k_21_65 in symmetric relation [k_20_14, k_21_65] are known: k_21_65 ===> k_20_14
+k_21_68 in symmetric relation [k_20_17, k_21_68] are known: k_21_68 ===> k_20_17
+k_21_69 in symmetric relation [k_20_18, k_21_69] are known: k_21_69 ===> k_20_18
+k_21_70 in symmetric relation [k_20_19, k_21_70] are known: k_21_70 ===> k_20_19
+k_21_41 in symmetric relation [k_21_41, k_22_12] are known: k_21_41 ===> k_22_12
+k_21_42 in symmetric relation [k_21_42, k_22_13] are known: k_21_42 ===> k_22_13
+k_22_15 in symmetric relation [k_21_44, k_22_15] are known: k_22_15 ===> k_21_44
+k_21_45 in symmetric relation [k_21_45, k_22_16] are known: k_21_45 ===> k_22_16
+k_21_47 in symmetric relation [k_21_47, k_22_18] are known: k_21_47 ===> k_22_18
+k_21_51 in symmetric relation [k_21_51, k_22_22] are known: k_21_51 ===> k_22_22
+k_21_52 in symmetric relation [k_21_52, k_22_23] are known: k_21_52 ===> k_22_23
+k_21_53 in symmetric relation [k_21_53, k_22_24] are known: k_21_53 ===> k_22_24
+k_21_54 in symmetric relation [k_21_54, k_22_25] are known: k_21_54 ===> k_22_25
+k_22_46 in symmetric relation [k_21_75, k_22_46] are known: k_22_46 ===> k_21_75
+k_22_55 in symmetric relation [k_21_4, k_22_55] are known: k_22_55 ===> k_21_4
+k_21_10 in symmetric relation [k_21_10, k_22_61] are known: k_21_10 ===> k_22_61
+k_21_12 in symmetric relation [k_21_12, k_22_63] are known: k_21_12 ===> k_22_63
+k_21_24 in symmetric relation [k_21_24, k_22_75] are known: k_21_24 ===> k_22_75
+k_22_77 in symmetric relation [k_21_26, k_22_77] are known: k_22_77 ===> k_21_26
+k_22_42 in symmetric relation [k_22_42, k_23_13] are known: k_22_42 ===> k_23_13
+k_22_44 in symmetric relation [k_22_44, k_23_15] are known: k_22_44 ===> k_23_15
+k_22_47 in symmetric relation [k_22_47, k_23_18] are known: k_22_47 ===> k_23_18
+k_22_48 in symmetric relation [k_22_48, k_23_19] are known: k_22_48 ===> k_23_19
+k_22_50 in symmetric relation [k_22_50, k_23_21] are known: k_22_50 ===> k_23_21
+k_22_66 in symmetric relation [k_22_66, k_23_37] are known: k_22_66 ===> k_23_37
+k_22_78 in symmetric relation [k_22_78, k_23_49] are known: k_22_78 ===> k_23_49
+k_22_79 in symmetric relation [k_22_79, k_23_50] are known: k_22_79 ===> k_23_50
+k_22_8 in symmetric relation [k_22_8, k_23_59] are known: k_22_8 ===> k_23_59
+k_22_14 in symmetric relation [k_22_14, k_23_65] are known: k_22_14 ===> k_23_65
+k_22_19 in symmetric relation [k_22_19, k_23_70] are known: k_22_19 ===> k_23_70
+k_22_26 in symmetric relation [k_22_26, k_23_77] are known: k_22_26 ===> k_23_77
+k_22_27 in symmetric relation [k_22_27, k_23_78] are known: k_22_27 ===> k_23_78
+k_22_28 in symmetric relation [k_22_28, k_23_79] are known: k_22_28 ===> k_23_79
+k_23_47 in symmetric relation [k_23_47, k_24_18] are known: k_23_47 ===> k_24_18
+k_23_68 in symmetric relation [k_23_68, k_24_39] are known: k_23_68 ===> k_24_39
+k_23_71 in symmetric relation [k_23_71, k_24_42] are known: k_23_71 ===> k_24_42
+k_23_72 in symmetric relation [k_23_72, k_24_43] are known: k_23_72 ===> k_24_43
+k_23_16 in symmetric relation [k_23_16, k_24_67] are known: k_23_16 ===> k_24_67
+k_23_20 in symmetric relation [k_23_20, k_24_71] are known: k_23_20 ===> k_24_71
+k_23_22 in symmetric relation [k_23_22, k_24_73] are known: k_23_22 ===> k_24_73
+k_23_23 in symmetric relation [k_23_23, k_24_74] are known: k_23_23 ===> k_24_74
+k_23_24 in symmetric relation [k_23_24, k_24_75] are known: k_23_24 ===> k_24_75
+k_23_25 in symmetric relation [k_23_25, k_24_76] are known: k_23_25 ===> k_24_76
+k_23_27 in symmetric relation [k_23_27, k_24_78] are known: k_23_27 ===> k_24_78
+k_23_28 in symmetric relation [k_23_28, k_24_79] are known: k_23_28 ===> k_24_79
+k_21_33, k_21_34, k_21_35, k_21_36 in implication relation [k_21_33, k_21_34, k_21_35, k_21_36, k_22_4] are known: k_21_33, k_21_34, k_21_35, k_21_36 ===> k_22_4
+k_21_33, k_21_34, k_21_35, k_21_36 in implication relation [k_21_33, k_21_34, k_21_35, k_21_36, k_22_5] are known: k_21_33, k_21_34, k_21_35, k_21_36 ===> k_22_5
+k_21_33, k_21_34, k_21_35, k_21_36 in implication relation [k_21_33, k_21_34, k_21_35, k_21_36, k_22_6] are known: k_21_33, k_21_34, k_21_35, k_21_36 ===> k_22_6
+k_21_33, k_21_34, k_21_35, k_21_36 in implication relation [k_21_33, k_21_34, k_21_35, k_21_36, k_22_7] are known: k_21_33, k_21_34, k_21_35, k_21_36 ===> k_22_7
+k_22_29, k_22_30, k_22_31, k_22_32 in implication relation [k_22_29, k_22_30, k_22_31, k_22_32, k_23_0] are known: k_22_29, k_22_30, k_22_31, k_22_32 ===> k_23_0
+k_22_29, k_22_30, k_22_31, k_22_32 in implication relation [k_22_29, k_22_30, k_22_31, k_22_32, k_23_1] are known: k_22_29, k_22_30, k_22_31, k_22_32 ===> k_23_1
+k_22_29, k_22_30, k_22_31, k_22_32 in implication relation [k_22_29, k_22_30, k_22_31, k_22_32, k_23_2] are known: k_22_29, k_22_30, k_22_31, k_22_32 ===> k_23_2
+k_22_29, k_22_30, k_22_31, k_22_32 in implication relation [k_22_29, k_22_30, k_22_31, k_22_32, k_23_3] are known: k_22_29, k_22_30, k_22_31, k_22_32 ===> k_23_3
+############################################################
+The following variables are known in final state:
+k_18_0, k_18_1, k_18_3, k_18_4, k_18_5, k_18_6, k_18_7, k_18_8, k_18_9, k_18_10, k_18_16, k_17_46, k_18_17, k_17_47, k_18_18, k_17_48, k_18_19, k_17_49, k_18_20, k_17_51, k_18_22, k_17_69, k_18_40, k_17_70, k_18_41, k_17_71, k_18_42, k_18_43, k_17_73, k_18_44, k_17_77, k_18_48, k_17_78, k_18_49, k_17_79, k_18_50, k_17_1, k_18_52, k_18_53, k_17_3, k_18_54, k_17_4, k_18_55, k_18_56, k_18_57, k_17_7, k_18_58, k_17_8, k_18_59, k_17_9, k_18_60, k_17_10, k_18_61, k_17_11, k_18_62, k_17_12, k_18_63, k_17_13, k_18_64, k_17_14, k_18_65, k_17_17, k_18_68, k_17_27, k_18_78, k_19_2, k_19_3, k_19_5, k_19_6, k_19_11, k_19_12, k_19_13, k_19_14, k_19_15, k_19_19, k_19_20, k_19_21, k_19_23, k_19_24, k_19_25, k_19_26, k_19_27, k_19_28, k_19_29, k_19_30, k_19_31, k_19_32, k_19_33, k_19_34, k_19_35, k_19_36, k_19_37, k_19_38, k_19_39, k_19_44, k_19_45, k_19_49, k_19_50, k_19_51, k_19_52, k_19_54, k_19_55, k_19_56, k_19_57, k_19_58, k_19_59, k_19_60, k_19_61, k_19_67, k_19_68, k_19_69, k_19_70, k_19_71, k_19_72, k_19_73, k_20_0, k_20_1, k_20_2, k_20_3, k_20_4, k_20_5, k_20_6, k_20_7, k_20_8, k_20_9, k_20_10, k_20_11, k_20_12, k_20_13, k_20_14, k_20_15, k_20_16, k_20_17, k_20_18, k_20_19, k_20_20, k_20_21, k_20_22, k_20_23, k_20_25, k_20_26, k_20_27, k_20_28, k_20_29, k_20_30, k_20_31, k_20_32, k_20_37, k_20_38, k_20_39, k_20_40, k_20_41, k_20_42, k_20_43, k_20_44, k_20_53, k_20_54, k_20_56, k_20_57, k_20_58, k_20_59, k_20_60, k_20_61, k_20_62, k_20_63, k_20_64, k_20_65, k_20_66, k_20_70, k_20_71, k_20_72, k_20_74, k_20_75, k_20_76, k_20_77, k_20_78, k_20_79, k_21_0, k_21_1, k_21_2, k_21_3, k_21_4, k_21_5, k_21_6, k_21_7, k_21_8, k_21_9, k_21_10, k_21_11, k_21_12, k_21_13, k_21_14, k_21_15, k_21_24, k_21_25, k_21_26, k_21_27, k_21_28, k_21_29, k_21_30, k_21_31, k_21_32, k_21_33, k_21_34, k_21_35, k_21_36, k_21_37, k_21_41, k_21_42, k_21_43, k_21_44, k_21_45, k_21_46, k_21_47, k_21_48, k_21_49, k_21_50, k_21_51, k_21_52, k_21_53, k_21_54, k_21_55, k_21_56, k_21_57, k_21_58, k_21_59, k_21_60, k_21_61, k_21_62, k_21_63, k_21_64, k_21_65, k_21_66, k_21_67, k_21_68, k_21_69, k_21_70, k_21_71, k_21_72, k_21_73, k_21_74, k_21_75, k_21_76, k_21_77, k_21_78, k_21_79, k_22_0, k_22_1, k_22_2, k_22_3, k_22_4, k_22_5, k_22_6, k_22_7, k_22_8, k_22_12, k_22_13, k_22_14, k_22_15, k_22_16, k_22_17, k_22_18, k_22_19, k_22_20, k_22_21, k_22_22, k_22_23, k_22_24, k_22_25, k_22_26, k_22_27, k_22_28, k_22_29, k_22_30, k_22_31, k_22_32, k_22_33, k_22_34, k_22_35, k_22_36, k_22_37, k_22_38, k_22_39, k_22_40, k_22_41, k_22_42, k_22_43, k_22_44, k_22_45, k_22_46, k_22_47, k_22_48, k_22_49, k_22_50, k_22_51, k_22_52, k_22_53, k_22_54, k_22_55, k_22_56, k_22_57, k_22_58, k_22_59, k_22_60, k_22_61, k_22_63, k_22_65, k_22_66, k_22_75, k_22_76, k_22_77, k_22_78, k_22_79, k_23_0, k_23_1, k_23_2, k_23_3, k_23_4, k_23_5, k_23_6, k_23_7, k_23_8, k_23_9, k_23_10, k_23_11, k_23_12, k_23_13, k_23_14, k_23_15, k_23_16, k_23_17, k_23_18, k_23_19, k_23_20, k_23_21, k_23_22, k_23_23, k_23_24, k_23_25, k_23_26, k_23_27, k_23_28, k_23_29, k_23_30, k_23_31, k_23_36, k_23_37, k_23_47, k_23_48, k_23_49, k_23_50, k_23_51, k_23_52, k_23_53, k_23_54, k_23_59, k_23_65, k_23_66, k_23_68, k_23_70, k_23_71, k_23_72, k_23_77, k_23_78, k_23_79, k_24_18, k_24_19, k_24_22, k_24_23, k_24_24, k_24_25, k_24_37, k_24_39, k_24_42, k_24_43, k_24_55, k_24_56, k_24_57, k_24_58, k_24_59, k_24_60, k_24_61, k_24_62, k_24_63, k_24_65, k_24_67, k_24_68, k_24_71, k_24_73, k_24_74, k_24_75, k_24_76, k_24_77, k_24_78, k_24_79

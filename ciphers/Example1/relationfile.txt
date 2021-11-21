@@ -1,0 +1,9 @@
+# Taken from https://doi.org/10.1007/978-3-642-00862-7_11: Speeding up Collision Search for Byte-Oriented Hash Functions
+connection relations
+x, s, v
+x, u, s, y, z
+v, u, s
+z, s, v, t
+u, t, x
+end
+

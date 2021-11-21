@@ -1,0 +1,62 @@
+user@user-System-Product-Name:~/Programs/Autoguess$ lscpu 
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              16
+On-line CPU(s) list: 0-15
+Thread(s) per core:  2
+Core(s) per socket:  8
+Socket(s):           1
+NUMA node(s):        1
+Vendor ID:           GenuineIntel
+CPU family:          6
+Model:               158
+Model name:          Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz
+Stepping:            13
+CPU MHz:             4888.611
+CPU max MHz:         5000.0000
+CPU min MHz:         800.0000
+BogoMIPS:            7200.00
+Virtualization:      VT-x
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            256K
+L3 cache:            16384K
+NUMA node0 CPU(s):   0-15
+Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d arch_capabilities
+
+
+user@user-System-Product-Name:~/Programs/Autoguess$ python3.8 autoguess.py --inputfile ciphers/PRESENT/PRESENT-80/relationfile_present_kb_26r_mg60_ms25.txt --solver groebner
+Preprocessing phase was started - 2021-03-31 11:36:58.265053
+Macaulay matrix was generated in full matrixspace of 1976 by 2152 sparse matrices over finite field of size 2
+Gaussian elimination was started - 2021-03-31 11:37:56.754209
+Gaussian elimination was finished after 0.02 seconds
+Writing the results into the temp/macaulay_basis.txt - 2021-03-31 11:37:56.772248
+Result were written into temp/macaulay_basis.txt after 0.62 seconds
+Preprocessing phase was finished after 59.1259 seconds
+Generating the Boolean Polynomial Ring in 2160 variabels
+Geneartion of the Boolean polynomial ring was finished after 0.01 seconds
+CNF to ANF conversion using the block-wise method was started - 2021-03-31 11:37:58.844276
+Results were written into the temp/anf_3e2830652648f47f82b41f07a12b00.anf
+Algebraic representation in ANF form was generated after 1277.10 seconds
+Computing the Groebner basis was started - 2021-03-31 11:59:15.959320
+Computing the Groebner basis was finished after 5.96 seconds
+Number of guesses: 60
+The following 60 variable(s) are guessed:
+k_26_77, k_26_75, k_26_69, k_26_67, k_26_63, k_26_62, k_26_61, k_26_60, k_26_59, k_26_58, k_26_57, k_26_56, k_26_55, k_26_54, k_26_53, k_26_52, k_26_51, k_26_50, k_26_49, k_26_48, k_26_47, k_26_46, k_26_45, k_26_44, k_26_43, k_26_42, k_26_41, k_26_40, k_26_39, k_26_38, k_26_37, k_26_36, k_26_35, k_26_34, k_26_33, k_26_32, k_26_31, k_26_30, k_26_29, k_26_28, k_26_27, k_26_26, k_26_24, k_26_22, k_26_21, k_26_20, k_26_19, k_26_18, k_26_17, k_26_16, k_26_15, k_26_14, k_26_12, k_26_10, k_26_8, k_26_6, k_26_4, k_6_42, k_26_2, k_26_0
+
+
+Number of relations: 4160
+Number of variables: 2160
+Number of target variables: 96
+Number of known variables: 0
+Number of guessed variables: 60
+############################################################
+The following 60 variable(s) are guessed:
+k_26_77, k_26_75, k_26_69, k_26_67, k_26_63, k_26_62, k_26_61, k_26_60, k_26_59, k_26_58, k_26_57, k_26_56, k_26_55, k_26_54, k_26_53, k_26_52, k_26_51, k_26_50, k_26_49, k_26_48, k_26_47, k_26_46, k_26_45, k_26_44, k_26_43, k_26_42, k_26_41, k_26_40, k_26_39, k_26_38, k_26_37, k_26_36, k_26_35, k_26_34, k_26_33, k_26_32, k_26_31, k_26_30, k_26_29, k_26_28, k_26_27, k_26_26, k_26_24, k_26_22, k_26_21, k_26_20, k_26_19, k_26_18, k_26_17, k_26_16, k_26_15, k_26_14, k_26_12, k_26_10, k_26_8, k_26_6, k_26_4, k_6_42, k_26_2, k_26_0
+############################################################
+The following 0 variable(s) are initially known:
+
+############################################################
+Target variables:
+k_0_16, k_0_17, k_0_18, k_0_19, k_0_20, k_0_21, k_0_22, k_0_23, k_0_24, k_0_25, k_0_26, k_0_27, k_0_28, k_0_29, k_0_30, k_0_31, k_0_32, k_0_33, k_0_34, k_0_35, k_0_36, k_0_37, k_0_38, k_0_39, k_0_40, k_0_41, k_0_42, k_0_43, k_0_44, k_0_45, k_0_46, k_0_47, k_1_20, k_1_21, k_1_22, k_1_23, k_1_24, k_1_25, k_1_26, k_1_27, k_1_36, k_1_37, k_1_38, k_1_39, k_1_40, k_1_41, k_1_42, k_1_43, k_25_0, k_25_2, k_25_8, k_25_10, k_25_16, k_25_18, k_25_24, k_25_26, k_25_32, k_25_34, k_25_40, k_25_42, k_25_48, k_25_50, k_25_56, k_25_58, k_26_0, k_26_2, k_26_4, k_26_6, k_26_8, k_26_10, k_26_12, k_26_14, k_26_16, k_26_18, k_26_20, k_26_22, k_26_24, k_26_26, k_26_28, k_26_30, k_26_32, k_26_34, k_26_36, k_26_38, k_26_40, k_26_42, k_26_44, k_26_46, k_26_48, k_26_50, k_26_52, k_26_54, k_26_56, k_26_58, k_26_60, k_26_62

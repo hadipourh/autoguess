@@ -1,0 +1,8 @@
+# Untracked folders:
+/temp
+/tikz
+
+# Ignore Python interpreted files (byte codes)
+**/*.pyc
+# Ignore the plain text files
+**/*.text

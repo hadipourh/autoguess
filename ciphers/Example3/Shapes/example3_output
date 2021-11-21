@@ -1,0 +1,45 @@
+Number of relations: 7
+Number of variables: 8
+Number of target variables: 8
+Number of known variables: 0
+Number of guessed variables: 3
+Number of state copies (max_steps): 5
+An upper bound for the number of guessed variables given by user (max_guess): 5
+8 out of 8 state variables are known after 5 state copies
+############################################################
+The following 3 variable(s) are guessed:
+x1, x5, t
+############################################################
+The following 0 variable(s) are initially known:
+
+############################################################
+Target variables:
+x0, x1, x2, x5, x3, x4, t, x6
+############################################################
+Determination flow:
+
+State 0:
+x1, x5 in symmetric relation [x1, x2, x5] are known: x1, x5 ===> x2
+############################################################
+State 1:
+x1, x2 in symmetric relation [x0, x1, x2] are known: x1, x2 ===> x0
+x2, x5 in symmetric relation [x0, x2, x5] are known: x2, x5 ===> x0
+x2 in symmetric relation [x2, x3] are known: x2 ===> x3
+############################################################
+State 2:
+t, x0 in symmetric relation [t, x0, x6] are known: t, x0 ===> x6
+############################################################
+State 3:
+x6, x3 in symmetric relation [x4, x6, x3] are known: x6, x3 ===> x4
+############################################################
+The following variables are known in final state:
+x0, x1, x2, x5, x3, x4, t, x6
+############################################################
+The following relations have not been used in determination (they might be used to check the correctness of guesses):
+x3, x1, x4 => t
+############################################################
+The following variables can be deduced from multiple paths:
+
+x0 can be deduced from:
+x0, x1, x2
+x0, x2, x5

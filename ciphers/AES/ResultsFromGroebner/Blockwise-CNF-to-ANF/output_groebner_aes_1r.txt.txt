@@ -1,0 +1,41 @@
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              16
+On-line CPU(s) list: 0-15
+Thread(s) per core:  2
+Core(s) per socket:  8
+Socket(s):           1
+NUMA node(s):        1
+Vendor ID:           GenuineIntel
+CPU family:          6
+Model:               158
+Model name:          Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz
+Stepping:            13
+CPU MHz:             4880.397
+CPU max MHz:         5000.0000
+CPU min MHz:         800.0000
+BogoMIPS:            7200.00
+Virtualization:      VT-x
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            256K
+L3 cache:            16384K
+NUMA node0 CPU(s):   0-15
+
+
+user@user-System-Product-Name:~/Desktop/Autoguess$ python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_2r_mg10_ms20.txt --solver groebner --outputfile output_aes_2r_groebner.txt
+Generating the Boolean Polynomial Ring in 144 variabels
+Geneartion of the Boolean polynomial ring was finished after 0.01 seconds
+CNF to ANF conversion using the simple method was started - 2021-04-04 12:19:11.853340
+Results were written into the temp/anf_942ada368c6f32b6d16ec5724ffca1.anf
+Algebraic representation in ANF form was generated after 0.04 seconds
+Computing the Groebner basis was started - 2021-04-04 12:19:11.896543
+/home/user/Programs/sage-9.0/SageMath/local/lib/python3.7/site-packages/brial/gbrefs.py:9: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+  import imp
+
+Computing the Groebner basis was finished after 18210.77 seconds
+Number of guesses: 10
+The following 10 variable(s) are guessed:
+K_2_3_3, K_2_3_2, K_2_3_0, K_2_2_3, K_2_2_2, K_2_2_1, K_2_1_3, K_2_1_2, K_2_0_3, K_2_0_2
+

@@ -1,0 +1,64 @@
+#%s %d Rounds
+connection relations
+R1_1, R2_0, R3_0, AL_0
+R2_1, R1_0
+R3_1, R2_0
+z_0, R1_0, BH_0, R2_0
+AL_1, AH_0
+AH_1, BL_0, A_0
+AH_0, AL_0 => A_0
+A_0 => AL_0
+A_0 => AH_0
+BL_1, BH_0
+BH_1, AL_0, B_0
+BH_0, BL_0 => B_0
+B_0 => BL_0
+B_0 => BH_0
+R1_2, R2_1, R3_1, AL_1
+R2_2, R1_1
+R3_2, R2_1
+z_1, R1_1, BH_1, R2_1
+AL_2, AH_1
+AH_2, BL_1, A_1
+AH_1, AL_1 => A_1
+A_1 => AL_1
+A_1 => AH_1
+BL_2, BH_1
+BH_2, AL_1, B_1
+BH_1, BL_1 => B_1
+B_1 => BL_1
+B_1 => BH_1
+R1_3, R2_2, R3_2, AL_2
+R2_3, R1_2
+R3_3, R2_2
+z_2, R1_2, BH_2, R2_2
+AL_3, AH_2
+AH_3, BL_2, A_2
+AH_2, AL_2 => A_2
+A_2 => AL_2
+A_2 => AH_2
+BL_3, BH_2
+BH_3, AL_2, B_2
+BH_2, BL_2 => B_2
+B_2 => BL_2
+B_2 => BH_2
+R1_4, R2_3, R3_3, AL_3
+R2_4, R1_3
+R3_4, R2_3
+z_3, R1_3, BH_3, R2_3
+AL_4, AH_3
+AH_4, BL_3, A_3
+AH_3, AL_3 => A_3
+A_3 => AL_3
+A_3 => AH_3
+BL_4, BH_3
+BH_4, AL_3, B_3
+BH_3, BL_3 => B_3
+B_3 => BL_3
+B_3 => BH_3
+known
+z_0
+z_1
+z_2
+z_3
+end

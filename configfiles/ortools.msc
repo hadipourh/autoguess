@@ -1,0 +1,17 @@
+{
+ "id": "org.ortools.ortools",
+ "name": "OR Tools",
+ "description": "Or Tools FlatZinc executable",
+ "version": "7.0/stable",
+ "mznlib": "/home/tools/or-tools/lib",
+ "executable": "/home/tools/or-tools/bin/fzn-or-tools",
+ "tags": ["cp","int", "lcg", "or-tools"],
+ "stdFlags": ["-a", "-n", "-p", "-f", "-r", "-v", "-l", "-s"],
+ "supportsMzn": false,
+ "supportsFzn": true,
+ "needsSolns2Out": true,
+ "needsMznExecutable": false,
+ "needsStdlibDir": false,
+ "isGUIApplication": false
+}
+

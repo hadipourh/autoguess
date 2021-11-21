@@ -1,0 +1,9 @@
+algebraic relations
+X1*X3 + X2*X4 + X1 + X3 + X4
+X2*X3 + X1*X4 + X3*X4 + X1 + X2 + X4
+X2*X4 + X3*X4 + X1 + X3 + 1
+X1*X2 + X1*X3 + X2*X3 + X3 + X4 + 1
+X1*X2 + X2*X3 + X1*X4 + X3
+X1*X3 + X1*X4 + X3*X4 + X1 + X2 + X3 + X4
+X1*X2 + X2*X4 + X1 + 1
+end

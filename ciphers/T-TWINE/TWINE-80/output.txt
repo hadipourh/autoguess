@@ -1,0 +1,75 @@
+Number of relations: 500
+Number of variables: 520
+Number of target variables: 22
+Number of known variables: 0
+Number of guessed variables: 19
+Number of state copies (max_steps): 2
+An upper bound for the number of guessed variables given by user (max_guess): 19
+68 out of 520 state variables are known after 2 state copies
+############################################################
+The following 19 variable(s) are guessed:
+k_0_1, k_1_2, k_0_8, k_0_13, k_1_10, k_1_11, k_1_12, k_1_13, k_0_19, k_2_19, k_2_10, k_2_14, k_22_16, k_22_9, k_23_14, k_25_8, k_25_9, k_25_10, k_25_12
+############################################################
+The following 0 variable(s) are initially known:
+
+############################################################
+Target variables:
+k_0_1, k_0_3, k_0_4, k_0_6, k_0_13, k_0_14, k_0_15, k_0_16, k_1_4, k_1_13, k_1_14, k_1_15, k_2_6, k_2_14, k_3_3, k_22_16, k_23_14, k_23_16, k_24_1, k_24_13, k_24_14, k_24_16
+############################################################
+Determination flow:
+
+State 0:
+k_1_2 in symmetric relation [k_1_2, k_0_6] are known: k_1_2 ===> k_0_6
+k_0_8 in symmetric relation [k_1_4, k_0_8] are known: k_0_8 ===> k_1_4
+k_0_13 in symmetric relation [k_1_9, k_0_13] are known: k_0_13 ===> k_1_9
+k_1_10 in symmetric relation [k_1_10, k_0_14] are known: k_1_10 ===> k_0_14
+k_1_11 in symmetric relation [k_1_11, k_0_15] are known: k_1_11 ===> k_0_15
+k_1_12 in symmetric relation [k_1_12, k_0_16] are known: k_1_12 ===> k_0_16
+k_1_13 in symmetric relation [k_1_13, k_0_17] are known: k_1_13 ===> k_0_17
+k_0_19 in symmetric relation [k_1_15, k_0_19] are known: k_0_19 ===> k_1_15
+k_2_19 in symmetric relation [k_2_19, k_1_0] are known: k_2_19 ===> k_1_0
+k_1_2 in symmetric relation [k_2_17, k_1_2] are known: k_1_2 ===> k_2_17
+k_1_10 in symmetric relation [k_2_6, k_1_10] are known: k_1_10 ===> k_2_6
+k_1_11 in symmetric relation [k_2_7, k_1_11] are known: k_1_11 ===> k_2_7
+k_1_12 in symmetric relation [k_2_8, k_1_12] are known: k_1_12 ===> k_2_8
+k_1_13 in symmetric relation [k_2_9, k_1_13] are known: k_1_13 ===> k_2_9
+k_2_10 in symmetric relation [k_2_10, k_1_14] are known: k_2_10 ===> k_1_14
+k_2_14 in symmetric relation [k_2_14, k_1_18] are known: k_2_14 ===> k_1_18
+k_2_10 in symmetric relation [k_3_6, k_2_10] are known: k_2_10 ===> k_3_6
+k_2_14 in symmetric relation [k_3_10, k_2_14] are known: k_2_14 ===> k_3_10
+k_2_19 in symmetric relation [k_3_15, k_2_19] are known: k_2_19 ===> k_3_15
+k_22_9 in symmetric relation [k_22_9, k_21_13] are known: k_22_9 ===> k_21_13
+k_22_9 in symmetric relation [k_23_5, k_22_9] are known: k_22_9 ===> k_23_5
+k_22_16 in symmetric relation [k_23_12, k_22_16] are known: k_22_16 ===> k_23_12
+k_23_14 in symmetric relation [k_23_14, k_22_18] are known: k_23_14 ===> k_22_18
+k_23_14 in symmetric relation [k_24_10, k_23_14] are known: k_23_14 ===> k_24_10
+k_25_8 in symmetric relation [k_25_8, k_24_12] are known: k_25_8 ===> k_24_12
+k_25_9 in symmetric relation [k_25_9, k_24_13] are known: k_25_9 ===> k_24_13
+k_25_10 in symmetric relation [k_25_10, k_24_14] are known: k_25_10 ===> k_24_14
+k_25_12 in symmetric relation [k_25_12, k_24_16] are known: k_25_12 ===> k_24_16
+############################################################
+State 1:
+k_1_0, k_0_16 in symmetric relation [k_1_0, k_0_4, k_0_16] are known: k_1_0, k_0_16 ===> k_0_4
+k_1_18 in symmetric relation [k_1_18, k_0_3] are known: k_1_18 ===> k_0_3
+k_1_14 in symmetric relation [k_1_14, k_0_18] are known: k_1_14 ===> k_0_18
+k_1_9 in symmetric relation [k_2_5, k_1_9] are known: k_1_9 ===> k_2_5
+k_1_15 in symmetric relation [k_2_11, k_1_15] are known: k_1_15 ===> k_2_11
+k_2_6 in symmetric relation [k_3_2, k_2_6] are known: k_2_6 ===> k_3_2
+k_2_7 in symmetric relation [k_3_3, k_2_7] are known: k_2_7 ===> k_3_3
+k_2_8 in symmetric relation [k_3_4, k_2_8] are known: k_2_8 ===> k_3_4
+k_2_9 in symmetric relation [k_3_5, k_2_9] are known: k_2_9 ===> k_3_5
+k_2_17 in symmetric relation [k_3_13, k_2_17] are known: k_2_17 ===> k_3_13
+k_3_6 in symmetric relation [k_4_2, k_3_6] are known: k_3_6 ===> k_4_2
+k_3_10 in symmetric relation [k_4_6, k_3_10] are known: k_3_10 ===> k_4_6
+k_3_15 in symmetric relation [k_4_11, k_3_15] are known: k_3_15 ===> k_4_11
+k_21_13 in symmetric relation [k_21_13, k_20_17] are known: k_21_13 ===> k_20_17
+k_22_18 in symmetric relation [k_22_18, k_21_3] are known: k_22_18 ===> k_21_3
+k_23_5 in symmetric relation [k_24_1, k_23_5] are known: k_23_5 ===> k_24_1
+k_23_12 in symmetric relation [k_24_8, k_23_12] are known: k_23_12 ===> k_24_8
+k_24_12 in symmetric relation [k_24_12, k_23_16] are known: k_24_12 ===> k_23_16
+k_24_13 in symmetric relation [k_24_13, k_23_17] are known: k_24_13 ===> k_23_17
+k_24_14 in symmetric relation [k_24_14, k_23_18] are known: k_24_14 ===> k_23_18
+k_24_10 in symmetric relation [k_25_6, k_24_10] are known: k_24_10 ===> k_25_6
+############################################################
+The following variables are known in final state:
+k_0_1, k_1_0, k_0_4, k_0_16, k_1_18, k_0_3, k_1_2, k_0_6, k_1_4, k_0_8, k_1_9, k_0_13, k_1_10, k_0_14, k_1_11, k_0_15, k_1_12, k_1_13, k_0_17, k_1_14, k_0_18, k_1_15, k_0_19, k_2_19, k_2_17, k_2_5, k_2_6, k_2_7, k_2_8, k_2_9, k_2_10, k_2_11, k_2_14, k_3_2, k_3_3, k_3_4, k_3_5, k_3_6, k_3_10, k_3_13, k_3_15, k_4_2, k_4_6, k_4_11, k_20_17, k_21_3, k_21_13, k_22_16, k_22_18, k_22_9, k_23_16, k_23_17, k_23_18, k_23_5, k_23_12, k_23_14, k_24_16, k_24_1, k_24_8, k_24_10, k_24_12, k_24_13, k_24_14, k_25_6, k_25_8, k_25_9, k_25_10, k_25_12

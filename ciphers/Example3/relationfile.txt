@@ -1,0 +1,20 @@
+# Example to describe the early abortion technique
+# (x0 <<< 3) + S(x1) + x2 = 0
+# S(x0) + S(x2) + (x5 <<< 2) = 0
+# L(x1 + x2) + x5 = 0
+# x2 + L(x3) = 0
+# S(x3 * S(x1 * x4)) + L(x0) + x6 = 0
+# (S(x4) xor L(x6)) + x3 = 0
+connection relations
+x0, x1, x2
+x0, x2, x5
+x1, x2, x5
+x2, x3
+x3, x1, x4 => t
+t, x0, x6
+x4, x6, x3
+#known
+#x0
+#x4
+#x5
+end

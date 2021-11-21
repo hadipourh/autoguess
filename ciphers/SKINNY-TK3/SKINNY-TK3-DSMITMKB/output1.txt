@@ -1,0 +1,76 @@
+Number of relations: 80
+Number of variables: 128
+Number of target variables: 53
+Number of known variables: 0
+Number of guessed variables: 45
+Number of state copies (max_steps): 12
+An upper bound for the number of guessed variables given by user (max_guess): 45
+95 out of 128 state variables are known after 12 state copies
+############################################################
+The following 45 variable(s) are guessed:
+tk1_0, tk2_0, sk_0_1, sk_0_2, tk2_3, tk3_3, tk1_4, tk2_4, sk_0_5, tk1_6, tk2_6, tk1_15, tk2_15, tk2_8, tk3_8, tk1_13, tk3_13, tk1_10, tk2_10, tk1_14, tk2_14, tk1_11, tk2_11, sk_1_7, sk_15_0, sk_16_4, sk_16_6, sk_18_0, sk_18_1, sk_18_3, sk_18_4, sk_18_7, sk_19_0, sk_19_2, sk_19_3, sk_19_5, sk_19_6, sk_19_7, sk_20_0, sk_20_2, sk_20_4, sk_20_6, sk_20_7, sk_21_3, sk_21_4
+############################################################
+The following 0 variable(s) are initially known:
+
+############################################################
+Target variables:
+sk_0_0, sk_0_1, sk_0_2, sk_0_3, sk_0_4, sk_0_5, sk_0_6, sk_1_1, sk_1_3, sk_1_7, sk_14_1, sk_15_0, sk_15_5, sk_16_3, sk_16_4, sk_16_6, sk_17_1, sk_17_2, sk_17_4, sk_17_5, sk_17_7, sk_18_0, sk_18_1, sk_18_2, sk_18_3, sk_18_4, sk_18_5, sk_18_6, sk_18_7, sk_19_0, sk_19_1, sk_19_2, sk_19_3, sk_19_4, sk_19_5, sk_19_6, sk_19_7, sk_20_0, sk_20_1, sk_20_2, sk_20_3, sk_20_4, sk_20_5, sk_20_6, sk_20_7, sk_21_0, sk_21_1, sk_21_2, sk_21_3, sk_21_4, sk_21_5, sk_21_6, sk_21_7
+############################################################
+Determination flow:
+
+State 0:
+tk1_11, tk2_11, sk_1_7 in symmetric relation [tk1_11, tk2_11, tk3_11, sk_1_7] are known: tk1_11, tk2_11, sk_1_7 ===> tk3_11
+tk2_8, tk3_8, sk_15_0 in symmetric relation [tk1_8, tk2_8, tk3_8, sk_15_0] are known: tk2_8, tk3_8, sk_15_0 ===> tk1_8
+tk1_4, tk2_4, sk_16_4 in symmetric relation [tk1_4, tk2_4, tk3_4, sk_16_4] are known: tk1_4, tk2_4, sk_16_4 ===> tk3_4
+tk1_6, tk2_6, sk_16_6 in symmetric relation [tk1_6, tk2_6, tk3_6, sk_16_6] are known: tk1_6, tk2_6, sk_16_6 ===> tk3_6
+tk2_3, tk3_3, sk_18_7 in symmetric relation [tk1_3, tk2_3, tk3_3, sk_18_7] are known: tk2_3, tk3_3, sk_18_7 ===> tk1_3
+tk1_15, tk2_15, sk_19_0 in symmetric relation [tk1_15, tk2_15, tk3_15, sk_19_0] are known: tk1_15, tk2_15, sk_19_0 ===> tk3_15
+tk1_14, tk2_14, sk_19_3 in symmetric relation [tk1_14, tk2_14, tk3_14, sk_19_3] are known: tk1_14, tk2_14, sk_19_3 ===> tk3_14
+tk1_10, tk2_10, sk_19_6 in symmetric relation [tk1_10, tk2_10, tk3_10, sk_19_6] are known: tk1_10, tk2_10, sk_19_6 ===> tk3_10
+tk1_13, tk3_13, sk_19_7 in symmetric relation [tk1_13, tk2_13, tk3_13, sk_19_7] are known: tk1_13, tk3_13, sk_19_7 ===> tk2_13
+tk1_0, tk2_0, sk_20_4 in symmetric relation [tk1_0, tk2_0, tk3_0, sk_20_4] are known: tk1_0, tk2_0, sk_20_4 ===> tk3_0
+############################################################
+State 1:
+tk1_0, tk2_0, tk3_0 in symmetric relation [tk1_0, tk2_0, tk3_0, sk_0_0] are known: tk1_0, tk2_0, tk3_0 ===> sk_0_0
+tk1_3, tk2_3, tk3_3 in symmetric relation [tk1_3, tk2_3, tk3_3, sk_0_3] are known: tk1_3, tk2_3, tk3_3 ===> sk_0_3
+tk1_4, tk2_4, tk3_4 in symmetric relation [tk1_4, tk2_4, tk3_4, sk_0_4] are known: tk1_4, tk2_4, tk3_4 ===> sk_0_4
+tk1_6, tk2_6, tk3_6 in symmetric relation [tk1_6, tk2_6, tk3_6, sk_0_6] are known: tk1_6, tk2_6, tk3_6 ===> sk_0_6
+tk1_15, tk2_15, tk3_15 in symmetric relation [tk1_15, tk2_15, tk3_15, sk_1_1] are known: tk1_15, tk2_15, tk3_15 ===> sk_1_1
+tk1_8, tk2_8, tk3_8 in symmetric relation [tk1_8, tk2_8, tk3_8, sk_1_2] are known: tk1_8, tk2_8, tk3_8 ===> sk_1_2
+tk1_13, tk2_13, tk3_13 in symmetric relation [tk1_13, tk2_13, tk3_13, sk_1_3] are known: tk1_13, tk2_13, tk3_13 ===> sk_1_3
+tk1_10, tk2_10, tk3_10 in symmetric relation [tk1_10, tk2_10, tk3_10, sk_1_4] are known: tk1_10, tk2_10, tk3_10 ===> sk_1_4
+tk1_14, tk2_14, tk3_14 in symmetric relation [tk1_14, tk2_14, tk3_14, sk_1_5] are known: tk1_14, tk2_14, tk3_14 ===> sk_1_5
+tk1_0, tk2_0, tk3_0 in symmetric relation [tk1_0, tk2_0, tk3_0, sk_14_1] are known: tk1_0, tk2_0, tk3_0 ===> sk_14_1
+tk1_4, tk2_4, tk3_4 in symmetric relation [tk1_4, tk2_4, tk3_4, sk_14_2] are known: tk1_4, tk2_4, tk3_4 ===> sk_14_2
+tk1_6, tk2_6, tk3_6 in symmetric relation [tk1_6, tk2_6, tk3_6, sk_14_4] are known: tk1_6, tk2_6, tk3_6 ===> sk_14_4
+tk1_3, tk2_3, tk3_3 in symmetric relation [tk1_3, tk2_3, tk3_3, sk_14_5] are known: tk1_3, tk2_3, tk3_3 ===> sk_14_5
+tk1_10, tk2_10, tk3_10 in symmetric relation [tk1_10, tk2_10, tk3_10, sk_15_2] are known: tk1_10, tk2_10, tk3_10 ===> sk_15_2
+tk1_11, tk2_11, tk3_11 in symmetric relation [tk1_11, tk2_11, tk3_11, sk_15_3] are known: tk1_11, tk2_11, tk3_11 ===> sk_15_3
+tk1_13, tk2_13, tk3_13 in symmetric relation [tk1_13, tk2_13, tk3_13, sk_15_5] are known: tk1_13, tk2_13, tk3_13 ===> sk_15_5
+tk1_14, tk2_14, tk3_14 in symmetric relation [tk1_14, tk2_14, tk3_14, sk_15_6] are known: tk1_14, tk2_14, tk3_14 ===> sk_15_6
+tk1_15, tk2_15, tk3_15 in symmetric relation [tk1_15, tk2_15, tk3_15, sk_15_7] are known: tk1_15, tk2_15, tk3_15 ===> sk_15_7
+tk1_0, tk2_0, tk3_0 in symmetric relation [tk1_0, tk2_0, tk3_0, sk_16_0] are known: tk1_0, tk2_0, tk3_0 ===> sk_16_0
+tk1_3, tk2_3, tk3_3 in symmetric relation [tk1_3, tk2_3, tk3_3, sk_16_3] are known: tk1_3, tk2_3, tk3_3 ===> sk_16_3
+tk1_15, tk2_15, tk3_15 in symmetric relation [tk1_15, tk2_15, tk3_15, sk_17_1] are known: tk1_15, tk2_15, tk3_15 ===> sk_17_1
+tk1_8, tk2_8, tk3_8 in symmetric relation [tk1_8, tk2_8, tk3_8, sk_17_2] are known: tk1_8, tk2_8, tk3_8 ===> sk_17_2
+tk1_13, tk2_13, tk3_13 in symmetric relation [tk1_13, tk2_13, tk3_13, sk_17_3] are known: tk1_13, tk2_13, tk3_13 ===> sk_17_3
+tk1_10, tk2_10, tk3_10 in symmetric relation [tk1_10, tk2_10, tk3_10, sk_17_4] are known: tk1_10, tk2_10, tk3_10 ===> sk_17_4
+tk1_14, tk2_14, tk3_14 in symmetric relation [tk1_14, tk2_14, tk3_14, sk_17_5] are known: tk1_14, tk2_14, tk3_14 ===> sk_17_5
+tk1_11, tk2_11, tk3_11 in symmetric relation [tk1_11, tk2_11, tk3_11, sk_17_7] are known: tk1_11, tk2_11, tk3_11 ===> sk_17_7
+tk1_0, tk2_0, tk3_0 in symmetric relation [tk1_0, tk2_0, tk3_0, sk_18_2] are known: tk1_0, tk2_0, tk3_0 ===> sk_18_2
+tk1_6, tk2_6, tk3_6 in symmetric relation [tk1_6, tk2_6, tk3_6, sk_18_5] are known: tk1_6, tk2_6, tk3_6 ===> sk_18_5
+tk1_4, tk2_4, tk3_4 in symmetric relation [tk1_4, tk2_4, tk3_4, sk_18_6] are known: tk1_4, tk2_4, tk3_4 ===> sk_18_6
+tk1_11, tk2_11, tk3_11 in symmetric relation [tk1_11, tk2_11, tk3_11, sk_19_1] are known: tk1_11, tk2_11, tk3_11 ===> sk_19_1
+tk1_8, tk2_8, tk3_8 in symmetric relation [tk1_8, tk2_8, tk3_8, sk_19_4] are known: tk1_8, tk2_8, tk3_8 ===> sk_19_4
+tk1_3, tk2_3, tk3_3 in symmetric relation [tk1_3, tk2_3, tk3_3, sk_20_1] are known: tk1_3, tk2_3, tk3_3 ===> sk_20_1
+tk1_6, tk2_6, tk3_6 in symmetric relation [tk1_6, tk2_6, tk3_6, sk_20_3] are known: tk1_6, tk2_6, tk3_6 ===> sk_20_3
+tk1_4, tk2_4, tk3_4 in symmetric relation [tk1_4, tk2_4, tk3_4, sk_20_5] are known: tk1_4, tk2_4, tk3_4 ===> sk_20_5
+tk1_11, tk2_11, tk3_11 in symmetric relation [tk1_11, tk2_11, tk3_11, sk_21_0] are known: tk1_11, tk2_11, tk3_11 ===> sk_21_0
+tk1_13, tk2_13, tk3_13 in symmetric relation [tk1_13, tk2_13, tk3_13, sk_21_1] are known: tk1_13, tk2_13, tk3_13 ===> sk_21_1
+tk1_15, tk2_15, tk3_15 in symmetric relation [tk1_15, tk2_15, tk3_15, sk_21_2] are known: tk1_15, tk2_15, tk3_15 ===> sk_21_2
+tk1_10, tk2_10, tk3_10 in symmetric relation [tk1_10, tk2_10, tk3_10, sk_21_5] are known: tk1_10, tk2_10, tk3_10 ===> sk_21_5
+tk1_8, tk2_8, tk3_8 in symmetric relation [tk1_8, tk2_8, tk3_8, sk_21_6] are known: tk1_8, tk2_8, tk3_8 ===> sk_21_6
+tk1_14, tk2_14, tk3_14 in symmetric relation [tk1_14, tk2_14, tk3_14, sk_21_7] are known: tk1_14, tk2_14, tk3_14 ===> sk_21_7
+############################################################
+The following variables are known in final state:
+tk1_0, tk2_0, tk3_0, sk_0_0, sk_0_1, sk_0_2, tk1_3, tk2_3, tk3_3, sk_0_3, tk1_4, tk2_4, tk3_4, sk_0_4, sk_0_5, tk1_6, tk2_6, tk3_6, sk_0_6, tk1_15, tk2_15, tk3_15, sk_1_1, tk1_8, tk2_8, tk3_8, sk_1_2, tk1_13, tk2_13, tk3_13, sk_1_3, tk1_10, tk2_10, tk3_10, sk_1_4, tk1_14, tk2_14, tk3_14, sk_1_5, tk1_11, tk2_11, tk3_11, sk_1_7, sk_14_1, sk_14_2, sk_14_4, sk_14_5, sk_15_0, sk_15_2, sk_15_3, sk_15_5, sk_15_6, sk_15_7, sk_16_0, sk_16_3, sk_16_4, sk_16_6, sk_17_1, sk_17_2, sk_17_3, sk_17_4, sk_17_5, sk_17_7, sk_18_0, sk_18_1, sk_18_2, sk_18_3, sk_18_4, sk_18_5, sk_18_6, sk_18_7, sk_19_0, sk_19_1, sk_19_2, sk_19_3, sk_19_4, sk_19_5, sk_19_6, sk_19_7, sk_20_0, sk_20_1, sk_20_2, sk_20_3, sk_20_4, sk_20_5, sk_20_6, sk_20_7, sk_21_0, sk_21_1, sk_21_2, sk_21_3, sk_21_4, sk_21_5, sk_21_6, sk_21_7

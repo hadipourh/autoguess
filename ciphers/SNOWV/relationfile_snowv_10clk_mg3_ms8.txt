@@ -1,0 +1,154 @@
+#%s %d Rounds
+connection relations
+R1_1, R2_0, R3_0, AL_0
+R2_1, R1_0
+R3_1, R2_0
+z_0, R1_0, BH_0, R2_0
+AL_1, AH_0
+AH_1, BL_0, A_0
+AH_0, AL_0 => A_0
+A_0 => AL_0
+A_0 => AH_0
+BL_1, BH_0
+BH_1, AL_0, B_0
+BH_0, BL_0 => B_0
+B_0 => BL_0
+B_0 => BH_0
+R1_2, R2_1, R3_1, AL_1
+R2_2, R1_1
+R3_2, R2_1
+z_1, R1_1, BH_1, R2_1
+AL_2, AH_1
+AH_2, BL_1, A_1
+AH_1, AL_1 => A_1
+A_1 => AL_1
+A_1 => AH_1
+BL_2, BH_1
+BH_2, AL_1, B_1
+BH_1, BL_1 => B_1
+B_1 => BL_1
+B_1 => BH_1
+R1_3, R2_2, R3_2, AL_2
+R2_3, R1_2
+R3_3, R2_2
+z_2, R1_2, BH_2, R2_2
+AL_3, AH_2
+AH_3, BL_2, A_2
+AH_2, AL_2 => A_2
+A_2 => AL_2
+A_2 => AH_2
+BL_3, BH_2
+BH_3, AL_2, B_2
+BH_2, BL_2 => B_2
+B_2 => BL_2
+B_2 => BH_2
+R1_4, R2_3, R3_3, AL_3
+R2_4, R1_3
+R3_4, R2_3
+z_3, R1_3, BH_3, R2_3
+AL_4, AH_3
+AH_4, BL_3, A_3
+AH_3, AL_3 => A_3
+A_3 => AL_3
+A_3 => AH_3
+BL_4, BH_3
+BH_4, AL_3, B_3
+BH_3, BL_3 => B_3
+B_3 => BL_3
+B_3 => BH_3
+R1_5, R2_4, R3_4, AL_4
+R2_5, R1_4
+R3_5, R2_4
+z_4, R1_4, BH_4, R2_4
+AL_5, AH_4
+AH_5, BL_4, A_4
+AH_4, AL_4 => A_4
+A_4 => AL_4
+A_4 => AH_4
+BL_5, BH_4
+BH_5, AL_4, B_4
+BH_4, BL_4 => B_4
+B_4 => BL_4
+B_4 => BH_4
+R1_6, R2_5, R3_5, AL_5
+R2_6, R1_5
+R3_6, R2_5
+z_5, R1_5, BH_5, R2_5
+AL_6, AH_5
+AH_6, BL_5, A_5
+AH_5, AL_5 => A_5
+A_5 => AL_5
+A_5 => AH_5
+BL_6, BH_5
+BH_6, AL_5, B_5
+BH_5, BL_5 => B_5
+B_5 => BL_5
+B_5 => BH_5
+R1_7, R2_6, R3_6, AL_6
+R2_7, R1_6
+R3_7, R2_6
+z_6, R1_6, BH_6, R2_6
+AL_7, AH_6
+AH_7, BL_6, A_6
+AH_6, AL_6 => A_6
+A_6 => AL_6
+A_6 => AH_6
+BL_7, BH_6
+BH_7, AL_6, B_6
+BH_6, BL_6 => B_6
+B_6 => BL_6
+B_6 => BH_6
+R1_8, R2_7, R3_7, AL_7
+R2_8, R1_7
+R3_8, R2_7
+z_7, R1_7, BH_7, R2_7
+AL_8, AH_7
+AH_8, BL_7, A_7
+AH_7, AL_7 => A_7
+A_7 => AL_7
+A_7 => AH_7
+BL_8, BH_7
+BH_8, AL_7, B_7
+BH_7, BL_7 => B_7
+B_7 => BL_7
+B_7 => BH_7
+R1_9, R2_8, R3_8, AL_8
+R2_9, R1_8
+R3_9, R2_8
+z_8, R1_8, BH_8, R2_8
+AL_9, AH_8
+AH_9, BL_8, A_8
+AH_8, AL_8 => A_8
+A_8 => AL_8
+A_8 => AH_8
+BL_9, BH_8
+BH_9, AL_8, B_8
+BH_8, BL_8 => B_8
+B_8 => BL_8
+B_8 => BH_8
+R1_10, R2_9, R3_9, AL_9
+R2_10, R1_9
+R3_10, R2_9
+z_9, R1_9, BH_9, R2_9
+AL_10, AH_9
+AH_10, BL_9, A_9
+AH_9, AL_9 => A_9
+A_9 => AL_9
+A_9 => AH_9
+BL_10, BH_9
+BH_10, AL_9, B_9
+BH_9, BL_9 => B_9
+B_9 => BL_9
+B_9 => BH_9
+known
+z_0
+z_1
+z_2
+z_3
+z_4
+z_5
+z_6
+z_7
+z_8
+z_9
+end

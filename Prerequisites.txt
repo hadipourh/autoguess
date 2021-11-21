@@ -1,0 +1,39 @@
+Prerequisites:
+sudo apt update
+sudo apt install snap
+sudo apt-get install python3.x-dev
+python3.x -m pip install python-sat[pblib,aiger]
+python3.x -m pip install pysmt
+python3.x -m pysmt install --force --all
+python3.x -m pip install z3-solver
+sudo snap install minizinc --classic
+python3.x -m pip install minizinc
+python3.x -m pip install graphviz
+python3.x -m pip install dot2tex
+sudo apt-get install graphviz
+
+
+In order to add 'OrTools' to the minizinc solver suite:
+git clone https://github.com/google/or-tools
+make fz -j8
+One can download the flatzinc binary from the ortool's website and then, add a file ortools.msc in an appropriate location (see Solver Configuration Files) containing the following, where you replace with the actual installation path and update the version number if necessary:
+
+FLATZIC:
+https://developers.google.com/optimization/install
+
+{
+ "id": "org.ortools.ortools",
+ "name": "OR Tools",
+ "description": "Or Tools FlatZinc executable",
+ "version": "7.0/stable",
+ "mznlib": "/home/hosein/Programs/or-tools_flatzinc_Ubuntu-18.04-64bit_v7.8.7959/lib",
+ "executable": "/home/hosein/Programs/or-tools_flatzinc_Ubuntu-18.04-64bit_v7.8.7959/bin/fzn-or-tools",
+ "tags": ["cp","int", "lcg", "or-tools"],
+ "stdFlags": ["-a", "-n", "-p", "-f", "-r", "-v", "-l", "-s"],
+ "supportsMzn": false,
+ "supportsFzn": true,
+ "needsSolns2Out": true,
+ "needsMznExecutable": false,
+ "needsStdlibDir": false,
+ "isGUIApplication": false
+}

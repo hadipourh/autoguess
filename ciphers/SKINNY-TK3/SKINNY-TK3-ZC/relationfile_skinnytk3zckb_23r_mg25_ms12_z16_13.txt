@@ -1,0 +1,85 @@
+#%s %d Rounds
+connection relations
+tk1_0, tk2_0, tk3_0, sk_16_0
+tk1_1, tk2_1, tk3_1, sk_16_1
+tk1_2, tk2_2, tk3_2, sk_16_2
+tk1_3, tk2_3, tk3_3, sk_16_3
+tk1_4, tk2_4, tk3_4, sk_16_4
+tk1_5, tk2_5, tk3_5, sk_16_5
+tk1_6, tk2_6, tk3_6, sk_16_6
+tk1_7, tk2_7, tk3_7, sk_16_7
+tk1_9, tk2_9, tk3_9, sk_17_0
+tk1_15, tk2_15, tk3_15, sk_17_1
+tk1_8, tk2_8, tk3_8, sk_17_2
+tk1_13, tk2_13, tk3_13, sk_17_3
+tk1_10, tk2_10, tk3_10, sk_17_4
+tk1_14, tk2_14, tk3_14, sk_17_5
+tk1_12, tk2_12, tk3_12, sk_17_6
+tk1_11, tk2_11, tk3_11, sk_17_7
+tk1_1, tk2_1, tk3_1, sk_18_0
+tk1_7, tk2_7, tk3_7, sk_18_1
+tk1_0, tk2_0, tk3_0, sk_18_2
+tk1_5, tk2_5, tk3_5, sk_18_3
+tk1_2, tk2_2, tk3_2, sk_18_4
+tk1_6, tk2_6, tk3_6, sk_18_5
+tk1_4, tk2_4, tk3_4, sk_18_6
+tk1_3, tk2_3, tk3_3, sk_18_7
+tk1_15, tk2_15, tk3_15, sk_19_0
+tk1_11, tk2_11, tk3_11, sk_19_1
+tk1_9, tk2_9, tk3_9, sk_19_2
+tk1_14, tk2_14, tk3_14, sk_19_3
+tk1_8, tk2_8, tk3_8, sk_19_4
+tk1_12, tk2_12, tk3_12, sk_19_5
+tk1_10, tk2_10, tk3_10, sk_19_6
+tk1_13, tk2_13, tk3_13, sk_19_7
+tk1_7, tk2_7, tk3_7, sk_20_0
+tk1_3, tk2_3, tk3_3, sk_20_1
+tk1_1, tk2_1, tk3_1, sk_20_2
+tk1_6, tk2_6, tk3_6, sk_20_3
+tk1_0, tk2_0, tk3_0, sk_20_4
+tk1_4, tk2_4, tk3_4, sk_20_5
+tk1_2, tk2_2, tk3_2, sk_20_6
+tk1_5, tk2_5, tk3_5, sk_20_7
+tk1_11, tk2_11, tk3_11, sk_21_0
+tk1_13, tk2_13, tk3_13, sk_21_1
+tk1_15, tk2_15, tk3_15, sk_21_2
+tk1_12, tk2_12, tk3_12, sk_21_3
+tk1_9, tk2_9, tk3_9, sk_21_4
+tk1_10, tk2_10, tk3_10, sk_21_5
+tk1_8, tk2_8, tk3_8, sk_21_6
+tk1_14, tk2_14, tk3_14, sk_21_7
+tk1_3, tk2_3, tk3_3, sk_22_0
+tk1_5, tk2_5, tk3_5, sk_22_1
+tk1_7, tk2_7, tk3_7, sk_22_2
+tk1_4, tk2_4, tk3_4, sk_22_3
+tk1_1, tk2_1, tk3_1, sk_22_4
+tk1_2, tk2_2, tk3_2, sk_22_5
+tk1_0, tk2_0, tk3_0, sk_22_6
+tk1_6, tk2_6, tk3_6, sk_22_7
+target
+sk_17_0
+sk_18_3
+sk_18_4
+sk_19_2
+sk_19_5
+sk_19_7
+sk_20_0
+sk_20_1
+sk_20_4
+sk_20_6
+sk_20_7
+sk_21_0
+sk_21_1
+sk_21_2
+sk_21_4
+sk_21_5
+sk_21_6
+sk_21_7
+sk_22_0
+sk_22_1
+sk_22_2
+sk_22_4
+sk_22_5
+sk_22_6
+sk_22_7
+end

@@ -1,0 +1,40 @@
+ubuntu@ubuntu-virtual-machine:~/Desktop/Autoguess$ lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              16
+On-line CPU(s) list: 0-15
+Thread(s) per core:  1
+Core(s) per socket:  1
+Socket(s):           16
+NUMA node(s):        2
+Vendor ID:           GenuineIntel
+CPU family:          6
+Model:               79
+Model name:          Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz
+Stepping:            1
+CPU MHz:             2097.570
+BogoMIPS:            4195.14
+Hypervisor vendor:   VMware
+Virtualization type: full
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            256K
+L3 cache:            20480K
+NUMA node0 CPU(s):   0-7
+NUMA node1 CPU(s):   8-15
+
+ubuntu@ubuntu-virtual-machine:~/Desktop/Autoguess$ python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_2r_mg10_ms20.txt --solver groebner --overlapping_number 100
+Generating the Boolean Polynomial Ring in 144 variabels
+Geneartion of the Boolean polynomial ring was finished after 0.03 seconds
+CNF to ANF conversion using the block-wise method was started - 2021-04-03 12:22:23.463899
+/home/ubuntu/Tools/sage-9-1/SageMath/local/lib/python3.7/site-packages/brial/gbrefs.py:9: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+  import imp
+Results were written into the temp/anf_b55c6bf2574c3b718107cafd93e211.anf
+Algebraic representation in ANF form was generated after 220.32 seconds
+Computing the Groebner basis was started - 2021-04-03 12:26:03.802563
+Computing the Groebner basis was finished after 36356.55 seconds
+Number of guesses: 10
+The following 10 variable(s) are guessed:
+K_2_3_3, K_2_3_2, K_2_3_0, K_2_2_3, K_2_2_2, K_2_2_1, K_2_1_3, K_2_1_2, K_2_0_3, K_2_0_2
+

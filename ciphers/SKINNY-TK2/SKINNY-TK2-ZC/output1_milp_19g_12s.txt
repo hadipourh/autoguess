@@ -1,0 +1,40 @@
+Number of relations: 40
+Number of variables: 72
+Number of target variables: 20
+Number of known variables: 0
+Number of guessed variables: 19
+Number of state copies (max_steps): 12
+An upper bound for the number of guessed variables given by user (max_guess): 19
+33 out of 72 state variables are known after 12 state copies
+############################################################
+The following 19 variable(s) are guessed:
+tk2_10, tk1_11, tk2_11, tk1_13, tk2_15, sk_16_0, tk1_6, sk_18_0, sk_18_1, sk_18_3, sk_18_4, sk_18_5, sk_18_7, sk_19_0, sk_19_3, sk_19_4, sk_19_5, sk_19_6, sk_19_7
+############################################################
+The following 0 variable(s) are initially known:
+
+############################################################
+Target variables:
+sk_15_5, sk_16_0, sk_16_6, sk_17_1, sk_17_3, sk_17_4, sk_17_7, sk_18_0, sk_18_1, sk_18_3, sk_18_4, sk_18_5, sk_18_7, sk_19_0, sk_19_1, sk_19_3, sk_19_4, sk_19_5, sk_19_6, sk_19_7
+############################################################
+Determination flow:
+
+State 0:
+tk1_11, tk2_11 in symmetric relation [tk1_11, tk2_11, sk_15_3] are known: tk1_11, tk2_11 ===> sk_15_3
+tk1_11, tk2_11 in symmetric relation [tk1_11, tk2_11, sk_17_7] are known: tk1_11, tk2_11 ===> sk_17_7
+tk1_6, sk_18_5 in symmetric relation [tk1_6, tk2_6, sk_18_5] are known: tk1_6, sk_18_5 ===> tk2_6
+tk2_15, sk_19_0 in symmetric relation [tk1_15, tk2_15, sk_19_0] are known: tk2_15, sk_19_0 ===> tk1_15
+tk1_11, tk2_11 in symmetric relation [tk1_11, tk2_11, sk_19_1] are known: tk1_11, tk2_11 ===> sk_19_1
+tk2_10, sk_19_6 in symmetric relation [tk1_10, tk2_10, sk_19_6] are known: tk2_10, sk_19_6 ===> tk1_10
+tk1_13, sk_19_7 in symmetric relation [tk1_13, tk2_13, sk_19_7] are known: tk1_13, sk_19_7 ===> tk2_13
+############################################################
+State 1:
+tk1_10, tk2_10 in symmetric relation [tk1_10, tk2_10, sk_15_2] are known: tk1_10, tk2_10 ===> sk_15_2
+tk1_13, tk2_13 in symmetric relation [tk1_13, tk2_13, sk_15_5] are known: tk1_13, tk2_13 ===> sk_15_5
+tk1_15, tk2_15 in symmetric relation [tk1_15, tk2_15, sk_15_7] are known: tk1_15, tk2_15 ===> sk_15_7
+tk1_6, tk2_6 in symmetric relation [tk1_6, tk2_6, sk_16_6] are known: tk1_6, tk2_6 ===> sk_16_6
+tk1_15, tk2_15 in symmetric relation [tk1_15, tk2_15, sk_17_1] are known: tk1_15, tk2_15 ===> sk_17_1
+tk1_13, tk2_13 in symmetric relation [tk1_13, tk2_13, sk_17_3] are known: tk1_13, tk2_13 ===> sk_17_3
+tk1_10, tk2_10 in symmetric relation [tk1_10, tk2_10, sk_17_4] are known: tk1_10, tk2_10 ===> sk_17_4
+############################################################
+The following variables are known in final state:
+tk1_10, tk2_10, sk_15_2, tk1_11, tk2_11, sk_15_3, tk1_13, tk2_13, sk_15_5, tk1_15, tk2_15, sk_15_7, sk_16_0, tk1_6, tk2_6, sk_16_6, sk_17_1, sk_17_3, sk_17_4, sk_17_7, sk_18_0, sk_18_1, sk_18_3, sk_18_4, sk_18_5, sk_18_7, sk_19_0, sk_19_1, sk_19_3, sk_19_4, sk_19_5, sk_19_6, sk_19_7

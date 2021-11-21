@@ -1,0 +1,195 @@
+Author: Hosein Hadipour
+Date: June 30, 2020
+
+This text file includes the verification of the first result in the following paper, concerning to the Guess and Determine attack on SNOW-V.
+Paper title: "A Guess and Determine Attack on SNOW-V Stream Cipher" by Lin Jia, et.al 2020
+First result of this paper: A guess and determin eattack in which four 128-bit words must be guessed. (Time complexity  = 2^(512))
+The following lines, prove their first result. 
+
+R1(t) <==> R3(t + 2) [It means knowing R1(t) is equivalent to knowing R3(t + 2)]
+R2(t) <==> R3(t + 1) [It means knwoing R2(t) is equiavlent to knwoing R3(t + 1)]
+
+Accoring to the above equivalaneces, one can simplify the guess and determine relations, by eliminating R1(t), and R2(t) from the relations. 
+The followig relations are obtained by exchanging R1(t), and R2(t), with R(t + 2), and R(t + 1) respectively:
+
+R Indexing: R_(t + i)
+T1 Indexing: T1_(t + i)
+T2 Indexing: T2_(t + i)
+
+=======================
+R_3, R_1, R_0, T2_0
+T1_0, R_2, R_1, z_0
+T1_0, T2_1, T2_2, T2_3
+T2_1, T1_0, T1_1,T1_2
+R_4, R_2, R_1, T2_1
+T1_1, R_3, R_2, z_1
+T1_1, T2_2, T2_3, T2_4
+T2_2, T1_1, T1_2,T1_3
+R_5, R_3, R_2, T2_2
+T1_2, R_4, R_3, z_2
+T1_2, T2_3, T2_4, T2_5
+T2_3, T1_2, T1_3,T1_4
+R_6, R_4, R_3, T2_3
+T1_3, R_5, R_4, z_3
+T1_3, T2_4, T2_5, T2_6
+T2_4, T1_3, T1_4,T1_5
+known,z_0,z_1,z_2,z_3
+=======================
+
+
+Determination process (taken from Dr. Jiao et.al's paper):
+
+1- Guess R1(t) and R2(t), and dtermine T1(t), and R2(t + 1)
+Let t = 1, then the following relations are obtained by eliminating the guessed variables in the above relations:
+Guessed variables : R1(1) = R_3, R2(1) = R_2
+
+=======================
+' ', R_1, R_0, T2_0
+T1_0, ' ', R_1, z_0
+T1_0, T2_1, T2_2, T2_3
+T2_1, T1_0, T1_1,T1_2
+R_4, ' ', R_1, T2_1
+T1_1, ' ', ' ', z_1
+T1_1, T2_2, T2_3, T2_4
+T2_2, T1_1, T1_2,T1_3
+R_5, ' ', ' ', T2_2
+T1_2, R_4, ' ', z_2
+T1_2, T2_3, T2_4, T2_5
+T2_3, T1_2, T1_3,T1_4
+R_6, R_4, ' ', T2_3
+T1_3, R_5, R_4, z_3
+T1_3, T2_4, T2_5, T2_6
+T2_4, T1_3, T1_4,T1_5
+known,z_0,z_1,z_2,z_3
+=======================
+
+z_0 is known ==> T1_1 = T1(1).
+R2(2) = R_3 has been already obtained as well. 
+
+2- Guess T2(t), and T1(t - 1). 
+Let t = 1 as before. the following relations are obtained after eliminating the guessed variables. 
+Guessed variables = T2(1) = T2_1, and T1(0) = T1_0
+
+=======================
+' ', R_1, R_0, T2_0
+' ', ' ', R_1, z_0
+' ', ' ', T2_2, T2_3
+' ', ' ', ' ',T1_2
+R_4, ' ', R_1, ' '
+' ', ' ', ' ', z_1
+' ', T2_2, T2_3, T2_4
+T2_2, ' ', T1_2,T1_3
+R_5, ' ', ' ', T2_2
+T1_2, R_4, ' ', z_2
+T1_2, T2_3, T2_4, T2_5
+T2_3, T1_2, T1_3,T1_4
+R_6, R_4, ' ', T2_3
+T1_3, R_5, R_4, z_3
+T1_3, T2_4, T2_5, T2_6
+T2_4, T1_3, T1_4,T1_5
+known,z_0,z_1,z_2,z_3
+=======================
+
+As you can see, T1_2 = T1(2), is obtained, which verifies the paper's result as this step. 
+
+By elimination of T1_2, the following relations are obtained: 
+
+=======================
+' ', R_1, R_0, T2_0
+' ', ' ', R_1, z_0
+' ', ' ', T2_2, T2_3
+' ', ' ', ' ',' '
+R_4, ' ', R_1, ' '
+' ', ' ', ' ', z_1
+' ', T2_2, T2_3, T2_4
+T2_2, ' ', ' ',T1_3
+R_5, ' ', ' ', T2_2
+' ', R_4, ' ', z_2
+' ', T2_3, T2_4, T2_5
+T2_3, ' ', T1_3,T1_4
+R_6, R_4, ' ', T2_3
+T1_3, R_5, R_4, z_3
+T1_3, T2_4, T2_5, T2_6
+T2_4, T1_3, T1_4,T1_5
+known,z_0,z_1,z_2,z_3
+=======================
+
+Therefore, R_4 = R1(2) is determined, which verifies the paper's result again. 
+After eliminating the determined variable, one can obtain the folowing relations: 
+
+=======================
+' ', R_1, R_0, T2_0
+' ', ' ', R_1, z_0
+' ', ' ', T2_2, T2_3
+' ', ' ', ' ',' '
+' ', ' ', R_1, ' '
+' ', ' ', ' ', z_1
+' ', T2_2, T2_3, T2_4
+T2_2, ' ', ' ',T1_3
+R_5, ' ', ' ', T2_2
+' ', ' ', ' ', z_2
+' ', T2_3, T2_4, T2_5
+T2_3, ' ', T1_3,T1_4
+R_6, ' ', ' ', T2_3
+T1_3, R_5, ' ', z_3
+T1_3, T2_4, T2_5, T2_6
+T2_4, T1_3, T1_4,T1_5
+known,z_0,z_1,z_2,z_3
+=======================
+
+3- As you can see, R_1 = R3(1), is determined, which verfies the step 3 of paper. 
+After eliminating R_1 from the above relations, we have: 
+
+=======================
+' ', ' ', R_0, T2_0
+' ', ' ', ' ', z_0
+' ', ' ', T2_2, T2_3
+' ', ' ', ' ',' '
+' ', ' ', ' ', ' '
+' ', ' ', ' ', z_1
+' ', T2_2, T2_3, T2_4
+T2_2, ' ', ' ',T1_3
+R_5, ' ', ' ', T2_2
+' ', ' ', ' ', z_2
+' ', T2_3, T2_4, T2_5
+T2_3, ' ', T1_3,T1_4
+R_6, ' ', ' ', T2_3
+T1_3, R_5, ' ', z_3
+T1_3, T2_4, T2_5, T2_6
+T2_4, T1_3, T1_4,T1_5
+known,z_0,z_1,z_2,z_3
+=======================
+
+4- R3(2) = R_2, and R2(3) = R_4, have already been obtained in the previous steps due to the variables exchanges, 
+which verifies the paper's result. 
+
+On one side, we know that z(t + 2) = R2(t + 2) xor [R1(t + 2) + T1(t + 2)]. Let t = 1, which yields:
+z_3 = R_4 xor [R_5  + T1_3], where '+' depicts the modular addition.
+
+
+On the other side, R1(t + 2) = R2(t + 1) + [R3(t + 1) xor T2(t + 1)]. Let t = 1, yields: 
+R_5 = R_3 + [R_2 xor T2_2].
+
+In addition, T1(t + 2), can be determined by T2(t + 1), T1(t), and T1(t + 1). If t = 1, then, the following implication will be hold: 
+T1_3 <= T2_2, T1_1, T1_2. 
+
+Therefore, we have the following three relations, in which '<=' means implication, and z_3, R_4, R_2, R_3, T1_1, and T1_2 are all known: 
+z_3 = R_4 xor [R_5  + T1_3]
+R_5 = R_3 + [R_2 xor T2_2]
+T1_3 <= T2_2, T1_1, T1_2
+
+The remaining unknowns are actually as follows: 
+
+known_1 = R_5  + T1_3
+R_5 = known_2 + [known_3 xor T2_2]
+T1_3 <= T2_2, known_4, known_5
+
+Conclusion: The reported result, is true in my point of view. Therefore, the automated guess and determine attack can not find 
+a better results in compare with the previous huristic methods in which the existance of a (n) linear relations between (n) undetermined
+is inspected. This observation arrises the following important question: 
+
+How one can add this capability to the automated guess and determine mehotds based on MILP or SMT?
+...
+
+June 30, 2020
+Hosein Hadipour

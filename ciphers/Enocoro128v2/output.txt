@@ -1,0 +1,168 @@
+Number of relations: 128
+Number of variables: 113
+Number of target variables: 113
+Number of known variables: 0
+Number of guessed variables: 18
+Number of state copies (max_steps): 20
+An upper bound for the number of guessed variables given by user (max_guess): 18
+113 out of 113 state variables are known after 20 state copies
+############################################################
+The following 18 variable(s) are guessed:
+c_0, e_3, e_1, d_2, e_16, c_3, d_12, a_4, b_7, e_7, a_5, c_10, a_6, b_10, a_9, c_14, e_12, a_11
+############################################################
+The following 0 variable(s) are initially known:
+
+############################################################
+Target variables:
+b_3, a_0, e_0, c_5, b_0, c_1, d_9, c_0, d_1, e_15, d_0, e_3, a_1, e_2, b_4, e_1, c_6, b_1, c_2, d_10, d_2, e_16, e_4, a_2, b_5, c_7, b_2, c_3, d_11, d_3, e_17, e_5, a_3, b_6, c_8, c_4, d_12, d_4, e_18, e_6, a_4, b_7, c_9, d_13, d_5, e_19, e_7, a_5, b_8, c_10, d_14, d_6, e_20, e_8, a_6, b_9, c_11, d_15, d_7, e_21, e_9, a_7, b_10, c_12, d_16, d_8, e_22, e_10, a_8, b_11, c_13, d_17, e_23, e_11, a_9, b_12, c_14, d_18, e_24, e_12, a_10, b_13, c_15, d_19, e_25, e_13, a_11, b_14, c_16, d_20, e_26, e_14, a_12, b_15, c_17, d_21, e_27, a_13, b_16, c_18, d_22, e_28, a_14, b_17, c_19, d_23, e_29, a_15, b_18, c_20, d_24, e_30, a_16
+############################################################
+Determination flow:
+
+State 0:
+d_12, c_3 in symmetric relation [d_12, c_3, d_4] are known: d_12, c_3 ===> d_4
+b_7, a_4 in symmetric relation [b_7, a_4, e_4] are known: b_7, a_4 ===> e_4
+b_10, e_7 in symmetric relation [b_10, a_7, e_7] are known: b_10, e_7 ===> a_7
+c_14, c_10 in symmetric relation [c_14, b_9, c_10] are known: c_14, c_10 ===> b_9
+a_11, e_12, c_10 in symmetric relation [a_11, d_10, e_12, c_10] are known: a_11, e_12, c_10 ===> d_10
+b_10, e_12, c_10 in symmetric relation [a_10, b_10, e_12, c_10] are known: b_10, e_12, c_10 ===> a_10
+############################################################
+State 1:
+d_10, d_2 in symmetric relation [d_10, c_1, d_2] are known: d_10, d_2 ===> c_1
+e_16, e_4 in symmetric relation [e_16, d_1, e_4] are known: e_16, e_4 ===> d_1
+d_4, e_7 in symmetric relation [e_19, d_4, e_7] are known: d_4, e_7 ===> e_19
+b_9, a_6 in symmetric relation [b_9, a_6, e_6] are known: b_9, a_6 ===> e_6
+############################################################
+State 2:
+c_0, d_1 in symmetric relation [d_9, c_0, d_1] are known: c_0, d_1 ===> d_9
+d_1, e_3, c_1 in symmetric relation [a_2, d_1, e_3, c_1] are known: d_1, e_3, c_1 ===> a_2
+a_5, d_4, a_4, e_6 in symmetric relation [a_5, d_4, a_4, b_4, e_6] are known: a_5, d_4, a_4, e_6 ===> b_4
+a_5, d_4, e_6 in symmetric relation [a_5, d_4, e_6, c_4] are known: a_5, d_4, e_6 ===> c_4
+############################################################
+State 3:
+b_4, e_1 in symmetric relation [b_4, a_1, e_1] are known: b_4, e_1 ===> a_1
+d_9, e_12 in symmetric relation [e_24, d_9, e_12] are known: d_9, e_12 ===> e_24
+a_10, d_9, a_9, b_9 in symmetric relation [a_10, d_9, a_9, b_9, e_11] are known: a_10, d_9, a_9, b_9 ===> e_11
+a_10, d_9, a_9, b_9 in symmetric relation [a_10, d_9, a_9, b_9, c_9] are known: a_10, d_9, a_9, b_9 ===> c_9
+############################################################
+State 4:
+a_2, d_1, a_1, e_3 in symmetric relation [a_2, d_1, a_1, b_1, e_3] are known: a_2, d_1, a_1, e_3 ===> b_1
+a_2, d_1, a_1, c_1 in symmetric relation [a_2, d_1, a_1, b_1, c_1] are known: a_2, d_1, a_1, c_1 ===> b_1
+a_1, e_3, c_1 in symmetric relation [a_1, b_1, e_3, c_1] are known: a_1, e_3, c_1 ===> b_1
+c_9, b_4 in symmetric relation [c_9, b_4, c_5] are known: c_9, b_4 ===> c_5
+c_9, d_10 in symmetric relation [d_18, c_9, d_10] are known: c_9, d_10 ===> d_18
+a_11, e_11 in symmetric relation [b_14, a_11, e_11] are known: a_11, e_11 ===> b_14
+############################################################
+State 5:
+c_5, c_1 in symmetric relation [c_5, b_0, c_1] are known: c_5, c_1 ===> b_0
+a_6, e_7, c_5 in symmetric relation [a_6, d_5, e_7, c_5] are known: a_6, e_7, c_5 ===> d_5
+a_5, e_7, c_5 in symmetric relation [a_5, b_5, e_7, c_5] are known: a_5, e_7, c_5 ===> b_5
+b_14, e_16, c_14 in symmetric relation [a_14, b_14, e_16, c_14] are known: b_14, e_16, c_14 ===> a_14
+############################################################
+State 6:
+b_5, a_2 in symmetric relation [b_5, a_2, e_2] are known: b_5, a_2 ===> e_2
+c_4, d_5 in symmetric relation [d_13, c_4, d_5] are known: c_4, d_5 ===> d_13
+c_10, b_5 in symmetric relation [c_10, b_5, c_6] are known: c_10, b_5 ===> c_6
+############################################################
+State 7:
+a_1, e_2, c_0 in symmetric relation [a_1, d_0, e_2, c_0] are known: a_1, e_2, c_0 ===> d_0
+b_0, e_2, c_0 in symmetric relation [a_0, b_0, e_2, c_0] are known: b_0, e_2, c_0 ===> a_0
+c_6, b_1 in symmetric relation [c_6, b_1, c_2] are known: c_6, b_1 ===> c_2
+d_13, e_16 in symmetric relation [e_28, d_13, e_16] are known: d_13, e_16 ===> e_28
+############################################################
+State 8:
+d_0, e_3 in symmetric relation [e_15, d_0, e_3] are known: d_0, e_3 ===> e_15
+d_2, e_4, c_2 in symmetric relation [a_3, d_2, e_4, c_2] are known: d_2, e_4, c_2 ===> a_3
+a_2, e_4, c_2 in symmetric relation [a_2, b_2, e_4, c_2] are known: a_2, e_4, c_2 ===> b_2
+############################################################
+State 9:
+b_2, c_3 in symmetric relation [c_7, b_2, c_3] are known: b_2, c_3 ===> c_7
+a_3, e_3 in symmetric relation [b_6, a_3, e_3] are known: a_3, e_3 ===> b_6
+d_12, e_15 in symmetric relation [e_27, d_12, e_15] are known: d_12, e_15 ===> e_27
+a_14, d_13, e_15 in symmetric relation [a_14, d_13, e_15, c_13] are known: a_14, d_13, e_15 ===> c_13
+############################################################
+State 10:
+b_6, c_7 in symmetric relation [c_11, b_6, c_7] are known: b_6, c_7 ===> c_11
+a_7, a_6, b_6, c_6 in symmetric relation [a_7, d_6, a_6, b_6, c_6] are known: a_7, a_6, b_6, c_6 ===> d_6
+a_6, b_6, c_6 in symmetric relation [a_6, b_6, e_8, c_6] are known: a_6, b_6, c_6 ===> e_8
+a_7, b_7, c_7 in symmetric relation [a_7, b_7, e_9, c_7] are known: a_7, b_7, c_7 ===> e_9
+c_13, c_9 in symmetric relation [c_13, b_8, c_9] are known: c_13, c_9 ===> b_8
+############################################################
+State 11:
+b_8, a_5 in symmetric relation [b_8, a_5, e_5] are known: b_8, a_5 ===> e_5
+c_5, d_6 in symmetric relation [d_14, c_5, d_6] are known: c_5, d_6 ===> d_14
+d_5, e_8 in symmetric relation [e_20, d_5, e_8] are known: d_5, e_8 ===> e_20
+d_6, e_9 in symmetric relation [e_21, d_6, e_9] are known: d_6, e_9 ===> e_21
+a_9, e_9 in symmetric relation [b_12, a_9, e_9] are known: a_9, e_9 ===> b_12
+b_10, c_11 in symmetric relation [c_15, b_10, c_11] are known: b_10, c_11 ===> c_15
+c_11, d_12 in symmetric relation [d_20, c_11, d_12] are known: c_11, d_12 ===> d_20
+############################################################
+State 12:
+d_2, e_5 in symmetric relation [e_17, d_2, e_5] are known: d_2, e_5 ===> e_17
+a_4, e_5, c_3 in symmetric relation [a_4, d_3, e_5, c_3] are known: a_4, e_5, c_3 ===> d_3
+a_3, e_5, c_3 in symmetric relation [a_3, b_3, e_5, c_3] are known: a_3, e_5, c_3 ===> b_3
+b_12, c_13 in symmetric relation [c_17, b_12, c_13] are known: b_12, c_13 ===> c_17
+c_13, d_14 in symmetric relation [d_22, c_13, d_14] are known: c_13, d_14 ===> d_22
+b_14, c_15 in symmetric relation [c_19, b_14, c_15] are known: b_14, c_15 ===> c_19
+d_14, a_14, b_14, e_16 in symmetric relation [a_15, d_14, a_14, b_14, e_16] are known: d_14, a_14, b_14, e_16 ===> a_15
+d_14, a_14, b_14, c_14 in symmetric relation [a_15, d_14, a_14, b_14, c_14] are known: d_14, a_14, b_14, c_14 ===> a_15
+d_14, e_16, c_14 in symmetric relation [a_15, d_14, e_16, c_14] are known: d_14, e_16, c_14 ===> a_15
+############################################################
+State 13:
+b_3, a_0 in symmetric relation [b_3, a_0, e_0] are known: b_3, a_0 ===> e_0
+c_2, d_3 in symmetric relation [d_11, c_2, d_3] are known: c_2, d_3 ===> d_11
+b_3, c_4 in symmetric relation [c_8, b_3, c_4] are known: b_3, c_4 ===> c_8
+d_3, e_6 in symmetric relation [e_18, d_3, e_6] are known: d_3, e_6 ===> e_18
+d_14, e_17 in symmetric relation [e_29, d_14, e_17] are known: d_14, e_17 ===> e_29
+a_15, e_15 in symmetric relation [b_18, a_15, e_15] are known: a_15, e_15 ===> b_18
+a_15, e_17, c_15 in symmetric relation [a_15, b_15, e_17, c_15] are known: a_15, e_17, c_15 ===> b_15
+############################################################
+State 14:
+b_7, c_8 in symmetric relation [c_12, b_7, c_8] are known: b_7, c_8 ===> c_12
+c_8, d_9 in symmetric relation [d_17, c_8, d_9] are known: c_8, d_9 ===> d_17
+c_10, d_11 in symmetric relation [d_19, c_10, d_11] are known: c_10, d_11 ===> d_19
+b_15, e_12 in symmetric relation [b_15, a_12, e_12] are known: b_15, e_12 ===> a_12
+############################################################
+State 15:
+a_12, d_11, a_11, c_11 in symmetric relation [a_12, d_11, a_11, b_11, c_11] are known: a_12, d_11, a_11, c_11 ===> b_11
+a_12, d_11, c_11 in symmetric relation [a_12, d_11, e_13, c_11] are known: a_12, d_11, c_11 ===> e_13
+c_12, d_13 in symmetric relation [d_21, c_12, d_13] are known: c_12, d_13 ===> d_21
+d_12, a_12, b_12, c_12 in symmetric relation [a_13, d_12, a_12, b_12, c_12] are known: d_12, a_12, b_12, c_12 ===> a_13
+a_12, b_12, c_12 in symmetric relation [a_12, b_12, e_14, c_12] are known: a_12, b_12, c_12 ===> e_14
+############################################################
+State 16:
+b_11, e_8 in symmetric relation [b_11, a_8, e_8] are known: b_11, e_8 ===> a_8
+d_10, e_13 in symmetric relation [e_25, d_10, e_13] are known: d_10, e_13 ===> e_25
+b_11, c_12 in symmetric relation [c_16, b_11, c_12] are known: b_11, c_12 ===> c_16
+d_11, e_14 in symmetric relation [e_26, d_11, e_14] are known: d_11, e_14 ===> e_26
+a_13, e_13 in symmetric relation [b_16, a_13, e_13] are known: a_13, e_13 ===> b_16
+a_14, d_13, a_13, e_15 in symmetric relation [a_14, d_13, a_13, b_13, e_15] are known: a_14, d_13, a_13, e_15 ===> b_13
+a_14, d_13, a_13, c_13 in symmetric relation [a_14, d_13, a_13, b_13, c_13] are known: a_14, d_13, a_13, c_13 ===> b_13
+a_13, e_15, c_13 in symmetric relation [a_13, b_13, e_15, c_13] are known: a_13, e_15, c_13 ===> b_13
+a_14, e_14 in symmetric relation [b_17, a_14, e_14] are known: a_14, e_14 ===> b_17
+############################################################
+State 17:
+a_8, a_7, b_7, e_9 in symmetric relation [a_8, d_7, a_7, b_7, e_9] are known: a_8, a_7, b_7, e_9 ===> d_7
+a_8, a_7, b_7, c_7 in symmetric relation [a_8, d_7, a_7, b_7, c_7] are known: a_8, a_7, b_7, c_7 ===> d_7
+a_8, e_9, c_7 in symmetric relation [a_8, d_7, e_9, c_7] are known: a_8, e_9, c_7 ===> d_7
+a_9, a_8, b_8, c_8 in symmetric relation [a_9, d_8, a_8, b_8, c_8] are known: a_9, a_8, b_8, c_8 ===> d_8
+a_8, b_8, c_8 in symmetric relation [a_8, b_8, e_10, c_8] are known: a_8, b_8, c_8 ===> e_10
+b_13, a_10 in symmetric relation [b_13, a_10, e_10] are known: b_13, a_10 ===> e_10
+b_13, c_14 in symmetric relation [c_18, b_13, c_14] are known: b_13, c_14 ===> c_18
+b_15, c_16 in symmetric relation [c_20, b_15, c_16] are known: b_15, c_16 ===> c_20
+############################################################
+State 18:
+c_6, d_7 in symmetric relation [d_15, c_6, d_7] are known: c_6, d_7 ===> d_15
+c_7, d_8 in symmetric relation [d_16, c_7, d_8] are known: c_7, d_8 ===> d_16
+d_7, e_10 in symmetric relation [e_22, d_7, e_10] are known: d_7, e_10 ===> e_22
+d_8, e_11 in symmetric relation [e_23, d_8, e_11] are known: d_8, e_11 ===> e_23
+############################################################
+State 19:
+c_14, d_15 in symmetric relation [d_23, c_14, d_15] are known: c_14, d_15 ===> d_23
+c_15, d_16 in symmetric relation [d_24, c_15, d_16] are known: c_15, d_16 ===> d_24
+d_15, e_18 in symmetric relation [e_30, d_15, e_18] are known: d_15, e_18 ===> e_30
+d_15, a_15, b_15, e_17 in symmetric relation [a_16, d_15, a_15, b_15, e_17] are known: d_15, a_15, b_15, e_17 ===> a_16
+d_15, a_15, b_15, c_15 in symmetric relation [a_16, d_15, a_15, b_15, c_15] are known: d_15, a_15, b_15, c_15 ===> a_16
+d_15, e_17, c_15 in symmetric relation [a_16, d_15, e_17, c_15] are known: d_15, e_17, c_15 ===> a_16
+############################################################
+The following variables are known in final state:
+b_3, a_0, e_0, c_5, b_0, c_1, d_9, c_0, d_1, e_15, d_0, e_3, a_1, e_2, b_4, e_1, c_6, b_1, c_2, d_10, d_2, e_16, e_4, a_2, b_5, c_7, b_2, c_3, d_11, d_3, e_17, e_5, a_3, b_6, c_8, c_4, d_12, d_4, e_18, e_6, a_4, b_7, c_9, d_13, d_5, e_19, e_7, a_5, b_8, c_10, d_14, d_6, e_20, e_8, a_6, b_9, c_11, d_15, d_7, e_21, e_9, a_7, b_10, c_12, d_16, d_8, e_22, e_10, a_8, b_11, c_13, d_17, e_23, e_11, a_9, b_12, c_14, d_18, e_24, e_12, a_10, b_13, c_15, d_19, e_25, e_13, a_11, b_14, c_16, d_20, e_26, e_14, a_12, b_15, c_17, d_21, e_27, a_13, b_16, c_18, d_22, e_28, a_14, b_17, c_19, d_23, e_29, a_15, b_18, c_20, d_24, e_30, a_16

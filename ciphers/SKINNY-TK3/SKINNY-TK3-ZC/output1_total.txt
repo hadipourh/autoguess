@@ -1,0 +1,30 @@
+Number of relations: 56
+Number of variables: 104
+Number of target variables: 37
+Number of known variables: 0
+Number of guessed variables: 36
+Number of state copies (max_steps): 12
+An upper bound for the number of guessed variables given by user (max_guess): 36
+40 out of 104 state variables are known after 12 state copies
+############################################################
+The following 36 variable(s) are guessed:
+tk1_5, tk3_5, sk_17_0, sk_17_6, sk_18_1, sk_18_4, sk_18_7, sk_19_0, sk_19_2, sk_19_3, sk_19_4, sk_19_5, sk_19_7, sk_20_0, sk_20_1, sk_20_2, sk_20_3, sk_20_4, sk_20_5, sk_20_6, sk_20_7, sk_21_0, sk_21_1, sk_21_2, sk_21_3, sk_21_4, sk_21_5, sk_21_6, sk_21_7, sk_22_0, sk_22_2, sk_22_3, sk_22_4, sk_22_5, sk_22_6, sk_22_7
+############################################################
+The following 0 variable(s) are initially known:
+
+############################################################
+Target variables:
+sk_16_5, sk_17_0, sk_17_6, sk_18_1, sk_18_3, sk_18_4, sk_18_7, sk_19_0, sk_19_2, sk_19_3, sk_19_4, sk_19_5, sk_19_7, sk_20_0, sk_20_1, sk_20_2, sk_20_3, sk_20_4, sk_20_5, sk_20_6, sk_20_7, sk_21_0, sk_21_1, sk_21_2, sk_21_3, sk_21_4, sk_21_5, sk_21_6, sk_21_7, sk_22_0, sk_22_1, sk_22_2, sk_22_3, sk_22_4, sk_22_5, sk_22_6, sk_22_7
+############################################################
+Determination flow:
+
+State 0:
+tk1_5, tk3_5, sk_20_7 in symmetric relation [tk1_5, tk2_5, tk3_5, sk_20_7] are known: tk1_5, tk3_5, sk_20_7 ===> tk2_5
+############################################################
+State 1:
+tk1_5, tk2_5, tk3_5 in symmetric relation [tk1_5, tk2_5, tk3_5, sk_16_5] are known: tk1_5, tk2_5, tk3_5 ===> sk_16_5
+tk1_5, tk2_5, tk3_5 in symmetric relation [tk1_5, tk2_5, tk3_5, sk_18_3] are known: tk1_5, tk2_5, tk3_5 ===> sk_18_3
+tk1_5, tk2_5, tk3_5 in symmetric relation [tk1_5, tk2_5, tk3_5, sk_22_1] are known: tk1_5, tk2_5, tk3_5 ===> sk_22_1
+############################################################
+The following variables are known in final state:
+tk1_5, tk2_5, tk3_5, sk_16_5, sk_17_0, sk_17_6, sk_18_1, sk_18_3, sk_18_4, sk_18_7, sk_19_0, sk_19_2, sk_19_3, sk_19_4, sk_19_5, sk_19_7, sk_20_0, sk_20_1, sk_20_2, sk_20_3, sk_20_4, sk_20_5, sk_20_6, sk_20_7, sk_21_0, sk_21_1, sk_21_2, sk_21_3, sk_21_4, sk_21_5, sk_21_6, sk_21_7, sk_22_0, sk_22_1, sk_22_2, sk_22_3, sk_22_4, sk_22_5, sk_22_6, sk_22_7

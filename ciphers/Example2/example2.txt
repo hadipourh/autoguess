@@ -1,0 +1,15 @@
+#Example of our paper
+connection relations
+u, v, x, y, z
+u, w, y, z
+w, x, y, z
+u, w, z
+u, w => t
+t, z, v
+target
+u
+v
+x
+known
+w
+end

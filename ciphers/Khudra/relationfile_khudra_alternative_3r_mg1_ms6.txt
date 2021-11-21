@@ -1,0 +1,29 @@
+#khudra_alternative 3 Rounds
+connection relations
+x_0_0, k_3, x_0_1, x_1_0
+x_0_2, x_0_3, x_1_2
+x_0_0, x_1_3
+x_0_2, x_1_1
+x_1_0, k_0, x_1_1, x_2_0
+x_1_2, x_1_3, x_2_2
+x_1_0, x_2_3
+x_1_2, x_2_1
+x_2_0, k_2, x_2_1, x_3_0
+x_2_2, x_2_3, x_3_2
+x_2_0, x_3_3
+x_2_2, x_3_1
+x_3_0, k_4, x_4_0
+x_3_1, k_4, x_4_1
+x_3_2, x_4_2
+dummy_var, k_2, k_3
+x_3_3, dummy_var, x_4_3
+known
+x_0_0
+x_0_1
+x_0_2
+x_0_3
+x_4_0
+x_4_1
+x_4_2
+x_4_3
+end
