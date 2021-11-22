@@ -1336,7 +1336,7 @@ The following 6 variable(s) are guessed:
 X_0_0_0, X_0_1_1, W_0_0_0, W_0_2_2, W_0_3_0, K_1_3_2
 ```
 
-As you can see Autoguess finds a GD attack on 1 round of AES in less than a second. Autoguess uses [CaDiCaL](http://fmv.jku.at/cadical/) as the SAT solver by default. However, user can simply choose another SAT solver among `cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh` by ths switch : `--satsolver SAT_SOLVER_NAME`.
+As you can see Autoguess finds a GD attack on 1 round of AES in less than a second. Autoguess uses [CaDiCaL](http://fmv.jku.at/cadical/) as the SAT solver by default. However, user can simply choose another SAT solver among `cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh` by this switch : `--satsolver SAT_SOLVER_NAME`.
 
 ***SMT***
 
@@ -2914,8 +2914,7 @@ If you use the paper or the tool in your own work leading to an academic publica
 
 ```text
 @misc{cryptoeprint:2021:1529,
-    author       = {Hosein Hadipour and
-		              Maria Eichlseder },
+    author       = {Hosein Hadipour and Maria Eichlseder},
     title        = {Autoguess: A Tool for Finding Guess-and-Determine Attacks and Key Bridges},
     howpublished = {Cryptology ePrint Archive, Report 2021/1529},
     year         = {2021},
@@ -2928,20 +2927,3 @@ If you use the paper or the tool in your own work leading to an academic publica
 [![license](./miscellaneous/license-MIT-informational.svg)](https://en.wikipedia.org/wiki/MIT_License)
 
 Autoguess is released under the [MIT](./LICENSE.txt) license.
-
-```text
-MIT License
-Copyright (c) 2021 Hosein Hadipour
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
-(the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, 
-merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
-IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-```
