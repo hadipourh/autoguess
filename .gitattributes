@@ -1,1 +1,2 @@
-*.txt linguist-vendored
+* linguist-vendored
+*.txt linguist-vendored=false
