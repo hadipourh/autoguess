@@ -2908,12 +2908,19 @@ k_1_0, k_1_3, k_3_10, k_3_16, k_4_17, k_5_16, k_6_20, k_6_25, k_7_29, k_7_11, k_
 
 ## The Paper
 
-Complete details about our tool as well as the underlying methods based on which our tool works, can be found in [our paper]().
+Complete details about our tool as well as the underlying methods based on which our tool works, can be found in [our paper](https://eprint.iacr.org/2021/1529.pdf).
 
 If you use the paper or the tool in your own work leading to an academic publication, please cite the following:
 
 ```text
-To do
+@misc{cryptoeprint:2021:1529,
+    author       = {Hosein Hadipour and
+		              Maria Eichlseder },
+    title        = {Autoguess: A Tool for Finding Guess-and-Determine Attacks and Key Bridges},
+    howpublished = {Cryptology ePrint Archive, Report 2021/1529},
+    year         = {2021},
+    note         = {\url{https://ia.cr/2021/1529}},
+}
 ```
 
 ## License
