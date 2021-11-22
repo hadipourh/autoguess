@@ -2908,7 +2908,7 @@ k_1_0, k_1_3, k_3_10, k_3_16, k_4_17, k_5_16, k_6_20, k_6_25, k_7_29, k_7_11, k_
 
 ## The Paper
 
-Complete details about our tool as well as the underlying methods based on which our tool works, can be found in [our paper](https://eprint.iacr.org/2021/1529.pdf).
+Complete details about our tool as well as the underlying methods based on which our tool works, can be found in [our paper](https://eprint.iacr.org/2021/1529).
 
 If you use the paper or the tool in your own work leading to an academic publication, please cite the following:
 
