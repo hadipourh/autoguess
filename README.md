@@ -1111,7 +1111,7 @@ FPWB03
 
 ### Example 5
 
-In this example, we show how to build an input file consisting of variables with dfferent weights. The input file of this example is located in [Example5](./ciphers/Example5/example5.txt) which includes the following contents:
+In this example, we show how to build an input file consisting of variables with different weights. The input file of this example is located in [Example5](./ciphers/Example5/example5.txt) which includes the following contents:
 
 ```text
 connection relations
@@ -1232,7 +1232,7 @@ x0, x2, x4
 
 ### Example 6
 
-In this example, we try to break a toy stream cipher which its keystream generation phase works based on the following state machine:
+In this example, we try to analyze a toy stream cipher which its keystream generation phase works based on the following state machine:
 
 ```text
 for i = 0 ... N:
@@ -1304,7 +1304,7 @@ x_1_7, x_6_5, x_4_3, x_7_2, x_7_1, x_5_0
 
 ## Applications
 
-The following sections include some of the applications of our tool running on a Laptop with the following configuration:
+The following sections include some of the applications of our tool running on a laptop with the following configuration:
 
 ```text
 OS: Linux 5.4.0-84-generic - Ubuntu
