@@ -21,6 +21,7 @@ The following shape represents the overall structure of Autoguess. As it can be 
   - [Installation](#installation)
     - [Method 1](#method-1)
     - [Method 2](#method-2)
+    - [Method 3](#method-3)
   - [Format of Input File](#format-of-input-file)
   - [Manual](#manual)
     - [Example 1](#example-1)
@@ -74,6 +75,20 @@ sudo docker run --rm -it autoguess
 The constructed image is self-contained including MiniZinc, PySAT, pySMT, SageMath. Although Autoguess includes a direct Python interface to [Gurobi](https://www.gurobi.com/) as well, Gurobi is not included in the above image. Hence, Gurobi and its license should be installed separately if you are willing to use the MILP-based method to solve the guess-and-determine problem.
 
 ### Method 2
+
+If you have already installed [Docker](https://www.docker.com/) and you are not enough patient to build a local image of Autoguess, you can simply download a prebuilt image of Autoguess hosted on [Docker Hub](https://hub.docker.com/) via the following command:
+
+```sh
+sudo docker pull hoseinhadipour/autoguess
+```
+
+Then, you can run Autoguess by the following command:
+
+```sh
+sudo docker run --rm -it hoseinhadipour/autoguess
+```
+
+### Method 3
 
 For the Debian-based Linux operating systems, following the below instructions you can simply install Autoguess.
 
