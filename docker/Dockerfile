@@ -37,7 +37,6 @@ RUN wget https://github.com/google/or-tools/releases/download/v8.2/or-tools_flat
     mkdir or-tools && \
     tar xvzf or-tools_flatzinc_debian-10_v8.2.8710.tar.gz -C or-tools --strip-components=1 && \
     rm or-tools_flatzinc_debian-10_v8.2.8710.tar.gz
-COPY ./configfiles/ortools.msc /home/tools/MiniZinc/share/minizinc/solvers
 
 # Install SageMath
 RUN apt-get install -y sagemath
@@ -51,9 +50,10 @@ RUN python3 -m pip install graphviz
 # Install dot2tex
 RUN python3 -m pip install dot2tex
 
+# Clone Autoguess and introduce Or-Tools to MiniZinc
+RUN git clone https://github.com/hadipourh/autoguess
 WORKDIR /home/tools/autoguess
-COPY . /home/tools/autoguess/
-#git clone https://github.com/kste/cryptosmt
+RUN cp configfiles/ortools.msc /home/tools/MiniZinc/share/minizinc/solvers
 
 # Clean
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
