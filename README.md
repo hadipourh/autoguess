@@ -59,7 +59,7 @@ Autoguess has been developed in [Debian](https://en.wikipedia.org/wiki/Debian) w
 
 ### Method 1
 
-The easiest way is using the provided [Dockerfile](docker/Dockerfile) to get Autoguess and all of its dependencies at once. To do so, regardless of what OS you use, install [Docker](https://docs.docker.com/get-docker/) at first. Then, navigate into the  directory where you have stored our [Dockerfile](docker/Dockerfile) and build a local image of Autoguess via the following single line command:
+The easiest way is using the provided [Dockerfile](docker/Dockerfile) to get Autoguess and all of its dependencies at once. To do so, regardless of what OS you use, install [Docker](https://docs.docker.com/get-docker/) at first. Next, download our [Dockerfile](docker/Dockerfile), navigate into the directory where you have stored it and build a local image of Autoguess via the following single line command:
 
 ```sh
 sudo docker build -f Dockerfile -t autoguess .
