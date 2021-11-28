@@ -38,6 +38,9 @@ RUN wget https://github.com/google/or-tools/releases/download/v8.2/or-tools_flat
     tar xvzf or-tools_flatzinc_debian-10_v8.2.8710.tar.gz -C or-tools --strip-components=1 && \
     rm or-tools_flatzinc_debian-10_v8.2.8710.tar.gz
 
+# Install Gurobi (Restricted license - for non-production use only)
+RUN python3 -m pip install gurobipy
+
 # Install SageMath
 RUN apt-get install -y sagemath
 
