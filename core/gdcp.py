@@ -72,7 +72,7 @@ class ReduceGDtoCP:
         self.cp_constraints = ''
         ###############################
         # Read and parse the input file
-        parsed_data = read_relation_file(self.inputfile_name, preprocess, D)
+        parsed_data = read_relation_file(self.inputfile_name, preprocess, D, self.log)
         self.problem_name = parsed_data['problem_name']
         self.variables = parsed_data['variables']
         self.known_variables = parsed_data['known_variables']

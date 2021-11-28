@@ -38,8 +38,16 @@ class ReduceGDtoGroebner:
 
     count = 0
 
-    def __init__(self, inputfile_name=None, outputfile_name='output', preprocess=1, D=2, \
-        term_ordering='degrevlex', overlapping_number=2, temp_dir='temp', cnf_to_anf_conversion='simple', log=0):
+    def __init__(self,
+                inputfile_name=None,
+                outputfile_name='output',
+                preprocess=1,
+                D=2,
+                term_ordering='degrevlex',
+                overlapping_number=2,
+                temp_dir='temp',
+                cnf_to_anf_conversion='simple',
+                log=0):
         self.inputfile_name = inputfile_name
         self.output_dir = outputfile_name
         self.term_ordering = term_ordering
@@ -52,7 +60,7 @@ class ReduceGDtoGroebner:
         self.log = log
         ###############################
         # Read and parse the input file
-        parsed_data = read_relation_file(path=self.inputfile_name, temp_dir=self.temp_dir, preprocess=preprocess, D=D)
+        parsed_data = read_relation_file(path=self.inputfile_name, temp_dir=self.temp_dir, preprocess=preprocess, D=D, log=self.log)
         self.problem_name = parsed_data['problem_name']
         self.variables = parsed_data['variables']
         self.known_variables = parsed_data['known_variables']
@@ -373,7 +381,7 @@ def ordered_set(seq):
     return [x for x in seq if not (x in seen or seen_add(x))]
 
 
-def read_relation_file(path, temp_dir, preprocess=1, D=2):
+def read_relation_file(path, temp_dir, preprocess=1, D=2, log=0):
     """
     Reads a relation file in GD format and parses it into a systems of connection relations
     """
@@ -393,13 +401,15 @@ def read_relation_file(path, temp_dir, preprocess=1, D=2):
 
     connection_relations = sections.get('connection relations', '')
     algebraic_relations = sections.get('algebraic relations', '')
+    algebraic_equations_file = os.path.join(temp_dir, 'algebraic_equations_%s.txt' % rnd_string_tmp)
     if algebraic_relations != '' and preprocess == 1:       
-        with open(os.path.join(temp_dir, 'algebraic_equations_%s.txt' % rnd_string_tmp), 'w') as equations_file:
+        with open(algebraic_equations_file, 'w') as equations_file:
             equations_file.write(algebraic_relations)
         starting_time = time.time()
+        macaulay_basis_file = os.path.join(temp_dir, 'macaulay_basis_%d.txt' % rnd_string_tmp)
         print('Preprocessing phase was started - %s' % datetime.now())
-        macaulay = Macaulay(inputfile=os.path.join(temp_dir, 'algebraic_equations_%s.txt' % rnd_string_tmp), 
-                            outputfile=os.path.join(temp_dir, 'macaulay_basis_%s.txt' % rnd_string_tmp),
+        macaulay = Macaulay(inputfile=algebraic_equations_file, 
+                            outputfile=macaulay_basis_file,
                             D=D, term_ordering='deglex')
         macaulay.build_macaulay_matrix()
         macaulay.gaussian_elimination()
@@ -407,10 +417,10 @@ def read_relation_file(path, temp_dir, preprocess=1, D=2):
         elapsed_time = time.time() - starting_time
         print('Preprocessing phase was finished after %0.4f seconds' % elapsed_time)
         try:
-            with open(os.path.join(temp_dir, 'macaulay_basis_%s.txt' % rnd_string_tmp), 'r') as groebner_basis_file:
+            with open(macaulay_basis__file, 'r') as groebner_basis_file:
                 groebner_basis = groebner_basis_file.read()
         except IOError:
-            print(os.path.join(temp_dir, 'macaulay_basis_%d.txt' % rnd_string_tmp) + ' is not accessible!')
+            print(macaulay_basis_file + ' is not accessible!')
             sys.exit()
         algebraic_relations += '\n' + groebner_basis
         # algebraic_relations = groebner_basis
@@ -441,6 +451,9 @@ def read_relation_file(path, temp_dir, preprocess=1, D=2):
     parsed_data = {'problem_name': problem_name, 'variables': variables, 'known_variables': known_variables,
                    'target_variables': target_variables, 'notguessed_variables': notguessed_variables,
                    'symmetric_relations': symmetric_relations, 'implication_relations': implication_relations}
+    if log == 0 and preprocess == 1:
+        os.remove(algebraic_equations_file)
+        os.remove(macaulay_basis_file)
     return parsed_data
 
 
@@ -656,7 +669,8 @@ def loadparameters(args):
               "term_ordering": 'degrevlex',
               "overlapping_number": 2,
               "temp_dir": "temp",
-              "cnf_to_anf_conversion": "simple"}
+              "cnf_to_anf_conversion": "simple",
+              "log": 0}
 
     # Override parameters if they are set on commandline
     if args.inputfile:
@@ -682,6 +696,9 @@ def loadparameters(args):
     
     if args.cnf_to_anf_conversion:        
         params["cnf_to_anf_conversion"] = args.cnf_to_anf_conversion[0]
+    
+    if args.log:
+        params["log"] = args.log[0]    
 
     return params
 
@@ -713,13 +730,21 @@ def main():
     parser.add_argument('--cnf_to_anf_conversion', nargs=1, type=str,
                         choices=['simple', 'blockwise'], help="simple or blockwise")
 
+    parser.add_argument('--log', nargs=1, type=int, choices=[0, 1],
+                        help="By setting this parameter to 1, the intermediate results are stored inside the temp folder\n")
+
     # Parse command line arguments and construct parameter list.
     args = parser.parse_args()
     params = loadparameters(args)
-    gdgroebner = ReduceGDtoGroebner(inputfile_name=params['inputfile'], outputfile_name=params['outputfile'], \
-        preprocess=params['preprocess'], D=params['D'], term_ordering=params['term_ordering'], 
-        overlapping_number=params['overlapping_number'], temp_dir=params['temp_dir'],\
-            cnf_to_anf_conversion=params['cnf_to_anf_conversion'])
+    gdgroebner = ReduceGDtoGroebner(inputfile_name=params['inputfile'], 
+                                    outputfile_name=params['outputfile'],
+                                    preprocess=params['preprocess'],
+                                    D=params['D'],
+                                    term_ordering=params['term_ordering'], 
+                                    overlapping_number=params['overlapping_number'],
+                                    temp_dir=params['temp_dir'],
+                                    cnf_to_anf_conversion=params['cnf_to_anf_conversion'],
+                                    log=params['log'])
     gdgroebner.make_model()
     gdgroebner.solve()
 

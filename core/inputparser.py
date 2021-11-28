@@ -29,7 +29,7 @@ def ordered_set(seq):
     return [x for x in seq if not (x in seen or seen_add(x))]
 
 
-def read_relation_file(path, preprocess=1, D=2):
+def read_relation_file(path, preprocess=1, D=2, log=0):
     """
     Reads a relation file in GD format and parses it into a systems of connection relations
     """
@@ -49,24 +49,26 @@ def read_relation_file(path, preprocess=1, D=2):
 
     connection_relations = sections.get('connection relations', '')
     algebraic_relations = sections.get('algebraic relations', '')
-    if algebraic_relations != '' and preprocess == 1:       
-        with open(os.path.join(TEMP_DIR, 'algebraic_equations_%s.txt' % rnd_string_tmp), 'w') as equations_file:
+    algebraic_equations_file = os.path.join(TEMP_DIR, 'algebraic_equations_%s.txt' % rnd_string_tmp)
+    if algebraic_relations != '' and preprocess == 1:   
+        with open(algebraic_equations_file, 'w') as equations_file:
             equations_file.write(algebraic_relations)
         starting_time = time.time()
         print('Preprocessing phase was started - %s' % datetime.now())
+        macaulay_basis_file = os.path.join(TEMP_DIR, 'macaulay_basis_%s.txt' % rnd_string_tmp)
         sage_process = subprocess.call([PATH_SAGE, "-python3", os.path.join("core", "macaulay.py"), 
-                                        "-i", os.path.join(TEMP_DIR, 'algebraic_equations_%s.txt' % rnd_string_tmp),
-                                        "-o", os.path.join(TEMP_DIR, "macaulay_basis_%s.txt" % rnd_string_tmp),
+                                        "-i", algebraic_equations_file,
+                                        "-o", macaulay_basis_file,
                                         "-t", "degrevlex",
                                         "-D", str(D)])
         elapsed_time = time.time() - starting_time
         print('Preprocessing phase was finished after %0.4f seconds' % elapsed_time)
         try:
-            with open(os.path.join(TEMP_DIR, 'macaulay_basis_%s.txt' % rnd_string_tmp), 'r') as groebner_basis_file:
+            with open(macaulay_basis_file, 'r') as groebner_basis_file:
                 groebner_basis = groebner_basis_file.read()
                 temp = groebner_basis_file.readlines()[0:-2]
         except IOError:
-            print(os.path.join(TEMP_DIR, 'macaulay_basis_%s.txt' % rnd_string_tmp) + ' is not accessible!')
+            print(macaulay_basis_file + ' is not accessible!')
             sys.exit()
         # algebraic_relations += '\n' + groebner_basis
         algebraic_relations = groebner_basis
@@ -110,6 +112,9 @@ def read_relation_file(path, preprocess=1, D=2):
                    'notguessed_variables': notguessed_variables,
                    'symmetric_relations': symmetric_relations,
                    'implication_relations': implication_relations}
+    if log == 0 and preprocess == 1:
+        os.remove(algebraic_equations_file)
+        os.remove(macaulay_basis__file)
     return parsed_data
 
 

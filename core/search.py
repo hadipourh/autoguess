@@ -125,7 +125,8 @@ def search_using_groebnerbasis(parameters):
     "--term_ordering", parameters['term_ordering'],
     "--overlapping_number", str(parameters['overlapping_number']),
     "--temp_dir", TEMP_DIR,
-    "--cnf_to_anf_conversion", parameters['cnf_to_anf_conversion']])
+    "--cnf_to_anf_conversion", parameters['cnf_to_anf_conversion'],
+    "--log", str(parameters['log'])])
 
 def search_using_mark(parameters):
     from core.gdmark import Mark

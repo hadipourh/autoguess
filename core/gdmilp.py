@@ -265,7 +265,7 @@ class ReduceGDtoMILP:
         elapsed_time = time.time() - start_time
         with open(lp_file_path, 'w') as lpfile:
                 lpfile.write(lp_str) 
-        if self.log == 1:                   
+        if self.log == 1:
             print('MILP model was generated, and written into %s after %0.2f seconds' % (
                 lp_file_path, elapsed_time))
         else:
@@ -362,6 +362,8 @@ class ReduceGDtoMILP:
         """
         lpfile_path = os.path.join(TEMP_DIR, self.lpfile_name)
         self.milp_model = read(lpfile_path)
+        if self.log == 0:
+            os.remove(lpfile_path)
         if self.time_limit != -1:
             self.milp_model.params.TimeLimit = self.time_limit
         # 0 (default: Gurobi strikes a balance between finding feasible solution and proving the optimality)
@@ -402,13 +404,11 @@ class ReduceGDtoMILP:
                         self.max_guess, self.max_steps, self.direction)
                     grb_solution_file_path = os.path.join(
                         TEMP_DIR, gurobi_solution_file_name)
-                    self.milp_model.write(grb_solution_file_path)
-                else:
-                    os.remove(lpfile_path)
+                    self.milp_model.write(grb_solution_file_path)                    
                 parse_solver_solution(self)
                 draw_graph(self.vertices, self.edges, self.known_variables, self.guessed_vars,\
                     self.output_dir, self.tikz, self.dglayout)
         elif self.milp_model.Status == GRB.INFEASIBLE:
             print('The obtained milp model is infeasible')
         else:
-            print('Unknown error!')
+            print('Unknown error!')        
