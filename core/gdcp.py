@@ -292,7 +292,7 @@ class ReduceGDtoCP:
             return True
         elif result.status == minizinc.Status.UNSATISFIABLE:
             print(
-                'The model is UNSAT!\nIncrease the max_guess, and max_steps paramters, and try again.')
+                'The model is UNSAT!\nIncrease the max_guess or max_steps paramters and try again.')
             return False
         elif result.status == minizinc.Status.ERROR:
             print(result.status)
