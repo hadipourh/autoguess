@@ -114,7 +114,7 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
                    'implication_relations': implication_relations}
     if log == 0 and preprocess == 1:
         os.remove(algebraic_equations_file)
-        os.remove(macaulay_basis__file)
+        os.remove(macaulay_basis_file)
     return parsed_data
 
 
