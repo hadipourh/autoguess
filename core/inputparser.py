@@ -70,8 +70,8 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
         except IOError:
             print(macaulay_basis_file + ' is not accessible!')
             sys.exit()
-        # algebraic_relations += '\n' + groebner_basis
-        algebraic_relations = groebner_basis
+        algebraic_relations += '\n' + groebner_basis
+        # algebraic_relations = groebner_basis
         if connection_relations == '':
             connection_relations = algebraic_relations_to_connection_relations(algebraic_relations.split('\n'))
         else:
