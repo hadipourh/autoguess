@@ -66,7 +66,7 @@ def loadparameters(args):
               "smtsolver": 'z3',
               "cpoptimization": 1,
               "tikz": 0,
-              "preprocess" : 1,
+              "preprocess" : 0,
               "D" : 2, 
               "term_ordering": 'degrevlex',
               "overlapping_number": 2,
