@@ -144,53 +144,53 @@ def main():
                                         " using the variety of CP, MILP, SMT and SAT solvers, as well as"
                                         " the algebraic method based on Groebner basis",
                             formatter_class=RawTextHelpFormatter)
-    parser.add_argument('--inputfile', nargs=1, help="Use an input file in plain text format")
-    parser.add_argument('--outputfile', nargs=1, help="Use an output file to"
+    parser.add_argument('-i', '--inputfile', nargs=1, help="Use an input file in plain text format")
+    parser.add_argument('-o', '--outputfile', nargs=1, help="Use an output file to"
                         " write the output into it")
-    parser.add_argument('--maxguess', nargs=1, type=int,
+    parser.add_argument('-mg', '--maxguess', nargs=1, type=int,
                         help="An upper bound for the number of guessed variables")
-    parser.add_argument('--maxsteps', nargs=1, type=int,
+    parser.add_argument('-ms', '--maxsteps', nargs=1, type=int,
                         help="An integer number specifying the depth of search")
-    parser.add_argument('--solver', nargs=1,
+    parser.add_argument('-s', '--solver', nargs=1,
                         choices=['cp', 'milp', 'sat', 'smt', 'groebner'], help="cp = solve the problem using CP solvers\n"
                         "milp = solve the problem using the MILP solvers\n"
                         "sat = solve the problem using the SAT solvers\n"
                         "smt = solve the problem using the SMT solvers\n"
                         "groebner = solve the problem using the Groebner basis algorithm\n"
                         )
-    parser.add_argument('--milpdirection', nargs=1,
+    parser.add_argument('-milpd', '--milpdirection', nargs=1,
                         choices=['min', 'max'], help="min = convert the problem to a minimization problem looking for the minimal set of guessed variables.\n"
                         "max = convert the problem to a maximization problem in which the known variables in final state are maximized,\n"
                         "when the size of the initially known variables is equal or less than \"maxguess\"\n")
-    parser.add_argument('--cpsolver', nargs=1, type=str,
+    parser.add_argument('-cps', '--cpsolver', nargs=1, type=str,
                         choices=['gecode', 'chuffed', 'coin-bc', 'gurobi', 'picat', 'scip', 'choco', 'or-tools'], help="\n")
-    parser.add_argument('--satsolver', nargs=1, type=str,
+    parser.add_argument('-sats', '--satsolver', nargs=1, type=str,
                         choices=['cadical', 'glucose3', 'glucose4', 'lingeling', 'maplechrono', 'maplecm', 'maplesat', 'minicard', 'minisat22', 'minisat-gh'], help="\n")
-    parser.add_argument('--smtsolver', nargs=1, type=str,
+    parser.add_argument('-smts', '--smtsolver', nargs=1, type=str,
                         choices=['msat', 'cvc4', 'z3', 'yices', 'btor', 'bdd'], help="\n")
-    parser.add_argument('--cpoptimization', nargs=1, type=int, choices=[0, 1],
+    parser.add_argument('-cpopt', '--cpoptimization', nargs=1, type=int, choices=[0, 1],
                         help="1: Looking for a minimal guess basis \n0: Decides whether a guess basis of size up to \"maxguess\" exists\n")
-    parser.add_argument('--timelimit', nargs=1, type=int,
+    parser.add_argument('-tl', '--timelimit', nargs=1, type=int,
                         help="Set a timelimit for the search in seconds\n")
-    parser.add_argument('--tikz', nargs=1, type=int,
+    parser.add_argument('-tk', '--tikz', nargs=1, type=int,
                         help="Set to 1 to generate the tikz code of the determination flow graph\n")
-    parser.add_argument('--preprocess', nargs=1, type=int,
+    parser.add_argument('-prep', '--preprocess', nargs=1, type=int,
                         help="Set to 1 to enable the preprocessing phase\n")
-    parser.add_argument('--D', nargs=1, type=int,
+    parser.add_argument('-D', '--D', nargs=1, type=int,
                         help="It specifies the degree of Macaulay matrix generated in preprocessing phase\n")
-    parser.add_argument('--term_ordering', nargs=1, type=str,
+    parser.add_argument('-tord', '--term_ordering', nargs=1, type=str,
                         help="A degree compatible term ordering such as \"degrevlex\" or \"deglex\"\n")
-    parser.add_argument('--overlapping_number', nargs=1, type=int,
+    parser.add_argument('-oln', '--overlapping_number', nargs=1, type=int,
                         help="A positive integer specifying the overlapping number in block-wise CNF to ANF conversion\n")
 
-    parser.add_argument('--cnf_to_anf_conversion', nargs=1, type=str, choices=['simple', 'blockwise'],
+    parser.add_argument('-cnf2anf', '--cnf_to_anf_conversion', nargs=1, type=str, choices=['simple', 'blockwise'],
                         help="It specifies the CNF to ANF conversion method\n")
 
-    parser.add_argument('--dglayout', nargs=1, type=str, choices=["dot", "circo", "twopi", "fdp", \
+    parser.add_argument('-dgl', '--dglayout', nargs=1, type=str, choices=["dot", "circo", "twopi", "fdp", \
                         "neato", "nop", "nop1", "nop2", "osage", "patchwork", "sfdp"],
                         help="It specifies the layout of determination flow graph\n")
     
-    parser.add_argument('--log', nargs=1, type=int, choices=[0, 1],
+    parser.add_argument('-log', '--log', nargs=1, type=int, choices=[0, 1],
                         help="By setting this parameter to 1, the intermediate generated files such as CP/MILP/SAT models as well as\n"
                         "some intermediate results are stored inside the temp folder\n")
     

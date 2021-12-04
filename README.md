@@ -218,58 +218,61 @@ You can find many other input files inside the [ciphers](ciphers) folder. Moreov
 
 ## Manual
 
-We have provided a brief help for Autoguess which can be accessed by running this command `python3 autoguess.py --help`.
+We have provided a brief help for Autoguess which can be accessed by running this command `python3 autoguess.py -h`.
 
 ```text
-usage: autoguess.py [-h] [--inputfile INPUTFILE] [--outputfile OUTPUTFILE] [--maxguess MAXGUESS] [--maxsteps MAXSTEPS] [--solver {cp,milp,sat,smt,groebner}] [--milpdirection {min,max}]
-                    [--cpsolver {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}] [--satsolver {cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}]
-                    [--smtsolver {msat,cvc4,z3,yices,btor,bdd}] [--cpoptimization {0,1}] [--timelimit TIMELIMIT] [--tikz TIKZ] [--preprocess PREPROCESS] [--D D] [--term_ordering TERM_ORDERING]
-                    [--overlapping_number OVERLAPPING_NUMBER] [--cnf_to_anf_conversion {simple,blockwise}] [--dglayout {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}] [--log {0,1}]
+usage: autoguess.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-mg MAXGUESS] [-ms MAXSTEPS] [-s {cp,milp,sat,smt,groebner}] [-milpd {min,max}] [-cps {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}]
+                    [-sats {cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}] [-smts {msat,cvc4,z3,yices,btor,bdd}] [-cpopt {0,1}] [-tl TIMELIMIT] [-tk TIKZ]
+                    [-prep PREPROCESS] [-D D] [-tord TERM_ORDERING] [-oln OVERLAPPING_NUMBER] [-cnf2anf {simple,blockwise}] [-dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}] [-log {0,1}]
 
 This tool automates the Guess-and-Determine and Key-Bridging techniques using the variety of CP, MILP, SMT and SAT solvers, as well as the algebraic method based on Groebner basis
 
 optional arguments:
   -h, --help            show this help message and exit
-  --inputfile INPUTFILE
+  -i INPUTFILE, --inputfile INPUTFILE
                         Use an input file in plain text format
-  --outputfile OUTPUTFILE
+  -o OUTPUTFILE, --outputfile OUTPUTFILE
                         Use an output file to write the output into it
-  --maxguess MAXGUESS   An upper bound for the number of guessed variables
-  --maxsteps MAXSTEPS   An integer number specifying the depth of search
-  --solver {cp,milp,sat,smt,groebner}
+  -mg MAXGUESS, --maxguess MAXGUESS
+                        An upper bound for the number of guessed variables
+  -ms MAXSTEPS, --maxsteps MAXSTEPS
+                        An integer number specifying the depth of search
+  -s {cp,milp,sat,smt,groebner}, --solver {cp,milp,sat,smt,groebner}
                         cp = solve the problem using CP solvers
                         milp = solve the problem using the MILP solvers
                         sat = solve the problem using the SAT solvers
                         smt = solve the problem using the SMT solvers
                         groebner = solve the problem using the Groebner basis algorithm
-  --milpdirection {min,max}
+  -milpd {min,max}, --milpdirection {min,max}
                         min = convert the problem to a minimization problem looking for the minimal set of guessed variables.
                         max = convert the problem to a maximization problem in which the known variables in final state are maximized,
                         when the size of the initially known variables is equal or less than "maxguess"
-  --cpsolver {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}
+  -cps {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}, --cpsolver {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}
                         
-  --satsolver {cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}
+  -sats {cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}, --satsolver {cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}
                         
-  --smtsolver {msat,cvc4,z3,yices,btor,bdd}
+  -smts {msat,cvc4,z3,yices,btor,bdd}, --smtsolver {msat,cvc4,z3,yices,btor,bdd}
                         
-  --cpoptimization {0,1}
+  -cpopt {0,1}, --cpoptimization {0,1}
                         1: Looking for a minimal guess basis 
                         0: Decides whether a guess basis of size up to "maxguess" exists
-  --timelimit TIMELIMIT
+  -tl TIMELIMIT, --timelimit TIMELIMIT
                         Set a timelimit for the search in seconds
-  --tikz TIKZ           Set to 1 to generate the tikz code of the determination flow graph
-  --preprocess PREPROCESS
+  -tk TIKZ, --tikz TIKZ
+                        Set to 1 to generate the tikz code of the determination flow graph
+  -prep PREPROCESS, --preprocess PREPROCESS
                         Set to 1 to enable the preprocessing phase
-  --D D                 It specifies the degree of Macaulay matrix generated in preprocessing phase
-  --term_ordering TERM_ORDERING
+  -D D, --D D           It specifies the degree of Macaulay matrix generated in preprocessing phase
+  -tord TERM_ORDERING, --term_ordering TERM_ORDERING
                         A degree compatible term ordering such as "degrevlex" or "deglex"
-  --overlapping_number OVERLAPPING_NUMBER
+  -oln OVERLAPPING_NUMBER, --overlapping_number OVERLAPPING_NUMBER
                         A positive integer specifying the overlapping number in block-wise CNF to ANF conversion
-  --cnf_to_anf_conversion {simple,blockwise}
+  -cnf2anf {simple,blockwise}, --cnf_to_anf_conversion {simple,blockwise}
                         It specifies the CNF to ANF conversion method
-  --dglayout {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}
+  -dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}, --dglayout {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}
                         It specifies the layout of determination flow graph
-  --log {0,1}           By setting this parameter to 1, the intermediate generated files such as CP/MILP/SAT models as well as
+  -log {0,1}, --log {0,1}
+                        By setting this parameter to 1, the intermediate generated files such as CP/MILP/SAT models as well as
                         some intermediate results are stored inside the temp folder
 ```
 
