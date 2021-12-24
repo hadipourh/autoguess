@@ -1669,8 +1669,10 @@ k_3, k_2, x_3_0, k_4
 
 Solving with [Z3](https://github.com/Z3Prover/z3):
 
-```shpython3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_14r_mg4_ms16.txt --solver smt --smtsolver z3 --maxguess 4 --maxsteps 16
+```sh
+python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_14r_mg4_ms16.txt --solver smt --smtsolver z3 --maxguess 4 --maxsteps 16
 ```
+Terminal output:
 
 ```text
 Generating the SMT model ...
