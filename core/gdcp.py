@@ -13,6 +13,7 @@ from core.inputparser import read_relation_file
 from core.parsesolution import parse_solver_solution
 from core.graphdrawer import draw_graph
 from config import TEMP_DIR
+import datetime
 
 # logging.basicConfig(filename="./temp/minizinc-python.log", level=logging.DEBUG)
 
@@ -247,7 +248,7 @@ class ReduceGDtoCP:
         else:
             rand_int = None
         if self.time_limit != -1:
-            time_limit = self.time_limit
+            time_limit = datetime.timedelta(seconds=self.time_limit)
         else:
             time_limit = None
         if '-p' in self.cp_solver.stdFlags:
