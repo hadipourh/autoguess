@@ -86,7 +86,7 @@ class ReduceGDtoCP:
         self.num_of_vars = len(self.variables)
         ###############################
         if (self.max_guess is None) or (self.max_guess > len(self.target_variables)):
-            if self.notguessed_variables == None:
+            if self.notguessed_variables is None:
                 self.max_guess = len(self.target_variables)
             else:
                 self.max_guess = len(self.variables)
