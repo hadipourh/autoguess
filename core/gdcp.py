@@ -86,7 +86,10 @@ class ReduceGDtoCP:
         self.num_of_vars = len(self.variables)
         ###############################
         if (self.max_guess is None) or (self.max_guess > len(self.target_variables)):
-            self.max_guess = len(self.target_variables)
+            if self.notguessed_variables == None:
+                self.max_guess = len(self.target_variables)
+            else:
+                self.max_guess = len(self.variables)
             print('Number of guessed variables is set to be at most %d' % self.max_guess)   
         self.deductions = self.generate_possible_deductions()        
         self.time_limit = -1
