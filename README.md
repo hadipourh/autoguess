@@ -1265,7 +1265,7 @@ for i = 0 ... N:
      z_i+1 <--- g(x_7_i, x_2_i)
 ```
 
-where `f0, ..., f7`, and `g` are some functions. The following shape represnts how the state machine of this toy strema cipher works.
+where `f0, ..., f7`, and `g` are some functions. The following shape represnts how the state machine of this toy stream cipher works.
 
 ![rabbit_0](ciphers/Example6//Shapes/rabbit_0.svg)
 
