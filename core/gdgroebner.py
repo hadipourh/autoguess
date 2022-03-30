@@ -172,7 +172,7 @@ class ReduceGDtoGroebner:
         S_prime = []
         for block in B:
             Q = ideal([prod(cl) for cl in block])
-            S_prime += Q.groebner_basis()
+            S_prime += Q.groebner_basis( deg_bound=self.BPRing.n_variables() )
         S = PolynomialSequence(S_prime)
         A, v = S.coefficient_matrix()
         A.echelonize()
@@ -250,7 +250,7 @@ class ReduceGDtoGroebner:
         print('Computing the Groebner basis was started - %s' % datetime.now())
         starting_time = time.time()
         # self.groebner_basis = self.main_ideal.groebner_basis(prot=False, algorithm='libsingular:groebner')
-        self.groebner_basis = self.main_ideal.groebner_basis(prot=False)
+        self.groebner_basis = self.main_ideal.groebner_basis(prot=False, deg_bound=self.BPRing.n_variables(), redsb=True )
         # algorithm for computing the Groebner basis can be one of the following ones:
         # ''
         #     autoselect (default)
