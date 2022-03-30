@@ -250,7 +250,7 @@ class ReduceGDtoGroebner:
         print('Computing the Groebner basis was started - %s' % datetime.now())
         starting_time = time.time()
         # self.groebner_basis = self.main_ideal.groebner_basis(prot=False, algorithm='libsingular:groebner')
-        self.groebner_basis = self.main_ideal.groebner_basis(prot=False, deg_bound=self.BPRing.n_variables() )
+        self.groebner_basis = self.main_ideal.groebner_basis(prot=False, deg_bound=self.BPRing.n_variables(), redsb=True )
         # algorithm for computing the Groebner basis can be one of the following ones:
         # ''
         #     autoselect (default)
