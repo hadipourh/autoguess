@@ -22,10 +22,10 @@ RUN python3 -m pip install z3-solver
 
 # Install MiniZinc
 WORKDIR  /home/tools/
-RUN wget https://github.com/MiniZinc/MiniZincIDE/releases/download/2.5.5/MiniZincIDE-2.5.5-bundle-linux-x86_64.tgz && \
+RUN wget https://github.com/MiniZinc/MiniZincIDE/releases/download/2.6.3/MiniZincIDE-2.6.3-bundle-linux-x86_64.tgz && \
     mkdir MiniZinc && \
-    tar zxvf MiniZincIDE-2.5.5-bundle-linux-x86_64.tgz -C MiniZinc --strip-components=1 && \
-    rm MiniZincIDE-2.5.5-bundle-linux-x86_64.tgz
+    tar zxvf MiniZincIDE-2.6.3-bundle-linux-x86_64.tgz -C MiniZinc --strip-components=1 && \
+    rm MiniZincIDE-2.6.3-bundle-linux-x86_64.tgz
 RUN ln -s /home/tools/MiniZinc/bin/minizinc /usr/local/bin/minizinc
 
 # Install Python interface of MiniZinc
@@ -33,10 +33,10 @@ RUN python3 -m pip install minizinc
 
 # Install Or-Tools
 WORKDIR /home/tools/
-RUN wget https://github.com/google/or-tools/releases/download/v8.2/or-tools_flatzinc_debian-10_v8.2.8710.tar.gz && \ 
+RUN wget https://github.com/google/or-tools/releases/download/v9.2/or-tools_amd64_flatzinc_debian-11_v9.2.9972.tar.gz && \ 
     mkdir or-tools && \
-    tar xvzf or-tools_flatzinc_debian-10_v8.2.8710.tar.gz -C or-tools --strip-components=1 && \
-    rm or-tools_flatzinc_debian-10_v8.2.8710.tar.gz
+    tar xvzf or-tools_amd64_flatzinc_debian-11_v9.2.9972.tar.gz -C or-tools --strip-components=1 && \
+    rm or-tools_amd64_flatzinc_debian-11_v9.2.9972.tar.gz
 
 # Install Gurobi (Restricted license - for non-production use only)
 RUN python3 -m pip install gurobipy
