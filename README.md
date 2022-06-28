@@ -2933,12 +2933,22 @@ Complete details about our tool as well as the underlying methods based on which
 If you use the paper or the tool in your own work leading to an academic publication, please cite the following:
 
 ```text
-@misc{cryptoeprint:2021:1529,
-    author       = {Hosein Hadipour and Maria Eichlseder},
-    title        = {Autoguess: A Tool for Finding Guess-and-Determine Attacks and Key Bridges},
-    howpublished = {Cryptology ePrint Archive, Report 2021/1529},
-    year         = {2021},
-    note         = {\url{https://ia.cr/2021/1529}},
+@inproceedings{acnsHadipourE22,
+  author       = {Hosein Hadipour and
+                  Maria Eichlseder},
+  editor       = {Giuseppe Ateniese and
+                  Daniele Venturi},
+  title        = {{Autoguess}: A Tool for Finding Guess-and-Determine Attacks and Key Bridges},
+  booktitle    = {Applied Cryptography and Network Security -- {ACNS} 2022},
+  series       = {LNCS},
+  volume       = {13269},
+  pages        = {230--250},
+  publisher    = {Springer},
+  year         = {2022},
+  doi          = {10.1007/978-3-031-09234-3_12},
+  eprint       = {2021/1529},
+  usera        = {ACNS},
+  userb        = {2022},
 }
 ```
 
