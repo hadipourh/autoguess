@@ -136,9 +136,9 @@ For the Debian-based Linux operating systems, following the below instructions y
   
   ```sh
   mkdir /home/tools/ && cd /home/tools/
-  wget https://github.com/MiniZinc/MiniZincIDE/releases/download/2.5.5/MiniZincIDE-2.5.5-bundle-linux-x86_64.tgz
+  wget https://github.com/MiniZinc/MiniZincIDE/releases/download/2.7.4/MiniZincIDE-2.7.4-bundle-linux-x86_64.tgz
   mkdir MiniZinc
-  tar zxvf MiniZincIDE-2.5.5-bundle-linux-x86_64.tgz -C MiniZinc --strip-components=1
+  tar zxvf MiniZincIDE-2.7.4-bundle-linux-x86_64.tgz -C MiniZinc --strip-components=1
   rm MiniZincIDE-2.5.5-bundle-linux-x86_64.tgz
   ln -s /home/tools/MiniZinc/bin/minizinc /usr/local/bin/minizinc
   python3 -m pip install minizinc
@@ -150,7 +150,7 @@ For the Debian-based Linux operating systems, following the below instructions y
   mkdir /home/tools/ && cd /home/tools/
   wget https://github.com/google/or-tools/releases/download/v9.0/or-tools_flatzinc_debian-10_v9.0.9048.tar.gz
   mkdir or-tools
-  tar xvzf or-tools_flatzinc_debian-10_v8.2.8710.tar.gz -C or-tools --strip-components=1
+  tar xvzf or-tools_flatzinc_debian-10_v9.0.9048.tar.gz -C or-tools --strip-components=1
   rm or-tools_flatzinc_debian-10_v8.2.8710.tar.gz
   cp /home/tools/autoguess/configfiles/ortools.msc /home/tools/MiniZinc/share/minizinc/solvers
   ```
