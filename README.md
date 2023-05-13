@@ -148,7 +148,7 @@ For the Debian-based Linux operating systems, following the below instructions y
 
   ```sh
   mkdir /home/tools/ && cd /home/tools/
-  wget https://github.com/google/or-tools/releases/download/v8.2/or-tools_flatzinc_debian-10_v8.2.8710.tar.gz
+  wget https://github.com/google/or-tools/releases/download/v9.0/or-tools_flatzinc_debian-10_v9.0.9048.tar.gz
   mkdir or-tools
   tar xvzf or-tools_flatzinc_debian-10_v8.2.8710.tar.gz -C or-tools --strip-components=1
   rm or-tools_flatzinc_debian-10_v8.2.8710.tar.gz
