@@ -95,7 +95,7 @@ For the Debian-based Linux operating systems, following the below instructions y
 - Download Autoguess:
 
    ```sh
-   mkdir /home/tools/ & cd /home/tools/
+   mkdir /home/tools/ && cd /home/tools/
    git clone https://github.com/hadipourh/autoguess
    ```
 
