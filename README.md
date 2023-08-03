@@ -222,7 +222,7 @@ We have provided a brief help for Autoguess which can be accessed by running thi
 
 ```text
 usage: autoguess.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-mg MAXGUESS] [-ms MAXSTEPS] [-s {cp,milp,sat,smt,groebner}] [-milpd {min,max}] [-cps {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}]
-                    [-sats {cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}] [-smts {msat,cvc4,z3,yices,btor,bdd}] [-cpopt {0,1}] [-tl TIMELIMIT] [-tk TIKZ]
+                    [-sats {cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}] [-smts {msat,cvc4,z3,yices,btor,bdd}] [-cpopt {0,1}] [-tl TIMELIMIT] [-tk TIKZ]
                     [-prep PREPROCESS] [-D D] [-tord TERM_ORDERING] [-oln OVERLAPPING_NUMBER] [-cnf2anf {simple,blockwise}] [-dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}] [-log {0,1}]
 
 This tool automates the Guess-and-Determine and Key-Bridging techniques using the variety of CP, MILP, SMT and SAT solvers, as well as the algebraic method based on Groebner basis
@@ -249,7 +249,7 @@ optional arguments:
                         when the size of the initially known variables is equal or less than "maxguess"
   -cps {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}, --cpsolver {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}
                         
-  -sats {cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}, --satsolver {cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}
+  -sats {cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}, --satsolver {cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}
                         
   -smts {msat,cvc4,z3,yices,btor,bdd}, --smtsolver {msat,cvc4,z3,yices,btor,bdd}
                         
@@ -353,7 +353,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.00 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.00 seconds
 Number of guesses: 2
 Number of known variables in the final state: 7 out of 7
@@ -529,7 +529,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.00 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.00 seconds
 Number of guesses: 1
 Number of known variables in the final state: 7 out of 7
@@ -759,7 +759,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.00 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.00 seconds
 Number of guesses: 3
 Number of known variables in the final state: 8 out of 8
@@ -1164,7 +1164,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.00 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.00 seconds
 Number of guesses: 3
 Number of known variables in the final state: 8 out of 8
@@ -1283,7 +1283,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.14 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.36 seconds
 Number of guesses: 6
 Number of known variables in the final state: 88 out of 88
@@ -1346,7 +1346,7 @@ Terminal outputs:
 Generating the SAT model ...
 SAT model was generated after 0.32 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.02 seconds
 Number of guesses: 6
 Number of known variables in the final state: 96 out of 96
@@ -1354,7 +1354,7 @@ The following 6 variable(s) are guessed:
 X_0_0_0, X_0_1_1, W_0_0_0, W_0_2_2, W_0_3_0, K_1_3_2
 ```
 
-As you can see Autoguess finds a GD attack on 1 round of AES in less than a second. Autoguess uses [CaDiCaL](http://fmv.jku.at/cadical/) as the SAT solver by default. However, user can simply choose another SAT solver among `cadical,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh` by this switch : `--satsolver SAT_SOLVER_NAME`.
+As you can see Autoguess finds a GD attack on 1 round of AES in less than a second. Autoguess uses [CaDiCaL](http://fmv.jku.at/cadical153/) as the SAT solver by default. However, user can simply choose another SAT solver among `cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh` by this switch : `--satsolver SAT_SOLVER_NAME`.
 
 ***SMT***
 
@@ -1525,7 +1525,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.91 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 26.53 seconds
 Number of guesses: 10
 Number of known variables in the final state: 144 out of 144
@@ -1590,7 +1590,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 1.44 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 34.51 seconds
 Number of guesses: 15
 Number of known variables in the final state: 192 out of 192
@@ -1626,10 +1626,10 @@ The following 4 variable(s) are guessed:
 k_2, x_3_3, x_13_0, x_13_2
 ```
 
-Solving with [CaDiCaL](https://github.com/arminbiere/cadical).
+Solving with [CaDiCaL](https://github.com/arminbiere/cadical153).
 
 ```sh
-python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_14r_mg4_ms16.txt --solver sat --satsolver cadical --maxguess 4 --maxsteps 16
+python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_14r_mg4_ms16.txt --solver sat --satsolver cadical153 --maxguess 4 --maxsteps 16
 ```
 
 Terminal output:
@@ -1638,7 +1638,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.08 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.01 seconds
 Number of guesses: 4
 Number of known variables in the final state: 70 out of 70
@@ -1859,7 +1859,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 1.31 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 14.71 seconds
 Number of guesses: 15
 Number of known variables in the final state: 384 out of 384
@@ -1938,7 +1938,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.29 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 7.08 seconds
 Number of guesses: 10
 Number of known variables in the final state: 116 out of 116
@@ -1966,7 +1966,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.03 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.09 seconds
 Number of guesses: 9
 Number of known variables in the final state: 45 out of 45
@@ -2176,7 +2176,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.04 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.81 seconds
 Number of guesses: 9
 Number of known variables in the final state: 44 out of 44
@@ -2223,7 +2223,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.04 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.03 seconds
 Number of guesses: 10
 Number of known variables in the final state: 38 out of 38
@@ -2364,7 +2364,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.45 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.00 seconds
 Number of guesses: 0
 Number of known variables in the final state: 273 out of 273
@@ -2624,7 +2624,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.29 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.33 seconds
 Number of guesses: 47
 Number of known variables in the final state: 287 out of 640
@@ -2644,7 +2644,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.29 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.57 seconds
 Number of guesses: 55
 Number of known variables in the final state: 311 out of 640
@@ -2664,7 +2664,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.45 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 1.17 seconds
 Number of guesses: 69
 Number of known variables in the final state: 548 out of 640
@@ -2738,7 +2738,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.11 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.01 seconds
 Number of guesses: 19
 Number of known variables in the final state: 33 out of 72
@@ -2769,7 +2769,7 @@ maxsteps 12
 Generating the SAT model ...
 SAT model was generated after 0.09 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.05 seconds
 Number of guesses: 25
 Number of known variables in the final state: 36 out of 104
@@ -2789,7 +2789,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.09 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.05 seconds
 Number of guesses: 34
 Number of known variables in the final state: 53 out of 104
@@ -2809,7 +2809,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.09 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.06 seconds
 Number of guesses: 36
 Number of known variables in the final state: 58 out of 104
@@ -2839,7 +2839,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.15 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.05 seconds
 Number of guesses: 45
 Number of known variables in the final state: 110 out of 128
@@ -2865,7 +2865,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.14 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 0.01 seconds
 Number of guesses: 18
 Number of known variables in the final state: 59 out of 520
@@ -2916,7 +2916,7 @@ Terminal output:
 Generating the SAT model ...
 SAT model was generated after 0.94 seconds
 
-Solving with cadical ...
+Solving with cadical153 ...
 Time used by SAT solver: 124.32 seconds
 Number of guesses: 31
 Number of known variables in the final state: 692 out of 896
