@@ -62,7 +62,7 @@ def loadparameters(args):
               "milpdirection": 'min',
               "timelimit": -1,
               "cpsolver": 'or-tools',
-              "satsolver": 'cadical',
+              "satsolver": 'cadical153',
               "smtsolver": 'z3',
               "cpoptimization": 1,
               "tikz": 0,
@@ -165,7 +165,7 @@ def main():
     parser.add_argument('-cps', '--cpsolver', nargs=1, type=str,
                         choices=['gecode', 'chuffed', 'coin-bc', 'gurobi', 'picat', 'scip', 'choco', 'or-tools'], help="\n")
     parser.add_argument('-sats', '--satsolver', nargs=1, type=str,
-                        choices=['cadical', 'glucose3', 'glucose4', 'lingeling', 'maplechrono', 'maplecm', 'maplesat', 'minicard', 'minisat22', 'minisat-gh'], help="\n")
+                        choices=['cadical153', 'glucose3', 'glucose4', 'lingeling', 'maplechrono', 'maplecm', 'maplesat', 'minicard', 'minisat22', 'minisat-gh'], help="\n")
     parser.add_argument('-smts', '--smtsolver', nargs=1, type=str,
                         choices=['msat', 'cvc4', 'z3', 'yices', 'btor', 'bdd'], help="\n")
     parser.add_argument('-cpopt', '--cpoptimization', nargs=1, type=int, choices=[0, 1],

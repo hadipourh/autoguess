@@ -36,7 +36,7 @@ class ReduceGDtoSAT:
 
     count = 0
 
-    def __init__(self, inputfile_name=None, outputfile_name='output', max_guess=0, max_steps=0, sat_solver='cadical',\
+    def __init__(self, inputfile_name=None, outputfile_name='output', max_guess=0, max_steps=0, sat_solver='cadical153',\
         tikz=0, preprocess=1, D=2, dglayout="dot", log=0):
         ReduceGDtoSAT.count += 1
         self.inputfile_name = inputfile_name
@@ -45,8 +45,16 @@ class ReduceGDtoSAT:
         self.max_guess = max_guess
         self.max_steps = max_steps
         self.sat_solver_name = sat_solver
-        self.supported_sat_solvers = list(solvers.SolverNames.cadical) + list(solvers.SolverNames.glucose4) + list(solvers.SolverNames.glucose3) + list(solvers.SolverNames.lingeling) + list(solvers.SolverNames.maplesat) + list(
-            solvers.SolverNames.maplechrono) + list(solvers.SolverNames.maplecm) + list(solvers.SolverNames.minicard) + list(solvers.SolverNames.minisat22) + list(solvers.SolverNames.minisatgh)
+        self.supported_sat_solvers = list(solvers.SolverNames.cadical153) + \
+                                        list(solvers.SolverNames.glucose4) + \
+                                            list(solvers.SolverNames.glucose3) + \
+                                                list(solvers.SolverNames.lingeling) + \
+                                                    list(solvers.SolverNames.maplesat) + \
+                                                        list(solvers.SolverNames.maplechrono) + \
+                                                            list(solvers.SolverNames.maplecm) + \
+                                                                list(solvers.SolverNames.minicard) + \
+                                                                    list(solvers.SolverNames.minisat22) + \
+                                                                        list(solvers.SolverNames.minisatgh)
         assert(sat_solver in self.supported_sat_solvers)
         self.dglayout = dglayout
         self.log = log
@@ -243,8 +251,8 @@ class ReduceGDtoSAT:
         solve the derived CNF formula
         """
 
-        if self.sat_solver_name in solvers.SolverNames.cadical:
-            sat_solver = solvers.Cadical()
+        if self.sat_solver_name in solvers.SolverNames.cadical153:
+            sat_solver = solvers.Cadical153()
         elif self.sat_solver_name in solvers.SolverNames.glucose4:
             sat_solver = solvers.Glucose4()
         elif self.sat_solver_name in solvers.SolverNames.glucose3:
@@ -270,10 +278,10 @@ class ReduceGDtoSAT:
         sat_solver.append_formula(self.cnf_formula)
         print('\nSolving with %s ...' % self.sat_solver_name)
         start_time = time.time()
-        # Regarding time_limit: Note that only MiniSat-like solvers support this functionality (e.g. Cadical and Lingeling do not
+        # Regarding time_limit: Note that only MiniSat-like solvers support this functionality (e.g. Cadical153 and Lingeling do not
         # support it).
         if self.time_limit != -1:
-            if self.sat_solver_name in list(solvers.SolverNames.cadical) + list(solvers.SolverNames.lingeling):
+            if self.sat_solver_name in list(solvers.SolverNames.cadical153) + list(solvers.SolverNames.lingeling):
                 print('time_limit is not supported for the chosen sat solver ... ')
                 result = sat_solver.solve()
             else:
