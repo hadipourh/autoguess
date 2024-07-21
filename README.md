@@ -978,7 +978,7 @@ XKSI02
 ***SAT***
 
 ```sh
-python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solver sat --maxguess 1 --maxsteps 5 --D 3
+python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solver sat --maxguess 1 --maxsteps 5 --preprocess 1 --D 3
 ```
 
 Terminal output:
@@ -1016,7 +1016,7 @@ XKSI02
 ***SMT***
 
 ```sh
-python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solver smt --maxguess 1 --maxsteps 5 --D 3
+python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solver smt --maxguess 1 --maxsteps 5 --preprocess 1 --D 3
 ```
 
 Terminal output:
@@ -1048,7 +1048,7 @@ KUNB13
 ***MILP***
 
 ```sh
-python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solver milp --maxsteps 5 --D 3
+python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solver milp --maxsteps 5 --preprocess 1 --D 3
 ```
 
 Terminal output:
