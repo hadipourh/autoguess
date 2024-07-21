@@ -79,9 +79,9 @@ class ReduceGDtoCP:
             'gecode', 'chuffed', 'cbc', 'gurobi', 'picat', 'scip', 'choco', 'or-tools']
         assert(self.cp_solver_name in self.supported_cp_solvers)                
         if ortools_available:
-            if self.cp_solver_name == "ortools":
-                self.cp_solver_name = "com.google.ortools.sat"    
-        self.cp_solver = minizinc.Solver.lookup(self.cp_solver_name)        
+            if self.cp_solver_name == "or-tools":
+                self.cp_solver_name = "com.google.ortools.sat"                
+        self.cp_solver = minizinc.Solver.lookup(self.cp_solver_name)      
         self.cp_optimization = cp_optimization
         self.nthreads = 16
         self.cp_boolean_variables = []
