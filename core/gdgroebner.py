@@ -406,7 +406,7 @@ def read_relation_file(path, temp_dir, preprocess=1, D=2, log=0):
         with open(algebraic_equations_file, 'w') as equations_file:
             equations_file.write(algebraic_relations)
         starting_time = time.time()
-        macaulay_basis_file = os.path.join(temp_dir, 'macaulay_basis_%d.txt' % rnd_string_tmp)
+        macaulay_basis_file = os.path.join(temp_dir, 'macaulay_basis_%s.txt' % rnd_string_tmp)
         print('Preprocessing phase was started - %s' % datetime.now())
         macaulay = Macaulay(inputfile=algebraic_equations_file, 
                             outputfile=macaulay_basis_file,
