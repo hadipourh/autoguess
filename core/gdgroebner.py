@@ -417,7 +417,7 @@ def read_relation_file(path, temp_dir, preprocess=1, D=2, log=0):
         elapsed_time = time.time() - starting_time
         print('Preprocessing phase was finished after %0.4f seconds' % elapsed_time)
         try:
-            with open(macaulay_basis__file, 'r') as groebner_basis_file:
+            with open(macaulay_basis_file, 'r') as groebner_basis_file:
                 groebner_basis = groebner_basis_file.read()
         except IOError:
             print(macaulay_basis_file + ' is not accessible!')
