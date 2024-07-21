@@ -102,7 +102,7 @@ For the Debian-based Linux operating systems, following the below instructions y
 - Install prerequisites:
   
   ```sh
-  apt-get install python3-dev
+  apt-get install python3-dev python3-full curl
   python3 -m pip install cython
   ```
 
@@ -136,23 +136,13 @@ For the Debian-based Linux operating systems, following the below instructions y
   
   ```sh
   mkdir /home/tools/ && cd /home/tools/
-  wget https://github.com/MiniZinc/MiniZincIDE/releases/download/2.7.4/MiniZincIDE-2.7.4-bundle-linux-x86_64.tgz
+  LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+  wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
   mkdir MiniZinc
-  tar zxvf MiniZincIDE-2.7.4-bundle-linux-x86_64.tgz -C MiniZinc --strip-components=1
-  rm MiniZincIDE-2.5.5-bundle-linux-x86_64.tgz
+  tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1 \
+  rm "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
   ln -s /home/tools/MiniZinc/bin/minizinc /usr/local/bin/minizinc
   python3 -m pip install minizinc
-  ```
-
-- Install Or-Tools
-
-  ```sh
-  mkdir /home/tools/ && cd /home/tools/
-  wget https://github.com/google/or-tools/releases/download/v9.0/or-tools_flatzinc_debian-10_v9.0.9048.tar.gz
-  mkdir or-tools
-  tar xvzf or-tools_flatzinc_debian-10_v9.0.9048.tar.gz -C or-tools --strip-components=1
-  rm or-tools_flatzinc_debian-10_v8.2.8710.tar.gz
-  cp /home/tools/autoguess/configfiles/ortools.msc /home/tools/MiniZinc/share/minizinc/solvers
   ```
 
 - Install [SageMath](https://doc.sagemath.org/html/en/installation/binary.html#linux)

@@ -7,6 +7,28 @@ Created on Aug 23, 2020
 @contact: hsn.hadipour@gmail.com
 
 For more information, feedback or any questions, please contact hsn.hadipour@gmail.com
+
+MIT License
+
+Copyright (c) 2021 Hosein Hadipour
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 '''
 
 from core import search
@@ -194,9 +216,6 @@ def main():
                         help="By setting this parameter to 1, the intermediate generated files such as CP/MILP/SAT models as well as\n"
                         "some intermediate results are stored inside the temp folder\n")
     
-
-
-
     # Parse command line arguments and construct parameter list.
     args = parser.parse_args()
     params = loadparameters(args)

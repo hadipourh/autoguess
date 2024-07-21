@@ -17,6 +17,18 @@ import datetime
 
 # logging.basicConfig(filename="./temp/minizinc-python.log", level=logging.DEBUG)
 
+# Check if "OR Tools" appears in the output of "minizinc --solvers" command 
+import subprocess
+try:
+    output = subprocess.run(['minizinc', '--solvers'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if "com.google.ortools.sat" in output.stdout.decode("utf-8"):
+        ortools_available = True
+        print("OR Tools is available")
+    else:
+        ortools_available = False
+        print("OR Tools is not available")
+except FileNotFoundError:
+    ortools_available = False
 
 class ReduceGDtoCP:
     """
@@ -65,9 +77,12 @@ class ReduceGDtoCP:
         # yuck
         self.supported_cp_solvers = [
             'gecode', 'chuffed', 'cbc', 'gurobi', 'picat', 'scip', 'choco', 'or-tools']
-        self.cp_optimization = cp_optimization
-        assert(self.cp_solver_name in self.supported_cp_solvers)
+        assert(self.cp_solver_name in self.supported_cp_solvers)                
+        if ortools_available:
+            if self.cp_solver_name == "ortools":
+                self.cp_solver_name = "com.google.ortools.sat"    
         self.cp_solver = minizinc.Solver.lookup(self.cp_solver_name)        
+        self.cp_optimization = cp_optimization
         self.nthreads = 16
         self.cp_boolean_variables = []
         self.cp_constraints = ''
