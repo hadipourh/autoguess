@@ -5,7 +5,7 @@ Created on March 24, 2021
 @contact: hsn.hadipour@gmail.com
 '''
 
-from os import path
+# from os import path
 from sage.all import *
 from sage.rings.polynomial.multi_polynomial_sequence import PolynomialSequence
 import os
@@ -55,7 +55,7 @@ class ReduceGDtoGroebner:
         self.temp_dir = temp_dir
         self.cnf_to_anf_conversion = cnf_to_anf_conversion
         if not(os.path.exists(self.temp_dir )):
-            os.mkdir(self.current_dir)
+            os.mkdir(self.temp_dir)
         self.rnd_string_tmp = '%030x' % random.randrange(16**30)
         self.log = log
         ###############################
@@ -493,10 +493,8 @@ def split_contents_by_sections(contents):
 
     for section_name, keywords in keywords.items():
         try:
-            match, keyword_start, keyword_end = search_keywords(
-                contents, keywords)
-            sections.append(Section(section_name.lower(),
-                                    keyword_start, keyword_end))
+            _, keyword_start, keyword_end = search_keywords(contents, keywords)
+            sections.append(Section(section_name.lower(), keyword_start, keyword_end))
         except AttributeError:
             pass
     # sort by the start index of the section

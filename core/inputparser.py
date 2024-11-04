@@ -56,17 +56,17 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
         starting_time = time.time()
         print('Preprocessing phase was started - %s' % datetime.now())
         macaulay_basis_file = os.path.join(TEMP_DIR, 'macaulay_basis_%s.txt' % rnd_string_tmp)
-        sage_process = subprocess.call([PATH_SAGE, "-python3", os.path.join("core", "macaulay.py"), 
-                                        "-i", algebraic_equations_file,
-                                        "-o", macaulay_basis_file,
-                                        "-t", "degrevlex",
-                                        "-D", str(D)])
+        subprocess.call([PATH_SAGE, "-python3", os.path.join("core", "macaulay.py"), 
+                         "-i", algebraic_equations_file,
+                         "-o", macaulay_basis_file,
+                         "-t", "degrevlex",
+                         "-D", str(D)])
         elapsed_time = time.time() - starting_time
         print('Preprocessing phase was finished after %0.4f seconds' % elapsed_time)
         try:
             with open(macaulay_basis_file, 'r') as groebner_basis_file:
                 groebner_basis = groebner_basis_file.read()
-                temp = groebner_basis_file.readlines()[0:-2]
+                groebner_basis_file.readlines()[0:-2]
         except IOError:
             print(macaulay_basis_file + ' is not accessible!')
             sys.exit()
@@ -155,7 +155,7 @@ def split_contents_by_sections(contents):
 
     for section_name, keywords in keywords.items():
         try:
-            match, keyword_start, keyword_end = search_keywords(
+            _, keyword_start, keyword_end = search_keywords(
                 contents, keywords)
             sections.append(Section(section_name.lower(),
                                     keyword_start, keyword_end))
@@ -193,8 +193,7 @@ def remove_comments(contents):
     Remove the comments from the contents
     """
     
-    contents = re.sub(re.compile(r"#.*?\n", re.DOTALL), "",
-                      contents)  # remove all occurrences of #COMMENT from line
+    contents = re.sub(re.compile(r"#.*?\n", re.DOTALL), "", contents)  # remove all occurrences of #COMMENT from line
     return contents
 
 def parse_connection_relations(connection_relations):
@@ -297,14 +296,11 @@ def algebraic_relations_to_connection_relations(algebraic_relations):
     for monomial in all_monomials:
         if degree_of_monomial(monomial) >= 2:
             monomial_variables = get_variables_from_monomial(monomial)
-            var_indices = [algebraic_variables.index(
-                x) for x in monomial_variables]
+            var_indices = [algebraic_variables.index(x) for x in monomial_variables]
             var_indices = list(map(str, var_indices))
-            dummy_var = "{0}{1}".format(
-                dummy_vars_prefix, "".join(var_indices))
+            dummy_var = "{0}{1}".format(dummy_vars_prefix, "".join(var_indices))
             if dummy_var not in substitution_dictionary.values():
-                connection_relations.append("{0}=>{1}".format(
-                    ",".join(monomial_variables), dummy_var))
+                connection_relations.append("{0}=>{1}".format(",".join(monomial_variables), dummy_var))
             substitution_dictionary[monomial] = dummy_var
 
     for poly in algebraic_relations:
