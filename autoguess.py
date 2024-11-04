@@ -70,7 +70,7 @@ def load_parameters(args):
     params = {
         # "inputfile": "./ciphers/AES/relationfile_aes1kp_1r_mg6_ms14.txt",
         # "inputfile": "./ciphers/Example1/relationfile.txt",
-        "inputfile": "./ciphers/Example5/example5.txt",
+        "inputfile": "./ciphers/Example4/algebraic_relations.txt",
         "outputfile": "output",
         "maxguess": 50,
         "maxsteps": 5,
@@ -82,13 +82,13 @@ def load_parameters(args):
         "smtsolver": 'z3',
         "cpoptimization": 1,
         "tikz": 0,
-        "preprocess": 0,
+        "preprocess": 1,
         "D": 2,
         "term_ordering": 'degrevlex',
         "overlapping_number": 2,
         "cnf_to_anf_conversion": 'simple',
         "dglayout": "dot",
-        "log": 0
+        "log": 1
     }
 
     for key in params:

@@ -41,8 +41,10 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
             with open(path, 'r') as fileobj:
                 contents = fileobj.read()
     except (TypeError, ValueError):
-        pass
+        print(f"File at {path} could not be read or is empty.")
 
+    if contents is None:
+        raise ValueError(f"File at {path} could not be read or is empty.")
     contents = contents.strip()
     problem_name = find_problem_name(contents)
     sections = split_contents_by_sections(remove_comments(contents))
@@ -66,7 +68,6 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
         try:
             with open(macaulay_basis_file, 'r') as groebner_basis_file:
                 groebner_basis = groebner_basis_file.read()
-                groebner_basis_file.readlines()[0:-2]
         except IOError:
             print(macaulay_basis_file + ' is not accessible!')
             sys.exit()
@@ -112,7 +113,7 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
                    'notguessed_variables': notguessed_variables,
                    'symmetric_relations': symmetric_relations,
                    'implication_relations': implication_relations}
-    if log == 0 and preprocess == 1:
+    if log == 0 and algebraic_relations != '' and preprocess == 1:
         os.remove(algebraic_equations_file)
         os.remove(macaulay_basis_file)
     return parsed_data
@@ -155,16 +156,14 @@ def split_contents_by_sections(contents):
 
     for section_name, keywords in keywords.items():
         try:
-            _, keyword_start, keyword_end = search_keywords(
-                contents, keywords)
-            sections.append(Section(section_name.lower(),
-                                    keyword_start, keyword_end))
+            match, keyword_start, keyword_end = search_keywords(contents, keywords)
+            sections.append(Section(section_name.lower(),keyword_start, keyword_end))
         except AttributeError:
             pass
     # sort by the start index of the section
     sections.sort(key=lambda x: x.keyword_start)
 
-    if sections[-1].name != 'end':
+    if not sections or sections[-1].name != 'end':
         raise ValueError('File must end with an "end" keyword')
 
     parsed_sections = {}
@@ -183,8 +182,7 @@ def search_keywords(contents, keywords):
     Raises ValueError when none of the keywords is found in the contents
     """
 
-    sense_pattern = re.compile(
-        '|'.join(rf'\b{re.escape(keyword)}\b' for keyword in keywords), re.IGNORECASE)
+    sense_pattern = re.compile('|'.join(rf'\b{re.escape(keyword)}\b' for keyword in keywords), re.IGNORECASE)
     match = sense_pattern.search(contents)
     return match.group(), match.start(), match.end()
 
