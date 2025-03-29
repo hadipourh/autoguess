@@ -79,7 +79,7 @@ def load_parameters(args):
         "solver": 'cp',
         "milpdirection": 'min',
         "timelimit": -1,
-        "cpsolver": 'or-tools',
+        "cpsolver": 'cp-sat',
         "satsolver": 'cadical153',
         "smtsolver": 'z3',
         "cpoptimization": 1,
