@@ -16,14 +16,6 @@ from config import TEMP_DIR
 import datetime
 import subprocess
 
-# Check if "OR Tools" appears in the output of "minizinc --solvers" command 
-try:
-    output = subprocess.run(['minizinc', '--solvers'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    ortools_available = "com.google.ortools.sat" in output.stdout.decode("utf-8")
-    print("OR Tools is available" if ortools_available else "OR Tools is not available")
-except FileNotFoundError:
-    ortools_available = False
-
 class ReduceGDtoCP:
     """
     ReduceGDtoCP
@@ -50,11 +42,14 @@ class ReduceGDtoCP:
         self.cp_solver_name = cp_solver_name
         self.dglayout = dglayout
         self.log = log  
-        self.supported_cp_solvers = [
-            'gecode', 'chuffed', 'cbc', 'gurobi', 'picat', 'scip', 'choco', 'or-tools']
-        assert(self.cp_solver_name in self.supported_cp_solvers)                
-        if ortools_available and self.cp_solver_name == "or-tools":
-            self.cp_solver_name = "com.google.ortools.sat"                
+        self.supported_cp_solvers = [solver_name for solver_name in minizinc.default_driver.available_solvers().keys()]
+        try:
+            if self.cp_solver_name not in self.supported_cp_solvers:
+                raise ValueError(f"Solver '{self.cp_solver_name}' is not supported. Supported solvers are: {self.supported_cp_solvers}")
+        except ValueError as e:
+            print(e)
+            print('The default CP solver is used instead: cp-sat (ortools)')
+            self.cp_solver_name = 'cp-sat'     
         self.cp_solver = minizinc.Solver.lookup(self.cp_solver_name)      
         self.cp_optimization = cp_optimization
         self.nthreads = 16
