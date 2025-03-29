@@ -52,23 +52,24 @@ pip install --upgrade pip setuptools wheel
 pip install cython graphviz dot2tex minizinc
 
 # Install boolector
-echo "==> Installing Boolector..."
-cd "$TOOLS_DIR"
-if [ ! -d "boolector" ]; then
-    git clone https://github.com/boolector/boolector
-    cd boolector
+# echo "==> Installing Boolector..."
+# cd "$TOOLS_DIR"
+# if [ ! -d "boolector" ]; then
+#     git clone https://github.com/boolector/boolector
+#     cd boolector
 
-    echo "==> Setting up Lingeling..."
-    ./contrib/setup-lingeling.sh
+#     echo "==> Setting up Lingeling..."
+#     ./contrib/setup-lingeling.sh
 
-    echo "==> Setting up BTOR2Tools..."
-    ./contrib/setup-btor2tools.sh
+#     echo "==> Setting up BTOR2Tools..."
+#     ./contrib/setup-btor2tools.sh
 
-    echo "==> Building Boolector..."
-    ./configure.sh && cd build && make && make install
-else
-    echo "Boolector already installed."
-fi
+#     echo "==> Building Boolector..."
+#     ./configure.sh && cd build && make && make install
+# else
+#     echo "Boolector already installed."
+# fi
+pysmt-install --btor
 
 # Install pysat, pysmt, and z3-solver
 echo "==> Installing pysat, pysmt, and z3-solver..."
