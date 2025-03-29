@@ -30,8 +30,7 @@ apt-get install -y python3-dev python3-full curl graphviz
 echo "==> Installing Python packages..."
 apt-get install -y python3-pip
 python3 -m pip install --upgrade pip
-python3 -m pip install --user virtualenv
-python3 -m virtualenv autoguess_env
+python3 -m venv autoguess_env
 source autoguess_env/bin/activate
 
 pip install cython python-sat[pblib,aiger] pysmt z3-solver graphviz dot2tex minizinc
