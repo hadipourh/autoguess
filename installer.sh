@@ -28,6 +28,7 @@ apt-get install -y python3-dev python3-full curl graphviz
 
 # Install Python packages
 echo "==> Installing Python packages..."
+apt-get install -y python3-pip
 python3 -m pip install --upgrade pip
 python3 -m pip install cython python-sat[pblib,aiger] pysmt z3-solver graphviz dot2tex minizinc
 
