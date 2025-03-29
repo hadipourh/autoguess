@@ -90,3 +90,5 @@ echo "==> Installation completed successfully."
 echo
 echo "📌 Reminder:"
 echo "- If SageMath is already installed, update its path in config.py if needed."
+echo "- To use Autoguess, activate the Python virtual environment by running:"
+echo "  source $TOOLS_DIR/autoguess_env/bin/activate"
