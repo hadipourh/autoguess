@@ -48,7 +48,7 @@ python3 -m venv autoguess_env
 source autoguess_env/bin/activate
 pip install --upgrade pip setuptools wheel
 
-pip install cython python-sat[pblib,aiger] pysmt z3-solver graphviz dot2tex minizinc
+pip install cython graphviz dot2tex minizinc
 
 # Install boolector
 echo "==> Installing Boolector..."
@@ -69,11 +69,23 @@ else
     echo "Boolector already installed."
 fi
 
+# pysat, pysmt, and z3-solver
+echo "==> Installing pysat, pysmt, and z3-solver..."
+pip install python-sat[pblib,aiger] pysmt z3-solver
+
 deactivate
 
 # Install SageMath
 echo "==> Installing SageMath..."
-apt-get install -y sagemath
+if ! command -v sage &> /dev/null; then
+    echo "Adding SageMath PPA..."
+    apt-get install -y software-properties-common
+    add-apt-repository -y ppa:aims/sagemath
+    apt-get update
+    apt-get install -y sagemath
+else
+    echo "SageMath is already installed."
+fi
 
 echo "==> Installation completed successfully."
 
