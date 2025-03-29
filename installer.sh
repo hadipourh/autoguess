@@ -25,11 +25,6 @@ fi
 echo "==> Installing system packages..."
 apt-get update
 apt-get install -y python3-dev python3-full curl graphviz
-# Add SageMath PPA and install it
-echo "==> Adding SageMath PPA..."
-add-apt-repository -y ppa:aims/sagemath
-apt-get update
-apt-get install -y sagemath
 
 # Install Python packages
 echo "==> Installing Python packages..."
@@ -53,6 +48,10 @@ if [ ! -d "MiniZinc" ]; then
 else
     echo "MiniZinc already installed."
 fi
+
+# Install SageMath
+echo "==> Installing SageMath..."
+apt-get install -y sagemath
 
 echo "==> Installation completed successfully."
 
