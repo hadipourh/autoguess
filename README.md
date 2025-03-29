@@ -1,7 +1,9 @@
 # Autoguess
 
 [![license](./miscellaneous/license-MIT-green.svg)](./LICENSE.txt)
-
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/docker-available-blue.svg)](https://www.docker.com/)
+[![GitHub stars](https://img.shields.io/github/stars/hadipourh/autoguess?style=social)](https://github.com/hadipourh/autoguess/stargazers)
 
 <p align="center">
   <img src="miscellaneous/logo.svg" width="400" alt="AutoGuess Logo">
