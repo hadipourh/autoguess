@@ -24,7 +24,7 @@ fi
 # Install system prerequisites
 echo "==> Installing system packages..."
 apt-get update
-apt-get install -y python3-dev python3-full curl graphviz wget
+apt-get install -y python3-dev python3-full curl graphviz wget cmake
 
 # Install MiniZinc
 echo "==> Installing MiniZinc..."
