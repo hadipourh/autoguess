@@ -26,6 +26,20 @@ echo "==> Installing system packages..."
 apt-get update
 apt-get install -y python3-dev python3-full curl graphviz
 
+# Install MiniZinc
+echo "==> Installing MiniZinc..."
+cd "$TOOLS_DIR"
+if [ ! -d "MiniZinc" ]; then
+    LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+    wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
+    mkdir MiniZinc
+    tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1
+    rm "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
+    ln -sf "$TOOLS_DIR/MiniZinc/bin/minizinc" /usr/local/bin/minizinc
+else
+    echo "MiniZinc already installed."
+fi
+
 # Install Python packages
 echo "==> Setting up Python environment and installing packages..."
 apt-get install -y python3-pip
@@ -41,20 +55,6 @@ echo "==> Installing Boolector via pySMT..."
 pysmt-install --btor
 
 deactivate
-
-# Install MiniZinc
-echo "==> Installing MiniZinc..."
-cd "$TOOLS_DIR"
-if [ ! -d "MiniZinc" ]; then
-    LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-    wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
-    mkdir MiniZinc
-    tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1
-    rm "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
-    ln -sf "$TOOLS_DIR/MiniZinc/bin/minizinc" /usr/local/bin/minizinc
-else
-    echo "MiniZinc already installed."
-fi
 
 # Install SageMath
 echo "==> Installing SageMath..."
