@@ -69,11 +69,11 @@ pip install cython graphviz dot2tex minizinc
 # else
 #     echo "Boolector already installed."
 # fi
-pysmt-install --btor
 
 # Install pysat, pysmt, and z3-solver
 echo "==> Installing pysat, pysmt, and z3-solver..."
 pip install python-sat[pblib,aiger] pysmt z3-solver gurobipy
+pysmt-install --btor
 
 deactivate
 
