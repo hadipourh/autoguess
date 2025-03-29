@@ -11,8 +11,8 @@
     }
 
     @keyframes pulse {
-      0%, 100% { r: 4; opacity: 0.6; }
-      50% { r: 7; opacity: 1; }
+      0%, 100% { r: 6; opacity: 0.6; }
+      50% { r: 9; opacity: 1; }
     }
 
     @keyframes fadein {
@@ -23,12 +23,12 @@
   <!-- Brain-like Circle -->
   <circle cx="60" cy="60" r="35" fill="#ffffff" stroke="#00c9a7" stroke-width="4" />
 
-  <!-- Triangle dots -->
-  <circle class="pulse" cx="60" cy="40" r="4" fill="#ff6b6b"/>
-  <circle class="pulse" cx="42" cy="75" r="4" fill="#ffcc00"/>
-  <circle class="pulse" cx="78" cy="75" r="4" fill="#4dabf7"/>
+  <!-- Larger Triangle Dots -->
+  <circle class="pulse" cx="60" cy="40" r="6" fill="#ff6b6b"/>
+  <circle class="pulse" cx="42" cy="75" r="6" fill="#ffcc00"/>
+  <circle class="pulse" cx="78" cy="75" r="6" fill="#4dabf7"/>
 
-  <!-- Connections forming triangle -->
+  <!-- Triangle Connections -->
   <line x1="60" y1="40" x2="42" y2="75" stroke="#cccccc" stroke-width="1.2"/>
   <line x1="42" y1="75" x2="78" y2="75" stroke="#cccccc" stroke-width="1.2"/>
   <line x1="78" y1="75" x2="60" y2="40" stroke="#cccccc" stroke-width="1.2"/>
@@ -36,8 +36,8 @@
   <!-- Question Mark in the Brain -->
   <text x="60" y="68" text-anchor="middle" font-size="28" fill="#333333" font-family="Arial">?</text>
 
-  <!-- Logo Text with Correct Spacing -->
-  <text class="fade-in" x="120" y="70" font-family="Segoe UI, sans-serif" font-size="40" fill="#00c9a7" font-weight="700">
-    AutoGuess
+  <!-- Colorful AutoGuess Text -->
+  <text class="fade-in" x="120" y="70" font-family="Segoe UI, sans-serif" font-size="40" font-weight="700">
+    <tspan fill="#00c9a7">Auto</tspan><tspan fill="#ff6b6b">Guess</tspan>
   </text>
 </svg>
