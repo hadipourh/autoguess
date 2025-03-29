@@ -30,7 +30,8 @@ apt-get install -y python3-dev python3-full curl graphviz wget cmake
 echo "==> Installing MiniZinc..."
 cd "$TOOLS_DIR"
 if [ ! -d "MiniZinc" ]; then
-    LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+    # LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+    LATEST_MINIZINC_VERSION="2.9.0"  # Replace with teh desired version if needed
     wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
     mkdir MiniZinc
     tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1
@@ -69,7 +70,7 @@ else
     echo "Boolector already installed."
 fi
 
-# pysat, pysmt, and z3-solver
+# Install pysat, pysmt, and z3-solver
 echo "==> Installing pysat, pysmt, and z3-solver..."
 pip install python-sat[pblib,aiger] pysmt z3-solver
 
@@ -77,15 +78,7 @@ deactivate
 
 # Install SageMath
 echo "==> Installing SageMath..."
-if ! command -v sage &> /dev/null; then
-    echo "Adding SageMath PPA..."
-    apt-get install -y software-properties-common
-    add-apt-repository -y ppa:aims/sagemath
-    apt-get update
-    apt-get install -y sagemath
-else
-    echo "SageMath is already installed."
-fi
+apt-get install -y sagemath
 
 echo "==> Installation completed successfully."
 
