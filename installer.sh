@@ -66,10 +66,10 @@ if [ ! -d "boolector" ]; then
 
     echo "==> Building Boolector..."
     ./configure.sh --python && cd build && make
-
-    echo "==> Installing Boolector Python bindings..."
-    cd ../build
-    python3 setup.py install
+    # Add Boolector to Python path
+    echo "==> Adding Boolector to Python path..."
+    echo "export PYTHONPATH=$TOOLS_DIR/boolector/build/python:$PYTHONPATH" >> ~/.bashrc
+    echo "export PATH=$TOOLS_DIR/boolector/build/bin:$PATH" >> ~/.bashrc
 else
     echo "Boolector already installed."
 fi
@@ -82,7 +82,11 @@ deactivate
 
 # Install SageMath
 echo "==> Installing SageMath..."
-apt-get install -y sagemath
+if ! command -v sage &> /dev/null; then
+    apt-get install -y sagemath
+else
+    echo "SageMath is already installed."
+fi
 
 echo "==> Installation completed successfully."
 
