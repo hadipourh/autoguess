@@ -32,7 +32,7 @@ class ReduceGDtoCP:
 
     count = 0
 
-    def __init__(self, inputfile_name=None, outputfile_name='output', max_guess=0, max_steps=0, cp_solver_name='gecode', \
+    def __init__(self, inputfile_name=None, outputfile_name='output', max_guess=0, max_steps=0, cp_solver_name='cp-sat', \
         cp_optimization=0, tikz=0, preprocess=1, D=2, dglayout="dot", log="0"):
         self.inputfile_name = inputfile_name
         self.output_dir = outputfile_name     

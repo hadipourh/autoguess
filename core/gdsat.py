@@ -45,17 +45,9 @@ class ReduceGDtoSAT:
         self.max_guess = max_guess
         self.max_steps = max_steps
         self.sat_solver_name = sat_solver
-        self.supported_sat_solvers = list(solvers.SolverNames.cadical153) + \
-                                        list(solvers.SolverNames.glucose4) + \
-                                            list(solvers.SolverNames.glucose3) + \
-                                                list(solvers.SolverNames.lingeling) + \
-                                                    list(solvers.SolverNames.maplesat) + \
-                                                        list(solvers.SolverNames.maplechrono) + \
-                                                            list(solvers.SolverNames.maplecm) + \
-                                                                list(solvers.SolverNames.minicard) + \
-                                                                    list(solvers.SolverNames.minisat22) + \
-                                                                        list(solvers.SolverNames.minisatgh)
-        assert(sat_solver in self.supported_sat_solvers)
+        self.supported_sat_solvers = [solver for solver in solvers.SolverNames.__dict__.keys() if not solver.startswith('__')]
+        if self.sat_solver_name not in self.supported_sat_solvers:
+            raise ValueError(f"Unsupported SAT solver: {self.sat_solver_name}")
         self.dglayout = dglayout
         self.log = log
         ###############################
