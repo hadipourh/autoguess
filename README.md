@@ -3,6 +3,11 @@
 [![license](./miscellaneous/license-MIT-green.svg)](./LICENSE.txt)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/docker-available-blue.svg)](https://www.docker.com/)
+[![PySAT](https://img.shields.io/badge/pysat-supported-blue.svg)](https://github.com/pysathq/pysat)
+[![MiniZinc](https://img.shields.io/badge/minizinc-supported-blue.svg)](https://www.minizinc.org/)
+[![OR-Tools](https://img.shields.io/badge/or--tools-supported-blue.svg)](https://developers.google.com/optimization)
+[![Gurobi](https://img.shields.io/badge/gurobi-supported-blue.svg)](https://www.gurobi.com/)
+[![SageMath](https://img.shields.io/badge/sagemath-supported-blue.svg)](https://www.sagemath.org/)
 [![GitHub stars](https://img.shields.io/github/stars/hadipourh/autoguess?style=social)](https://github.com/hadipourh/autoguess/stargazers)
 
 <p align="center">
@@ -96,83 +101,11 @@ docker run --rm -it hoseinhadipour/autoguess
 
 ### Method 3
 
-For the Debian-based Linux operating systems, following the below instructions you can simply install Autoguess.
+For the Debian-based Linux operating systems, you can run the installer script [here](installer.sh) using the following command:
 
-- Download Autoguess:
-
-   ```sh
-   mkdir /home/tools/ && cd /home/tools/
-   git clone https://github.com/hadipourh/autoguess
-   ```
-
-- Install prerequisites:
-  
-  ```sh
-  apt-get install python3-dev python3-full curl
-  python3 -m pip install cython
-  ```
-
-- Install PySAT:
-  
-  ```sh
-  python3 -m pip install python-sat[pblib,aiger]
-  ```
-
-- Install pySMT:
-  
-  ```sh
-  python3 -m pip install pysmt
-  ```
-
-- Install SMT solvers supported by pySMT:
-
-  - Install [Boolector](https://github.com/Boolector/boolector)
-
-    ```sh
-    python3 -m pysmt install --btor  
-    ```
-
-  - Install [Z3](https://github.com/Z3Prover/z3)
-
-    ```sh
-    python3 -m pip install z3-solver
-    ```
-
-- Install MiniZinc
-  
-  ```sh
-  mkdir /home/tools/ && cd /home/tools/
-  LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-  wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
-  mkdir MiniZinc
-  tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1 \
-  rm "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
-  ln -s /home/tools/MiniZinc/bin/minizinc /usr/local/bin/minizinc
-  python3 -m pip install minizinc
-  ```
-
-- Install [SageMath](https://doc.sagemath.org/html/en/installation/binary.html#linux)
-  
-  ```sh
-  apt-get install sagemath
-  ```
-
-  If SageMath is already installed on your machine, just import its path inside the [config.py](config.py) file rather than reinstalling it.
-
-- Install [Graphviz](https://graphviz.org/)
-
-  ```sh
-  apt-get install graphviz
-  python3 -m pip install graphviz
-  ```
-
-- Install dot2tex
-
-  ```sh
-  python3 -m pip install dot2tex
-  ```
-
----
+```bash
+bash installer.sh
+```
 
 ## Format of Input File
 
