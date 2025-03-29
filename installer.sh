@@ -23,8 +23,8 @@ fi
 
 # Install system prerequisites
 echo "==> Installing system packages..."
-sudo apt-get update
-sudo apt-get install -y python3-dev python3-full curl graphviz sagemath
+apt-get update
+apt-get install -y python3-dev python3-full curl graphviz sagemath
 
 # Install Python packages
 echo "==> Installing Python packages..."
@@ -44,7 +44,7 @@ if [ ! -d "MiniZinc" ]; then
     mkdir MiniZinc
     tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1
     rm "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
-    sudo ln -sf "$TOOLS_DIR/MiniZinc/bin/minizinc" /usr/local/bin/minizinc
+    ln -sf "$TOOLS_DIR/MiniZinc/bin/minizinc" /usr/local/bin/minizinc
 else
     echo "MiniZinc already installed."
 fi
