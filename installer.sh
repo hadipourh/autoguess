@@ -50,9 +50,24 @@ pip install --upgrade pip setuptools wheel
 
 pip install cython python-sat[pblib,aiger] pysmt z3-solver graphviz dot2tex minizinc
 
-# Install pySMT solvers
-echo "==> Installing Boolector via pySMT..."
-pysmt-install --btor
+# Install boolector
+echo "==> Installing Boolector..."
+cd "$TOOLS_DIR"
+if [ ! -d "boolector" ]; then
+    git clone https://github.com/boolector/boolector
+    cd boolector
+
+    echo "==> Setting up Lingeling..."
+    ./contrib/setup-lingeling.sh
+
+    echo "==> Setting up BTOR2Tools..."
+    ./contrib/setup-btor2tools.sh
+
+    echo "==> Building Boolector..."
+    ./configure.sh --python && cd build && make
+else
+    echo "Boolector already installed."
+fi
 
 deactivate
 
