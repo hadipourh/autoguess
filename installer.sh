@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==============================================
-# Script: install_autoguess.sh
+# Script: installer.sh
 # Description: Automated installer for Autoguess
 # Author: Hosein Hadipour
 # ==============================================
@@ -34,11 +34,11 @@ python3 -m pip install --user virtualenv
 python3 -m virtualenv autoguess_env
 source autoguess_env/bin/activate
 
-python3 -m pip install cython python-sat[pblib,aiger] pysmt z3-solver graphviz dot2tex minizinc
+pip install cython python-sat[pblib,aiger] pysmt z3-solver graphviz dot2tex minizinc
 
 # Install pySMT solvers
 echo "==> Installing Boolector via pySMT..."
-python3 -m pysmt install --btor
+pysmt install --btor
 
 deactivate
 
