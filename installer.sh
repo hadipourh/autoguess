@@ -31,7 +31,7 @@ echo "==> Installing MiniZinc..."
 cd "$TOOLS_DIR"
 if [ ! -d "MiniZinc" ]; then
     # LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-    LATEST_MINIZINC_VERSION="2.9.0"  # Replace with teh desired version if needed
+    LATEST_MINIZINC_VERSION="2.8.6"  # Replace with teh desired version if needed
     wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
     mkdir MiniZinc
     tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1
@@ -65,18 +65,14 @@ if [ ! -d "boolector" ]; then
     ./contrib/setup-btor2tools.sh
 
     echo "==> Building Boolector..."
-    ./configure.sh --python && cd build && make
-    # Add Boolector to Python path
-    echo "==> Adding Boolector to Python path..."
-    echo "export PYTHONPATH=$TOOLS_DIR/boolector/build/python:$PYTHONPATH" >> ~/.bashrc
-    echo "export PATH=$TOOLS_DIR/boolector/build/bin:$PATH" >> ~/.bashrc
+    ./configure.sh && cd build && make && make install
 else
     echo "Boolector already installed."
 fi
 
 # Install pysat, pysmt, and z3-solver
 echo "==> Installing pysat, pysmt, and z3-solver..."
-pip install python-sat[pblib,aiger] pysmt z3-solver
+pip install python-sat[pblib,aiger] pysmt z3-solver gurobipy
 
 deactivate
 
