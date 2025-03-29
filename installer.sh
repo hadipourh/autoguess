@@ -66,6 +66,10 @@ if [ ! -d "boolector" ]; then
 
     echo "==> Building Boolector..."
     ./configure.sh --python && cd build && make
+
+    echo "==> Installing Boolector Python bindings..."
+    cd ../build
+    python3 setup.py install
 else
     echo "Boolector already installed."
 fi
