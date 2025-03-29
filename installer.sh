@@ -38,7 +38,7 @@ pip install cython python-sat[pblib,aiger] pysmt z3-solver graphviz dot2tex mini
 
 # Install pySMT solvers
 echo "==> Installing Boolector via pySMT..."
-pysmt install --btor
+pysmt-install --btor
 
 deactivate
 
