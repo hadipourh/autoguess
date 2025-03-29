@@ -83,7 +83,7 @@ Next, you will be able to run Autoguess via the following command:
 docker run --rm -it autoguess
 ```
 
-The constructed image is self-contained including MiniZinc, PySAT, pySMT, SageMath. Although Autoguess includes a direct Python interface to [Gurobi](https://www.gurobi.com/) as well, Gurobi is not included in the above image. Hence, Gurobi and its license should be installed separately if you are willing to use the MILP-based method to solve the guess-and-determine problem.
+The provided image is self-contained and includes MiniZinc, PySAT, pySMT, and SageMath. While Autoguess also offers a direct Python interface to [Gurobi](https://www.gurobi.com/), Gurobi itself and its license are not included in the image. If you wish to use the MILP-based method to solve the guess-and-determine problem, you will need to install Gurobi separately. For Linux and macOS, you can use the installer available in [this repository](https://github.com/hadipourh/grabgurobi).
 
 ### Method 2
 
