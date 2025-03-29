@@ -2,7 +2,10 @@
 
 [![license](./miscellaneous/license-MIT-green.svg)](./LICENSE.txt)
 
-![logo](./miscellaneous/logo.svg)
+
+<p align="center">
+  <img src="miscellaneous/logo.svg" width="400" alt="AutoGuess Logo">
+</p>
 
 Autoguess integrates a wide range of CP/SMT/SAT/MILP solvers, as well as the Groebner basis algorithm to automatically solve the guess-and-determine (GD) problem.
 
