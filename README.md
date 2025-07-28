@@ -2862,6 +2862,7 @@ Complete details about our tool as well as the underlying methods based on which
 If you use the paper or the tool in your own work leading to an academic publication, please cite the following:
 
 ```text
+{% raw %}
 @inproceedings{acnsHadipourE22,
   author       = {Hosein Hadipour and
                   Maria Eichlseder},
@@ -2878,6 +2879,7 @@ If you use the paper or the tool in your own work leading to an academic publica
   eprint       = {2021/1529},
   usera        = {ACNS},
   userb        = {2022},
+{% endraw %}
 }
 ```
 
