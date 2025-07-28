@@ -30,8 +30,8 @@ apt-get install -y python3-dev python3-full curl graphviz wget cmake
 echo "==> Installing MiniZinc..."
 cd "$TOOLS_DIR"
 if [ ! -d "MiniZinc" ]; then
-    LATEST_MINIZINC_VERSION="2.8.6"  # Replace with the desired version if needed
-
+    # LATEST_MINIZINC_VERSION="2.8.6"  # Replace with the desired version if needed
+    LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
     # Detect architecture
     ARCH=$(uname -m)
     case "$ARCH" in
