@@ -30,12 +30,37 @@ apt-get install -y python3-dev python3-full curl graphviz wget cmake
 echo "==> Installing MiniZinc..."
 cd "$TOOLS_DIR"
 if [ ! -d "MiniZinc" ]; then
-    # LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-    LATEST_MINIZINC_VERSION="2.8.6"  # Replace with teh desired version if needed
-    wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
+    LATEST_MINIZINC_VERSION="2.8.6"  # Replace with the desired version if needed
+
+    # Detect architecture
+    ARCH=$(uname -m)
+    case "$ARCH" in
+        x86_64)
+            ARCH_TAG="x86_64"
+            ;;
+        aarch64 | arm64)
+            ARCH_TAG="aarch64"
+            ;;
+        *)
+            echo "Unsupported architecture: $ARCH"
+            exit 1
+            ;;
+    esac
+
+    echo "Detected architecture: $ARCH_TAG"
+
+    # Construct and download the appropriate MiniZinc bundle
+    FILENAME="MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-$ARCH_TAG.tgz"
+    URL="https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/$FILENAME"
+
+    echo "Downloading $FILENAME from $URL..."
+    wget "$URL"
+
+    echo "Extracting MiniZinc..."
     mkdir MiniZinc
-    tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1
-    rm "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz"
+    tar -xvzf "$FILENAME" -C MiniZinc --strip-components=1
+    rm "$FILENAME"
+
     ln -sf "$TOOLS_DIR/MiniZinc/bin/minizinc" /usr/local/bin/minizinc
 else
     echo "MiniZinc already installed."
