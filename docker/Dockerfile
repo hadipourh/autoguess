@@ -67,3 +67,5 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the default command to run when a container starts
 CMD cd /home/tools/autoguess && . venv/bin/activate && /bin/bash
+
+RUN echo "Docker image built successfully!"
