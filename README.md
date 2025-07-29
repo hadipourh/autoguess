@@ -1304,7 +1304,9 @@ The following 6 variable(s) are guessed:
 K_1_0_1, K_1_0_2, K_1_0_3, W_0_1_2, K_1_2_2, W_0_2_3
 ```
 
-In the above command we have used [Boolector](https://github.com/boolector/boolector) as the SMT solver.
+In the above command we have used [Boolector](https://github.com/boolector/boolector) as the SMT solver. 
+I wanted to let you know that the Boolector project has been officially archived in 2024 and is no longer maintained. 
+So, we removed Boolector from the list of SMT solvers in Autoguess. 
 
 ***MILP***
 

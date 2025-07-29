@@ -73,7 +73,7 @@ pip install cython graphviz dot2tex minizinc
 # Install pysat, pysmt, and z3-solver
 echo "==> Installing pysat, pysmt, and z3-solver..."
 pip install python-sat[pblib,aiger] pysmt z3-solver gurobipy
-pysmt-install --btor
+# pysmt-install --btor (Boolector has been archived, and its developers have officially stopped maintaining it.)
 
 deactivate
 

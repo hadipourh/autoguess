@@ -116,7 +116,7 @@ def main():
     parser.add_argument('-milpd', '--milpdirection', nargs=1, choices=['min', 'max'], help="MILP direction")
     parser.add_argument('-cps', '--cpsolver', nargs=1, type=str, choices=[solver_name for solver_name in minizinc.default_driver.available_solvers().keys()], help="CP solver choice")
     parser.add_argument('-sats', '--satsolver', nargs=1, type=str, choices=[solver for solver in solvers.SolverNames.__dict__.keys() if not solver.startswith('__')], help="SAT solver choice")
-    parser.add_argument('-smts', '--smtsolver', nargs=1, type=str, choices=['msat', 'cvc4', 'z3', 'yices', 'btor', 'bdd'], help="SMT solver choice")
+    parser.add_argument('-smts', '--smtsolver', nargs=1, type=str, choices=['msat', 'cvc4', 'z3', 'yices', 'bdd'], help="SMT solver choice")
     parser.add_argument('-cpopt', '--cpoptimization', nargs=1, type=int, choices=[0, 1], help="CP optimization")
     parser.add_argument('-tl', '--timelimit', nargs=1, type=int, help="Time limit for the search in seconds")
     parser.add_argument('-tk', '--tikz', nargs=1, type=int, help="Generate the tikz code of the determination flow graph")

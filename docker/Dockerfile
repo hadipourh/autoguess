@@ -44,7 +44,7 @@ RUN venv/bin/python3 -m pip install pysmt
 
 # Install smt solvers supported by pysmt
 RUN venv/bin/python3 -m pip install cython
-RUN yes | venv/bin/python3 -m pysmt install --btor
+# RUN yes | venv/bin/python3 -m pysmt install --btor (Boolector has been archived, and its developers have officially stopped maintaining it.)
 RUN yes | venv/bin/python3 -m pysmt install --z3
 
 # Install Z3 solver
