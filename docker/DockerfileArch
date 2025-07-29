@@ -1,0 +1,74 @@
+# Arch Linux base image
+FROM archlinux:latest
+
+# Use noninteractive frontend
+ENV TERM=xterm
+
+# Prepare pacman and install essential packages
+RUN pacman -Sy --noconfirm archlinux-keyring && \
+    pacman -Syu --noconfirm && \
+    pacman -S --noconfirm \
+        base-devel \
+        git \
+        cmake \
+        wget \
+        curl \
+        python \
+        python-pip \
+        python-virtualenv \
+        protobuf \
+        eigen \
+        re2 \
+        coin-or-cbc \
+        abseil-cpp \
+        sagemath \
+        graphviz \
+        z3
+
+
+# Create tools workspace
+WORKDIR /home/tools
+
+# # Clone and install latest Abseil manually (optional override of system version)
+# RUN git clone https://github.com/abseil/abseil-cpp.git && \
+#     cd abseil-cpp && \
+#     mkdir build && cd build && \
+#     cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_INSTALL_PREFIX=/opt/abseil && \
+#     make -j$(nproc) && \
+#     make install
+
+# Download and extract MiniZinc bundle (for latest binary compatibility)
+RUN LATEST_MINIZINC_VERSION="2.8.5" && \
+    # LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")') && \
+    wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" && \
+    mkdir MiniZinc && \
+    tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1 && \
+    rm "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" && \
+    ln -sf /home/tools/MiniZinc/bin/minizinc /usr/local/bin/minizinc
+
+# Clone Autoguess
+RUN git clone https://github.com/hadipourh/autoguess
+WORKDIR /home/tools/autoguess
+
+# Create Python virtual environment
+RUN python -m venv venv
+
+# Install Python packages inside the virtual environment
+RUN venv/bin/pip install --upgrade pip setuptools && \
+    venv/bin/pip install python-sat[pblib,aiger] && \
+    venv/bin/pip install pysmt && \
+    venv/bin/pip install cython && \
+    yes | venv/bin/python -m pysmt install --z3 && \
+    # yes | venv/bin/python -m pysmt install --btor && \ 
+    # (Boolector has been archived, and its developers have officially stopped maintaining it.)
+    venv/bin/pip install z3-solver && \
+    venv/bin/pip install minizinc && \
+    venv/bin/pip install gurobipy && \
+    venv/bin/pip install graphviz && \
+    venv/bin/pip install dot2tex
+
+# Clean up cache
+RUN pacman -Scc --noconfirm && rm -rf /var/cache/pacman/pkg/*
+
+# Set default command
+CMD ["/bin/bash", "-c", "echo 'Arch Linux-based MiniZinc + OR-Tools container ready.'; cd /home/tools/autoguess && . venv/bin/activate && exec /bin/bash"]

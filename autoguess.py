@@ -79,7 +79,7 @@ def load_parameters(args):
         "solver": 'cp',
         "milpdirection": 'min',
         "timelimit": -1,
-        "cpsolver": 'cp-sat',
+        "cpsolver": 'cpsatlp', # for newer versions of MiniZinc, use 'cp-sat' to use Or-tools
         "satsolver": 'cadical153',
         "smtsolver": 'z3',
         "cpoptimization": 1,
@@ -114,7 +114,7 @@ def main():
     parser.add_argument('-ms', '--maxsteps', nargs=1, type=int, help="An integer number specifying the depth of search")
     parser.add_argument('-s', '--solver', nargs=1, choices=['cp', 'milp', 'sat', 'smt', 'groebner'], help="Solver choice")
     parser.add_argument('-milpd', '--milpdirection', nargs=1, choices=['min', 'max'], help="MILP direction")
-    parser.add_argument('-cps', '--cpsolver', nargs=1, type=str, choices=[solver_name for solver_name in minizinc.default_driver.available_solvers().keys()], help="CP solver choice")
+    parser.add_argument('-cps', '--cpsolver', nargs=1, type=str, choices=[solver_name for solver_name in minizinc.default_driver.available_solvers().keys()], help="CP solver choice", default='cp-sat')
     parser.add_argument('-sats', '--satsolver', nargs=1, type=str, choices=[solver for solver in solvers.SolverNames.__dict__.keys() if not solver.startswith('__')], help="SAT solver choice")
     parser.add_argument('-smts', '--smtsolver', nargs=1, type=str, choices=['msat', 'cvc4', 'z3', 'yices', 'bdd'], help="SMT solver choice")
     parser.add_argument('-cpopt', '--cpoptimization', nargs=1, type=int, choices=[0, 1], help="CP optimization")

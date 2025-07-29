@@ -4,11 +4,21 @@ FROM debian:latest
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install some basic packages
-RUN apt-get update && apt-get install -y build-essential git cmake wget curl python3 python3-pip python3-dev python3-full
+RUN apt-get update && apt-get install -y build-essential git cmake wget curl python3 python3-pip python3-dev python3-full libprotobuf-dev protobuf-compiler libeigen3-dev libre2-dev coinor-libcbc-dev libabsl-dev
+
+# # Clone Abseil
+# WORKDIR /home/tools/
+# RUN git clone https://github.com/abseil/abseil-cpp.git \
+#     && cd abseil-cpp \
+#     && mkdir build && cd build \
+#     && cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_INSTALL_PREFIX=/opt/abseil \
+#     && make -j$(nproc) \
+#     && make install
 
 # Install the latest version of MiniZinc
 WORKDIR  /home/tools/
-RUN LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")') \
+RUN LATEST_MINIZINC_VERSION="2.8.5" \
+    # LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")') \
     && wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" \
     && mkdir MiniZinc \
     && tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1 \
@@ -66,7 +76,4 @@ RUN venv/bin/python3 -m pip install dot2tex
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the default command to run when a container starts
-CMD cd /home/tools/autoguess && . venv/bin/activate && /bin/bash
-
-# Print a message indicating that the Docker image has been built successfully
-RUN echo "Docker image built successfully!"
+CMD ["/bin/bash", "-c", "echo 'Docker image built successfully!'; cd /home/tools/autoguess && . venv/bin/activate && exec /bin/bash"]
