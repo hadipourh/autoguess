@@ -1,5 +1,5 @@
 # Arch Linux base image
-FROM --platform=$BUILDPLATFORM archlinux:latest
+FROM archlinux:latest
 
 # Use noninteractive frontend
 ENV TERM=xterm

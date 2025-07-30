@@ -31,8 +31,8 @@ The following shape represents the overall structure of Autoguess. As it can be 
   - [Overall Structure](#overall-structure)
   - [Installation](#installation)
     - [Method 1](#method-1)
-      - [For Apple Silicon Mac (to avoid Rosetta issues)](#for-apple-silicon-mac-to-avoid-rosetta-issues)
-      - [For other systems (optimal performance)](#for-other-systems-optimal-performance)
+      - [For ARM64 (Apple Silicon)](#for-arm64-apple-silicon)
+      - [For x86\_64 (Most Linux Systems)](#for-x86_64-most-linux-systems)
     - [Method 2](#method-2)
     - [Method 3](#method-3)
   - [Format of Input File](#format-of-input-file)
@@ -81,13 +81,13 @@ docker build --platform linux/amd64 -t autoguess -f docker/DockerfileDebian .
 
 Next, you will be able to run Autoguess via the following command:
 
-#### For Apple Silicon Mac (to avoid Rosetta issues)
+#### For ARM64 (Apple Silicon)
 
 ```sh
 docker run --platform linux/amd64 -it --rm autoguess
 ```
 
-#### For other systems (optimal performance)
+#### For x86_64 (Most Linux Systems)
 ```sh
 docker run -it --rm autoguess
 ```
