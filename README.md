@@ -31,6 +31,8 @@ The following shape represents the overall structure of Autoguess. As it can be 
   - [Overall Structure](#overall-structure)
   - [Installation](#installation)
     - [Method 1](#method-1)
+      - [For Apple Silicon Mac (to avoid Rosetta issues)](#for-apple-silicon-mac-to-avoid-rosetta-issues)
+      - [For other systems (optimal performance)](#for-other-systems-optimal-performance)
     - [Method 2](#method-2)
     - [Method 3](#method-3)
   - [Format of Input File](#format-of-input-file)
@@ -74,13 +76,20 @@ Autoguess has been developed in [Debian](https://en.wikipedia.org/wiki/Debian) w
 The easiest way is using the provided [Dockerfile](docker/DockerfileDebian) to get Autoguess and all of its dependencies at once. To do so, regardless of what OS you use, install [Docker](https://docs.docker.com/get-docker/) at first. Next, download our [Dockerfile](docker/DockerfileDebian), navigate into the directory where you have stored it and build a local image of Autoguess via the following single line command:
 
 ```sh
-docker build -f DockerfileDebian -t autoguess .
+docker build --platform linux/amd64 -t autoguess -f docker/DockerfileDebian .
 ```
 
 Next, you will be able to run Autoguess via the following command:
 
+#### For Apple Silicon Mac (to avoid Rosetta issues)
+
 ```sh
-docker run --rm -it autoguess
+docker run --platform linux/amd64 -it --rm autoguess
+```
+
+#### For other systems (optimal performance)
+```sh
+docker run -it --rm autoguess
 ```
 
 The provided image is self-contained and includes MiniZinc, PySAT, pySMT, and SageMath. While Autoguess also offers a direct Python interface to [Gurobi](https://www.gurobi.com/), Gurobi itself and its license are not included in the image. If you wish to use the MILP-based method to solve the guess-and-determine problem, you will need to install Gurobi separately. For Linux and macOS, you can use the installer available in [this repository](https://github.com/hadipourh/grabgurobi).

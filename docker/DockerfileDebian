@@ -1,6 +1,6 @@
 # Please install docker according to the guideline provided here: https://docs.docker.com/engine/install/ubuntu/
-
-FROM debian:latest
+# At the top of your Dockerfile
+FROM --platform=$BUILDPLATFORM debian:latest
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install some basic packages
