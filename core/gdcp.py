@@ -49,7 +49,7 @@ class ReduceGDtoCP:
         except ValueError as e:
             print(e)
             print('The default CP solver is used instead: cp-sat (ortools)')
-            self.cp_solver_name = 'cp-sat'     
+            self.cp_solver_name = 'cp-sat' # for newer versions of MiniZinc, use 'cp-sat' to use Or-tools      
         self.cp_solver = minizinc.Solver.lookup(self.cp_solver_name)      
         self.cp_optimization = cp_optimization
         self.nthreads = 16

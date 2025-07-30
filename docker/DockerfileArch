@@ -16,10 +16,7 @@ RUN pacman -Sy --noconfirm archlinux-keyring && \
         python \
         python-pip \
         python-virtualenv \
-        protobuf \
-        eigen \
-        re2 \
-        coin-or-cbc \
+        fuse2 \
         abseil-cpp \
         sagemath \
         graphviz \
@@ -29,22 +26,17 @@ RUN pacman -Sy --noconfirm archlinux-keyring && \
 # Create tools workspace
 WORKDIR /home/tools
 
-# # Clone and install latest Abseil manually (optional override of system version)
-# RUN git clone https://github.com/abseil/abseil-cpp.git && \
-#     cd abseil-cpp && \
-#     mkdir build && cd build && \
-#     cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_INSTALL_PREFIX=/opt/abseil && \
-#     make -j$(nproc) && \
-#     make install
+# Download and install the latest MiniZinc bundle
+WORKDIR /home/tools/
+RUN LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")') && \
+    wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/${LATEST_MINIZINC_VERSION}/MiniZincIDE-${LATEST_MINIZINC_VERSION}-bundle-linux-x86_64.tgz" && \
+    mkdir -p /opt/MiniZinc && \
+    tar -xzf "MiniZincIDE-${LATEST_MINIZINC_VERSION}-bundle-linux-x86_64.tgz" -C /opt/MiniZinc --strip-components=1 && \
+    rm "MiniZincIDE-${LATEST_MINIZINC_VERSION}-bundle-linux-x86_64.tgz"
 
-# Download and extract MiniZinc bundle (for latest binary compatibility)
-RUN LATEST_MINIZINC_VERSION="2.8.5" && \
-    # LATEST_MINIZINC_VERSION=$(curl -s https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")') && \
-    wget "https://github.com/MiniZinc/MiniZincIDE/releases/download/$LATEST_MINIZINC_VERSION/MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" && \
-    mkdir MiniZinc && \
-    tar -xvzf "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" -C MiniZinc --strip-components=1 && \
-    rm "MiniZincIDE-$LATEST_MINIZINC_VERSION-bundle-linux-x86_64.tgz" && \
-    ln -sf /home/tools/MiniZinc/bin/minizinc /usr/local/bin/minizinc
+# Create a wrapper script to call MiniZinc with the correct shared library path
+RUN echo -e '#!/bin/bash\nexec env LD_LIBRARY_PATH=/opt/MiniZinc/lib:$LD_LIBRARY_PATH /opt/MiniZinc/bin/minizinc "$@"' > /usr/local/bin/minizinc && \
+    chmod +x /usr/local/bin/minizinc
 
 # Clone Autoguess
 RUN git clone https://github.com/hadipourh/autoguess

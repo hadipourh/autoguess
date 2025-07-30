@@ -79,7 +79,7 @@ def load_parameters(args):
         "solver": 'cp',
         "milpdirection": 'min',
         "timelimit": -1,
-        "cpsolver": 'cpsatlp', # for newer versions of MiniZinc, use 'cp-sat' to use Or-tools
+        "cpsolver": 'cp-sat', # for newer versions of MiniZinc, use 'cp-sat' to use Or-tools
         "satsolver": 'cadical153',
         "smtsolver": 'z3',
         "cpoptimization": 1,

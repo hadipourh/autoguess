@@ -71,10 +71,10 @@ Autoguess has been developed in [Debian](https://en.wikipedia.org/wiki/Debian) w
 
 ### Method 1
 
-The easiest way is using the provided [Dockerfile](docker/Dockerfile) to get Autoguess and all of its dependencies at once. To do so, regardless of what OS you use, install [Docker](https://docs.docker.com/get-docker/) at first. Next, download our [Dockerfile](docker/Dockerfile), navigate into the directory where you have stored it and build a local image of Autoguess via the following single line command:
+The easiest way is using the provided [Dockerfile](docker/DockerfileDebian) to get Autoguess and all of its dependencies at once. To do so, regardless of what OS you use, install [Docker](https://docs.docker.com/get-docker/) at first. Next, download our [Dockerfile](docker/DockerfileDebian), navigate into the directory where you have stored it and build a local image of Autoguess via the following single line command:
 
 ```sh
-docker build -f Dockerfile -t autoguess .
+docker build -f DockerfileDebian -t autoguess .
 ```
 
 Next, you will be able to run Autoguess via the following command:
@@ -84,6 +84,18 @@ docker run --rm -it autoguess
 ```
 
 The provided image is self-contained and includes MiniZinc, PySAT, pySMT, and SageMath. While Autoguess also offers a direct Python interface to [Gurobi](https://www.gurobi.com/), Gurobi itself and its license are not included in the image. If you wish to use the MILP-based method to solve the guess-and-determine problem, you will need to install Gurobi separately. For Linux and macOS, you can use the installer available in [this repository](https://github.com/hadipourh/grabgurobi).
+
+One can also build an image of Autoguess with the [DockerfileArch](docker/DockerfileArch) which is based on the [Arch Linux](https://archlinux.org/) distribution. To do so, you can use the following command:
+
+```sh
+docker build -f DockerfileArch -t autoguess_arch .
+```
+
+Then, you can run Autoguess by the following command:
+
+```sh
+docker run --rm -it autoguess_arch
+```
 
 ### Method 2
 
@@ -97,6 +109,18 @@ Then, you can run Autoguess by the following command:
 
 ```sh
 docker run --rm -it hoseinhadipour/autoguess
+```
+
+One can also download a prebuilt image of Autoguess based on the [Arch Linux](https://archlinux.org/) distribution via the following command:
+
+```sh
+docker pull hoseinhadipour/autoguess_arch
+```
+
+Then, you can run Autoguess by the following command:
+
+```sh
+docker run --rm -it hoseinhadipour/autoguess_arch
 ```
 
 ### Method 3
