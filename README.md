@@ -16,10 +16,8 @@
   <img src="miscellaneous/logo.svg" width="400" alt="AutoGuess Logo">
 </p>
 
-
-Autoguess integrates a wide range of CP/SMT/SAT/MILP solvers, as well as the Groebner basis algorithm to automatically solve the guess-and-determine (GD) problem.
-
-**Autoguess** is a comprehensive tool for automatically finding guess-and-determine attacks and key bridges in cryptographic systems. It leverages multiple solving paradigms including:
+**Autoguess** is a comprehensive and easy-to-use tool for automatically solving  the guess-and-determine problem whose application are for instance in finding guess-and-determine attacks and key bridges in cryptographic systems. 
+It leverages multiple solving paradigms including:
 
 - **Constraint Programming (CP)** via MiniZinc
 - **Mixed-Integer Linear Programming (MILP)** via Gurobi
@@ -27,7 +25,7 @@ Autoguess integrates a wide range of CP/SMT/SAT/MILP solvers, as well as the Gro
 - **Satisfiability Modulo Theories (SMT)** via pySMT
 - **Algebraic methods** via SageMath and Groebner basis computation
 
-The tool is particularly useful for cryptographic analysis, helping researchers discover minimal guess bases for various cryptographic primitives and protocols.
+The tool is particularly useful for cryptanalysis of symmetric-key primitives, helping researchers discover minimal guess bases for various cryptographic primitives and protocols. 
 
 ---
 
@@ -46,7 +44,7 @@ The following shape represents the overall structure of Autoguess. As it can be 
     - [Installation Methods](#installation-methods)
       - [Method 1: Build Docker Image Locally (Recommended)](#method-1-build-docker-image-locally-recommended)
         - [For ARM64 (Apple Silicon)](#for-arm64-apple-silicon)
-        - [For x86_64 (Most Linux Systems)](#for-x86_64-most-linux-systems)
+        - [For x86\_64 (Most Linux Systems)](#for-x86_64-most-linux-systems)
       - [Method 2: Use Pre-built Docker Image](#method-2-use-pre-built-docker-image)
       - [Method 3: Native Installation (Debian-based Systems)](#method-3-native-installation-debian-based-systems)
   - [Quick Start](#quick-start)
@@ -61,6 +59,9 @@ The following shape represents the overall structure of Autoguess. As it can be 
     - [Example 6](#example-6)
   - [Troubleshooting](#troubleshooting)
     - [Common Issues](#common-issues)
+      - [Docker Issues](#docker-issues)
+      - [Missing Dependencies](#missing-dependencies)
+      - [Input File Issues](#input-file-issues)
     - [Performance Tips](#performance-tips)
     - [Getting Help](#getting-help)
   - [Applications](#applications)
@@ -114,23 +115,23 @@ The easiest way is using the provided [Dockerfile](docker/DockerfileDebian) to g
    ```
 3. **Build the Docker image**: Navigate to the directory where you cloned the repository and build a local image of Autoguess:
 
-```sh
-docker build --platform linux/amd64 -t autoguess -f docker/DockerfileDebian .
-```
+   ```sh
+   docker build --platform linux/amd64 -t autoguess -f docker/DockerfileDebian .
+   ```
 
 4. **Run Autoguess**: Once built, you can run Autoguess using the following commands:
 
-##### For ARM64 (Apple Silicon)
+   ##### For ARM64 (Apple Silicon)
 
-```sh
-docker run --platform linux/amd64 -it --rm autoguess
-```
+   ```sh
+   docker run --platform linux/amd64 -it --rm autoguess
+   ```
 
-##### For x86_64 (Most Linux Systems)
+   ##### For x86_64 (Most Linux Systems)
 
-```sh
-docker run -it --rm autoguess
-```
+   ```sh
+   docker run -it --rm autoguess
+   ```
 
 The provided image is self-contained and includes MiniZinc, PySAT, pySMT, and SageMath. While Autoguess also offers a direct Python interface to [Gurobi](https://www.gurobi.com/), Gurobi itself and its license are not included in the image. If you wish to use the MILP-based method to solve the guess-and-determine problem, you will need to install Gurobi separately. For Linux and macOS, you can use the installer available in [this repository](https://github.com/hadipourh/grabgurobi).
 
@@ -190,10 +191,12 @@ Once you have Autoguess installed, you can quickly test it with one of the provi
 
 ```bash
 # Using Docker (recommended)
-docker run --rm -it hoseinhadipour/autoguess python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
+1- docker run --rm -it hoseinhadipour/autoguess
+2- python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
 
 # Or if you built locally
-docker run --rm -it autoguess python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
+1- docker run --rm -it autoguess
+2- python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
 
 # Or if installed natively
 python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
@@ -1369,10 +1372,7 @@ x_1_7, x_6_5, x_4_3, x_7_2, x_7_1, x_5_0
 - **Out of memory**: For large problems, increase Docker memory limits in Docker Desktop settings
 
 #### Missing Dependencies
-- **ModuleNotFoundError**: If running natively, ensure all dependencies are installed:
-  ```bash
-  pip install -r requirements.txt
-  ```
+- **ModuleNotFoundError**: If running natively, ensure all dependencies are installed. 
 - **Solver not found**: Some solvers require separate installation (e.g., Gurobi requires a license)
 - **MiniZinc not found**: Install MiniZinc following the instructions in Method 3
 
@@ -1384,11 +1384,10 @@ x_1_7, x_6_5, x_4_3, x_7_2, x_7_1, x_5_0
 ### Performance Tips
 
 - **Large problems**: Use the `--timelimit` parameter to set reasonable time bounds
-- **Solver selection**: Different solvers perform better on different types of problems:
-  - **SAT**: Good for boolean problems and quick verification
-  - **MILP**: Excellent for optimization problems (requires Gurobi license)
-  - **CP**: Good balance between performance and ease of use
-  - **Groebner**: Best for algebraic systems with many variables
+- **Solver selection**: Different solvers perform better on different types of problems. So try different solvers if you encounter performance issues. 
+- **Guess bounds**: If you are looking for some bounds on the number of guesses, use `--maxguess <number>` to limit the number of guesses and use SAT solvers. 
+- **Preprocessing**: If the input relations include algebraic relations, use preprocessing phase with `--preprocess 1` and `--D <degree>` to derive new relations (using Macaulay matrix) and set the solver to one of the many available solvers, e.g., `--solver sat` or `--solver cp`, or `--solver groebner`.
+- **Minimization problem**: If you want to find the minimum number of guesses, use `--solver cp` or `--solver milp` to solve the problem as a constraint satisfaction problem or a mixed-integer linear programming problem, respectively. However, these solvers may take longer to solve the problem compared to finding a bound on the number of guesses using SAT solvers. You may want to reduce the optimization problem into a sequence of decision problems by using `--maxsteps <number>` to limit the number of steps in the search space. 
 
 ### Getting Help
 
@@ -3033,7 +3032,6 @@ If you use the paper or the tool in your own work leading to an academic publica
   usera        = {ACNS},
   userb        = {2022},
 }
-```
 ```
 
 ## License
