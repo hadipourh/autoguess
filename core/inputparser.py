@@ -116,6 +116,30 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
     if log == 0 and algebraic_relations != '' and preprocess == 1:
         os.remove(algebraic_equations_file)
         os.remove(macaulay_basis_file)
+    elif log != 0 and algebraic_relations != '' and preprocess == 1:
+        implication_relations_file = os.path.join(TEMP_DIR, f'extended_relations{rnd_string_tmp}.txt')
+        with open(implication_relations_file, 'w') as file:
+            file.write('--' * 20 + '\n')
+            file.write('implication relations: \n')
+            for relation in implication_relations:
+                file.write(", ".join(relation[:-1]) + '=>' + relation[-1] + '\n')
+            file.write('--' * 20 + '\n')
+            file.write('symmetric relations: \n')
+            for relation in symmetric_relations:
+                file.write(','.join(relation) + '\n')
+            file.write('--' * 20 + '\n')
+            file.write('variables:\n')
+            file.write('\n'.join(variables) + '\n')
+            file.write('--' * 20 + '\n')
+            file.write('known variables:\n')
+            file.write('\n'.join(known_variables) + '\n')
+            file.write('--'* 20 + '\n')
+            file.write('target variables:\n')
+            file.write('\n'.join(target_variables) + '\n')
+            if target_weights is not None:
+                file.write('target weights:\n')
+                for var, weight in target_weights.items():
+                    file.write(f"{var} {weight}\n")
     return parsed_data
 
 
