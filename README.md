@@ -45,7 +45,7 @@ The following shape represents the overall structure of Autoguess. As it can be 
         - [For ARM64 (Apple Silicon)](#for-arm64-apple-silicon)
         - [For x86\_64 (Most Linux Systems)](#for-x86_64-most-linux-systems)
       - [Method 2: Use Pre-built Docker Image](#method-2-use-pre-built-docker-image)
-      - [Method 3: Native Installation (Debian-based Systems)](#method-3-native-installation-debian-based-systems)
+      - [Method 3: Native Installation (Debian-based and macOS)](#method-3-native-installation-debian-based-and-macos)
   - [Quick Start](#quick-start)
   - [Format of Input File](#format-of-input-file)
   - [Usage](#usage)
@@ -175,7 +175,7 @@ Then run Autoguess:
 docker run --rm -it hoseinhadipour/autoguess_arch
 ```
 
-#### Method 3: Native Installation (Debian-based Systems)
+#### Method 3: Native Installation (Debian-based and macOS)
 
 For Debian-based Linux operating systems, you can install Autoguess natively using the provided installer script:
 
@@ -183,6 +183,13 @@ For Debian-based Linux operating systems, you can install Autoguess natively usi
 git clone https://github.com/hadipourh/autoguess.git
 cd autoguess
 bash installer.sh
+```
+
+For macOS users, you can also use the installer script, but you will need to install [Homebrew](https://brew.sh/) first. After installing Homebrew, you can use the provided installer script:
+
+```bash
+chmod +x installer_macos.sh
+./installer_macos.sh
 ```
 
 **Note**: This method requires manually installing all dependencies. Review the [requirements.txt](requirements.txt) file for the complete list of Python dependencies.
