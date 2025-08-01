@@ -126,7 +126,7 @@ def main():
     parser.add_argument('-oln', '--overlapping_number', nargs=1, type=int, help="Overlapping number in block-wise CNF to ANF conversion")
     parser.add_argument('-cnf2anf', '--cnf_to_anf_conversion', nargs=1, type=str, choices=['simple', 'blockwise'], help="CNF to ANF conversion method")
     parser.add_argument('-dgl', '--dglayout', nargs=1, type=str, choices=["dot", "circo", "twopi", "fdp", "neato", "nop", "nop1", "nop2", "osage", "patchwork", "sfdp"], help="Layout of determination flow graph")
-    parser.add_argument('-log', '--log', nargs=1, type=int, choices=[0, 1], help="Store intermediate generated files and results")
+    parser.add_argument('-log', '--log', nargs=1, type=int, choices=[0, 1], help="Store intermediate generated files and results", default=[0])
 
     args = parser.parse_args()
     params = load_parameters(args)
