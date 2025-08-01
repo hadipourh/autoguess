@@ -9,6 +9,8 @@
 [![Gurobi](https://img.shields.io/badge/gurobi-supported-blue.svg)](https://www.gurobi.com/)
 [![SageMath](https://img.shields.io/badge/sagemath-supported-blue.svg)](https://www.sagemath.org/)
 [![GitHub stars](https://img.shields.io/github/stars/hadipourh/autoguess?style=social)](https://github.com/hadipourh/autoguess/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/hadipourh/autoguess)](https://github.com/hadipourh/autoguess/issues)
+[![GitHub forks](https://img.shields.io/github/forks/hadipourh/autoguess?style=social)](https://github.com/hadipourh/autoguess/network)
 
 <p align="center">
   <img src="miscellaneous/logo.svg" width="400" alt="AutoGuess Logo">
@@ -17,11 +19,21 @@
 
 Autoguess integrates a wide range of CP/SMT/SAT/MILP solvers, as well as the Groebner basis algorithm to automatically solve the guess-and-determine (GD) problem.
 
+**Autoguess** is a comprehensive tool for automatically finding guess-and-determine attacks and key bridges in cryptographic systems. It leverages multiple solving paradigms including:
+
+- **Constraint Programming (CP)** via MiniZinc
+- **Mixed-Integer Linear Programming (MILP)** via Gurobi
+- **Boolean Satisfiability (SAT)** via PySAT
+- **Satisfiability Modulo Theories (SMT)** via pySMT
+- **Algebraic methods** via SageMath and Groebner basis computation
+
+The tool is particularly useful for cryptographic analysis, helping researchers discover minimal guess bases for various cryptographic primitives and protocols.
+
 ---
 
 ## Overall Structure
 
-The following shape represents the overall structure of Autoguess. As it can be seen, Autoguess relies on [Minizinc](https://www.minizinc.org/), [PySAT](https://github.com/pysathq/pysat), [pySMT](https://github.com/pysmt/pysmt), [Gurobi](https://www.gurobi.com/) and [SageMath](https://www.sagemath.org/). Providing a Python interface, Autoguess translates the guess-and-determine problem to a SAT, SMT, MILP or Groebner basis computation problem and then call an appropriate solver to solve it. It also utilizes [Grazphviz](https://pypi.org/project/graphviz/) to visualize the discovered determination flow.
+The following shape represents the overall structure of Autoguess. As it can be seen, Autoguess relies on [Minizinc](https://www.minizinc.org/), [PySAT](https://github.com/pysathq/pysat), [pySMT](https://github.com/pysmt/pysmt), [Gurobi](https://www.gurobi.com/) and [SageMath](https://www.sagemath.org/). Providing a Python interface, Autoguess translates the guess-and-determine problem to a SAT, SMT, MILP or Groebner basis computation problem and then call an appropriate solver to solve it. It also utilizes [Graphviz](https://pypi.org/project/graphviz/) to visualize the discovered determination flow.
 
 ![programflow](miscellaneous/programflow.svg)
 
@@ -30,19 +42,27 @@ The following shape represents the overall structure of Autoguess. As it can be 
 - [Autoguess](#autoguess)
   - [Overall Structure](#overall-structure)
   - [Installation](#installation)
-    - [Method 1](#method-1)
-      - [For ARM64 (Apple Silicon)](#for-arm64-apple-silicon)
-      - [For x86\_64 (Most Linux Systems)](#for-x86_64-most-linux-systems)
-    - [Method 2](#method-2)
-    - [Method 3](#method-3)
+    - [Prerequisites](#prerequisites)
+    - [Installation Methods](#installation-methods)
+      - [Method 1: Build Docker Image Locally (Recommended)](#method-1-build-docker-image-locally-recommended)
+        - [For ARM64 (Apple Silicon)](#for-arm64-apple-silicon)
+        - [For x86_64 (Most Linux Systems)](#for-x86_64-most-linux-systems)
+      - [Method 2: Use Pre-built Docker Image](#method-2-use-pre-built-docker-image)
+      - [Method 3: Native Installation (Debian-based Systems)](#method-3-native-installation-debian-based-systems)
+  - [Quick Start](#quick-start)
   - [Format of Input File](#format-of-input-file)
-  - [Manual](#manual)
+  - [Usage](#usage)
+    - [Command Line Interface](#command-line-interface)
     - [Example 1](#example-1)
     - [Example 2](#example-2)
     - [Example 3](#example-3)
     - [Example 4](#example-4)
     - [Example 5](#example-5)
     - [Example 6](#example-6)
+  - [Troubleshooting](#troubleshooting)
+    - [Common Issues](#common-issues)
+    - [Performance Tips](#performance-tips)
+    - [Getting Help](#getting-help)
   - [Applications](#applications)
     - [GD Attack on 1 Round of AES with 1 Known Plaintext/Ciphertext Pair](#gd-attack-on-1-round-of-aes-with-1-known-plaintextciphertext-pair)
     - [GD Attack on 2 Rounds of AES with 1 Known Plaintext/Ciphertext Pair](#gd-attack-on-2-rounds-of-aes-with-1-known-plaintextciphertext-pair)
@@ -65,29 +85,49 @@ The following shape represents the overall structure of Autoguess. As it can be 
     - [Key Bridging in Impossible Differential Attack on T-TWINE-80](#key-bridging-in-impossible-differential-attack-on-t-twine-80)
     - [Key Bridging in Impossible Differential Attack on T-TWINE-128](#key-bridging-in-impossible-differential-attack-on-t-twine-128)
   - [The Paper](#the-paper)
+    - [Citation](#citation)
   - [License](#license)
 
 ## Installation
 
-Autoguess has been developed in [Debian](https://en.wikipedia.org/wiki/Debian) which is one of the most used [Linux](https://en.wikipedia.org/wiki/Linux_distribution) distributions. However, thanks to [Docker](https://www.docker.com/) it can simply be used in other platforms including macOS and Windows. We suggest the following methods to install and use Autoguess.
+### Prerequisites
 
-### Method 1
+Before installing Autoguess, ensure you have the following:
 
-The easiest way is using the provided [Dockerfile](docker/DockerfileDebian) to get Autoguess and all of its dependencies at once. To do so, regardless of what OS you use, install [Docker](https://docs.docker.com/get-docker/) at first. Next, download our [Dockerfile](docker/DockerfileDebian), navigate into the directory where you have stored it and build a local image of Autoguess via the following single line command:
+- **Python 3.8+**: Autoguess requires Python 3.8 or higher
+- **Docker** (recommended): For the easiest installation method
+- **Git**: For cloning the repository and dependencies
+
+### Installation Methods
+
+Autoguess has been developed on [Debian](https://en.wikipedia.org/wiki/Debian), one of the most widely used [Linux](https://en.wikipedia.org/wiki/Linux_distribution) distributions. However, thanks to [Docker](https://www.docker.com/), it can easily be used on other platforms including macOS and Windows. We recommend the following installation methods:
+
+#### Method 1: Build Docker Image Locally (Recommended)
+
+The easiest way is using the provided [Dockerfile](docker/DockerfileDebian) to get Autoguess and all of its dependencies at once. To do so, regardless of what OS you use:
+
+1. **Install Docker**: Follow the [Docker installation guide](https://docs.docker.com/get-docker/) for your platform
+2. **Clone this repository**: 
+   ```sh
+   git clone https://github.com/hadipourh/autoguess.git
+   cd autoguess
+   ```
+3. **Build the Docker image**: Navigate to the directory where you cloned the repository and build a local image of Autoguess:
 
 ```sh
 docker build --platform linux/amd64 -t autoguess -f docker/DockerfileDebian .
 ```
 
-Next, you will be able to run Autoguess via the following command:
+4. **Run Autoguess**: Once built, you can run Autoguess using the following commands:
 
-#### For ARM64 (Apple Silicon)
+##### For ARM64 (Apple Silicon)
 
 ```sh
 docker run --platform linux/amd64 -it --rm autoguess
 ```
 
-#### For x86_64 (Most Linux Systems)
+##### For x86_64 (Most Linux Systems)
+
 ```sh
 docker run -it --rm autoguess
 ```
@@ -97,7 +137,7 @@ The provided image is self-contained and includes MiniZinc, PySAT, pySMT, and Sa
 One can also build an image of Autoguess with the [DockerfileArch](docker/DockerfileArch) which is based on the [Arch Linux](https://archlinux.org/) distribution. To do so, you can use the following command:
 
 ```sh
-docker build -f DockerfileArch -t autoguess_arch .
+docker build -f docker/DockerfileArch -t autoguess_arch .
 ```
 
 Then, you can run Autoguess by the following command:
@@ -106,39 +146,68 @@ Then, you can run Autoguess by the following command:
 docker run --rm -it autoguess_arch
 ```
 
-### Method 2
+#### Method 2: Use Pre-built Docker Image
 
-If you have already installed [Docker](https://www.docker.com/) and you are not enough patient to build a local image of Autoguess, you can simply download a prebuilt image of Autoguess hosted on [Docker Hub](https://hub.docker.com/) via the following command:
+If you have already installed [Docker](https://www.docker.com/) and prefer to use a pre-built image instead of building locally, you can download a prebuilt image of Autoguess from [Docker Hub](https://hub.docker.com/):
 
+**For Debian-based image:**
 ```sh
 docker pull hoseinhadipour/autoguess
 ```
 
-Then, you can run Autoguess by the following command:
-
+Then run Autoguess:
 ```sh
 docker run --rm -it hoseinhadipour/autoguess
 ```
 
-One can also download a prebuilt image of Autoguess based on the [Arch Linux](https://archlinux.org/) distribution via the following command:
-
+**For Arch Linux-based image:**
 ```sh
 docker pull hoseinhadipour/autoguess_arch
 ```
 
-Then, you can run Autoguess by the following command:
-
+Then run Autoguess:
 ```sh
 docker run --rm -it hoseinhadipour/autoguess_arch
 ```
 
-### Method 3
+#### Method 3: Native Installation (Debian-based Systems)
 
-For the Debian-based Linux operating systems, you can run the installer script [here](installer.sh) using the following command:
+For Debian-based Linux operating systems, you can install Autoguess natively using the provided installer script:
 
 ```bash
+git clone https://github.com/hadipourh/autoguess.git
+cd autoguess
 bash installer.sh
 ```
+
+**Note**: This method requires manually installing all dependencies. Review the [requirements.txt](requirements.txt) file for the complete list of Python dependencies.
+
+---
+
+## Quick Start
+
+Once you have Autoguess installed, you can quickly test it with one of the provided examples:
+
+```bash
+# Using Docker (recommended)
+docker run --rm -it hoseinhadipour/autoguess python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
+
+# Or if you built locally
+docker run --rm -it autoguess python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
+
+# Or if installed natively
+python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
+```
+
+This should output something like:
+```text
+Number of guesses: 2
+Number of known variables in the final state: 7 out of 7
+The following 2 variable(s) are guessed:
+v, u
+```
+
+---
 
 ## Format of Input File
 
@@ -178,9 +247,15 @@ You can find many other input files inside the [ciphers](ciphers) folder. Moreov
 
 ---
 
-## Manual
+## Usage
 
-We have provided a brief help for Autoguess which can be accessed by running this command `python3 autoguess.py -h`.
+### Command Line Interface
+
+You can access a brief help for Autoguess by running:
+
+```bash
+python3 autoguess.py -h
+```
 
 ```text
 usage: autoguess.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-mg MAXGUESS] [-ms MAXSTEPS] [-s {cp,milp,sat,smt,groebner}] [-milpd {min,max}] [-cps {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}]
@@ -1281,6 +1356,48 @@ Number of guesses: 6
 The following 6 variable(s) are guessed:
 x_1_7, x_6_5, x_4_3, x_7_2, x_7_1, x_5_0
 ```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+#### Docker Issues
+- **Permission denied**: On Linux, you may need to run Docker commands with `sudo` or add your user to the docker group
+- **Platform issues on ARM64**: Always use `--platform linux/amd64` flag for Apple Silicon Macs
+- **Out of memory**: For large problems, increase Docker memory limits in Docker Desktop settings
+
+#### Missing Dependencies
+- **ModuleNotFoundError**: If running natively, ensure all dependencies are installed:
+  ```bash
+  pip install -r requirements.txt
+  ```
+- **Solver not found**: Some solvers require separate installation (e.g., Gurobi requires a license)
+- **MiniZinc not found**: Install MiniZinc following the instructions in Method 3
+
+#### Input File Issues
+- **File format**: Ensure your input file follows the correct format as described in the [Format of Input File](#format-of-input-file) section
+- **Path issues**: Use absolute paths or ensure files are in the correct relative location
+- **Syntax errors**: Check that your algebraic and connection relations are properly formatted
+
+### Performance Tips
+
+- **Large problems**: Use the `--timelimit` parameter to set reasonable time bounds
+- **Solver selection**: Different solvers perform better on different types of problems:
+  - **SAT**: Good for boolean problems and quick verification
+  - **MILP**: Excellent for optimization problems (requires Gurobi license)
+  - **CP**: Good balance between performance and ease of use
+  - **Groebner**: Best for algebraic systems with many variables
+
+### Getting Help
+
+If you encounter issues:
+1. Check the [GitHub Issues](https://github.com/hadipourh/autoguess/issues) page
+2. Refer to the comprehensive examples in this README
+3. Contact the author at hsn.hadipour@gmail.com
+
+---
 
 ## Applications
 
@@ -2574,7 +2691,7 @@ To see more details concerning the application of Autoguess in linear atacks on 
 
 ### Key-bridging in Integral Attack on LBlock
 
-In this example, we show the application of Autoguess to find a minimal guess basis in intergal atack on 24 rounds of LBlock presented in [Improved integral attacks on 24-round LBlock and LBlock-s]().
+In this example, we show the application of Autoguess to find a minimal guess basis in integral attack on 24 rounds of LBlock presented in "Improved integral attacks on 24-round LBlock and LBlock-s".
 
 ***SAT***
 
@@ -2894,10 +3011,11 @@ k_1_0, k_1_3, k_3_10, k_3_16, k_4_17, k_5_16, k_6_20, k_6_25, k_7_29, k_7_11, k_
 
 Complete details about our tool as well as the underlying methods based on which our tool works, can be found in [our paper](https://eprint.iacr.org/2021/1529).
 
+### Citation
+
 If you use the paper or the tool in your own work leading to an academic publication, please cite the following:
 
-```text
-{% raw %}
+```bibtex
 @inproceedings{acnsHadipourE22,
   author       = {Hosein Hadipour and
                   Maria Eichlseder},
@@ -2914,8 +3032,8 @@ If you use the paper or the tool in your own work leading to an academic publica
   eprint       = {2021/1529},
   usera        = {ACNS},
   userb        = {2022},
-{% endraw %}
 }
+```
 ```
 
 ## License
