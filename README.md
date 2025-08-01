@@ -85,6 +85,7 @@ The following shape represents the overall structure of Autoguess. As it can be 
     - [Key Bridging in Impossible Differential Attack on T-TWINE-80](#key-bridging-in-impossible-differential-attack-on-t-twine-80)
     - [Key Bridging in Impossible Differential Attack on T-TWINE-128](#key-bridging-in-impossible-differential-attack-on-t-twine-128)
   - [The Paper](#the-paper)
+    - [Citation](#citation)
   - [License](#license)
 
 ## Installation
@@ -2690,7 +2691,7 @@ To see more details concerning the application of Autoguess in linear atacks on 
 
 ### Key-bridging in Integral Attack on LBlock
 
-In this example, we show the application of Autoguess to find a minimal guess basis in intergal atack on 24 rounds of LBlock presented in [Improved integral attacks on 24-round LBlock and LBlock-s]().
+In this example, we show the application of Autoguess to find a minimal guess basis in integral attack on 24 rounds of LBlock presented in "Improved integral attacks on 24-round LBlock and LBlock-s".
 
 ***SAT***
 
@@ -3010,10 +3011,11 @@ k_1_0, k_1_3, k_3_10, k_3_16, k_4_17, k_5_16, k_6_20, k_6_25, k_7_29, k_7_11, k_
 
 Complete details about our tool as well as the underlying methods based on which our tool works, can be found in [our paper](https://eprint.iacr.org/2021/1529).
 
+### Citation
+
 If you use the paper or the tool in your own work leading to an academic publication, please cite the following:
 
-```text
-{% raw %}
+```bibtex
 @inproceedings{acnsHadipourE22,
   author       = {Hosein Hadipour and
                   Maria Eichlseder},
@@ -3030,8 +3032,8 @@ If you use the paper or the tool in your own work leading to an academic publica
   eprint       = {2021/1529},
   usera        = {ACNS},
   userb        = {2022},
-{% endraw %}
 }
+```
 ```
 
 ## License
