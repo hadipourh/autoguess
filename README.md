@@ -16,8 +16,7 @@
   <img src="miscellaneous/logo.svg" width="400" alt="AutoGuess Logo">
 </p>
 
-**Autoguess** is a comprehensive and easy-to-use tool for automatically solving  the guess-and-determine problem whose application are for instance in finding guess-and-determine attacks and key bridges in cryptographic systems.
-It leverages multiple solving paradigms including:
+**Autoguess** is a generic and easy-to-use tool designed to assist in solving the guess-and-determine problem. It is commonly applied in areas such as identifying guess-and-determine attacks and key bridging in cryptographic systems. The tool supports multiple solving approaches, including:
 
 - **Constraint Programming (CP)** via MiniZinc
 - **Mixed-Integer Linear Programming (MILP)** via Gurobi
