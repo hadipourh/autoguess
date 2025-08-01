@@ -16,7 +16,7 @@
   <img src="miscellaneous/logo.svg" width="400" alt="AutoGuess Logo">
 </p>
 
-**Autoguess** is a comprehensive and easy-to-use tool for automatically solving  the guess-and-determine problem whose application are for instance in finding guess-and-determine attacks and key bridges in cryptographic systems. 
+**Autoguess** is a comprehensive and easy-to-use tool for automatically solving  the guess-and-determine problem whose application are for instance in finding guess-and-determine attacks and key bridges in cryptographic systems.
 It leverages multiple solving paradigms including:
 
 - **Constraint Programming (CP)** via MiniZinc
@@ -25,7 +25,7 @@ It leverages multiple solving paradigms including:
 - **Satisfiability Modulo Theories (SMT)** via pySMT
 - **Algebraic methods** via SageMath and Groebner basis computation
 
-The tool is particularly useful for cryptanalysis of symmetric-key primitives, helping researchers discover minimal guess bases for various cryptographic primitives and protocols. 
+The tool is particularly useful for cryptanalysis of symmetric-key primitives, helping researchers discover minimal guess bases for various cryptographic primitives and protocols.
 
 ---
 
@@ -108,7 +108,8 @@ Autoguess has been developed on [Debian](https://en.wikipedia.org/wiki/Debian), 
 The easiest way is using the provided [Dockerfile](docker/DockerfileDebian) to get Autoguess and all of its dependencies at once. To do so, regardless of what OS you use:
 
 1. **Install Docker**: Follow the [Docker installation guide](https://docs.docker.com/get-docker/) for your platform
-2. **Clone this repository**: 
+2. **Clone this repository**:
+
    ```sh
    git clone https://github.com/hadipourh/autoguess.git
    cd autoguess
@@ -118,10 +119,10 @@ The easiest way is using the provided [Dockerfile](docker/DockerfileDebian) to g
    ```sh
    docker build --platform linux/amd64 -t autoguess -f docker/DockerfileDebian .
    ```
-
 4. **Run Autoguess**: Once built, you can run Autoguess using the following commands:
 
    ##### For ARM64 (Apple Silicon)
+
 
    ```sh
    docker run --platform linux/amd64 -it --rm autoguess
@@ -152,21 +153,25 @@ docker run --rm -it autoguess_arch
 If you have already installed [Docker](https://www.docker.com/) and prefer to use a pre-built image instead of building locally, you can download a prebuilt image of Autoguess from [Docker Hub](https://hub.docker.com/):
 
 **For Debian-based image:**
+
 ```sh
 docker pull hoseinhadipour/autoguess
 ```
 
 Then run Autoguess:
+
 ```sh
 docker run --rm -it hoseinhadipour/autoguess
 ```
 
 **For Arch Linux-based image:**
+
 ```sh
 docker pull hoseinhadipour/autoguess_arch
 ```
 
 Then run Autoguess:
+
 ```sh
 docker run --rm -it hoseinhadipour/autoguess_arch
 ```
@@ -203,6 +208,7 @@ python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp -
 ```
 
 This should output something like:
+
 ```text
 Number of guesses: 2
 Number of known variables in the final state: 7 out of 7
@@ -288,11 +294,11 @@ optional arguments:
                         max = convert the problem to a maximization problem in which the known variables in final state are maximized,
                         when the size of the initially known variables is equal or less than "maxguess"
   -cps {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}, --cpsolver {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}
-                        
+                      
   -sats {cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}, --satsolver {cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}
-                        
+                      
   -smts {msat,cvc4,z3,yices,btor,bdd}, --smtsolver {msat,cvc4,z3,yices,btor,bdd}
-                        
+                      
   -cpopt {0,1}, --cpoptimization {0,1}
                         1: Looking for a minimal guess basis 
                         0: Decides whether a guess basis of size up to "maxguess" exists
@@ -1367,16 +1373,19 @@ x_1_7, x_6_5, x_4_3, x_7_2, x_7_1, x_5_0
 ### Common Issues
 
 #### Docker Issues
+
 - **Permission denied**: On Linux, you may need to run Docker commands with `sudo` or add your user to the docker group
 - **Platform issues on ARM64**: Always use `--platform linux/amd64` flag for Apple Silicon Macs
 - **Out of memory**: For large problems, increase Docker memory limits in Docker Desktop settings
 
 #### Missing Dependencies
-- **ModuleNotFoundError**: If running natively, ensure all dependencies are installed. 
+
+- **ModuleNotFoundError**: If running natively, ensure all dependencies are installed.
 - **Solver not found**: Some solvers require separate installation (e.g., Gurobi requires a license)
 - **MiniZinc not found**: Install MiniZinc following the instructions in Method 3
 
 #### Input File Issues
+
 - **File format**: Ensure your input file follows the correct format as described in the [Format of Input File](#format-of-input-file) section
 - **Path issues**: Use absolute paths or ensure files are in the correct relative location
 - **Syntax errors**: Check that your algebraic and connection relations are properly formatted
@@ -1384,14 +1393,15 @@ x_1_7, x_6_5, x_4_3, x_7_2, x_7_1, x_5_0
 ### Performance Tips
 
 - **Large problems**: Use the `--timelimit` parameter to set reasonable time bounds
-- **Solver selection**: Different solvers perform better on different types of problems. So try different solvers if you encounter performance issues. 
-- **Guess bounds**: If you are looking for some bounds on the number of guesses, use `--maxguess <number>` to limit the number of guesses and use SAT solvers. 
+- **Solver selection**: Different solvers perform better on different types of problems. So try different solvers if you encounter performance issues.
+- **Guess bounds**: If you are looking for some bounds on the number of guesses, use `--maxguess <number>` to limit the number of guesses and use SAT solvers.
 - **Preprocessing**: If the input relations include algebraic relations, use preprocessing phase with `--preprocess 1` and `--D <degree>` to derive new relations (using Macaulay matrix) and set the solver to one of the many available solvers, e.g., `--solver sat` or `--solver cp`, or `--solver groebner`.
-- **Minimization problem**: If you want to find the minimum number of guesses, use `--solver cp` or `--solver milp` to solve the problem as a constraint satisfaction problem or a mixed-integer linear programming problem, respectively. However, these solvers may take longer to solve the problem compared to finding a bound on the number of guesses using SAT solvers. You may want to reduce the optimization problem into a sequence of decision problems by using `--maxsteps <number>` to limit the number of steps in the search space. 
+- **Minimization problem**: If you want to find the minimum number of guesses, use `--solver cp` or `--solver milp` to solve the problem as a constraint satisfaction problem or a mixed-integer linear programming problem, respectively. However, these solvers may take longer to solve the problem compared to finding a bound on the number of guesses using SAT solvers. You may want to reduce the optimization problem into a sequence of decision problems by using `--maxsteps <number>` to limit the number of steps in the search space.
 
 ### Getting Help
 
 If you encounter issues:
+
 1. Check the [GitHub Issues](https://github.com/hadipourh/autoguess/issues) page
 2. Refer to the comprehensive examples in this README
 3. Contact the author at hsn.hadipour@gmail.com
@@ -1453,9 +1463,9 @@ The following 6 variable(s) are guessed:
 K_1_0_1, K_1_0_2, K_1_0_3, W_0_1_2, K_1_2_2, W_0_2_3
 ```
 
-In the above command we have used [Boolector](https://github.com/boolector/boolector) as the SMT solver. 
-I wanted to let you know that the Boolector project has been officially archived in 2024 and is no longer maintained. 
-So, we removed Boolector from the list of SMT solvers in Autoguess. 
+In the above command we have used [Boolector](https://github.com/boolector/boolector) as the SMT solver.
+I wanted to let you know that the Boolector project has been officially archived in 2024 and is no longer maintained.
+So, we removed Boolector from the list of SMT solvers in Autoguess.
 
 ***MILP***
 
@@ -1652,6 +1662,7 @@ Number of guesses: 10
 The following 10 variable(s) are guessed:
 K_2_3_3, K_2_3_2, K_2_3_0, K_2_2_3, K_2_2_2, K_2_2_1, K_2_1_3, K_2_1_2, K_2_0_3, K_2_0_2
 ```
+
 ---
 
 ### GD Attack on 3 Rounds of AES with 1 Known Plaintext/Ciphertext Pair
@@ -1752,6 +1763,7 @@ Solving with [Z3](https://github.com/Z3Prover/z3):
 ```sh
 python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_14r_mg4_ms16.txt --solver smt --smtsolver z3 --maxguess 4 --maxsteps 16
 ```
+
 Terminal output:
 
 ```text
@@ -2312,7 +2324,6 @@ S_11, S_6, S_18, R_4, S_8, R_6, S_9, S_21, S_23, R_10
 ```
 
 ![snow3_10g_12s_gd_dg](ciphers/SNOW3/Shapes/snow3_10g_12s_gd_dg.svg)
-
 
 ***SMT***
 
@@ -3012,9 +3023,9 @@ Complete details about our tool as well as the underlying methods based on which
 
 ### Citation
 
-If you use the paper or the tool in your own work leading to an academic publication, please cite the following:
+If you use the paper or the tool in your own work leading to an academic publication, please cite the following:i
 
-```bibtex
+```
 @inproceedings{acnsHadipourE22,
   author       = {Hosein Hadipour and
                   Maria Eichlseder},
