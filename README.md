@@ -3026,22 +3026,19 @@ Complete details about our tool as well as the underlying methods based on which
 If you use the paper or the tool in your own work leading to an academic publication, please cite the following:i
 
 ```
-@inproceedings{acnsHadipourE22,
-  author       = {Hosein Hadipour and
-                  Maria Eichlseder},
-  editor       = {Giuseppe Ateniese and
-                  Daniele Venturi},
-  title        = {{Autoguess}: A Tool for Finding Guess-and-Determine Attacks and Key Bridges},
-  booktitle    = {Applied Cryptography and Network Security -- {ACNS} 2022},
-  series       = {LNCS},
+@inproceedings{conf_acns_HadipourE22,
+  author       = {Hosein Hadipour and Maria Eichlseder},
+  editor       = {Giuseppe Ateniese and Daniele Venturi},
+  title        = {Autoguess: {A} Tool for Finding Guess-and-Determine Attacks and Key Bridges},
+  booktitle    = {Applied Cryptography and Network Security - 20th International Conference, {ACNS} 2022, Rome, Italy, June 20-23, 2022, Proceedings},
+  series       = {Lecture Notes in Computer Science},
   volume       = {13269},
   pages        = {230--250},
   publisher    = {Springer},
   year         = {2022},
-  doi          = {10.1007/978-3-031-09234-3_12},
-  eprint       = {2021/1529},
-  usera        = {ACNS},
-  userb        = {2022},
+  doi          = {10.1007/978-3-031-09234-3\_12},
+  biburl       = {https://dblp.org/rec/conf/acns/HadipourE22.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 ```
 
