@@ -1,6 +1,7 @@
 # Autoguess
 
 [![license](./miscellaneous/license-MIT-green.svg)](./LICENSE.txt)
+[![DOI](https://zenodo.org/badge/430373674.svg)](https://doi.org/10.5281/zenodo.16932672)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/docker-available-blue.svg)](https://www.docker.com/)
 [![PySAT](https://img.shields.io/badge/pysat-supported-blue.svg)](https://github.com/pysathq/pysat)
