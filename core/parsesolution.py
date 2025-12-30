@@ -21,8 +21,16 @@ def parse_solver_solution(gd):
     gd.final_info = sum(gd.solutions[gd.max_steps].values())
     print('Number of guesses: %d' % numbers_of_guesses)
     print('Number of known variables in the final state: %d out of %d' % (gd.final_info, len(gd.variables)))
-    print('The following %d variable(s) are guessed:' % len(gd.guessed_vars))
-    print(', '.join(gd.guessed_vars))
+    if hasattr(gd, "dummy_mapping"):
+        guessed_vars_pretty = []
+        for v in gd.guessed_vars:
+            if v in gd.dummy_mapping:
+                guessed_vars_pretty.append(f"{v} (represents: {' * '.join(gd.dummy_mapping[v])})")
+            else:
+                guessed_vars_pretty.append(v)
+        print(f"The following {len(gd.guessed_vars)} variable(s) are guessed:\n{', '.join(guessed_vars_pretty)}")
+    else:
+        print(f"The following {len(gd.guessed_vars)} variable(s) are guessed:\n{', '.join(gd.guessed_vars)}")
     
     separator_line = '#' * 60
     output_buffer = ''
@@ -36,7 +44,13 @@ def parse_solver_solution(gd):
     output_buffer += 'An upper bound for the number of guessed variables given by user (max_guess): %d\n' % gd.max_guess
     output_buffer += '%d out of %d state variables are known after %d state copies\n' % (gd.final_info, gd.num_of_vars, gd.max_steps)
     output_buffer += separator_line
-    output_buffer += '\nThe following %d variable(s) are guessed:\n%s\n' % (len(gd.guessed_vars), ', '.join(gd.guessed_vars))
+    guessed_vars_pretty = []
+    for v in gd.guessed_vars:
+        if hasattr(gd, "dummy_mapping") and v in gd.dummy_mapping:
+            guessed_vars_pretty.append(f"{v} (represents: {' * '.join(gd.dummy_mapping[v])})")
+        else:
+            guessed_vars_pretty.append(v)
+    output_buffer += f"\nThe following {len(gd.guessed_vars)} variable(s) are guessed:\n{', '.join(guessed_vars_pretty)}\n"
     output_buffer += separator_line
     output_buffer += '\nThe following %d variable(s) are initially known:\n%s\n' % (len(gd.known_variables), ', '.join(gd.known_variables))
     output_buffer += separator_line
