@@ -41,6 +41,7 @@ class Mark:
         self.notguessed_variables = parsed_data['notguessed_variables']
         self.symmetric_relations = parsed_data['symmetric_relations']
         self.implication_relations = parsed_data['implication_relations']
+        self.dummy_mapping = parsed_data.get('dummy_mapping', {})
         assert (self.implication_relations == []), "Marking algorithm doesn't support implication relations"
         self.num_of_relations = len(self.symmetric_relations) + len(self.implication_relations)
         self.num_of_vars = len(self.variables)
