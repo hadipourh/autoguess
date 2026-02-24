@@ -27,7 +27,9 @@ import minizinc
 from core.inputparser import read_relation_file
 from core.parsesolution import parse_solver_solution
 from core.graphdrawer import draw_graph
-from config import TEMP_DIR
+from config import TEMP_DIR, ensure_minizinc_driver
+
+ensure_minizinc_driver()
 from core.varnames import step_var, path_var
 import datetime
 import subprocess

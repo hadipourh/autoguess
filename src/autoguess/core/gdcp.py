@@ -27,7 +27,9 @@ import minizinc
 from .inputparser import read_relation_file
 from .parsesolution import parse_solver_solution
 from .graphdrawer import draw_graph
-from autoguess.config import TEMP_DIR
+from autoguess.config import TEMP_DIR, ensure_minizinc_driver
+
+ensure_minizinc_driver()
 from .varnames import step_var, path_var
 import datetime
 import subprocess

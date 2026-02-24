@@ -61,6 +61,36 @@ def find_minizinc_path():
     return None
 
 
+def ensure_minizinc_driver():
+    """
+    Make sure the ``minizinc`` Python package knows where our MiniZinc binary
+    lives.  If ``minizinc.default_driver`` is *None* (i.e. MiniZinc was not
+    found on the system PATH), we point it at the binary discovered by
+    ``find_minizinc_path()`` (which checks ``~/.autoguess/minizinc/`` among
+    other locations).
+
+    Call this once before any code that touches ``minizinc.default_driver``.
+    """
+    try:
+        import minizinc
+    except ImportError:
+        return  # minizinc package not installed -- nothing to do
+
+    if minizinc.default_driver is not None:
+        return  # already initialised -- nothing to do
+
+    mzn_path = find_minizinc_path()
+    if mzn_path is None:
+        return  # not installed anywhere we know of
+
+    from pathlib import Path
+    try:
+        drv = minizinc.Driver(Path(mzn_path))
+        minizinc.default_driver = drv
+    except Exception:
+        pass  # incompatible version or other issue -- leave driver as None
+
+
 # ---------------------------------------------------------------------------
 # SageMath detection (fallback for systems without passagemath)
 # ---------------------------------------------------------------------------

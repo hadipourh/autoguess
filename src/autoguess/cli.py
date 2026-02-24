@@ -11,7 +11,7 @@ License: GPL-3.0-or-later
 from autoguess.core import search
 from argparse import ArgumentParser, RawTextHelpFormatter
 import os
-from autoguess.config import TEMP_DIR
+from autoguess.config import TEMP_DIR, ensure_minizinc_driver
 
 try:
     from importlib.metadata import version as _version
@@ -23,6 +23,7 @@ except Exception:
 def _get_available_cp_solvers():
     """Return list of available MiniZinc CP solvers, or a default list if MiniZinc is not installed."""
     try:
+        ensure_minizinc_driver()
         import minizinc
         driver = minizinc.default_driver
         if driver is not None:
