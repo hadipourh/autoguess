@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = "Automated guess-and-determine and key-bridging attacks on symmetric-key cryptographic primitives"
 readme = "README.md"
 license = "GPL-3.0-or-later"
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 authors = [
     {name = "Hosein Hadipour", email = "hsn.hadipour@gmail.com"},
 ]
