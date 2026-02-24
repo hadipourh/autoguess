@@ -331,7 +331,6 @@ def search_using_sat(parameters):
     and then solve it.  When findmin is enabled, iteratively decrease max_guess
     until the model becomes UNSAT, returning the minimum number of guesses.
     """
-    from core.gdz3smt import ReduceGDtoZ3SMT
     from core.gdsat import ReduceGDtoSAT
 
     findmin = parameters.get('findmin', False)
