@@ -136,7 +136,7 @@ The following table summarizes the available extras:
 | *(core)* | SAT (PySAT) | Always installed |
 | `[smt]` | z3, cvc5 | z3-solver builds from source (needs C++20 compiler, e.g. GCC 11+). For boolector, install `pyboolector` manually (PyPI builds are broken). |
 | `[cp]` | MiniZinc CP | Also run `autoguess --install-minizinc` to download the MiniZinc binary |
-| `[groebner]` | Groebner basis (passagemath) | Requires Python >= 3.11 |
+| `[groebner]` | Groebner basis (passagemath) | Requires Python >= 3.11 and native build tools. Falls back to system SageMath if passagemath is not installed. |
 | `[gurobi]` | Gurobi MILP | Requires a Gurobi license |
 | `[all]` | All of the above | |
 

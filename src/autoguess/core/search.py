@@ -25,7 +25,7 @@ import subprocess
 import sys
 import io
 import time
-from autoguess.config import PATH_SAGE, TEMP_DIR
+from autoguess.config import PATH_SAGE, SAGE_IMPORTABLE, TEMP_DIR
 
 
 def _findmin_descent(parameters, solver_type):
@@ -385,21 +385,39 @@ def search_using_smt(parameters):
 def search_using_groebnerbasis(parameters):
     """
     Convert the guess-and-determine or key-bridging problem to the problem of computing Groebner basis,
-    and then solve it
+    and then solve it.
+
+    Prefers *passagemath* (``sage`` importable in the current Python);
+    falls back to a system SageMath binary if available.
     """
     import pathlib
     _gdgroebner_path = str(pathlib.Path(__file__).parent / "gdgroebner.py")
 
-    sage_process = subprocess.call([PATH_SAGE, "-python3", _gdgroebner_path, 
-    "--inputfile", parameters['inputfile'],
-    "--output", parameters['outputfile'],
-    "--preprocess", str(parameters['preprocess']),
-    "--D", str(parameters['D']),
-    "--term_ordering", parameters['term_ordering'],
-    "--overlapping_number", str(parameters['overlapping_number']),
-    "--temp_dir", TEMP_DIR,
-    "--cnf_to_anf_conversion", parameters['cnf_to_anf_conversion'],
-    "--log", str(parameters['log'])])
+    args = [
+        "--inputfile", parameters['inputfile'],
+        "--output", parameters['outputfile'],
+        "--preprocess", str(parameters['preprocess']),
+        "--D", str(parameters['D']),
+        "--term_ordering", parameters['term_ordering'],
+        "--overlapping_number", str(parameters['overlapping_number']),
+        "--temp_dir", TEMP_DIR,
+        "--cnf_to_anf_conversion", parameters['cnf_to_anf_conversion'],
+        "--log", str(parameters['log']),
+    ]
+
+    if SAGE_IMPORTABLE:
+        # passagemath is installed – run gdgroebner as a module with current Python
+        cmd = [sys.executable, "-m", "autoguess.core.gdgroebner"] + args
+    elif PATH_SAGE:
+        # Fall back to the system SageMath binary
+        cmd = [PATH_SAGE, "-python3", _gdgroebner_path] + args
+    else:
+        raise RuntimeError(
+            "Groebner solver requires passagemath (pip install 'autoguess[groebner]') "
+            "or a system SageMath installation, but neither was found."
+        )
+
+    subprocess.call(cmd)
 
 def search_using_mark(parameters):
     from .gdmark import Mark

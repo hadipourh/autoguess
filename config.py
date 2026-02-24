@@ -52,8 +52,17 @@ def find_sage_path():
     else:
         return 'sage'  # Hope it's in PATH
 
+def sage_is_available():
+    """Return True if SageMath can be imported (e.g. via passagemath)."""
+    try:
+        from sage.all import BooleanPolynomialRing  # noqa: F401
+        return True
+    except ImportError:
+        return False
+
 # Automatically detect SageMath path
 PATH_SAGE = find_sage_path()
+SAGE_IMPORTABLE = sage_is_available()
 
 # Autoguess home directory (for MiniZinc downloads, temp files, etc.)
 AUTOGUESS_HOME = os.path.join(os.path.expanduser("~"), ".autoguess")
