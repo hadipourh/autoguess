@@ -27,8 +27,9 @@ import string
 import random
 from collections import namedtuple
 import subprocess
-from autoguess.config import PATH_SAGE
+from autoguess.config import PATH_SAGE, SAGE_IMPORTABLE
 from autoguess.config import TEMP_DIR
+import pathlib
 import time
 from datetime import datetime
 
@@ -76,11 +77,20 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
         print('PREPROCESSING (Macaulay matrix)')
         print('-' * 60)
         macaulay_basis_file = os.path.join(TEMP_DIR, 'macaulay_basis_%s.txt' % rnd_string_tmp)
-        subprocess.call([PATH_SAGE, "-python3", os.path.join("core", "macaulay.py"), 
-                         "-i", algebraic_equations_file,
-                         "-o", macaulay_basis_file,
-                         "-t", "degrevlex",
-                         "-D", str(D)])
+        _macaulay_args = ["-i", algebraic_equations_file,
+                          "-o", macaulay_basis_file,
+                          "-t", "degrevlex",
+                          "-D", str(D)]
+        if SAGE_IMPORTABLE:
+            _macaulay_cmd = [sys.executable, "-m", "autoguess.core.macaulay"] + _macaulay_args
+        elif PATH_SAGE:
+            _macaulay_path = str(pathlib.Path(__file__).parent / "macaulay.py")
+            _macaulay_cmd = [PATH_SAGE, "-python3", _macaulay_path] + _macaulay_args
+        else:
+            print("ERROR: Preprocessing requires passagemath (pip install 'autoguess[groebner]') "
+                  "or a system SageMath installation, but neither was found.")
+            sys.exit(1)
+        subprocess.call(_macaulay_cmd)
         elapsed_time = time.time() - starting_time
         print('Preprocessing finished in %0.4f seconds' % elapsed_time)
         try:

@@ -29,6 +29,7 @@ from collections import namedtuple
 import subprocess
 from config import PATH_SAGE
 from config import TEMP_DIR
+import pathlib
 import time
 from datetime import datetime
 
@@ -76,7 +77,8 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
         print('PREPROCESSING (Macaulay matrix)')
         print('-' * 60)
         macaulay_basis_file = os.path.join(TEMP_DIR, 'macaulay_basis_%s.txt' % rnd_string_tmp)
-        subprocess.call([PATH_SAGE, "-python3", os.path.join("core", "macaulay.py"), 
+        _macaulay_path = str(pathlib.Path(__file__).parent / "macaulay.py")
+        subprocess.call([PATH_SAGE, "-python3", _macaulay_path, 
                          "-i", algebraic_equations_file,
                          "-o", macaulay_basis_file,
                          "-t", "degrevlex",
