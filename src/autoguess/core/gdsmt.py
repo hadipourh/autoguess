@@ -79,8 +79,11 @@ class ReduceGDtoSMT:
         # btor      True (3.2.1)
         # picosat   True (965)
         # bdd       True (2.0.3)
-        self.supported_smt_solvers = [
-            'msat', 'cvc4', 'z3', 'yices', 'btor', 'picosat', 'bdd']
+        try:
+            from pysmt.environment import get_env
+            self.supported_smt_solvers = sorted(get_env().factory._all_solvers.keys())
+        except Exception:
+            self.supported_smt_solvers = ['z3']
         assert(self.smt_solver_name in self.supported_smt_solvers)
         self.smt_solver = Solver(name=smt_solver_name, logic='QF_BV')
         self.smt_formula = TRUE()

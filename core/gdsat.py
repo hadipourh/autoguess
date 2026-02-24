@@ -201,6 +201,47 @@ class ReduceGDtoSAT:
         card_clauses = card_constraint.clauses
         self.cnf_formula.extend(card_clauses)
 
+    def generate_boundary_no_cardinality(self):
+        """
+        Generate boundary conditions (target/known/notguessed) WITHOUT
+        the cardinality constraint.  Used by incremental findmin.
+        """
+        final_state_target_vars = [step_var(
+            v, self.max_steps) for v in self.target_variables]
+        self.update_variables_dictionary(final_state_target_vars)
+        self.cnf_formula.extend([[self.variables_dictionary[fsv]]
+                                 for fsv in final_state_target_vars])
+        for v in self.known_variables:
+            if v != '':
+                known_variable_at_state0 = step_var(v, 0)
+                self.update_variables_dictionary([known_variable_at_state0])
+                self.cnf_formula.append(
+                    [self.variables_dictionary[known_variable_at_state0]])
+        for v in self.notguessed_variables:
+            if v != '':
+                temp = step_var(v, 0)
+                self.update_variables_dictionary([temp])
+                self.cnf_formula.append([-self.variables_dictionary[temp]])
+        # Register initial-state unknown variables (needed for external cardinality)
+        unknown_init_state_vars = [v for v in self.variables if v not in self.known_variables]
+        initial_state_vars = [step_var(v, 0) for v in unknown_init_state_vars]
+        self.update_variables_dictionary(initial_state_vars)
+
+    def get_cardinality_lits(self):
+        """
+        Return (lits, weights) for the cardinality constraint on
+        initial-state unknown variables.
+        Must be called after generate_boundary_no_cardinality().
+        """
+        unknown_init_state_vars = [v for v in self.variables if v not in self.known_variables]
+        initial_state_vars = [step_var(v, 0) for v in unknown_init_state_vars]
+        lits = [self.variables_dictionary[v] for v in initial_state_vars]
+        if self.target_weights is not None:
+            weights = [self.target_weights.get(v, 1) for v in unknown_init_state_vars]
+        else:
+            weights = None
+        return lits, weights
+
     def generate_sat_constraints(self):
         """
         This method generates the smt constraints corresponding to the 
@@ -277,28 +318,10 @@ class ReduceGDtoSAT:
         solve the derived CNF formula
         """
 
-        if self.sat_solver_name in solvers.SolverNames.cadical153:
-            sat_solver = solvers.Cadical153()
-        elif self.sat_solver_name in solvers.SolverNames.glucose4:
-            sat_solver = solvers.Glucose4()
-        elif self.sat_solver_name in solvers.SolverNames.glucose3:
-            sat_solver = solvers.Glucose3()
-        elif self.sat_solver_name in solvers.SolverNames.lingeling:
-            sat_solver = solvers.Lingeling()
-        elif self.sat_solver_name in solvers.SolverNames.maplesat:
-            sat_solver = solvers.Maplesat()
-        elif self.sat_solver_name in solvers.SolverNames.maplechrono:
-            sat_solver = solvers.MapleChrono()
-        elif self.sat_solver_name in solvers.SolverNames.maplecm:
-            sat_solver = solvers.MapleCM()
-        elif self.sat_solver_name in solvers.SolverNames.minicard:
-            sat_solver = solvers.Minicard()
-        elif self.sat_solver_name in solvers.SolverNames.minisat22:
-            sat_solver = solvers.Minisat22()
-        elif self.sat_solver_name in solvers.SolverNames.minisatgh:
-            sat_solver = solvers.MinisatGH()
+        if self.sat_solver_name in solvers.SolverNames.__dict__.keys():
+            sat_solver = solvers.Solver(name=self.sat_solver_name)
         else:
-            print('Choose a solver from the following list please:%s' %
+            print('Choose a solver from the following list please: %s' %
                   ', '.join(self.supported_sat_solvers))
             return
         sat_solver.append_formula(self.cnf_formula)
@@ -306,10 +329,13 @@ class ReduceGDtoSAT:
         print('SOLVING')
         print('-' * 60)
         start_time = time.time()
-        # Regarding time_limit: Note that only MiniSat-like solvers support this functionality (e.g. Cadical153 and Lingeling do not
+        # Regarding time_limit: Note that only MiniSat-like solvers support this functionality (e.g. Cadical and Lingeling do not
         # support it).
+        _no_timelimit_solvers = set()
+        for _sn in ('cadical103', 'cadical153', 'cadical195', 'lingeling'):
+            _no_timelimit_solvers.update(getattr(solvers.SolverNames, _sn, ()))
         if self.time_limit != -1:
-            if self.sat_solver_name in list(solvers.SolverNames.cadical153) + list(solvers.SolverNames.lingeling):
+            if self.sat_solver_name in _no_timelimit_solvers:
                 print('time_limit is not supported for the chosen sat solver ... ')
                 result = sat_solver.solve()
             else:
@@ -333,15 +359,18 @@ class ReduceGDtoSAT:
             if self.draw_graph:
                 draw_graph(self.vertices, self.edges, self.known_variables, self.guessed_vars,\
                      self.output_dir, self.tikz, self.dglayout)
+            return True
         elif result == False:
             print('\n' + '=' * 60)
             print('RESULT: UNSATISFIABLE')
             print('The problem is UNSAT!')
             print('Increase max_guess or max_steps and try again.')
             print('=' * 60)
+            return False
         else:
             print('\n' + '=' * 60)
             print('RESULT: TIMEOUT')
             print('The solver was interrupted before finding any solution.')
             print('=' * 60)
+            return None
         sat_solver.delete()

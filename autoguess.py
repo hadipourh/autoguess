@@ -1,28 +1,17 @@
 #!/usr/bin/python3
-#-*- coding: UTF-8 -*-
-'''
-Created on Aug 23, 2020
+# -*- coding: UTF-8 -*-
+"""
+Autoguess CLI - Automated Guess-and-Determine and Key-Bridging attacks.
 
-@author: Hosein Hadipour
-@contact: hsn.hadipour@gmail.com
+Copyright (C) 2021 Hosein Hadipour
+Contact: hsn.hadipour@gmail.com
+License: GPL-3.0-or-later
+"""
 
-For more information, feedback or any questions, please contact hsn.hadipour@gmail.com
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-In case you use this tool please include the above copyright informations (name, contact, license)
-'''
+from core import search
+from argparse import ArgumentParser, RawTextHelpFormatter
+import os
+from config import TEMP_DIR
 
 try:
     from importlib.metadata import version as _version
@@ -30,28 +19,61 @@ try:
 except Exception:
     __version__ = "1.0.0"
 
-from core import search
-from argparse import ArgumentParser, RawTextHelpFormatter
-import os
-import sys
-from config import TEMP_DIR
 
-def _handle_install_minizinc():
-    """Check for --install-minizinc early, before heavy imports."""
-    if '--install-minizinc' in sys.argv:
-        from core.minizinc_installer import install_minizinc
-        install_minizinc()
-        sys.exit(0)
+def _get_available_cp_solvers():
+    """Return list of available MiniZinc CP solvers, or a default list if MiniZinc is not installed."""
+    try:
+        import minizinc
+        driver = minizinc.default_driver
+        if driver is not None:
+            return list(driver.available_solvers().keys())
+    except (ImportError, Exception):
+        pass
+    # Default choices when MiniZinc is not available
+    return ["cp-sat", "gecode", "chuffed"]
 
-_handle_install_minizinc()
 
-import minizinc
-from pysat import solvers
+def _get_available_sat_solvers():
+    """Return list of available SAT solver names."""
+    try:
+        from pysat import solvers
+        return [s for s in solvers.SolverNames.__dict__.keys() if not s.startswith('__')]
+    except ImportError:
+        return ["cadical153", "glucose4", "minisat22"]
+
+
+def _get_available_smt_solvers():
+    """Return list of installed pySMT solver names."""
+    try:
+        from pysmt.environment import get_env
+        return sorted(get_env().factory._all_solvers.keys())
+    except Exception:
+        return ['z3']
+
+
+def _resolve_dynamic_defaults(params):
+    """
+    If maxguess or maxsteps were not supplied by the user, derive sensible
+    defaults from the input file:
+      maxguess  -> number of target variables
+      maxsteps  -> number of all variables (before preprocessing)
+    A lightweight parse (preprocess=0) is used so this is fast.
+    """
+    if params['maxguess'] is not None and params['maxsteps'] is not None:
+        return
+    from core.inputparser import read_relation_file
+    parsed = read_relation_file(params['inputfile'], preprocess=0, D=2, log=0)
+    if params['maxguess'] is None:
+        params['maxguess'] = len(parsed['target_variables'])
+    if params['maxsteps'] is None:
+        params['maxsteps'] = len(parsed['variables'])
+
 
 def start_search(params):
     """
     Starts the search tool for the given parameters
     """
+    _resolve_dynamic_defaults(params)
     solver = params["solver"]
     search_methods = {
         'milp': search.search_using_milp,
@@ -67,6 +89,7 @@ def start_search(params):
     else:
         print('Choose the solver from the following options: cp, milp, sat, smt, groebner, propagate')
 
+
 def check_environment():
     """
     Basic checks if the environment is set up correctly
@@ -74,21 +97,20 @@ def check_environment():
     if not os.path.exists(TEMP_DIR):
         os.makedirs(TEMP_DIR)
 
+
 def load_parameters(args):
     """
     Get parameters from the argument list and input file.
     """
     params = {
-        # "inputfile": "./ciphers/AES/relationfile_aes1kp_1r_mg6_ms14.txt",
-        # "inputfile": "./ciphers/Example1/relationfile.txt",
         "inputfile": "./ciphers/Example4/algebraic_relations.txt",
         "outputfile": "output",
-        "maxguess": 50,
-        "maxsteps": 5,
+        "maxguess": None,
+        "maxsteps": None,
         "solver": 'cp',
         "milpdirection": 'min',
         "timelimit": -1,
-        "cpsolver": "cp-sat", # for newer versions of MiniZinc, use 'cp-sat' to use Or-tools
+        "cpsolver": "cp-sat",
         "satsolver": 'cadical153',
         "smtsolver": 'z3',
         "cpoptimization": 1,
@@ -100,58 +122,95 @@ def load_parameters(args):
         "cnf_to_anf_conversion": 'simple',
         "dglayout": "dot",
         "drawgraph": True,
+        "findmin": False,
         "log": 1,
         "known": None
     }
 
     for key in params:
-        if getattr(args, key, None):
-            params[key] = getattr(args, key)[0]
+        val = getattr(args, key, None)
+        if val is not None and not isinstance(val, bool):
+            params[key] = val[0] if isinstance(val, list) else val
 
     if getattr(args, 'nograph', False):
         params['drawgraph'] = False
 
+    if getattr(args, 'findmin', False):
+        params['findmin'] = True
+
     return params
+
 
 def main():
     """
     Parse the arguments and start the request functionality with the provided parameters.
     """
-    parser = ArgumentParser(description="This tool automates the Guess-and-Determine"
-                                        " and Key-Bridging techniques"
-                                        " using a variety of CP, MILP, SMT and SAT solvers, as well as"
-                                        " the algebraic method based on Groebner basis",
-                            formatter_class=RawTextHelpFormatter)
+    parser = ArgumentParser(
+        description="This tool automates the Guess-and-Determine"
+                    " and Key-Bridging techniques"
+                    " using a variety of CP, MILP, SMT and SAT solvers, as well as"
+                    " the algebraic method based on Groebner basis",
+        formatter_class=RawTextHelpFormatter)
     parser.add_argument('-i', '--inputfile', nargs=1, help="Use an input file in plain text format")
     parser.add_argument('-o', '--outputfile', nargs=1, help="Use an output file to write the output into it")
-    parser.add_argument('-mg', '--maxguess', nargs=1, type=int, help="An upper bound for the number of guessed variables")
-    parser.add_argument('-ms', '--maxsteps', nargs=1, type=int, help="An integer number specifying the depth of search")
-    parser.add_argument('-s', '--solver', nargs=1, choices=['cp', 'milp', 'sat', 'smt', 'groebner', 'propagate'], help="Solver choice")
+    parser.add_argument('-mg', '--maxguess', nargs=1, type=int, help="An upper bound for the number of guessed variables\n(default: number of target variables)")
+    parser.add_argument('-ms', '--maxsteps', nargs=1, type=int, help="An integer number specifying the depth of search\n(default: number of variables before preprocessing)")
+    parser.add_argument('-s', '--solver', nargs=1,
+                        choices=['cp', 'milp', 'sat', 'smt', 'groebner', 'propagate'],
+                        help="Solver choice")
     parser.add_argument('-milpd', '--milpdirection', nargs=1, choices=['min', 'max'], help="MILP direction")
-    parser.add_argument('-cps', '--cpsolver', nargs=1, type=str, choices=[solver_name for solver_name in minizinc.default_driver.available_solvers().keys()], help="CP solver choice", default=["cp-sat"])
-    parser.add_argument('-sats', '--satsolver', nargs=1, type=str, choices=[solver for solver in solvers.SolverNames.__dict__.keys() if not solver.startswith('__')], help="SAT solver choice")
-    parser.add_argument('-smts', '--smtsolver', nargs=1, type=str, choices=['msat', 'cvc5', 'z3', 'yices', 'btor', 'bdd'], help="SMT solver choice")
+    parser.add_argument('-cps', '--cpsolver', nargs=1, type=str,
+                        choices=_get_available_cp_solvers(),
+                        help="CP solver choice", default=["cp-sat"])
+    parser.add_argument('-sats', '--satsolver', nargs=1, type=str,
+                        choices=_get_available_sat_solvers(),
+                        help="SAT solver choice")
+    parser.add_argument('-smts', '--smtsolver', nargs=1, type=str,
+                        choices=_get_available_smt_solvers(), help="SMT solver choice")
     parser.add_argument('-cpopt', '--cpoptimization', nargs=1, type=int, choices=[0, 1], help="CP optimization")
     parser.add_argument('-tl', '--timelimit', nargs=1, type=int, help="Time limit for the search in seconds")
-    parser.add_argument('-tk', '--tikz', nargs=1, type=int, help="Generate the tikz code of the determination flow graph")
-    parser.add_argument('-prep', '--preprocess', nargs=1, type=int, help="Enable the preprocessing phase")
-    parser.add_argument('-D', '--D', nargs=1, type=int, help="Degree of Macaulay matrix generated in preprocessing phase")
-    parser.add_argument('-tord', '--term_ordering', nargs=1, type=str, help="Term ordering such as 'degrevlex' or 'deglex'")
-    parser.add_argument('-oln', '--overlapping_number', nargs=1, type=int, help="Overlapping number in block-wise CNF to ANF conversion")
-    parser.add_argument('-cnf2anf', '--cnf_to_anf_conversion', nargs=1, type=str, choices=['simple', 'blockwise'], help="CNF to ANF conversion method")
-    parser.add_argument('-dgl', '--dglayout', nargs=1, type=str, choices=["dot", "circo", "twopi", "fdp", "neato", "nop", "nop1", "nop2", "osage", "patchwork", "sfdp"], help="Layout of determination flow graph")
-    parser.add_argument('-log', '--log', nargs=1, type=int, choices=[0, 1], help="Store intermediate generated files and results", default=[0])
-    parser.add_argument('--nograph', action='store_true', default=False, help="Skip generating the determination flow graph (faster)")
-    parser.add_argument('--install-minizinc', action='store_true', default=False,
+    parser.add_argument('-tk', '--tikz', nargs=1, type=int,
+                        help="Generate the tikz code of the determination flow graph")
+    parser.add_argument('-prep', '--preprocess', nargs=1, type=int,
+                        help="Enable the preprocessing phase")
+    parser.add_argument('-D', '--D', nargs=1, type=int,
+                        help="Degree of Macaulay matrix generated in preprocessing phase")
+    parser.add_argument('-tord', '--term_ordering', nargs=1, type=str,
+                        help="Term ordering such as 'degrevlex' or 'deglex'")
+    parser.add_argument('-oln', '--overlapping_number', nargs=1, type=int,
+                        help="Overlapping number in block-wise CNF to ANF conversion")
+    parser.add_argument('-cnf2anf', '--cnf_to_anf_conversion', nargs=1, type=str,
+                        choices=['simple', 'blockwise'], help="CNF to ANF conversion method")
+    parser.add_argument('-dgl', '--dglayout', nargs=1, type=str,
+                        choices=["dot", "circo", "twopi", "fdp", "neato", "nop", "nop1", "nop2",
+                                 "osage", "patchwork", "sfdp"],
+                        help="Layout of determination flow graph")
+    parser.add_argument('-log', '--log', nargs=1, type=int, choices=[0, 1],
+                        help="Store intermediate generated files and results", default=[0])
+    parser.add_argument('-kn', '--known', nargs=1, type=str,
+                        help="Comma-separated list of initially known variables (for 'propagate' solver)")
+    parser.add_argument('--nograph', action='store_true', default=False,
+                        help="Skip generating the determination flow graph (faster)")
+    parser.add_argument('--findmin', action='store_true', default=False,
+                        help="Iteratively decrease max_guess to find the minimum number of guesses (SAT/SMT only)")
+
+    # MiniZinc installer command
+    parser.add_argument('--install-minizinc', action='store_true',
                         help="Download and install MiniZinc binary to ~/.autoguess/minizinc/")
-    parser.add_argument('-kn', '--known', nargs=1, type=str, help="Comma-separated list of initially known variables (for 'propagate' solver)")
     parser.add_argument('-V', '--version', action='version', version='%(prog)s ' + __version__)
 
     args = parser.parse_args()
-    params = load_parameters(args)
 
+    # Handle --install-minizinc
+    if args.install_minizinc:
+        from core.minizinc_installer import install_minizinc
+        install_minizinc()
+        return
+
+    params = load_parameters(args)
     check_environment()
     start_search(params)
+
 
 if __name__ == '__main__':
     main()

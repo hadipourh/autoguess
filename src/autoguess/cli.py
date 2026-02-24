@@ -42,10 +42,37 @@ def _get_available_sat_solvers():
         return ["cadical153", "glucose4", "minisat22"]
 
 
+def _get_available_smt_solvers():
+    """Return list of installed pySMT solver names."""
+    try:
+        from pysmt.environment import get_env
+        return sorted(get_env().factory._all_solvers.keys())
+    except Exception:
+        return ['z3']
+
+
+def _resolve_dynamic_defaults(params):
+    """
+    If maxguess or maxsteps were not supplied by the user, derive sensible
+    defaults from the input file:
+      maxguess  -> number of target variables
+      maxsteps  -> number of all variables (before preprocessing)
+    A lightweight parse (preprocess=0) is used so this is fast.
+    """
+    if params['maxguess'] is not None and params['maxsteps'] is not None:
+        return
+    from .core.inputparser import read_relation_file
+    parsed = read_relation_file(params['inputfile'], preprocess=0, D=2, log=0)
+    if params['maxguess'] is None:
+        params['maxguess'] = len(parsed['target_variables'])
+    if params['maxsteps'] is None:
+        params['maxsteps'] = len(parsed['variables'])
+
 def start_search(params):
     """
     Starts the search tool for the given parameters
     """
+    _resolve_dynamic_defaults(params)
     solver = params["solver"]
     search_methods = {
         'milp': search.search_using_milp,
@@ -77,8 +104,8 @@ def load_parameters(args):
     params = {
         "inputfile": "./ciphers/Example4/algebraic_relations.txt",
         "outputfile": "output",
-        "maxguess": 50,
-        "maxsteps": 5,
+        "maxguess": None,
+        "maxsteps": None,
         "solver": 'cp',
         "milpdirection": 'min',
         "timelimit": -1,
@@ -94,16 +121,21 @@ def load_parameters(args):
         "cnf_to_anf_conversion": 'simple',
         "dglayout": "dot",
         "drawgraph": True,
+        "findmin": False,
         "log": 1,
         "known": None
     }
 
     for key in params:
-        if getattr(args, key, None):
-            params[key] = getattr(args, key)[0]
+        val = getattr(args, key, None)
+        if val is not None and not isinstance(val, bool):
+            params[key] = val[0] if isinstance(val, list) else val
 
     if getattr(args, 'nograph', False):
         params['drawgraph'] = False
+
+    if getattr(args, 'findmin', False):
+        params['findmin'] = True
 
     return params
 
@@ -120,8 +152,8 @@ def main():
         formatter_class=RawTextHelpFormatter)
     parser.add_argument('-i', '--inputfile', nargs=1, help="Use an input file in plain text format")
     parser.add_argument('-o', '--outputfile', nargs=1, help="Use an output file to write the output into it")
-    parser.add_argument('-mg', '--maxguess', nargs=1, type=int, help="An upper bound for the number of guessed variables")
-    parser.add_argument('-ms', '--maxsteps', nargs=1, type=int, help="An integer number specifying the depth of search")
+    parser.add_argument('-mg', '--maxguess', nargs=1, type=int, help="An upper bound for the number of guessed variables\n(default: number of target variables)")
+    parser.add_argument('-ms', '--maxsteps', nargs=1, type=int, help="An integer number specifying the depth of search\n(default: number of variables before preprocessing)")
     parser.add_argument('-s', '--solver', nargs=1,
                         choices=['cp', 'milp', 'sat', 'smt', 'groebner', 'propagate'],
                         help="Solver choice")
@@ -133,7 +165,7 @@ def main():
                         choices=_get_available_sat_solvers(),
                         help="SAT solver choice")
     parser.add_argument('-smts', '--smtsolver', nargs=1, type=str,
-                        choices=['msat', 'cvc5', 'z3', 'yices', 'btor', 'bdd'], help="SMT solver choice")
+                        choices=_get_available_smt_solvers(), help="SMT solver choice")
     parser.add_argument('-cpopt', '--cpoptimization', nargs=1, type=int, choices=[0, 1], help="CP optimization")
     parser.add_argument('-tl', '--timelimit', nargs=1, type=int, help="Time limit for the search in seconds")
     parser.add_argument('-tk', '--tikz', nargs=1, type=int,
@@ -158,6 +190,8 @@ def main():
                         help="Comma-separated list of initially known variables (for 'propagate' solver)")
     parser.add_argument('--nograph', action='store_true', default=False,
                         help="Skip generating the determination flow graph (faster)")
+    parser.add_argument('--findmin', action='store_true', default=False,
+                        help="Iteratively decrease max_guess to find the minimum number of guesses (SAT/SMT only)")
 
     # MiniZinc installer command
     parser.add_argument('--install-minizinc', action='store_true',
