@@ -108,7 +108,11 @@ def _extract_tgz(archive_path, dest_dir):
                 member.name = member.name[len(strip_prefix):]
             if not member.name or member.name == ".":
                 continue
-            tf.extract(member, dest_dir)
+            # Python 3.12+ emits a DeprecationWarning without filter=
+            if sys.version_info >= (3, 12):
+                tf.extract(member, dest_dir, filter='data')
+            else:
+                tf.extract(member, dest_dir)
 
 
 def _extract_dmg_fallback(archive_path, dest_dir):
