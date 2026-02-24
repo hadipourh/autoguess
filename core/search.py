@@ -295,7 +295,8 @@ def search_using_cp(parameters):
                     D=parameters['D'],
                     dglayout=parameters['dglayout'],
                     drawgraph=parameters.get('drawgraph', True),
-                    log=parameters['log'])
+                    log=parameters['log'],
+                    threads=parameters.get('threads', 0))
     gdsmt.make_model()
     gdsmt.time_limit = parameters['timelimit']
     gdsmt.solve_via_cpsolver()
@@ -318,7 +319,8 @@ def search_using_milp(parameters):
                         D=parameters['D'],
                         dglayout=parameters['dglayout'],
                         drawgraph=parameters.get('drawgraph', True),
-                        log=parameters['log'])
+                        log=parameters['log'],
+                        threads=parameters.get('threads', 0))
     gdmilp.make_model()
     gdmilp.time_limit = parameters['timelimit']
     gdmilp.solve_model()

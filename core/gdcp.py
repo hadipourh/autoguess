@@ -49,7 +49,7 @@ class ReduceGDtoCP:
     count = 0
 
     def __init__(self, inputfile_name=None, outputfile_name='output', max_guess=0, max_steps=0, cp_solver_name="cp-sat", \
-        cp_optimization=0, tikz=0, preprocess=1, D=2, dglayout="dot", drawgraph=True, log="0"):
+        cp_optimization=0, tikz=0, preprocess=1, D=2, dglayout="dot", drawgraph=True, log="0", threads=0):
         self.inputfile_name = inputfile_name
         self.output_dir = outputfile_name     
         self.rnd_string_tmp = '%030x' % random.randrange(16**30)
@@ -69,7 +69,7 @@ class ReduceGDtoCP:
             self.cp_solver_name = 'cp-sat' # for newer versions of MiniZinc, use 'cp-sat' to use Or-tools      
         self.cp_solver = minizinc.Solver.lookup(self.cp_solver_name)      
         self.cp_optimization = cp_optimization
-        self.nthreads = 16
+        self.nthreads = threads if threads > 0 else (os.cpu_count() or 1)
         self.cp_boolean_variables = []
         self.cp_constraints = ''
         self._parse_input_file(preprocess, D)

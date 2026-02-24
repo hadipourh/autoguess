@@ -123,6 +123,7 @@ def load_parameters(args):
         "dglayout": "dot",
         "drawgraph": True,
         "findmin": False,
+        "threads": 0,
         "log": 1,
         "known": None
     }
@@ -189,6 +190,8 @@ def main():
                         help="Store intermediate generated files and results", default=[0])
     parser.add_argument('-kn', '--known', nargs=1, type=str,
                         help="Comma-separated list of initially known variables (for 'propagate' solver)")
+    parser.add_argument('-t', '--threads', nargs=1, type=int,
+                        help="Number of threads for CP/MILP solvers\n(default: 0 = use all available cores)")
     parser.add_argument('--nograph', action='store_true', default=False,
                         help="Skip generating the determination flow graph (faster)")
     parser.add_argument('--findmin', action='store_true', default=False,
