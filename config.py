@@ -119,3 +119,13 @@ def ensure_minizinc_driver():
         minizinc.default_driver = drv
     except Exception:
         pass
+
+
+# Eagerly resolve MiniZinc path and prepend its bin directory to PATH
+# so that ``import minizinc`` finds it during its __init__ and does not
+# emit a "MiniZinc was not found" RuntimeWarning.
+MINIZINC_PATH = find_minizinc_path()
+if MINIZINC_PATH is not None:
+    _mzn_bin_dir = os.path.dirname(MINIZINC_PATH)
+    if _mzn_bin_dir not in os.environ.get("PATH", "").split(os.pathsep):
+        os.environ["PATH"] = _mzn_bin_dir + os.pathsep + os.environ.get("PATH", "")

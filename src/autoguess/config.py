@@ -149,3 +149,11 @@ def sage_is_available():
 PATH_SAGE = find_sage_path()
 MINIZINC_PATH = find_minizinc_path()
 SAGE_IMPORTABLE = sage_is_available()
+
+# Prepend the managed MiniZinc bin directory to PATH so that
+# ``import minizinc`` finds it during its __init__ and does not
+# emit a "MiniZinc was not found" RuntimeWarning.
+if MINIZINC_PATH is not None:
+    _mzn_bin_dir = os.path.dirname(MINIZINC_PATH)
+    if _mzn_bin_dir not in os.environ.get("PATH", "").split(os.pathsep):
+        os.environ["PATH"] = _mzn_bin_dir + os.pathsep + os.environ.get("PATH", "")
