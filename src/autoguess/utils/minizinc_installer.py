@@ -48,7 +48,9 @@ def _detect_platform():
         if machine in ("x86_64", "amd64"):
             return "bundle-linux-x86_64.tgz", "tgz"
         elif machine in ("aarch64", "arm64"):
-            return "bundle-linux-aarch64.tgz", "tgz"
+            # MiniZinc does not ship pre-built Linux ARM64 binaries.
+            # Signal the caller to try system package managers instead.
+            return None, "system"
         else:
             raise RuntimeError(f"Unsupported Linux architecture: {machine}")
 
@@ -141,6 +143,31 @@ def _extract_dmg_fallback(archive_path, dest_dir):
         shutil.rmtree(mount_point, ignore_errors=True)
 
 
+def _install_via_system_package_manager():
+    """Attempt to install MiniZinc via apt or snap on Linux ARM64."""
+    import subprocess as _sp
+
+    # Try snap first (MiniZinc publishes arm64 snaps)
+    if shutil.which("snap"):
+        print("Attempting: snap install minizinc --classic ...")
+        rc = _sp.call(["snap", "install", "minizinc", "--classic"])
+        if rc == 0 and shutil.which("minizinc"):
+            print("\nMiniZinc installed successfully via snap.")
+            return True
+        print("snap install failed or minizinc not found after install.\n")
+
+    # Try apt
+    if shutil.which("apt-get"):
+        print("Attempting: apt-get install -y minizinc ...")
+        rc = _sp.call(["apt-get", "install", "-y", "minizinc"])
+        if rc == 0 and shutil.which("minizinc"):
+            print("\nMiniZinc installed successfully via apt.")
+            return True
+        print("apt install failed or minizinc not found after install.\n")
+
+    return False
+
+
 def install_minizinc():
     """
     Download and install MiniZinc to ``~/.autoguess/minizinc/``.
@@ -157,6 +184,24 @@ def install_minizinc():
         sys.exit(1)
 
     print(f"Platform: {platform.system()} {platform.machine()}")
+
+    # On Linux ARM64, MiniZinc doesn't provide pre-built binaries.
+    # Try system package managers instead.
+    if fmt == "system":
+        print("No pre-built MiniZinc binary available for this platform.")
+        print("Trying system package manager ...\n")
+        if _install_via_system_package_manager():
+            print("Autoguess will automatically detect it on next run.")
+            return
+        print(
+            "ERROR: Could not install MiniZinc automatically.\n"
+            "Please install MiniZinc manually:\n"
+            "  - snap install minizinc --classic\n"
+            "  - apt install minizinc\n"
+            "  - Or build from source: https://github.com/MiniZinc/MiniZincIDE\n"
+        )
+        sys.exit(1)
+
     print(f"Looking for asset matching: *{suffix}")
 
     # Fetch release info
