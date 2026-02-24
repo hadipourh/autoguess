@@ -112,7 +112,7 @@ The simplest way to install Autoguess is via pip:
 # Core installation (SAT solver and visualization)
 pip install autoguess
 
-# With SMT solver support (z3, cvc5, boolector -- requires a C++20 compiler for z3)
+# With SMT solver support (z3, cvc5 -- requires a C++20 compiler for z3)
 pip install "autoguess[smt]"
 
 # With CP solver support (also install the MiniZinc binary)
@@ -134,7 +134,7 @@ The following table summarizes the available extras:
 | Extra | Solvers included | Notes |
 |-------|-----------------|-------|
 | *(core)* | SAT (PySAT) | Always installed |
-| `[smt]` | z3, cvc5, boolector | z3-solver builds from source (needs C++20 compiler, e.g. GCC 11+) |
+| `[smt]` | z3, cvc5 | z3-solver builds from source (needs C++20 compiler, e.g. GCC 11+). For boolector, install `pyboolector` manually (PyPI builds are broken). |
 | `[cp]` | MiniZinc CP | Also run `autoguess --install-minizinc` to download the MiniZinc binary |
 | `[groebner]` | Groebner basis (passagemath) | Requires Python >= 3.11 |
 | `[gurobi]` | Gurobi MILP | Requires a Gurobi license |

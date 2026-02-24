@@ -36,10 +36,13 @@ dependencies = [
 
 [project.optional-dependencies]
 # SMT solver backends (z3-solver builds from source and needs a C++20 compiler)
+# NOTE: pyboolector is NOT listed here because every PyPI release has broken
+#       version metadata (sdist filename ≠ internal version) so pip cannot
+#       install it.  If you need the btor backend, install pyboolector from
+#       source or conda and autoguess will detect it automatically.
 smt = [
     "z3-solver",
     "cvc5",
-    "pyboolector",
 ]
 # CP solver backend (requires MiniZinc binary on system)
 cp = [
