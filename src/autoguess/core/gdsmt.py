@@ -20,7 +20,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 In case you use this tool please include the above copyright informations (name, contact, license)
 '''
 
-from config import TEMP_DIR
+from autoguess.config import TEMP_DIR
 import os
 import time
 import random
@@ -39,10 +39,10 @@ except ImportError:
 
 from pysmt.shortcuts import TRUE, Symbol, BVAdd, BVAnd, BVOr, BVMul, BVULE, BVZExt, Solver, types, BV, Equals, write_smtlib
 from math import ceil, log2
-from core.inputparser import read_relation_file
-from core.parsesolution import parse_solver_solution
-from core.graphdrawer import draw_graph
-from core.varnames import step_var, path_var
+from .inputparser import read_relation_file
+from .parsesolution import parse_solver_solution
+from .graphdrawer import draw_graph
+from .varnames import step_var, path_var
 
 class ReduceGDtoSMT:
     """
@@ -80,7 +80,7 @@ class ReduceGDtoSMT:
         # picosat   True (965)
         # bdd       True (2.0.3)
         self.supported_smt_solvers = [
-            'msat', 'cvc5', 'z3', 'yices', 'btor', 'picosat', 'bdd']
+            'msat', 'cvc4', 'z3', 'yices', 'btor', 'picosat', 'bdd']
         assert(self.smt_solver_name in self.supported_smt_solvers)
         self.smt_solver = Solver(name=smt_solver_name, logic='QF_BV')
         self.smt_formula = TRUE()

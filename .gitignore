@@ -1,8 +1,37 @@
-# Untracked folders:
-/temp
-/tikz
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.eggs/
 
-# Ignore Python interpreted files (byte codes)
-**/*.pyc
-# Ignore the plain text files
+# Virtual environments
+test/
+venv/
+.venv/
+
+# OS files
+.DS_Store
+
+# Temp / build artifacts
+/temp/
+/tikz/
+gurobi.log
+output_graph.aux
+output_graph.fdb_latexmk
+output_graph.fls
+output_graph.log
+output_graph.pdf
+output_graph.synctex.gz
+
+# Plain text scratchpads
 **/*.text
+test.txt
+
+# Generated output files
+output
+output_graph
+output_graph.tex
+example3_dg.svg

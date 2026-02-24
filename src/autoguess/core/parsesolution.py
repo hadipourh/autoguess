@@ -19,7 +19,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 In case you use this tool please include the above copyright informations (name, contact, license)
 '''
-from core.varnames import step_var
+from .varnames import step_var
 def parse_solver_solution(gd):
     """
     This method parses the obtained solution (if exists), into a human readable format

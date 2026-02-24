@@ -28,10 +28,10 @@ import random
 from .inputparser import read_relation_file
 from threading import Timer
 import z3
-from core.parsesolution import parse_solver_solution
-from core.graphdrawer import draw_graph
-from config import TEMP_DIR
-from core.varnames import step_var, path_var
+from .parsesolution import parse_solver_solution
+from .graphdrawer import draw_graph
+from autoguess.config import TEMP_DIR
+from .varnames import step_var, path_var
 
 
 class ReduceGDtoZ3SMT:

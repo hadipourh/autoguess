@@ -1,43 +1,148 @@
-<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="400"
+   height="120"
+   viewBox="0 0 400 120"
+   version="1.1"
+   xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for the outer ring -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a73e8"/>
+      <stop offset="100%" stop-color="#0d47a1"/>
+    </linearGradient>
+    <!-- Subtle glow behind the icon -->
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a73e8" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#1a73e8" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Node gradient – top node -->
+    <linearGradient id="nodeTop" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#42a5f5"/>
+      <stop offset="100%" stop-color="#1565c0"/>
+    </linearGradient>
+    <!-- Node gradient – bottom-left -->
+    <linearGradient id="nodeBL" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#66bb6a"/>
+      <stop offset="100%" stop-color="#2e7d32"/>
+    </linearGradient>
+    <!-- Node gradient – bottom-right -->
+    <linearGradient id="nodeBR" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffa726"/>
+      <stop offset="100%" stop-color="#e65100"/>
+    </linearGradient>
+    <!-- Soft shadow for edges -->
+    <filter id="edgeShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="1" flood-color="#1a73e8" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
   <style>
-    .pulse {
-      animation: pulse 2s infinite ease-in-out;
+    /* Animated dashes travelling along edges */
+    .edge {
+      stroke-dasharray: 6 4;
+      animation: dashMove 2.5s linear infinite;
+    }
+    @keyframes dashMove {
+      to { stroke-dashoffset: -30; }
     }
 
-    .fade-in {
+    /* Spokes are solid, no dash animation */
+    .spoke {
+      stroke-dasharray: none;
+    }
+
+    /* Very slow outer-ring rotation */
+    .ring-rotate {
+      transform-origin: 60px 60px;
+      animation: ringTurn 20s linear infinite;
+    }
+    @keyframes ringTurn {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Staggered text slide-in */
+    .text-auto, .text-guess {
       opacity: 0;
-      animation: fadein 2s forwards;
-      animation-delay: 1s;
     }
-
-    @keyframes pulse {
-      0%, 100% { r: 6; opacity: 0.6; }
-      50% { r: 9; opacity: 1; }
+    .text-auto {
+      animation: slideIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
     }
-
-    @keyframes fadein {
-      to { opacity: 1; }
+    .text-guess {
+      animation: slideIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+    }
+    @keyframes slideIn {
+      0%   { opacity: 0; transform: translateX(-12px); }
+      100% { opacity: 1; transform: translateX(0); }
     }
   </style>
 
-  <!-- Brain-like Circle -->
-  <circle cx="60" cy="60" r="35" fill="#ffffff" stroke="#00c9a7" stroke-width="4" />
+  <!-- Background glow -->
+  <circle cx="60" cy="60" r="48" fill="url(#glowGrad)"/>
 
-  <!-- Larger Triangle Dots -->
-  <circle class="pulse" cx="60" cy="40" r="6" fill="#ff6b6b"/>
-  <circle class="pulse" cx="42" cy="75" r="6" fill="#ffcc00"/>
-  <circle class="pulse" cx="78" cy="75" r="6" fill="#4dabf7"/>
+  <!-- Outer dashed ring with slow rotation -->
+  <circle class="ring-rotate" cx="60" cy="60" r="36"
+          fill="none" stroke="url(#ringGrad)" stroke-width="2.5"
+          stroke-dasharray="8 5" opacity="0.45"/>
 
-  <!-- Triangle Connections -->
-  <line x1="60" y1="40" x2="42" y2="75" stroke="#cccccc" stroke-width="1.2"/>
-  <line x1="42" y1="75" x2="78" y2="75" stroke="#cccccc" stroke-width="1.2"/>
-  <line x1="78" y1="75" x2="60" y2="40" stroke="#cccccc" stroke-width="1.2"/>
+  <!-- Inner circle -->
+  <circle cx="60" cy="60" r="30"
+          fill="#f8fafc" stroke="#1a73e8" stroke-width="2.2"/>
 
-  <!-- Question Mark in the Brain -->
-  <text x="60" y="68" text-anchor="middle" font-size="28" fill="#333333" font-family="Arial">?</text>
+  <!-- Triangle edges (complete triangle, drawn first) -->
+  <line class="edge" x1="60" y1="36" x2="39" y2="72"
+        stroke="#b0bec5" stroke-width="1.2" filter="url(#edgeShadow)"/>
+  <line class="edge" x1="39" y1="72" x2="81" y2="72"
+        stroke="#b0bec5" stroke-width="1.2" filter="url(#edgeShadow)"
+        style="animation-delay: 0.4s"/>
+  <line class="edge" x1="81" y1="72" x2="60" y2="36"
+        stroke="#b0bec5" stroke-width="1.2" filter="url(#edgeShadow)"
+        style="animation-delay: 0.8s"/>
 
-  <!-- Colorful AutoGuess Text -->
-  <text class="fade-in" x="120" y="70" font-family="Segoe UI, sans-serif" font-size="40" font-weight="700">
-    <tspan fill="#00c9a7">Auto</tspan><tspan fill="#ff6b6b">Guess</tspan>
-  </text>
+  <!-- Mercedes-style spokes: center to each vertex (solid, drawn on top) -->
+  <line class="spoke" x1="60" y1="60" x2="60" y2="36"
+        stroke="#546e7a" stroke-width="1.6"/>
+  <line class="spoke" x1="60" y1="60" x2="39" y2="72"
+        stroke="#546e7a" stroke-width="1.6"/>
+  <line class="spoke" x1="60" y1="60" x2="81" y2="72"
+        stroke="#546e7a" stroke-width="1.6"/>
+
+  <!-- Center node -->
+  <circle cx="60" cy="60" r="3.5" fill="#1a73e8" opacity="0.5"/>
+
+  <!-- Faint question mark hinting at the "guess" concept -->
+  <text x="54.5" y="64" font-family="Georgia, serif" font-size="14"
+        font-weight="700" fill="#1a73e8" opacity="0.13">?</text>
+
+  <!-- Graph nodes at triangle vertices with heartbeat (SMIL r animation, position stays fixed) -->
+  <circle cx="60" cy="36" r="5" fill="url(#nodeTop)">
+    <animate attributeName="r" values="5;6;5" dur="2.5s" repeatCount="indefinite"
+             calcMode="spline" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
+  </circle>
+  <circle cx="39" cy="72" r="5" fill="url(#nodeBL)">
+    <animate attributeName="r" values="5;6;5" dur="2.5s" begin="0.6s" repeatCount="indefinite"
+             calcMode="spline" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
+  </circle>
+  <circle cx="81" cy="72" r="5" fill="url(#nodeBR)">
+    <animate attributeName="r" values="5;6;5" dur="2.5s" begin="1.2s" repeatCount="indefinite"
+             calcMode="spline" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
+  </circle>
+
+  <!-- "Auto" in brand blue -->
+  <text class="text-auto" x="112" y="62"
+        font-family="'Inter', 'Segoe UI', system-ui, sans-serif"
+        font-size="38" font-weight="700" letter-spacing="-0.5"
+        fill="#1a73e8">Auto</text>
+
+  <!-- "Guess" in dark charcoal -->
+  <text class="text-guess" x="205" y="62"
+        font-family="'Inter', 'Segoe UI', system-ui, sans-serif"
+        font-size="38" font-weight="700" letter-spacing="-0.5"
+        fill="#263238">Guess</text>
+
+  <!-- Tagline -->
+  <text x="112" y="82"
+        font-family="'Inter', 'Segoe UI', system-ui, sans-serif"
+        font-size="10.5" font-weight="400" letter-spacing="0.8"
+        fill="#78909c" opacity="0.9">AUTOMATED CRYPTANALYSIS TOOL</text>
 </svg>

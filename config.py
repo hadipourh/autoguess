@@ -54,4 +54,8 @@ def find_sage_path():
 
 # Automatically detect SageMath path
 PATH_SAGE = find_sage_path()
+
+# Autoguess home directory (for MiniZinc downloads, temp files, etc.)
+AUTOGUESS_HOME = os.path.join(os.path.expanduser("~"), ".autoguess")
+
 TEMP_DIR = 'temp'

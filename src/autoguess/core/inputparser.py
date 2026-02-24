@@ -27,8 +27,8 @@ import string
 import random
 from collections import namedtuple
 import subprocess
-from config import PATH_SAGE
-from config import TEMP_DIR
+from autoguess.config import PATH_SAGE
+from autoguess.config import TEMP_DIR
 import time
 from datetime import datetime
 

@@ -8,33 +8,43 @@ Created on Aug 23, 2020
 
 For more information, feedback or any questions, please contact hsn.hadipour@gmail.com
 
-MIT License
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-Copyright (c) 2021 Hosein Hadipour
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+In case you use this tool please include the above copyright informations (name, contact, license)
 '''
+
+try:
+    from importlib.metadata import version as _version
+    __version__ = _version("autoguess")
+except Exception:
+    __version__ = "1.0.0"
 
 from core import search
 from argparse import ArgumentParser, RawTextHelpFormatter
 import os
+import sys
 from config import TEMP_DIR
+
+def _handle_install_minizinc():
+    """Check for --install-minizinc early, before heavy imports."""
+    if '--install-minizinc' in sys.argv:
+        from core.minizinc_installer import install_minizinc
+        install_minizinc()
+        sys.exit(0)
+
+_handle_install_minizinc()
+
 import minizinc
 from pysat import solvers
 
@@ -49,14 +59,13 @@ def start_search(params):
         'smt': search.search_using_smt,
         'cp': search.search_using_cp,
         'groebner': search.search_using_groebnerbasis,
-        'mark': search.search_using_mark,
-        'elim': search.search_using_elim
+        'propagate': search.search_using_propagate,
     }
 
     if solver in search_methods:
         search_methods[solver](params)
     else:
-        print('Choose the solver from the following options: cp, milp, sat, smt, groebner, mark')
+        print('Choose the solver from the following options: cp, milp, sat, smt, groebner, propagate')
 
 def check_environment():
     """
@@ -90,12 +99,17 @@ def load_parameters(args):
         "overlapping_number": 2,
         "cnf_to_anf_conversion": 'simple',
         "dglayout": "dot",
-        "log": 1
+        "drawgraph": True,
+        "log": 1,
+        "known": None
     }
 
     for key in params:
         if getattr(args, key, None):
             params[key] = getattr(args, key)[0]
+
+    if getattr(args, 'nograph', False):
+        params['drawgraph'] = False
 
     return params
 
@@ -112,11 +126,11 @@ def main():
     parser.add_argument('-o', '--outputfile', nargs=1, help="Use an output file to write the output into it")
     parser.add_argument('-mg', '--maxguess', nargs=1, type=int, help="An upper bound for the number of guessed variables")
     parser.add_argument('-ms', '--maxsteps', nargs=1, type=int, help="An integer number specifying the depth of search")
-    parser.add_argument('-s', '--solver', nargs=1, choices=['cp', 'milp', 'sat', 'smt', 'groebner'], help="Solver choice")
+    parser.add_argument('-s', '--solver', nargs=1, choices=['cp', 'milp', 'sat', 'smt', 'groebner', 'propagate'], help="Solver choice")
     parser.add_argument('-milpd', '--milpdirection', nargs=1, choices=['min', 'max'], help="MILP direction")
     parser.add_argument('-cps', '--cpsolver', nargs=1, type=str, choices=[solver_name for solver_name in minizinc.default_driver.available_solvers().keys()], help="CP solver choice", default=["cp-sat"])
     parser.add_argument('-sats', '--satsolver', nargs=1, type=str, choices=[solver for solver in solvers.SolverNames.__dict__.keys() if not solver.startswith('__')], help="SAT solver choice")
-    parser.add_argument('-smts', '--smtsolver', nargs=1, type=str, choices=['msat', 'cvc4', 'z3', 'yices', 'bdd'], help="SMT solver choice")
+    parser.add_argument('-smts', '--smtsolver', nargs=1, type=str, choices=['msat', 'cvc5', 'z3', 'yices', 'btor', 'bdd'], help="SMT solver choice")
     parser.add_argument('-cpopt', '--cpoptimization', nargs=1, type=int, choices=[0, 1], help="CP optimization")
     parser.add_argument('-tl', '--timelimit', nargs=1, type=int, help="Time limit for the search in seconds")
     parser.add_argument('-tk', '--tikz', nargs=1, type=int, help="Generate the tikz code of the determination flow graph")
@@ -127,6 +141,11 @@ def main():
     parser.add_argument('-cnf2anf', '--cnf_to_anf_conversion', nargs=1, type=str, choices=['simple', 'blockwise'], help="CNF to ANF conversion method")
     parser.add_argument('-dgl', '--dglayout', nargs=1, type=str, choices=["dot", "circo", "twopi", "fdp", "neato", "nop", "nop1", "nop2", "osage", "patchwork", "sfdp"], help="Layout of determination flow graph")
     parser.add_argument('-log', '--log', nargs=1, type=int, choices=[0, 1], help="Store intermediate generated files and results", default=[0])
+    parser.add_argument('--nograph', action='store_true', default=False, help="Skip generating the determination flow graph (faster)")
+    parser.add_argument('--install-minizinc', action='store_true', default=False,
+                        help="Download and install MiniZinc binary to ~/.autoguess/minizinc/")
+    parser.add_argument('-kn', '--known', nargs=1, type=str, help="Comma-separated list of initially known variables (for 'propagate' solver)")
+    parser.add_argument('-V', '--version', action='version', version='%(prog)s ' + __version__)
 
     args = parser.parse_args()
     params = load_parameters(args)

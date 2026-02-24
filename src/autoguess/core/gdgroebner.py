@@ -32,7 +32,7 @@ import sys
 import string
 from collections import namedtuple
 from datetime import datetime
-from macaulay import Macaulay
+from .macaulay import Macaulay
 
 class ReduceGDtoGroebner:
     """

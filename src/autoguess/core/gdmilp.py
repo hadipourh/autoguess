@@ -20,16 +20,16 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 In case you use this tool please include the above copyright informations (name, contact, license)
 '''
 
-from core.parsesolution import parse_solver_solution
+from .parsesolution import parse_solver_solution
 from gurobipy import *
-from core.inputparser import read_relation_file
+from .inputparser import read_relation_file
 import os
 import time
 import random
-from core.parsesolution import parse_solver_solution
-from core.graphdrawer import draw_graph
-from config import TEMP_DIR
-from core.varnames import step_var, path_var
+from .parsesolution import parse_solver_solution
+from .graphdrawer import draw_graph
+from autoguess.config import TEMP_DIR
+from .varnames import step_var, path_var
 
 class ReduceGDtoMILP:
     """

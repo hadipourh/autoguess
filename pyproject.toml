@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=68.0", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autoguess"
+dynamic = ["version"]
+description = "Automated guess-and-determine and key-bridging attacks on symmetric-key cryptographic primitives"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.10"
+authors = [
+    {name = "Hosein Hadipour", email = "hsn.hadipour@gmail.com"},
+]
+keywords = ["cryptanalysis", "guess-and-determine", "key-bridging", "SAT", "SMT", "CP", "MILP", "Groebner"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+# Core dependencies (always installed)
+dependencies = [
+    "python-sat[pblib,aiger]",
+    "pysmt",
+    "z3-solver",
+    "cvc5",
+    "pyboolector",
+    "graphviz",
+    "dot2tex",
+]
+
+[project.optional-dependencies]
+# CP solver backend (requires MiniZinc binary on system)
+cp = [
+    "minizinc>=0.9.0",
+]
+# Groebner basis backend via passagemath (pip-installable SageMath)
+groebner = [
+    "passagemath-standard>=10.4",
+]
+# MILP solver backend (requires Gurobi license)
+gurobi = [
+    "gurobipy>=10.0",
+]
+# All optional backends
+all = [
+    "autoguess[cp,groebner,gurobi]",
+]
+# Development dependencies
+dev = [
+    "pytest",
+    "build",
+    "twine",
+]
+
+[project.urls]
+Homepage = "https://github.com/hadipourh/autoguess"
+Documentation = "https://github.com/hadipourh/autoguess#readme"
+Repository = "https://github.com/hadipourh/autoguess"
+Issues = "https://github.com/hadipourh/autoguess/issues"
+
+[project.scripts]
+autoguess = "autoguess.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+autoguess = ["py.typed"]
+
+[tool.setuptools_scm]
+# Version is derived from git tags (e.g. git tag v1.0.0)
+version_scheme = "guess-next-dev"
+local_scheme = "node-and-date"

@@ -1,8 +1,9 @@
 # Autoguess
 
-[![license](./miscellaneous/license-MIT-green.svg)](./LICENSE.txt)
+[![license](https://img.shields.io/badge/license-GPL--3.0-green.svg)](./LICENSE.txt)
+[![PyPI](https://img.shields.io/pypi/v/autoguess.svg)](https://pypi.org/project/autoguess/)
 [![DOI](https://zenodo.org/badge/430373674.svg)](https://doi.org/10.5281/zenodo.16932672)
-[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/docker-available-blue.svg)](https://www.docker.com/)
 [![PySAT](https://img.shields.io/badge/pysat-supported-blue.svg)](https://github.com/pysathq/pysat)
 [![MiniZinc](https://img.shields.io/badge/minizinc-supported-blue.svg)](https://www.minizinc.org/)
@@ -10,7 +11,6 @@
 [![Gurobi](https://img.shields.io/badge/gurobi-supported-blue.svg)](https://www.gurobi.com/)
 [![SageMath](https://img.shields.io/badge/sagemath-supported-blue.svg)](https://www.sagemath.org/)
 [![GitHub stars](https://img.shields.io/github/stars/hadipourh/autoguess?style=social)](https://github.com/hadipourh/autoguess/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/hadipourh/autoguess)](https://github.com/hadipourh/autoguess/issues)
 [![GitHub forks](https://img.shields.io/github/forks/hadipourh/autoguess?style=social)](https://github.com/hadipourh/autoguess/network)
 
 <p align="center">
@@ -31,7 +31,7 @@ The tool is particularly useful for cryptanalysis of symmetric-key primitives, h
 
 ## Overall Structure
 
-The following shape represents the overall structure of Autoguess. As it can be seen, Autoguess relies on [Minizinc](https://www.minizinc.org/), [PySAT](https://github.com/pysathq/pysat), [pySMT](https://github.com/pysmt/pysmt), [Gurobi](https://www.gurobi.com/) and [SageMath](https://www.sagemath.org/). Providing a Python interface, Autoguess translates the guess-and-determine problem to a SAT, SMT, MILP or Groebner basis computation problem and then call an appropriate solver to solve it. It also utilizes [Graphviz](https://pypi.org/project/graphviz/) to visualize the discovered determination flow.
+The following shape represents the overall structure of Autoguess. As it can be seen, Autoguess relies on [Minizinc](https://www.minizinc.org/), [PySAT](https://github.com/pysathq/pysat), [pySMT](https://github.com/pysmt/pysmt), [Gurobi](https://www.gurobi.com/) and [SageMath](https://www.sagemath.org/). Providing a Python interface, Autoguess translates the guess-and-determine problem to a SAT, SMT, MILP or Groebner basis computation problem and then calls an appropriate solver to solve it. It also provides a lightweight **knowledge-propagation** mode that iteratively deduces variables from an initial known set without invoking any external solver. Additionally, it utilizes [Graphviz](https://pypi.org/project/graphviz/) to visualize the discovered determination flow.
 
 ![programflow](miscellaneous/programflow.svg)
 
@@ -42,11 +42,12 @@ The following shape represents the overall structure of Autoguess. As it can be 
   - [Installation](#installation)
     - [Prerequisites](#prerequisites)
     - [Installation Methods](#installation-methods)
-      - [Method 1: Build Docker Image Locally (Recommended)](#method-1-build-docker-image-locally-recommended)
+      - [Method 1: pip install (Recommended)](#method-1-pip-install-recommended)
+      - [Method 2: Build Docker Image Locally](#method-2-build-docker-image-locally)
         - [For ARM64 (Apple Silicon)](#for-arm64-apple-silicon)
         - [For x86\_64 (Most Linux Systems)](#for-x86_64-most-linux-systems)
-      - [Method 2: Use Pre-built Docker Image](#method-2-use-pre-built-docker-image)
-      - [Method 3: Native Installation (Debian-based and macOS)](#method-3-native-installation-debian-based-and-macos)
+      - [Method 3: Use Pre-built Docker Image](#method-3-use-pre-built-docker-image)
+      - [Method 4: Native Installation (Debian-based and macOS)](#method-4-native-installation-debian-based-and-macos)
   - [Quick Start](#quick-start)
   - [Format of Input File](#format-of-input-file)
   - [Usage](#usage)
@@ -95,15 +96,42 @@ The following shape represents the overall structure of Autoguess. As it can be 
 
 Before installing Autoguess, ensure you have the following:
 
-- **Python 3.8+**: Autoguess requires Python 3.8 or higher
-- **Docker** (recommended): For the easiest installation method
+- **Python 3.10+**: Autoguess requires Python 3.10 or higher
+- **Docker** (alternative): For a self-contained installation
 - **Git**: For cloning the repository and dependencies
 
 ### Installation Methods
 
-Autoguess has been developed on [Debian](https://en.wikipedia.org/wiki/Debian), one of the most widely used [Linux](https://en.wikipedia.org/wiki/Linux_distribution) distributions. However, thanks to [Docker](https://www.docker.com/), it can easily be used on other platforms including macOS and Windows. We recommend the following installation methods:
+Autoguess can be installed via `pip` (recommended), Docker, or native installer scripts.
 
-#### Method 1: Build Docker Image Locally (Recommended)
+#### Method 1: pip install (Recommended)
+
+The simplest way to install Autoguess is via pip:
+
+```bash
+# Core installation (SAT, SMT, and visualization)
+pip install autoguess
+
+# With CP solver support (also install the MiniZinc binary)
+pip install autoguess[cp]
+autoguess --install-minizinc
+
+# With Groebner basis support (via passagemath, pip-installable SageMath)
+pip install autoguess[groebner]
+
+# With Gurobi MILP support (requires Gurobi license)
+pip install autoguess[gurobi]
+
+# Everything
+pip install autoguess[all]
+```
+
+**System dependencies** (not installed by pip):
+
+- **MiniZinc binary**: Run `autoguess --install-minizinc` to auto-download, or install via your package manager (`brew install minizinc` / `snap install minizinc --classic`)
+- **Graphviz binary** (optional, for visualization rendering): `brew install graphviz` / `apt install graphviz`
+
+#### Method 2: Build Docker Image Locally
 
 The easiest way is using the provided [Dockerfile](docker/DockerfileDebian) to get Autoguess and all of its dependencies at once. To do so, regardless of what OS you use:
 
@@ -148,7 +176,7 @@ Then, you can run Autoguess by the following command:
 docker run --rm -it autoguess_arch
 ```
 
-#### Method 2: Use Pre-built Docker Image
+#### Method 3: Use Pre-built Docker Image
 
 If you have already installed [Docker](https://www.docker.com/) and prefer to use a pre-built image instead of building locally, you can download a prebuilt image of Autoguess from [Docker Hub](https://hub.docker.com/):
 
@@ -176,7 +204,7 @@ Then run Autoguess:
 docker run --rm -it hoseinhadipour/autoguess_arch
 ```
 
-#### Method 3: Native Installation (Debian-based and macOS)
+#### Method 4: Native Installation (Debian-based and macOS)
 
 For Debian-based Linux operating systems, you can install Autoguess natively using the provided installer script:
 
@@ -202,15 +230,18 @@ chmod +x installer_macos.sh
 Once you have Autoguess installed, you can quickly test it with one of the provided examples:
 
 ```bash
-# Using Docker (recommended)
+# If installed via pip
+autoguess --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
+
+# Using Docker (pre-built)
 1- docker run --rm -it hoseinhadipour/autoguess
 2- python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
 
-# Or if you built locally
+# Or if you built Docker locally
 1- docker run --rm -it autoguess
 2- python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
 
-# Or if installed natively
+# Or if installed natively via scripts
 python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver cp --maxsteps 5
 ```
 
@@ -274,59 +305,55 @@ python3 autoguess.py -h
 ```
 
 ```text
-usage: autoguess.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-mg MAXGUESS] [-ms MAXSTEPS] [-s {cp,milp,sat,smt,groebner}] [-milpd {min,max}] [-cps {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}]
-                    [-sats {cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}] [-smts {msat,cvc4,z3,yices,btor,bdd}] [-cpopt {0,1}] [-tl TIMELIMIT] [-tk TIKZ]
-                    [-prep PREPROCESS] [-D D] [-tord TERM_ORDERING] [-oln OVERLAPPING_NUMBER] [-cnf2anf {simple,blockwise}] [-dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}] [-log {0,1}]
+usage: autoguess.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-mg MAXGUESS] [-ms MAXSTEPS] [-s {cp,milp,sat,smt,groebner,propagate}] [-milpd {min,max}]
+                    [-cps {mip,float,api,osicbc,coinbc,cbc,org.minizinc.mip.coin-bc,coin-bc,org.minizinc.mip.cplex,cplex,org.minizinc.mip.gurobi,gurobi,highs,org.minizinc.mip.highs,cp-sat,cp,lcg,int,org.minizinc.mip.scip,scip,org.minizinc.mip.xpress,xpress}]
+                    [-sats {cadical103,cadical153,cadical195,cryptosat,gluecard3,gluecard4,glucose3,glucose4,glucose42,lingeling,maplechrono,maplecm,maplesat,mergesat3,minicard,minisat22,minisatgh}]
+                    [-smts {msat,cvc4,z3,yices,bdd}] [-cpopt {0,1}] [-tl TIMELIMIT] [-tk TIKZ] [-prep PREPROCESS] [-D D] [-tord TERM_ORDERING] [-oln OVERLAPPING_NUMBER] [-cnf2anf {simple,blockwise}]
+                    [-dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}] [-log {0,1}] [--nograph] [--install-minizinc] [-kn KNOWN] [-V]
 
-This tool automates the Guess-and-Determine and Key-Bridging techniques using the variety of CP, MILP, SMT and SAT solvers, as well as the algebraic method based on Groebner basis
+This tool automates the Guess-and-Determine and Key-Bridging techniques using a variety of CP, MILP, SMT and SAT solvers, as well as the algebraic method based on Groebner basis
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
-  -i INPUTFILE, --inputfile INPUTFILE
+  -i, --inputfile INPUTFILE
                         Use an input file in plain text format
-  -o OUTPUTFILE, --outputfile OUTPUTFILE
+  -o, --outputfile OUTPUTFILE
                         Use an output file to write the output into it
-  -mg MAXGUESS, --maxguess MAXGUESS
+  -mg, --maxguess MAXGUESS
                         An upper bound for the number of guessed variables
-  -ms MAXSTEPS, --maxsteps MAXSTEPS
+  -ms, --maxsteps MAXSTEPS
                         An integer number specifying the depth of search
-  -s {cp,milp,sat,smt,groebner}, --solver {cp,milp,sat,smt,groebner}
-                        cp = solve the problem using CP solvers
-                        milp = solve the problem using the MILP solvers
-                        sat = solve the problem using the SAT solvers
-                        smt = solve the problem using the SMT solvers
-                        groebner = solve the problem using the Groebner basis algorithm
-  -milpd {min,max}, --milpdirection {min,max}
-                        min = convert the problem to a minimization problem looking for the minimal set of guessed variables.
-                        max = convert the problem to a maximization problem in which the known variables in final state are maximized,
-                        when the size of the initially known variables is equal or less than "maxguess"
-  -cps {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}, --cpsolver {gecode,chuffed,coin-bc,gurobi,picat,scip,choco,or-tools}
-                      
-  -sats {cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}, --satsolver {cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh}
-                      
-  -smts {msat,cvc4,z3,yices,btor,bdd}, --smtsolver {msat,cvc4,z3,yices,btor,bdd}
-                      
-  -cpopt {0,1}, --cpoptimization {0,1}
-                        1: Looking for a minimal guess basis 
-                        0: Decides whether a guess basis of size up to "maxguess" exists
-  -tl TIMELIMIT, --timelimit TIMELIMIT
-                        Set a timelimit for the search in seconds
-  -tk TIKZ, --tikz TIKZ
-                        Set to 1 to generate the tikz code of the determination flow graph
-  -prep PREPROCESS, --preprocess PREPROCESS
-                        Set to 1 to enable the preprocessing phase
-  -D D, --D D           It specifies the degree of Macaulay matrix generated in preprocessing phase
-  -tord TERM_ORDERING, --term_ordering TERM_ORDERING
-                        A degree compatible term ordering such as "degrevlex" or "deglex"
-  -oln OVERLAPPING_NUMBER, --overlapping_number OVERLAPPING_NUMBER
-                        A positive integer specifying the overlapping number in block-wise CNF to ANF conversion
-  -cnf2anf {simple,blockwise}, --cnf_to_anf_conversion {simple,blockwise}
-                        It specifies the CNF to ANF conversion method
-  -dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}, --dglayout {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}
-                        It specifies the layout of determination flow graph
-  -log {0,1}, --log {0,1}
-                        By setting this parameter to 1, the intermediate generated files such as CP/MILP/SAT models as well as
-                        some intermediate results are stored inside the temp folder
+  -s, --solver {cp,milp,sat,smt,groebner,propagate}
+                        Solver choice
+  -milpd, --milpdirection {min,max}
+                        MILP direction
+  -cps, --cpsolver {mip,float,api,osicbc,coinbc,cbc,org.minizinc.mip.coin-bc,coin-bc,org.minizinc.mip.cplex,cplex,org.minizinc.mip.gurobi,gurobi,highs,org.minizinc.mip.highs,cp-sat,cp,lcg,int,org.minizinc.mip.scip,scip,org.minizinc.mip.xpress,xpress}
+                        CP solver choice
+  -sats, --satsolver {cadical103,cadical153,cadical195,cryptosat,gluecard3,gluecard4,glucose3,glucose4,glucose42,lingeling,maplechrono,maplecm,maplesat,mergesat3,minicard,minisat22,minisatgh}
+                        SAT solver choice
+  -smts, --smtsolver {msat,cvc4,z3,yices,bdd}
+                        SMT solver choice
+  -cpopt, --cpoptimization {0,1}
+                        CP optimization
+  -tl, --timelimit TIMELIMIT
+                        Time limit for the search in seconds
+  -tk, --tikz TIKZ      Generate the tikz code of the determination flow graph
+  -prep, --preprocess PREPROCESS
+                        Enable the preprocessing phase
+  -D, --D D             Degree of Macaulay matrix generated in preprocessing phase
+  -tord, --term_ordering TERM_ORDERING
+                        Term ordering such as 'degrevlex' or 'deglex'
+  -oln, --overlapping_number OVERLAPPING_NUMBER
+                        Overlapping number in block-wise CNF to ANF conversion
+  -cnf2anf, --cnf_to_anf_conversion {simple,blockwise}
+                        CNF to ANF conversion method
+  -dgl, --dglayout {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}
+                        Layout of determination flow graph
+  -log, --log {0,1}     Store intermediate generated files and results
+  --nograph             Skip generating the determination flow graph (faster)
+  --install-minizinc    Download and install MiniZinc binary to ~/.autoguess/minizinc/
+  -kn, --known KNOWN    Comma-separated list of initially known variables (for 'propagate' solver)
+  -V, --version         show program's version number and exit
 ```
 
 Here we also provide some examples to show how our tool can easily be used to find a minimal guess basis.
@@ -355,14 +382,32 @@ Terminal output:
 
 ```text
 Number of guessed variables is set to be at most 7
-Generating the CP model ...
-CP model was generated after 0.00 seconds
-Solving the CP model with or-tools ...
-Solving process was finished after 0.07 seconds
-Number of guesses: 2
-Number of known variables in the final state: 7 out of 7
-The following 2 variable(s) are guessed:
-v, u
+============================================================
+CP SOLVER — Taken from https://doi.org/10.1007/978-3-642-00862-7_11: Speeding up Collision Search for Byte-Oriented Hash Functions
+============================================================
+Variables: 7 | Relations: 5
+Max guess: 7 | Max steps: 5
+Solver: cp-sat
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+CP model generated in 0.00 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.29 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         2
+Known in final state:      7 / 7
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (2):
+  v
+  u
+============================================================
 ```
 
 Autoguess also generates the following graph visualizing the determination flow:
@@ -378,20 +423,39 @@ python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver groe
 Terminal output:
 
 ```text
-Generating the Boolean Polynomial Ring in 7 variables
-Generation of Boolean polynomial ring was finished after 0.01 seconds
-Generation of Horn-Satisfiability problem was started - 2021-11-09 17:15:24.515378
-Generation of Horn-satisfiability problem was finished after 0.00 seconds
-CNF to ANF conversion using the simple method was started - 2021-11-09 17:15:24.517596
-Results were written into the temp/anf_3b35237a5a8fd2c7d7dc5e584f68c4.anf
-Algebraic representation in ANF form was generated after 0.00 seconds
-The main ideal was constructed and stored into temp/main_ideal_3b35237a5a8fd2c7d7dc5e584f68c4 as a SageMath object file
-Computing the Groebner basis was started - 2021-11-09 17:15:24.519637
-Computing the Groebner basis was finished after 0.10 seconds
-All guess bases were written into temp/guess_basis_3b35237a5a8fd2c7d7dc5e584f68c4.txt
-Number of guesses: 2
-The following 2 variable(s) are guessed:
-u, v
+============================================================
+GRÖBNER BASIS SOLVER — Taken from https://doi.org/10.1007/978-3-642-00862-7_11: Speeding up Collision Search for Byte-Oriented Hash Functions
+============================================================
+Variables: 7 | Relations: 5
+Term ordering: degrevlex | Overlapping: 2
+CNF→ANF method: simple
+------------------------------------------------------------
+POLYNOMIAL RING CONSTRUCTION
+------------------------------------------------------------
+Generating Boolean Polynomial Ring in 7 variables ...
+Ring constructed in 0.00 seconds
+------------------------------------------------------------
+HORN-SAT GENERATION
+------------------------------------------------------------
+Horn-SAT problem generated in 0.00 seconds
+------------------------------------------------------------
+CNF → ANF CONVERSION (simple)
+------------------------------------------------------------
+ANF representation generated in 0.00 seconds
+------------------------------------------------------------
+GRÖBNER BASIS COMPUTATION
+------------------------------------------------------------
+Gröbner basis computed in 0.00 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         2
+------------------------------------------------------------
+Guessed variable(s) (2):
+  u
+  y
+============================================================
 ```
 
 ***SAT***
@@ -403,15 +467,32 @@ python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver sat 
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.00 seconds
+============================================================
+SAT SOLVER — Taken from https://doi.org/10.1007/978-3-642-00862-7_11: Speeding up Collision Search for Byte-Oriented Hash Functions
+============================================================
+Variables: 7 | Relations: 5
+Max guess: 2 | Max steps: 5
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.00 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.00 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 0.00 seconds
-Number of guesses: 2
-Number of known variables in the final state: 7 out of 7
-The following 2 variable(s) are guessed:
-x, s
+============================================================
+RESULTS
+============================================================
+Number of guesses:         2
+Known in final state:      7 / 7
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (2):
+  x
+  s
+============================================================
 ```
 
 ***SMT***
@@ -423,14 +504,32 @@ python3 autoguess.py --inputfile ciphers/Example1/relationfile.txt --solver smt 
 Terminal output:
 
 ```text
-Generating the SMT model ...
-SMT model was generated after 0.04 seconds
-Checking the satisfiability of the constructed SMT model using z3 ...
-Checking was finished after 0.02 seconds
-Number of guesses: 2
-Number of known variables in the final state: 7 out of 7
-The following 2 variable(s) are guessed:
-s, v
+============================================================
+SMT SOLVER — Taken from https://doi.org/10.1007/978-3-642-00862-7_11: Speeding up Collision Search for Byte-Oriented Hash Functions
+============================================================
+Variables: 7 | Relations: 5
+Max guess: 2 | Max steps: 5
+Solver: z3
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SMT model generated in 0.01 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.01 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         2
+Known in final state:      7 / 7
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (2):
+  x
+  v
+============================================================
 ```
 
 ***MILP***
@@ -443,63 +542,122 @@ Terminal output:
 
 ```text
 Generating the MILP model ...
-MILP model was generated, and written into temp/milp_mg50_ms5_min_240885032bad660cd723faf2caf17d.lp after 0.00 seconds
-Academic license - for non-commercial use only - expires 2022-10-06
-Using license file /home/hosein/Programs/gurobi9.1.1_linux64/gurobi.lic
-Read LP format model from file temp/milp_mg50_ms5_min_240885032bad660cd723faf2caf17d.lp
+MILP model was generated after 0.00 seconds
+Set parameter Username
+Set parameter LicenseID to value 2782105
+Academic license - for non-commercial use only - expires 2027-02-23
+Read LP format model from file temp/milp_mg50_ms5_min_5d734ea45aa1173beb95c81f6cbc98.lp
 Reading time = 0.00 seconds
 : 287 rows, 167 columns, 1084 nonzeros
-Parameter MIPFocus unchanged
-   Value: 0  Min: 0  Max: 3  Default: 0
-Parameter Threads unchanged
-   Value: 0  Min: 0  Max: 1024  Default: 0
-Parameter OutputFlag unchanged
-   Value: 1  Min: 0  Max: 1  Default: 1
-Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
-Optimize a model with 287 rows, 167 columns and 1084 nonzeros
+Set parameter MIPFocus to value 0
+Set parameter Threads to value 0
+Set parameter OutputFlag to value 1
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (mac64[arm] - Darwin 24.6.0 24G517)
+
+CPU model: Apple M4
+Thread count: 10 physical cores, 10 logical processors, using up to 10 threads
+
+Optimize a model with 287 rows, 167 columns and 1084 nonzeros (Min)
 Model fingerprint: 0x0de8c583
+Model has 7 linear objective coefficients
 Variable types: 0 continuous, 167 integer (167 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 5e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 1e+00]
   RHS range        [1e+00, 5e+01]
-Found heuristic solution: objective 7.0000000
-Presolve removed 62 rows and 51 columns
-Presolve time: 0.00s
-Presolved: 225 rows, 116 columns, 887 nonzeros
-Variable types: 0 continuous, 116 integer (116 binary)
 
-Root relaxation: objective 1.671174e-02, 161 iterations, 0.00 seconds
+Found heuristic solution: objective 7.0000000
+Presolve removed 90 rows and 67 columns
+Presolve time: 0.01s
+Presolved: 197 rows, 100 columns, 802 nonzeros
+Variable types: 0 continuous, 100 integer (100 binary)
+
+Root relaxation: objective 2.516199e-02, 119 iterations, 0.00 seconds (0.00 work units)
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    0.01671    0   88    7.00000    0.01671   100%     -    0s
-H    0     0                       2.0000000    0.01671  99.2%     -    0s
-     0     0    2.00000    0   86    2.00000    2.00000  0.00%     -    0s
+     0     0    0.02516    0   75    7.00000    0.02516   100%     -    0s
+H    0     0                       2.0000000    0.02516  98.7%     -    0s
+     0     0    1.00000    0   55    2.00000    1.00000  50.0%     -    0s
 
 Cutting planes:
-  Gomory: 8
-  Cover: 25
-  Clique: 272
-  Zero half: 1
-  RLT: 29
-  BQP: 2
+  Gomory: 2
+  Cover: 6
+  Clique: 6
+  MIR: 2
+  RLT: 12
+  BQP: 6
 
-Explored 1 nodes (339 simplex iterations) in 0.02 seconds
-Thread count was 12 (of 12 available processors)
+Explored 1 nodes (245 simplex iterations) in 0.02 seconds (0.02 work units)
+Thread count was 10 (of 10 available processors)
 
 Solution count 2: 2 7 
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 2.000000000000e+00, best bound 2.000000000000e+00, gap 0.0000%
 Solving process was finished after 0.02 seconds
-Number of guesses: 2
-Number of known variables in the final state: 7 out of 7
-The following 2 variable(s) are guessed:
-x, v
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         2
+Known in final state:      7 / 7
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (2):
+  x
+  v
+============================================================
+```
+
+***Propagate***
+
+The `propagate` solver does not search for a minimal guess basis. Instead, given a set of initially known variables (via `-kn`), it iteratively deduces new variables using the relations until no further progress can be made. This is useful for quickly checking how far a particular guess set can reach.
+
+```sh
+autoguess --inputfile ciphers/Example1/relationfile.txt --solver propagate --known "u,v"
+```
+
+Terminal output:
+
+```text
+============================================================
+Knowledge propagation started - 2026-02-23 22:29:19.842286
+Problem: Taken from https://doi.org/10.1007/978-3-642-00862-7_11: Speeding up Collision Search for Byte-Oriented Hash Functions
+Total variables: 7
+Total relations: 5 (symmetric: 5, implication: 0)
+Initially known variables: 2
+  u, v
+============================================================
+
+Iteration 1: learned 1 new variable(s)
+  s  <--  [v, u, s]
+
+Iteration 2: learned 1 new variable(s)
+  x  <--  [x, s, v]
+
+Iteration 3: learned 1 new variable(s)
+  t  <--  [u, t, x]
+
+Iteration 4: learned 1 new variable(s)
+  z  <--  [z, s, v, t]
+
+Iteration 5: learned 1 new variable(s)
+  y  <--  [x, u, s, y, z]
+
+============================================================
+PROPAGATION SUMMARY
+============================================================
+Total iterations:          5
+Initially known:           2
+Newly learned:             5
+Total known after prop.:   7 / 7
+Unreachable variables:     0
+Target variables covered:  7 / 7
+Elapsed time:              0.0001 seconds
+============================================================
 ```
 
 ### Example 2
@@ -532,15 +690,32 @@ python3 autoguess.py --inputfile ciphers/Example2/example2.txt --solver cp --max
 Terminal output:
 
 ```text
-Number of guessed variables is set to be at most 3
-Generating the CP model ...
-CP model was generated after 0.00 seconds
-Solving the CP model with or-tools ...
-Solving process was finished after 0.07 seconds
-Number of guesses: 1
-Number of known variables in the final state: 7 out of 7
-The following 1 variable(s) are guessed:
-u
+Number of guessed variables is set to be at most 7
+============================================================
+CP SOLVER — Example of our paper
+============================================================
+Variables: 7 | Relations: 6
+Max guess: 7 | Max steps: 5
+Solver: cp-sat
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+CP model generated in 0.00 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.27 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+Known in final state:      7 / 7
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (1):
+  u
+============================================================
 ```
 
 ![example2_dg](ciphers/Example2/Shapes/example2_dg.svg)
@@ -554,20 +729,38 @@ python3 autoguess.py --inputfile ciphers/Example2/example2.txt --solver groebner
 Terminal output:
 
 ```text
-Generating the Boolean Polynomial Ring in 7 variables
-Generation of Boolean polynomial ring was finished after 0.01 seconds
-Generation of Horn-Satisfiability problem was started - 2021-11-09 17:41:19.164840
-Generation of Horn-satisfiability problem was finished after 0.00 seconds
-CNF to ANF conversion using the simple method was started - 2021-11-09 17:41:19.167128
-Results were written into the temp/anf_eb0bb44530e9e5e450e872eb8de24d.anf
-Algebraic representation in ANF form was generated after 0.00 seconds
-The main ideal was constructed and stored into temp/main_ideal_eb0bb44530e9e5e450e872eb8de24d as a SageMath object file
-Computing the Groebner basis was started - 2021-11-09 17:41:19.169347
-Computing the Groebner basis was finished after 0.10 seconds
-All guess bases were written into temp/guess_basis_eb0bb44530e9e5e450e872eb8de24d.txt
-Number of guesses: 1
-The following 1 variable(s) are guessed:
-z
+============================================================
+GRÖBNER BASIS SOLVER — Example of our paper
+============================================================
+Variables: 7 | Relations: 6
+Term ordering: degrevlex | Overlapping: 2
+CNF→ANF method: simple
+------------------------------------------------------------
+POLYNOMIAL RING CONSTRUCTION
+------------------------------------------------------------
+Generating Boolean Polynomial Ring in 7 variables ...
+Ring constructed in 0.00 seconds
+------------------------------------------------------------
+HORN-SAT GENERATION
+------------------------------------------------------------
+Horn-SAT problem generated in 0.00 seconds
+------------------------------------------------------------
+CNF → ANF CONVERSION (simple)
+------------------------------------------------------------
+ANF representation generated in 0.00 seconds
+------------------------------------------------------------
+GRÖBNER BASIS COMPUTATION
+------------------------------------------------------------
+Gröbner basis computed in 0.00 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+------------------------------------------------------------
+Guessed variable(s) (1):
+  x
+============================================================
 ```
 
 ***SAT***
@@ -579,15 +772,31 @@ python3 autoguess.py --inputfile ciphers/Example2/example2.txt --solver sat --ma
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.00 seconds
+============================================================
+SAT SOLVER — Example of our paper
+============================================================
+Variables: 7 | Relations: 6
+Max guess: 1 | Max steps: 5
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.00 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.00 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 0.00 seconds
-Number of guesses: 1
-Number of known variables in the final state: 7 out of 7
-The following 1 variable(s) are guessed:
-u
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+Known in final state:      7 / 7
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (1):
+  u
+============================================================
 ```
 
 ***SMT***
@@ -599,14 +808,31 @@ python3 autoguess.py --inputfile ciphers/Example2/example2.txt --solver smt --ma
 Terminal output:
 
 ```text
-Generating the SMT model ...
-SMT model was generated after 0.02 seconds
-Checking the satisfiability of the constructed SMT model using z3 ...
-Checking was finished after 0.01 seconds
-Number of guesses: 1
-Number of known variables in the final state: 7 out of 7
-The following 1 variable(s) are guessed:
-u
+============================================================
+SMT SOLVER — Example of our paper
+============================================================
+Variables: 7 | Relations: 6
+Max guess: 1 | Max steps: 5
+Solver: z3
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SMT model generated in 0.01 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.01 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+Known in final state:      7 / 7
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (1):
+  z
+============================================================
 ```
 
 ***MILP***
@@ -619,56 +845,66 @@ Terminal output:
 
 ```text
 Generating the MILP model ...
-MILP model was generated, and written into temp/milp_mg50_ms5_min_484ff23566f676ecf739b2816f4492.lp after 0.00 seconds
-Academic license - for non-commercial use only - expires 2022-10-06
-Using license file /home/hosein/Programs/gurobi9.1.1_linux64/gurobi.lic
-Read LP format model from file temp/milp_mg50_ms5_min_484ff23566f676ecf739b2816f4492.lp
+MILP model was generated after 0.00 seconds
+Set parameter Username
+Set parameter LicenseID to value 2782105
+Academic license - for non-commercial use only - expires 2027-02-23
+Read LP format model from file temp/milp_mg50_ms5_min_493b0329677a8e4da2a20c8408b175.lp
 Reading time = 0.00 seconds
 : 308 rows, 177 columns, 1200 nonzeros
-Parameter MIPFocus unchanged
-   Value: 0  Min: 0  Max: 3  Default: 0
-Parameter Threads unchanged
-   Value: 0  Min: 0  Max: 1024  Default: 0
-Parameter OutputFlag unchanged
-   Value: 1  Min: 0  Max: 1  Default: 1
-Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
-Optimize a model with 308 rows, 177 columns and 1200 nonzeros
+Set parameter MIPFocus to value 0
+Set parameter Threads to value 0
+Set parameter OutputFlag to value 1
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (mac64[arm] - Darwin 24.6.0 24G517)
+
+CPU model: Apple M4
+Thread count: 10 physical cores, 10 logical processors, using up to 10 threads
+
+Optimize a model with 308 rows, 177 columns and 1200 nonzeros (Min)
 Model fingerprint: 0xbd74212b
+Model has 6 linear objective coefficients
 Variable types: 0 continuous, 177 integer (177 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 6e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 1e+00]
   RHS range        [1e+00, 5e+01]
-Found heuristic solution: objective 6.0000000
-Presolve removed 208 rows and 124 columns
-Presolve time: 0.01s
-Presolved: 100 rows, 53 columns, 384 nonzeros
-Variable types: 0 continuous, 53 integer (53 binary)
 
-Root relaxation: objective 2.807018e-01, 34 iterations, 0.00 seconds
+Found heuristic solution: objective 6.0000000
+Presolve removed 215 rows and 130 columns
+Presolve time: 0.00s
+Presolved: 93 rows, 47 columns, 352 nonzeros
+Variable types: 0 continuous, 47 integer (47 binary)
+
+Root relaxation: objective 1.269841e-01, 39 iterations, 0.00 seconds (0.00 work units)
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    0.28070    0   25    6.00000    0.28070  95.3%     -    0s
-H    0     0                       2.0000000    0.28070  86.0%     -    0s
-H    0     0                       1.0000000    0.28070  71.9%     -    0s
-     0     0    0.28070    0   25    1.00000    0.28070  71.9%     -    0s
+     0     0    0.12698    0   30    6.00000    0.12698  97.9%     -    0s
+H    0     0                       3.0000000    0.12698  95.8%     -    0s
+H    0     0                       1.0000000    0.12698  87.3%     -    0s
+     0     0    0.12698    0   30    1.00000    0.12698  87.3%     -    0s
 
-Explored 1 nodes (38 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
+Explored 1 nodes (41 simplex iterations) in 0.01 seconds (0.01 work units)
+Thread count was 10 (of 10 available processors)
 
-Solution count 3: 1 2 6 
+Solution count 3: 1 3 6 
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 1.000000000000e+00, best bound 1.000000000000e+00, gap 0.0000%
 Solving process was finished after 0.01 seconds
-Number of guesses: 1
-Number of known variables in the final state: 7 out of 7
-The following 1 variable(s) are guessed:
-z
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+Known in final state:      7 / 7
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (1):
+  z
+============================================================
 ```
 
 ### Example 3
@@ -709,14 +945,33 @@ python3 autoguess.py --inputfile ciphers/Example3/relationfile.txt --solver cp -
 Terminal output:
 
 ```text
-Generating the CP model ...
-CP model was generated after 0.00 seconds
-Solving the CP model with or-tools ...
-Solving process was finished after 0.07 seconds
-Number of guesses: 3
-Number of known variables in the final state: 8 out of 8
-The following 3 variable(s) are guessed:
-x1, x5, t
+============================================================
+CP SOLVER — Example to describe the early abortion technique
+============================================================
+Variables: 8 | Relations: 7
+Max guess: 5 | Max steps: 5
+Solver: cp-sat
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+CP model generated in 0.00 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.20 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         3
+Known in final state:      8 / 8
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (3):
+  x1
+  x5
+  t
+============================================================
 ```
 
 The following graph represents the determination flow in the discovered GD attack.
@@ -784,20 +1039,40 @@ python3 autoguess.py --inputfile ciphers/Example3/relationfile.txt --solver groe
 Terminal output:
 
 ```text
-Generating the Boolean Polynomial Ring in 8 variables
-Generation of Boolean polynomial ring was finished after 0.01 seconds
-Generation of Horn-Satisfiability problem was started - 2021-11-09 18:31:47.128403
-Generation of Horn-satisfiability problem was finished after 0.00 seconds
-CNF to ANF conversion using the simple method was started - 2021-11-09 18:31:47.130411
-Results were written into the temp/anf_1bb9315641810d45414c81cbb14e5f.anf
-Algebraic representation in ANF form was generated after 0.00 seconds
-The main ideal was constructed and stored into temp/main_ideal_1bb9315641810d45414c81cbb14e5f as a SageMath object file
-Computing the Groebner basis was started - 2021-11-09 18:31:47.133303
-Computing the Groebner basis was finished after 0.10 seconds
-All guess bases were written into temp/guess_basis_1bb9315641810d45414c81cbb14e5f.txt
-Number of guesses: 3
-The following 3 variable(s) are guessed:
-x6, t, x4
+============================================================
+GRÖBNER BASIS SOLVER — Example to describe the early abortion technique
+============================================================
+Variables: 8 | Relations: 7
+Term ordering: degrevlex | Overlapping: 2
+CNF→ANF method: simple
+------------------------------------------------------------
+POLYNOMIAL RING CONSTRUCTION
+------------------------------------------------------------
+Generating Boolean Polynomial Ring in 8 variables ...
+Ring constructed in 0.00 seconds
+------------------------------------------------------------
+HORN-SAT GENERATION
+------------------------------------------------------------
+Horn-SAT problem generated in 0.00 seconds
+------------------------------------------------------------
+CNF → ANF CONVERSION (simple)
+------------------------------------------------------------
+ANF representation generated in 0.00 seconds
+------------------------------------------------------------
+GRÖBNER BASIS COMPUTATION
+------------------------------------------------------------
+Gröbner basis computed in 0.00 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         3
+------------------------------------------------------------
+Guessed variable(s) (3):
+  x0
+  x1
+  x2
+============================================================
 ```
 
 ***SAT***
@@ -809,34 +1084,71 @@ python3 autoguess.py --inputfile ciphers/Example3/relationfile.txt --solver sat 
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.00 seconds
+============================================================
+SAT SOLVER — Example to describe the early abortion technique
+============================================================
+Variables: 8 | Relations: 7
+Max guess: 3 | Max steps: 3
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.00 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.00 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 0.00 seconds
-Number of guesses: 3
-Number of known variables in the final state: 8 out of 8
-The following 3 variable(s) are guessed:
-x3, x4, t
+============================================================
+RESULTS
+============================================================
+Number of guesses:         3
+Known in final state:      8 / 8
+Max steps used:            3
+------------------------------------------------------------
+Guessed variable(s) (3):
+  x3
+  x4
+  t
+============================================================
 ```
 
 ***SMT***
 
 ```sh
-python3 autoguess.py --inputfile ciphers/Example3/relationfile.txt --solver smt --smtsolver btor --maxguess 3 --maxsteps 3
+python3 autoguess.py --inputfile ciphers/Example3/relationfile.txt --solver smt --smtsolver z3 --maxguess 3 --maxsteps 3
 ```
 
 Terminal output:
 
 ```text
-Generating the SMT model ...
-SMT model was generated after 0.01 seconds
-Checking the satisfiability of the constructed SMT model using btor ...
-Checking was finished after 0.02 seconds
-Number of guesses: 3
-Number of known variables in the final state: 8 out of 8
-The following 3 variable(s) are guessed:
-x0, x3, t
+============================================================
+SMT SOLVER — Example to describe the early abortion technique
+============================================================
+Variables: 8 | Relations: 7
+Max guess: 3 | Max steps: 3
+Solver: z3
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SMT model generated in 0.01 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.01 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         3
+Known in final state:      8 / 8
+Max steps used:            3
+------------------------------------------------------------
+Guessed variable(s) (3):
+  x1
+  x2
+  x4
+============================================================
 ```
 
 ***MILP***
@@ -849,65 +1161,77 @@ Terminal output:
 
 ```text
 Generating the MILP model ...
-MILP model was generated, and written into temp/milp_mg50_ms3_min_90a27b043c0f94fd43470889a09416.lp after 0.00 seconds
-Academic license - for non-commercial use only - expires 2022-10-06
-Using license file /home/hosein/Programs/gurobi9.1.1_linux64/gurobi.lic
-Read LP format model from file temp/milp_mg50_ms3_min_90a27b043c0f94fd43470889a09416.lp
+MILP model was generated after 0.00 seconds
+Set parameter Username
+Set parameter LicenseID to value 2782105
+Academic license - for non-commercial use only - expires 2027-02-23
+Read LP format model from file temp/milp_mg50_ms3_min_c74688273c88de841250efd06ea0d9.lp
 Reading time = 0.00 seconds
 : 176 rows, 110 columns, 574 nonzeros
-Parameter MIPFocus unchanged
-   Value: 0  Min: 0  Max: 3  Default: 0
-Parameter Threads unchanged
-   Value: 0  Min: 0  Max: 1024  Default: 0
-Parameter OutputFlag unchanged
-   Value: 1  Min: 0  Max: 1  Default: 1
-Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
-Optimize a model with 176 rows, 110 columns and 574 nonzeros
+Set parameter MIPFocus to value 0
+Set parameter Threads to value 0
+Set parameter OutputFlag to value 1
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (mac64[arm] - Darwin 24.6.0 24G517)
+
+CPU model: Apple M4
+Thread count: 10 physical cores, 10 logical processors, using up to 10 threads
+
+Optimize a model with 176 rows, 110 columns and 574 nonzeros (Min)
 Model fingerprint: 0x7dfef622
+Model has 8 linear objective coefficients
 Variable types: 0 continuous, 110 integer (110 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 5e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 1e+00]
   RHS range        [1e+00, 5e+01]
-Found heuristic solution: objective 8.0000000
-Presolve removed 69 rows and 51 columns
-Presolve time: 0.00s
-Presolved: 107 rows, 59 columns, 362 nonzeros
-Variable types: 0 continuous, 59 integer (59 binary)
 
-Root relaxation: objective 3.494810e-01, 50 iterations, 0.00 seconds
+Found heuristic solution: objective 8.0000000
+Presolve removed 94 rows and 66 columns
+Presolve time: 0.00s
+Presolved: 82 rows, 44 columns, 286 nonzeros
+Variable types: 0 continuous, 44 integer (44 binary)
+
+Root relaxation: objective 4.130435e-01, 49 iterations, 0.00 seconds (0.00 work units)
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    0.34948    0   38    8.00000    0.34948  95.6%     -    0s
-H    0     0                       3.0000000    0.34948  88.4%     -    0s
-     0     0    1.00000    0   39    3.00000    1.00000  66.7%     -    0s
-     0     0    1.25000    0   30    3.00000    1.25000  58.3%     -    0s
+     0     0    0.41304    0   29    8.00000    0.41304  94.8%     -    0s
+H    0     0                       3.0000000    0.41304  86.2%     -    0s
+     0     0    1.14286    0   28    3.00000    1.14286  61.9%     -    0s
+     0     0    2.00000    0   31    3.00000    2.00000  33.3%     -    0s
 
 Cutting planes:
-  Gomory: 7
-  Cover: 12
-  Clique: 40
+  Gomory: 4
+  Cover: 19
+  Clique: 6
   MIR: 1
-  Zero half: 2
-  RLT: 15
-  BQP: 3
+  Zero half: 3
+  RLT: 14
+  Relax-and-lift: 5
 
-Explored 1 nodes (119 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
+Explored 1 nodes (110 simplex iterations) in 0.02 seconds (0.01 work units)
+Thread count was 10 (of 10 available processors)
 
 Solution count 2: 3 8 
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%
-Solving process was finished after 0.01 seconds
-Number of guesses: 3
-Number of known variables in the final state: 8 out of 8
-The following 3 variable(s) are guessed:
-x0, x4, x6
+Solving process was finished after 0.02 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         3
+Known in final state:      8 / 8
+Max steps used:            3
+------------------------------------------------------------
+Guessed variable(s) (3):
+  x0
+  x5
+  t
+============================================================
 ```
 
 ### Example 4
@@ -937,28 +1261,48 @@ python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solv
 Terminal output:
 
 ```text
-Preprocessing phase was started - 2021-11-09 18:46:57.716809
+------------------------------------------------------------
+PREPROCESSING (Macaulay matrix)
+------------------------------------------------------------
 Number of algebraic equations: 7
 Number of algebraic variables: 4
 Number of algebraic monomials: 11
 Spectrum of degrees: [2]
 Macaulay matrix was generated in full matrixspace of 7 by 11 sparse matrices over finite field of size 2
-Gaussian elimination was started - 2021-11-09 18:46:58.930373
+Gaussian elimination was started - 2026-02-23 22:44:51.835018
 #Dependent variables: 7
 #Free variables: 3
 Gaussian elimination was finished after 0.00 seconds
-Writing the results into the temp/macaulay_basis_4c225f108ac2afa734a2017997a424.txt - 2021-11-09 18:46:59.022147
-Result was written into temp/macaulay_basis_4c225f108ac2afa734a2017997a424.txt after 0.00 seconds
-Preprocessing phase was finished after 1.4750 seconds
+Writing the results into the temp/macaulay_basis_676e0e7043290f519ee6de0bac1b84.txt - 2026-02-23 22:44:51.835115
+Result was written into temp/macaulay_basis_676e0e7043290f519ee6de0bac1b84.txt after 0.00 seconds
+Preprocessing finished in 1.4718 seconds
 Number of guessed variables is set to be at most 10
-Generating the CP model ...
-CP model was generated after 0.00 seconds
-Solving the CP model with or-tools ...
-Solving process was finished after 0.08 seconds
-Number of guesses: 2
-Number of known variables in the final state: 10 out of 10
-The following 2 variable(s) are guessed:
-X2, X4
+============================================================
+CP SOLVER — gdproblem
+============================================================
+Variables: 10 | Relations: 19
+Max guess: 10 | Max steps: 10
+Solver: cp-sat
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+CP model generated in 0.01 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.26 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         2
+Known in final state:      10 / 10
+Max steps used:            10
+------------------------------------------------------------
+Guessed variable(s) (2):
+  X2
+  X4
+============================================================
 ```
 
 ![example4_dg_D2](ciphers/Example4/Shapes/example4_dg_D2.svg)
@@ -972,28 +1316,47 @@ python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solv
 Terminal output:
 
 ```text
-Preprocessing phase was started - 2021-11-09 18:50:35.579982
+------------------------------------------------------------
+PREPROCESSING (Macaulay matrix)
+------------------------------------------------------------
 Number of algebraic equations: 7
 Number of algebraic variables: 4
 Number of algebraic monomials: 11
 Spectrum of degrees: [2]
 Macaulay matrix was generated in full matrixspace of 35 by 15 sparse matrices over finite field of size 2
-Gaussian elimination was started - 2021-11-09 18:50:36.791323
+Gaussian elimination was started - 2026-02-23 22:46:12.429585
 #Dependent variables: 13
 #Free variables: 1
 Gaussian elimination was finished after 0.00 seconds
-Writing the results into the temp/macaulay_basis_be98d0a7463d81e414f4597b07b5c5.txt - 2021-11-09 18:50:36.881498
-Result was written into temp/macaulay_basis_be98d0a7463d81e414f4597b07b5c5.txt after 0.00 seconds
-Preprocessing phase was finished after 1.4692 seconds
+Writing the results into the temp/macaulay_basis_88e597205e4bd22daf4ee4c083f4dc.txt - 2026-02-23 22:46:12.429697
+Result was written into temp/macaulay_basis_88e597205e4bd22daf4ee4c083f4dc.txt after 0.00 seconds
+Preprocessing finished in 1.5163 seconds
 Number of guessed variables is set to be at most 14
-Generating the CP model ...
-CP model was generated after 0.00 seconds
-Solving the CP model with or-tools ...
-Solving process was finished after 0.08 seconds
-Number of guesses: 1
-Number of known variables in the final state: 14 out of 14
-The following 1 variable(s) are guessed:
-X2
+============================================================
+CP SOLVER — gdproblem
+============================================================
+Variables: 14 | Relations: 24
+Max guess: 14 | Max steps: 10
+Solver: cp-sat
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+CP model generated in 0.01 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.30 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+Known in final state:      14 / 14
+Max steps used:            10
+------------------------------------------------------------
+Guessed variable(s) (1):
+  X2
+============================================================
 ```
 
 ![example4_dg_D3](ciphers/Example4/Shapes/example4_dg_D3.svg)
@@ -1009,33 +1372,53 @@ python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solv
 Terminal output:
 
 ```text
-Preprocessing phase was started - 2021-11-09 18:56:05.379313
+------------------------------------------------------------
+PREPROCESSING (Macaulay matrix)
+------------------------------------------------------------
 Number of algebraic equations: 7
 Number of algebraic variables: 4
 Number of algebraic monomials: 11
 Spectrum of degrees: [2]
 Macaulay matrix was generated in full matrixspace of 35 by 15 sparse matrices over finite field of size 2
-Gaussian elimination was started - 2021-11-09 18:56:05.817153
+Gaussian elimination was started - 2026-02-23 22:47:05.293590
 #Dependent variables: 13
 #Free variables: 1
 Gaussian elimination was finished after 0.00 seconds
-Writing the results into the temp/macaulay_basis_aae84593dd0193f44432536fd54bab.txt - 2021-11-09 18:56:05.908905
-Result was written into temp/macaulay_basis_aae84593dd0193f44432536fd54bab.txt after 0.00 seconds
-Preprocessing phase was finished after 0.5300 seconds
-Generating the Boolean Polynomial Ring in 14 variables
-Generation of Boolean polynomial ring was finished after 0.01 seconds
-Generation of Horn-Satisfiability problem was started - 2021-11-09 18:56:05.915747
-Generation of Horn-satisfiability problem was finished after 0.00 seconds
-CNF to ANF conversion using the simple method was started - 2021-11-09 18:56:05.919578
-Results were written into the temp/anf_a46d97f2176c65eedb2ca2b5db456d.anf
-Algebraic representation in ANF form was generated after 0.00 seconds
-The main ideal was constructed and stored into temp/main_ideal_a46d97f2176c65eedb2ca2b5db456d as a SageMath object file
-Computing the Groebner basis was started - 2021-11-09 18:56:05.924355
-Computing the Groebner basis was finished after 0.06 seconds
-All guess bases were written into temp/guess_basis_a46d97f2176c65eedb2ca2b5db456d.txt
-Number of guesses: 1
-The following 1 variable(s) are guessed:
-XKSI02
+Writing the results into the temp/macaulay_basis_7f40767192abe937548909a93544f6.txt - 2026-02-23 22:47:05.293753
+Result was written into temp/macaulay_basis_7f40767192abe937548909a93544f6.txt after 0.00 seconds
+Preprocessing finished in 0.0808 seconds
+============================================================
+GRÖBNER BASIS SOLVER — gdproblem
+============================================================
+Variables: 14 | Relations: 24
+Term ordering: degrevlex | Overlapping: 2
+CNF→ANF method: simple
+------------------------------------------------------------
+POLYNOMIAL RING CONSTRUCTION
+------------------------------------------------------------
+Generating Boolean Polynomial Ring in 14 variables ...
+Ring constructed in 0.00 seconds
+------------------------------------------------------------
+HORN-SAT GENERATION
+------------------------------------------------------------
+Horn-SAT problem generated in 0.00 seconds
+------------------------------------------------------------
+CNF → ANF CONVERSION (simple)
+------------------------------------------------------------
+ANF representation generated in 0.00 seconds
+------------------------------------------------------------
+GRÖBNER BASIS COMPUTATION
+------------------------------------------------------------
+Gröbner basis computed in 0.01 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+------------------------------------------------------------
+Guessed variable(s) (1):
+  X3
+============================================================
 ```
 
 ***SAT***
@@ -1047,33 +1430,46 @@ python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solv
 Terminal output:
 
 ```text
-Preprocessing phase was started - 2021-11-09 18:56:05.379313
+------------------------------------------------------------
+PREPROCESSING (Macaulay matrix)
+------------------------------------------------------------
 Number of algebraic equations: 7
 Number of algebraic variables: 4
 Number of algebraic monomials: 11
 Spectrum of degrees: [2]
 Macaulay matrix was generated in full matrixspace of 35 by 15 sparse matrices over finite field of size 2
-Gaussian elimination was started - 2021-11-09 18:56:05.817153
+Gaussian elimination was started - 2026-02-23 22:47:55.291771
 #Dependent variables: 13
 #Free variables: 1
 Gaussian elimination was finished after 0.00 seconds
-Writing the results into the temp/macaulay_basis_aae84593dd0193f44432536fd54bab.txt - 2021-11-09 18:56:05.908905
-Result was written into temp/macaulay_basis_aae84593dd0193f44432536fd54bab.txt after 0.00 seconds
-Preprocessing phase was finished after 0.5300 seconds
-Generating the Boolean Polynomial Ring in 14 variables
-Generation of Boolean polynomial ring was finished after 0.01 seconds
-Generation of Horn-Satisfiability problem was started - 2021-11-09 18:56:05.915747
-Generation of Horn-satisfiability problem was finished after 0.00 seconds
-CNF to ANF conversion using the simple method was started - 2021-11-09 18:56:05.919578
-Results were written into the temp/anf_a46d97f2176c65eedb2ca2b5db456d.anf
-Algebraic representation in ANF form was generated after 0.00 seconds
-The main ideal was constructed and stored into temp/main_ideal_a46d97f2176c65eedb2ca2b5db456d as a SageMath object file
-Computing the Groebner basis was started - 2021-11-09 18:56:05.924355
-Computing the Groebner basis was finished after 0.06 seconds
-All guess bases were written into temp/guess_basis_a46d97f2176c65eedb2ca2b5db456d.txt
-Number of guesses: 1
-The following 1 variable(s) are guessed:
-XKSI02
+Writing the results into the temp/macaulay_basis_c918ac2c862f0bfbd05f830067a239.txt - 2026-02-23 22:47:55.291903
+Result was written into temp/macaulay_basis_c918ac2c862f0bfbd05f830067a239.txt after 0.00 seconds
+Preprocessing finished in 1.5456 seconds
+============================================================
+SAT SOLVER — gdproblem
+============================================================
+Variables: 14 | Relations: 24
+Max guess: 1 | Max steps: 5
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.00 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.00 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+Known in final state:      14 / 14
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (1):
+  X2
+============================================================
 ```
 
 ***SMT***
@@ -1085,27 +1481,46 @@ python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solv
 Terminal output:
 
 ```text
-Preprocessing phase was started - 2021-11-09 18:58:38.262997
+------------------------------------------------------------
+PREPROCESSING (Macaulay matrix)
+------------------------------------------------------------
 Number of algebraic equations: 7
 Number of algebraic variables: 4
 Number of algebraic monomials: 11
 Spectrum of degrees: [2]
 Macaulay matrix was generated in full matrixspace of 35 by 15 sparse matrices over finite field of size 2
-Gaussian elimination was started - 2021-11-09 18:58:39.469505
+Gaussian elimination was started - 2026-02-23 22:48:10.731367
 #Dependent variables: 13
 #Free variables: 1
 Gaussian elimination was finished after 0.00 seconds
-Writing the results into the temp/macaulay_basis_63fc4b1c932f6e1e2882b5ac7ff7f5.txt - 2021-11-09 18:58:39.558021
-Result was written into temp/macaulay_basis_63fc4b1c932f6e1e2882b5ac7ff7f5.txt after 0.00 seconds
-Preprocessing phase was finished after 1.4595 seconds
-Generating the SMT model ...
-SMT model was generated after 0.03 seconds
-Checking the satisfiability of the constructed SMT model using z3 ...
-Checking was finished after 0.00 seconds
-Number of guesses: 1
-Number of known variables in the final state: 14 out of 14
-The following 1 variable(s) are guessed:
-KUNB13
+Writing the results into the temp/macaulay_basis_41304864ec176a77963f8daabe4832.txt - 2026-02-23 22:48:10.731486
+Result was written into temp/macaulay_basis_41304864ec176a77963f8daabe4832.txt after 0.00 seconds
+Preprocessing finished in 1.6922 seconds
+============================================================
+SMT SOLVER — gdproblem
+============================================================
+Variables: 14 | Relations: 24
+Max guess: 1 | Max steps: 5
+Solver: z3
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SMT model generated in 0.03 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.01 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+Known in final state:      14 / 14
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (1):
+  VULX1x3 (represents: X2 * X4)
+============================================================
 ```
 
 ***MILP***
@@ -1117,67 +1532,80 @@ python3 autoguess.py --inputfile ciphers/Example4/algebraic_relations.txt --solv
 Terminal output:
 
 ```text
-Preprocessing phase was started - 2021-11-09 18:59:44.497445
+------------------------------------------------------------
+PREPROCESSING (Macaulay matrix)
+------------------------------------------------------------
 Number of algebraic equations: 7
 Number of algebraic variables: 4
 Number of algebraic monomials: 11
 Spectrum of degrees: [2]
 Macaulay matrix was generated in full matrixspace of 35 by 15 sparse matrices over finite field of size 2
-Gaussian elimination was started - 2021-11-09 18:59:45.686174
+Gaussian elimination was started - 2026-02-23 22:48:29.854185
 #Dependent variables: 13
 #Free variables: 1
 Gaussian elimination was finished after 0.00 seconds
-Writing the results into the temp/macaulay_basis_65e23e7404923131d168d7b0b89745.txt - 2021-11-09 18:59:45.774040
-Result was written into temp/macaulay_basis_65e23e7404923131d168d7b0b89745.txt after 0.00 seconds
-Preprocessing phase was finished after 1.4432 seconds
+Writing the results into the temp/macaulay_basis_170a23f2bde01f3bbf6fb967d3c415.txt - 2026-02-23 22:48:29.854295
+Result was written into temp/macaulay_basis_170a23f2bde01f3bbf6fb967d3c415.txt after 0.00 seconds
+Preprocessing finished in 1.6932 seconds
 Generating the MILP model ...
-MILP model was generated, and written into temp/milp_mg50_ms5_min_4d3fdcf2de1b72bd7561e84a983223.lp after 0.00 seconds
-Academic license - for non-commercial use only - expires 2022-10-06
-Using license file /home/hosein/Programs/gurobi9.1.1_linux64/gurobi.lic
-Read LP format model from file temp/milp_mg50_ms5_min_4d3fdcf2de1b72bd7561e84a983223.lp
+MILP model was generated after 0.00 seconds
+Set parameter Username
+Set parameter LicenseID to value 2782105
+Academic license - for non-commercial use only - expires 2027-02-23
+Read LP format model from file temp/milp_mg50_ms5_min_11d3a43ee22ec0813703f97835cb8d.lp
 Reading time = 0.00 seconds
-: 383 rows, 274 columns, 1158 nonzeros
-Parameter MIPFocus unchanged
-   Value: 0  Min: 0  Max: 3  Default: 0
-Parameter Threads unchanged
-   Value: 0  Min: 0  Max: 1024  Default: 0
-Parameter OutputFlag unchanged
-   Value: 1  Min: 0  Max: 1  Default: 1
-Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
-Optimize a model with 383 rows, 274 columns and 1158 nonzeros
-Model fingerprint: 0x8876543a
-Variable types: 0 continuous, 274 integer (274 binary)
+: 728 rows, 444 columns, 3268 nonzeros
+Set parameter MIPFocus to value 0
+Set parameter Threads to value 0
+Set parameter OutputFlag to value 1
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (mac64[arm] - Darwin 24.6.0 24G517)
+
+CPU model: Apple M4
+Thread count: 10 physical cores, 10 logical processors, using up to 10 threads
+
+Optimize a model with 728 rows, 444 columns and 3268 nonzeros (Min)
+Model fingerprint: 0xc1841a82
+Model has 8 linear objective coefficients
+Variable types: 0 continuous, 444 integer (444 binary)
 Coefficient statistics:
-  Matrix range     [1e+00, 8e+00]
+  Matrix range     [1e+00, 1e+01]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 1e+00]
   RHS range        [1e+00, 5e+01]
-Found heuristic solution: objective 8.0000000
-Presolve removed 358 rows and 254 columns
-Presolve time: 0.00s
-Presolved: 25 rows, 20 columns, 88 nonzeros
-Variable types: 0 continuous, 20 integer (20 binary)
 
-Root relaxation: objective 1.000000e+00, 2 iterations, 0.00 seconds
+Found heuristic solution: objective 8.0000000
+Presolve removed 687 rows and 417 columns
+Presolve time: 0.01s
+Presolved: 41 rows, 27 columns, 208 nonzeros
+Variable types: 0 continuous, 27 integer (27 binary)
+Found heuristic solution: objective 7.0000000
+
+Root relaxation: objective 1.000000e+00, 1 iterations, 0.00 seconds (0.00 work units)
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
 *    0     0               0       1.0000000    1.00000  0.00%     -    0s
 
-Explored 0 nodes (2 simplex iterations) in 0.00 seconds
-Thread count was 12 (of 12 available processors)
+Explored 1 nodes (1 simplex iterations) in 0.01 seconds (0.01 work units)
+Thread count was 10 (of 10 available processors)
 
-Solution count 2: 1 8 
+Solution count 3: 1 7 8 
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 1.000000000000e+00, best bound 1.000000000000e+00, gap 0.0000%
-Solving process was finished after 0.00 seconds
-Number of guesses: 1
-Number of known variables in the final state: 14 out of 14
-The following 1 variable(s) are guessed:
-FPWB03
+Solving process was finished after 0.01 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         1
+Known in final state:      14 / 14
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (1):
+  AADO0x2x3 (represents: X1 * X3 * X4)
+============================================================
 ```
 
 ### Example 5
@@ -1214,15 +1642,33 @@ python3 autoguess.py --inputfile ciphers/Example5/example5.txt --solver sat --ma
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.00 seconds
+============================================================
+SAT SOLVER — gdproblem
+============================================================
+Variables: 8 | Relations: 7
+Max guess: 3 | Max steps: 5
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.00 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.00 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 0.00 seconds
-Number of guesses: 3
-Number of known variables in the final state: 8 out of 8
-The following 3 variable(s) are guessed:
-x0, x2, x4
+============================================================
+RESULTS
+============================================================
+Number of guesses:         3
+Known in final state:      8 / 8
+Max steps used:            5
+------------------------------------------------------------
+Guessed variable(s) (3):
+  x0
+  x2
+  x4
+============================================================
 ```
 
 As it can be seen, the variables with minimum weights have been chosen as the guess basis.
@@ -1239,66 +1685,78 @@ Terminal output:
 
 ```text
 Generating the MILP model ...
-MILP model was generated, and written into temp/milp_mg50_ms3_min_0efa090302bf2031f0880a8c385350.lp after 0.00 seconds
-Academic license - for non-commercial use only - expires 2022-10-06
-Using license file /home/hosein/Programs/gurobi9.1.1_linux64/gurobi.lic
-Read LP format model from file temp/milp_mg50_ms3_min_0efa090302bf2031f0880a8c385350.lp
+MILP model was generated after 0.00 seconds
+Set parameter Username
+Set parameter LicenseID to value 2782105
+Academic license - for non-commercial use only - expires 2027-02-23
+Read LP format model from file temp/milp_mg50_ms3_min_9b386bd93e4ea29a7a452cd33c9180.lp
 Reading time = 0.00 seconds
 : 176 rows, 110 columns, 574 nonzeros
-Parameter MIPFocus unchanged
-   Value: 0  Min: 0  Max: 3  Default: 0
-Parameter Threads unchanged
-   Value: 0  Min: 0  Max: 1024  Default: 0
-Parameter OutputFlag unchanged
-   Value: 1  Min: 0  Max: 1  Default: 1
-Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
-Optimize a model with 176 rows, 110 columns and 574 nonzeros
+Set parameter MIPFocus to value 0
+Set parameter Threads to value 0
+Set parameter OutputFlag to value 1
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (mac64[arm] - Darwin 24.6.0 24G517)
+
+CPU model: Apple M4
+Thread count: 10 physical cores, 10 logical processors, using up to 10 threads
+
+Optimize a model with 176 rows, 110 columns and 574 nonzeros (Min)
 Model fingerprint: 0xaa75b0d7
+Model has 8 linear objective coefficients
 Variable types: 0 continuous, 110 integer (110 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 5e+00]
   Objective range  [1e+00, 3e+00]
   Bounds range     [1e+00, 1e+00]
   RHS range        [1e+00, 5e+01]
-Found heuristic solution: objective 15.0000000
-Presolve removed 69 rows and 51 columns
-Presolve time: 0.00s
-Presolved: 107 rows, 59 columns, 362 nonzeros
-Variable types: 0 continuous, 59 integer (59 binary)
 
-Root relaxation: objective 4.050633e-01, 49 iterations, 0.00 seconds
+Found heuristic solution: objective 15.0000000
+Presolve removed 94 rows and 66 columns
+Presolve time: 0.00s
+Presolved: 82 rows, 44 columns, 286 nonzeros
+Variable types: 0 continuous, 44 integer (44 binary)
+
+Root relaxation: objective 4.503817e-01, 49 iterations, 0.00 seconds (0.00 work units)
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    0.40506    0   38   15.00000    0.40506  97.3%     -    0s
-H    0     0                       6.0000000    0.40506  93.2%     -    0s
-H    0     0                       5.0000000    0.40506  91.9%     -    0s
-H    0     0                       3.0000000    1.10000  63.3%     -    0s
-     0     0    3.00000    0   35    3.00000    3.00000  0.00%     -    0s
+     0     0    0.45038    0   30   15.00000    0.45038  97.0%     -    0s
+H    0     0                       6.0000000    0.45038  92.5%     -    0s
+H    0     0                       4.0000000    0.45038  88.7%     -    0s
+H    0     0                       3.0000000    0.45038  85.0%     -    0s
 
 Cutting planes:
-  Gomory: 2
-  Cover: 15
-  Clique: 39
-  MIR: 4
-  Zero half: 3
-  RLT: 13
-  BQP: 1
+  Gomory: 1
+  Cover: 4
+  Clique: 4
+  MIR: 2
+  Flow cover: 2
+  Zero half: 2
+  RLT: 11
+  Relax-and-lift: 2
 
-Explored 1 nodes (150 simplex iterations) in 0.01 seconds
-Thread count was 12 (of 12 available processors)
+Explored 1 nodes (53 simplex iterations) in 0.01 seconds (0.00 work units)
+Thread count was 10 (of 10 available processors)
 
-Solution count 4: 3 5 6 15 
+Solution count 4: 3 4 6 15 
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%
 Solving process was finished after 0.01 seconds
-Number of guesses: 3
-Number of known variables in the final state: 8 out of 8
-The following 3 variable(s) are guessed:
-x0, x2, x4
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         3
+Known in final state:      8 / 8
+Max steps used:            3
+------------------------------------------------------------
+Guessed variable(s) (3):
+  x0
+  x2
+  x4
+============================================================
 ```
 
 ### Example 6
@@ -1333,17 +1791,37 @@ python3 autoguess.py --inputfile ciphers/Example6/relationfile_rabit_9clk_mg6_ms
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.14 seconds
+============================================================
+SAT SOLVER — rabit 9 clock cycles
+============================================================
+Variables: 88 | Relations: 80
+Max guess: 6 | Max steps: 12
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.05 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.81 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 0.36 seconds
-Number of guesses: 6
-Number of known variables in the final state: 88 out of 88
-The following 6 variable(s) are guessed:
-x_5_1, x_4_0, x_6_1, x_0_2, x_1_2, x_0_3
+============================================================
+RESULTS
+============================================================
+Number of guesses:         6
+Known in final state:      88 / 88
+Max steps used:            12
+------------------------------------------------------------
+Guessed variable(s) (6):
+ x_5_1
+ x_4_0
+ x_6_1
+ x_0_2
+ x_1_2
+ x_0_3
+============================================================
 Generating the tikz code ...
-
 ```
 
 ![rabbit_dg](ciphers/Example6/Shapes/rabbit_dg.svg)
@@ -1357,20 +1835,43 @@ python3 autoguess.py --inputfile ciphers/Example6/relationfile_rabit_9clk_mg6_ms
 Terminal output:
 
 ```text
-Generating the Boolean Polynomial Ring in 88 variables
-Generation of Boolean polynomial ring was finished after 0.01 seconds
-Generation of Horn-Satisfiability problem was started - 2021-11-10 14:05:48.802383
-Generation of Horn-satisfiability problem was finished after 0.01 seconds
-CNF to ANF conversion using the simple method was started - 2021-11-10 14:05:48.816148
-Results were written into the temp/anf_a05dc214ad1711da0278cf18b12b57.anf
-Algebraic representation in ANF form was generated after 0.01 seconds
-The main ideal was constructed and stored into temp/main_ideal_a05dc214ad1711da0278cf18b12b57 as a SageMath object file
-Computing the Groebner basis was started - 2021-11-10 14:05:48.828475
-Computing the Groebner basis was finished after 3.90 seconds
-All guess bases were written into temp/guess_basis_a05dc214ad1711da0278cf18b12b57.txt
-Number of guesses: 6
-The following 6 variable(s) are guessed:
-x_1_7, x_6_5, x_4_3, x_7_2, x_7_1, x_5_0
+============================================================
+GRÖBNER BASIS SOLVER — rabit 9 clock cycles
+============================================================
+Variables: 88 | Relations: 80
+Term ordering: degrevlex | Overlapping: 2
+CNF→ANF method: simple
+------------------------------------------------------------
+POLYNOMIAL RING CONSTRUCTION
+------------------------------------------------------------
+Generating Boolean Polynomial Ring in 88 variables ...
+Ring constructed in 0.00 seconds
+------------------------------------------------------------
+HORN-SAT GENERATION
+------------------------------------------------------------
+Horn-SAT problem generated in 0.00 seconds
+------------------------------------------------------------
+CNF → ANF CONVERSION (simple)
+------------------------------------------------------------
+ANF representation generated in 0.00 seconds
+------------------------------------------------------------
+GRÖBNER BASIS COMPUTATION
+------------------------------------------------------------
+Gröbner basis computed in 0.86 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         6
+------------------------------------------------------------
+Guessed variable(s) (6):
+  x_0_3
+  x_4_4
+  x_6_6
+  x_3_7
+  x_2_8
+  x_3_8
+============================================================
 ```
 
 ---
@@ -1421,9 +1922,9 @@ If you encounter issues:
 The following sections include some of the applications of our tool running on a laptop with the following configuration:
 
 ```text
-OS: Linux 5.4.0-84-generic - Ubuntu
-CPU: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
-RAM: 16 GB
+OS: macOS 15.7.4 (arm64)
+CPU: Apple M4
+RAM: 24 GB
 ```
 
 ### GD Attack on 1 Round of AES with 1 Known Plaintext/Ciphertext Pair
@@ -1439,15 +1940,36 @@ python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_1r_mg6_ms14.txt
 Terminal outputs:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.32 seconds
+============================================================
+SAT SOLVER — aes1kp 1 Rounds
+============================================================
+Variables: 96 | Relations: 1168
+Max guess: 6 | Max steps: 14
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.08 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.01 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 0.02 seconds
-Number of guesses: 6
-Number of known variables in the final state: 96 out of 96
-The following 6 variable(s) are guessed:
-X_0_0_0, X_0_1_1, W_0_0_0, W_0_2_2, W_0_3_0, K_1_3_2
+============================================================
+RESULTS
+============================================================
+Number of guesses:         6
+Known in final state:      96 / 96
+Max steps used:            14
+------------------------------------------------------------
+Guessed variable(s) (6):
+  X_0_0_2
+  K_0_1_2
+  X_0_2_0
+  X_0_3_0
+  W_0_1_1
+  K_1_3_1
+============================================================
 ```
 
 As you can see Autoguess finds a GD attack on 1 round of AES in less than a second. Autoguess uses [CaDiCaL](http://fmv.jku.at/cadical153/) as the SAT solver by default. However, user can simply choose another SAT solver among `cadical153,glucose3,glucose4,lingeling,maplechrono,maplecm,maplesat,minicard,minisat22,minisat-gh` by this switch : `--satsolver SAT_SOLVER_NAME`.
@@ -1455,20 +1977,42 @@ As you can see Autoguess finds a GD attack on 1 round of AES in less than a seco
 ***SMT***
 
 ```sh
-python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_1r_mg6_ms14.txt --solver smt --smtsolver btor --maxguess 6 --maxsteps 14 
+python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_1r_mg6_ms14.txt --solver smt --smtsolver z3 --maxguess 6 --maxsteps 14 
 ```
 
 Terminal output:
 
 ```text
-Generating the SMT model ...
-SMT model was generated after 1.92 seconds
-Checking the satisfiability of the constructed SMT model using btor ...
-Checking was finished after 3.66 seconds
-Number of guesses: 6
-Number of known variables in the final state: 96 out of 96
-The following 6 variable(s) are guessed:
-K_1_0_1, K_1_0_2, K_1_0_3, W_0_1_2, K_1_2_2, W_0_2_3
+============================================================
+SMT SOLVER — aes1kp 1 Rounds
+============================================================
+Variables: 96 | Relations: 1168
+Max guess: 6 | Max steps: 14
+Solver: z3
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SMT model generated in 0.73 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 2.15 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         6
+Known in final state:      96 / 96
+Max steps used:            14
+------------------------------------------------------------
+Guessed variable(s) (6):
+  X_0_0_1
+  K_0_1_0
+  X_0_2_3
+  K_0_3_3
+  W_0_0_1
+  W_0_1_1
+============================================================
 ```
 
 In the above command we have used [Boolector](https://github.com/boolector/boolector) as the SMT solver.
@@ -1485,73 +2029,85 @@ Terminal outputs:
 
 ```text
 Generating the MILP model ...
-MILP model was generated, and written into temp/milp_mg10_ms14_min_31b62a450d69d03e14cd0a7dbd5030.lp after 0.06 seconds
-Academic license - for non-commercial use only - expires 2022-10-06
-Using license file /home/hosein/Programs/gurobi9.1.1_linux64/gurobi.lic
-Read LP format model from file temp/milp_mg10_ms14_min_31b62a450d69d03e14cd0a7dbd5030.lp
-Reading time = 0.06 seconds
+MILP model was generated after 0.02 seconds
+Set parameter Username
+Set parameter LicenseID to value 2782105
+Academic license - for non-commercial use only - expires 2027-02-23
+Read LP format model from file temp/milp_mg10_ms14_min_a0f9cf732211135c51793acd11593b.lp
+Reading time = 0.04 seconds
 : 39458 rows, 20480 columns, 212544 nonzeros
-Parameter MIPFocus unchanged
-   Value: 0  Min: 0  Max: 3  Default: 0
-Parameter Threads unchanged
-   Value: 0  Min: 0  Max: 1024  Default: 0
-Parameter OutputFlag unchanged
-   Value: 1  Min: 0  Max: 1  Default: 1
-Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
-Optimize a model with 39458 rows, 20480 columns and 212544 nonzeros
+Set parameter MIPFocus to value 0
+Set parameter Threads to value 0
+Set parameter OutputFlag to value 1
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (mac64[arm] - Darwin 24.6.0 24G517)
+
+CPU model: Apple M4
+Thread count: 10 physical cores, 10 logical processors, using up to 10 threads
+
+Optimize a model with 39458 rows, 20480 columns and 212544 nonzeros (Min)
 Model fingerprint: 0x853798bd
+Model has 64 linear objective coefficients
 Variable types: 0 continuous, 20480 integer (20480 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 4e+01]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 1e+00]
   RHS range        [1e+00, 1e+02]
-Presolve removed 4129 rows and 2784 columns
-Presolve time: 0.33s
-Presolved: 35329 rows, 17696 columns, 200240 nonzeros
-Variable types: 0 continuous, 17696 integer (17696 binary)
+
+Presolve removed 5093 rows and 3298 columns
+Presolve time: 0.48s
+Presolved: 34365 rows, 17182 columns, 197325 nonzeros
+Variable types: 0 continuous, 17182 integer (17182 binary)
 Found heuristic solution: objective 7.0000000
-
 Deterministic concurrent LP optimizer: primal and dual simplex
-Showing first log only...
+Showing primal log only...
 
-Concurrent spin time: 0.00s
+Concurrent spin time: 0.19s (can be avoided by choosing Method=3)
 
 Solved with primal simplex
 
-Root relaxation: objective 1.650393e-09, 6847 iterations, 2.85 seconds
+Root relaxation: objective 4.241545e-09, 7530 iterations, 1.39 seconds (5.72 work units)
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    0.00000    0 1825    7.00000    0.00000   100%     -    6s
-     0     0    0.00000    0 2139    7.00000    0.00000   100%     -   24s
-H    0     0                         6.00000    0.00000   100%     -   24s
+     0     0    0.00000    0 1315    7.00000    0.00000   100%     -    2s
+H    0     0                       6.0000000    0.00000   100%     -   11s
+     0     0    0.00000    0 1619    6.00000    0.00000   100%     -   11s
+     0     0    0.00000    0 1700    6.00000    0.00000   100%     -   13s
+     0     0    0.00000    0 2213    6.00000    0.00000   100%     -   19s
+     0     0    0.00000    0 2213    6.00000    0.00000   100%     -   19s
+     0     0    0.00000    0 2195    6.00000    0.00000   100%     -   22s
+   ....
+  3956  1865    1.73377   34  445    6.00000    1.00000  83.3%  2261  579s
+^C (manually interrupted)
 Interrupt request received
-     0     0          -    0         6.00000    0.00000   100%     -   28s
+  4037  1849    1.00455   28  931    6.00000    1.00000  83.3%  2301  581s
 
-Cutting planes:
-  Cover: 161
-  Clique: 835
-  MIR: 90
-  StrongCG: 1
-  Zero half: 11
-  RLT: 71
-  BQP: 8
-
-Explored 1 nodes (19271 simplex iterations) in 28.41 seconds
-Thread count was 12 (of 12 available processors)
+Explored 4050 nodes (9379254 simplex iterations) in 581.44 seconds (2720.99 work units)
+Thread count was 10 (of 10 available processors)
 
 Solution count 2: 6 7 
 
 Solve interrupted
-Best objective 6.000000000000e+00, best bound 1.309436338026e-08, gap 100.0000%
-Solving process was finished after 28.42 seconds
-Number of guesses: 6
-Number of known variables in the final state: 96 out of 96
-The following 6 variable(s) are guessed:
-K_0_0_2, X_0_1_2, K_0_1_3, K_0_2_0, K_0_2_2, W_0_0_2
+Best objective 6.000000000000e+00, best bound 1.000000000000e+00, gap 83.3333%
+Solving process was finished after 581.45 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         6
+Known in final state:      96 / 96
+Max steps used:            14
+------------------------------------------------------------
+Guessed variable(s) (6):
+  K_0_0_2
+  K_0_0_3
+  K_0_1_3
+  K_0_2_0
+  W_0_0_2
+  W_0_3_3
+============================================================
 ```
 
 ***Groebner***
@@ -1563,20 +2119,46 @@ python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_1r_mg6_ms14.txt
 Terminal outputs:
 
 ```text
-Generating the Boolean Polynomial Ring in 96 variables
-Generation of Boolean polynomial ring was finished after 0.01 seconds
-Generation of Horn-Satisfiability problem was started - 2021-10-27 16:21:34.526037
-Generation of Horn-satisfiability problem was finished after 0.08 seconds
-CNF to ANF conversion using the simple method was started - 2021-10-27 16:21:34.602392
-Results were written into the temp/anf_bc8d30b98484ad24c3bf3471efad8b.anf
-Algebraic representation in ANF form was generated after 0.03 seconds
-The main ideal was constructed and stored into temp/main_ideal_bc8d30b98484ad24c3bf3471efad8b as a SageMath object file
-Computing the Groebner basis was started - 2021-10-27 16:21:34.682522
-Computing the Groebner basis was finished after 8.71 seconds
-All guess bases were written into temp/guess_basis_bc8d30b98484ad24c3bf3471efad8b.txt
-Number of guesses: 6
-The following 6 variable(s) are guessed:
-K_1_3_3, K_1_3_2, K_1_3_1, K_1_3_0, K_1_2_0, K_1_1_0
+============================================================
+GRÖBNER BASIS SOLVER — aes1kp 1 Rounds
+============================================================
+Variables: 96 | Relations: 1168
+Term ordering: degrevlex | Overlapping: 2
+CNF→ANF method: simple
+------------------------------------------------------------
+POLYNOMIAL RING CONSTRUCTION
+------------------------------------------------------------
+Generating Boolean Polynomial Ring in 96 variables ...
+Ring constructed in 0.01 seconds
+------------------------------------------------------------
+HORN-SAT GENERATION
+------------------------------------------------------------
+Horn-SAT problem generated in 0.02 seconds
+------------------------------------------------------------
+CNF → ANF CONVERSION (simple)
+------------------------------------------------------------
+Results were written into the temp/anf_94efe633bf5f01b2c4d3ab440c347a.anf
+ANF representation generated in 0.01 seconds
+Main ideal stored at: temp/main_ideal_94efe633bf5f01b2c4d3ab440c347a
+------------------------------------------------------------
+GRÖBNER BASIS COMPUTATION
+------------------------------------------------------------
+Gröbner basis computed in 1.07 seconds
+All guess bases were written into temp/guess_basis_94efe633bf5f01b2c4d3ab440c347a.txt
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         6
+------------------------------------------------------------
+Guessed variable(s) (6):
+  K_0_0_0
+  K_0_0_1
+  K_0_0_2
+  K_0_0_3
+  K_0_1_3
+  K_0_2_3
+============================================================
 ```
 
 If we use the Groebner basis, Autoguess generates multiple minimal guess bases at once and stores them inside the [temp](temp) folder. For example, in the above example, in addition to `[K_1_3_3, K_1_3_2, K_1_3_1, K_1_3_0, K_1_2_0, K_1_1_0]` Autoguess discovered many other minimal guess bases some of which are represented below:
@@ -1620,34 +2202,85 @@ python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_2r_mg10_ms20.tx
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.91 seconds
+============================================================
+SAT SOLVER — aes1kp 2 Rounds
+============================================================
+Variables: 144 | Relations: 2332
+Max guess: 10 | Max steps: 22
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.22 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 5.20 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 26.53 seconds
-Number of guesses: 10
-Number of known variables in the final state: 144 out of 144
-The following 10 variable(s) are guessed:
-X_1_0_2, X_1_1_3, X_1_2_1, W_1_0_3, K_2_1_0, W_1_1_2, W_1_1_3, W_1_2_1, W_1_3_2, W_1_3_3
+============================================================
+RESULTS
+============================================================
+Number of guesses:         10
+Known in final state:      144 / 144
+Max steps used:            22
+------------------------------------------------------------
+Guessed variable(s) (10):
+  K_0_1_0
+  K_0_3_2
+  W_0_0_2
+  K_1_1_3
+  X_1_2_0
+  W_0_2_3
+  K_1_3_3
+  X_1_3_3
+  W_1_2_2
+  W_1_3_2
+============================================================
 ```
 
 ***SMT***
 
 ```sh
-python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_2r_mg10_ms20.txt --solver smt --smtsolver btor --maxguess 10 --maxsteps 20
+python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_2r_mg10_ms20.txt --solver smt --smtsolver z3 --maxguess 10 --maxsteps 20
 ```
 
 Terminal output:
 
 ```text
-Generating the SMT model ...
-SMT model was generated after 9.56 seconds
-Checking the satisfiability of the constructed SMT model using btor ...
-Checking was finished after 208.77 seconds
-Number of guesses: 10
-Number of known variables in the final state: 144 out of 144
-The following 10 variable(s) are guessed:
-K_0_0_3, K_0_1_0, K_1_0_3, X_1_0_3, W_0_1_0, K_1_1_0, K_1_1_3, X_1_2_1, X_1_3_2, W_0_3_3
+============================================================
+SMT SOLVER — aes1kp 2 Rounds
+============================================================
+Variables: 144 | Relations: 2332
+Max guess: 10 | Max steps: 20
+Solver: z3
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SMT model generated in 2.03 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 28.02 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         10
+Known in final state:      144 / 144
+Max steps used:            20
+------------------------------------------------------------
+Guessed variable(s) (10):
+  K_0_2_1
+  X_1_0_2
+  X_1_1_0
+  W_0_1_3
+  X_1_2_0
+  K_1_3_3
+  X_1_3_3
+  W_1_0_2
+  W_1_0_3
+  W_1_3_2
+============================================================
 ```
 
 ***Groebner***
@@ -1659,6 +2292,7 @@ python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_2r_mg10_ms20.tx
 Terminal output:
 
 ```text
+(This output is from the old version of Autoguess running on a different machine: OS: Linux 5.4.0-84-generic - Ubuntu, CPU: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz, RAM: 16 GB)
 Generating the Boolean Polynomial Ring in 144 variables
 Generation of the Boolean polynomial ring was finished after 0.03 seconds
 CNF to ANF conversion using the block-wise method was started - 2021-04-03 12:22:23.463899
@@ -1686,15 +2320,45 @@ python3 autoguess.py --inputfile ciphers/AES/relationfile_aes1kp_3r_mg15_ms22.tx
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 1.44 seconds
+============================================================
+SAT SOLVER — aes1kp 3 Rounds
+============================================================
+Variables: 192 | Relations: 3472
+Max guess: 15 | Max steps: 22
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.39 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 31.89 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 34.51 seconds
-Number of guesses: 15
-Number of known variables in the final state: 192 out of 192
-The following 15 variable(s) are guessed:
-K_2_0_0, X_2_0_3, K_2_1_1, K_2_1_2, X_2_1_3, W_1_2_0, X_2_2_0, K_2_2_1, K_2_3_1, W_2_0_3, W_2_1_2, W_2_1_3, W_2_2_2, W_2_2_3, K_3_3_0
+============================================================
+RESULTS
+============================================================
+Number of guesses:         15
+Known in final state:      192 / 192
+Max steps used:            22
+------------------------------------------------------------
+Guessed variable(s) (15):
+  X_0_2_2
+  W_0_3_0
+  K_2_0_0
+  X_2_0_0
+  K_2_1_0
+  K_2_1_2
+  K_2_2_0
+  K_2_2_1
+  X_2_3_1
+  X_2_3_2
+  K_3_1_0
+  W_2_1_2
+  W_2_1_3
+  W_2_2_3
+  W_2_3_3
+============================================================
 ```
 
 ---
@@ -1714,15 +2378,34 @@ python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.08 seconds
+============================================================
+SAT SOLVER — khudra_alternative 14 Rounds
+============================================================
+Variables: 70 | Relations: 61
+Max guess: 4 | Max steps: 16
+Solver: lingeling
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.04 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.65 seconds
 
-Solving with lingeling ...
-Time used by SAT solver: 0.14 seconds
-Number of guesses: 4
-Number of known variables in the final state: 70 out of 70
-The following 4 variable(s) are guessed:
-k_2, x_3_3, x_13_0, x_13_2
+============================================================
+RESULTS
+============================================================
+Number of guesses:         4
+Known in final state:      70 / 70
+Max steps used:            16
+------------------------------------------------------------
+Guessed variable(s) (4):
+  x_3_3
+  x_12_1
+  x_13_2
+  x_14_3
+============================================================
 ```
 
 Solving with [CaDiCaL](https://github.com/arminbiere/cadical153).
@@ -1734,36 +2417,75 @@ python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.08 seconds
+============================================================
+SAT SOLVER — khudra_alternative 14 Rounds
+============================================================
+Variables: 70 | Relations: 61
+Max guess: 4 | Max steps: 16
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.03 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.61 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 0.01 seconds
-Number of guesses: 4
-Number of known variables in the final state: 70 out of 70
-The following 4 variable(s) are guessed:
-k_2, x_5_1, x_14_3, x_14_1
+============================================================
+RESULTS
+============================================================
+Number of guesses:         4
+Known in final state:      70 / 70
+Max steps used:            16
+------------------------------------------------------------
+Guessed variable(s) (4):
+  x_2_0
+  x_12_1
+  x_13_2
+  x_14_3
+============================================================
 ```
 
 ***SMT***
 
-Solving via [Boolector](https://github.com/boolector/boolector):
+Solving via [cvc5](https://cvc5.github.io):
 
 ```sh
-python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_14r_mg4_ms16.txt --solver smt --smtsolver btor --maxguess 4 --maxsteps 16
+python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_14r_mg4_ms16.txt --solver smt --smtsolver cvc5 --maxguess 4 --maxsteps 16
 ```
 
 Terminal output:
 
 ```text
-Generating the SMT model ...
-SMT model was generated after 0.32 seconds
-Checking the satisfiability of the constructed SMT model using btor ...
-Checking was finished after 0.34 seconds
-Number of guesses: 4
-Number of known variables in the final state: 70 out of 70
-The following 4 variable(s) are guessed:
-k_3, k_2, x_3_0, k_4
+============================================================
+SMT SOLVER — khudra_alternative 14 Rounds
+============================================================
+Variables: 70 | Relations: 61
+Max guess: 4 | Max steps: 16
+Solver: cvc5
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SMT model generated in 0.14 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 1.86 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         4
+Known in final state:      70 / 70
+Max steps used:            16
+------------------------------------------------------------
+Guessed variable(s) (4):
+  x_11_1
+  x_12_1
+  x_13_0
+  x_14_1
+============================================================
 ```
 
 Solving with [Z3](https://github.com/Z3Prover/z3):
@@ -1775,14 +2497,34 @@ python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_
 Terminal output:
 
 ```text
-Generating the SMT model ...
-SMT model was generated after 0.49 seconds
-Checking the satisfiability of the constructed SMT model using z3 ...
-Checking was finished after 3.29 seconds
-Number of guesses: 4
-Number of known variables in the final state: 70 out of 70
-The following 4 variable(s) are guessed:
-k_4, x_11_2, x_11_1, x_13_1
+============================================================
+SMT SOLVER — khudra_alternative 14 Rounds
+============================================================
+Variables: 70 | Relations: 61
+Max guess: 4 | Max steps: 16
+Solver: z3
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SMT model generated in 0.20 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 0.21 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         4
+Known in final state:      70 / 70
+Max steps used:            16
+------------------------------------------------------------
+Guessed variable(s) (4):
+  x_1_0
+  k_0
+  k_4
+  dummy_var
+============================================================
 ```
 
 ***CP***
@@ -1794,15 +2536,34 @@ python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_
 Terminal output:
 
 ```text
-Generating the CP model ...
-CP model was generated after 0.27 seconds
-Solving the CP model with or-tools ...
-Solving process was finished after 2.46 seconds
-Number of guesses: 4
-Number of known variables in the final state: 70 out of 70
-The following 4 variable(s) are guessed:
-x_2_0, x_3_0, x_13_0, x_13_2
+============================================================
+CP SOLVER — khudra_alternative 14 Rounds
+============================================================
+Variables: 70 | Relations: 61
+Max guess: 50 | Max steps: 16
+Solver: cp-sat
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+CP model generated in 0.16 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 1.60 seconds
 
+============================================================
+RESULTS
+============================================================
+Number of guesses:         4
+Known in final state:      70 / 70
+Max steps used:            16
+------------------------------------------------------------
+Guessed variable(s) (4):
+  x_1_0
+  x_2_0
+  k_2
+  x_13_2
+============================================================
 ```
 
 ***MILP***
@@ -1815,69 +2576,71 @@ Terminal output:
 
 ```text
 Generating the MILP model ...
-MILP model was generated, and written into temp/milp_mg50_ms16_min_a3dd85a1d1b363d1e4611037f77489.lp after 0.02 seconds
-Academic license - for non-commercial use only - expires 2022-10-06
-Using license file /home/hosein/Programs/gurobi9.1.1_linux64/gurobi.lic
-Read LP format model from file temp/milp_mg50_ms16_min_a3dd85a1d1b363d1e4611037f77489.lp
+MILP model was generated after 0.00 seconds
+Set parameter Username
+Set parameter LicenseID to value 2782105
+Academic license - for non-commercial use only - expires 2027-02-23
+Read LP format model from file temp/milp_mg50_ms16_min_57d2ce16b9d4803842b71722d265e9.lp
 Reading time = 0.01 seconds
 : 7818 rows, 4998 columns, 26444 nonzeros
-Parameter MIPFocus unchanged
-   Value: 0  Min: 0  Max: 3  Default: 0
-Parameter Threads unchanged
-   Value: 0  Min: 0  Max: 1024  Default: 0
-Parameter OutputFlag unchanged
-   Value: 1  Min: 0  Max: 1  Default: 1
-Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
-Optimize a model with 7818 rows, 4998 columns and 26444 nonzeros
+Set parameter MIPFocus to value 0
+Set parameter Threads to value 0
+Set parameter OutputFlag to value 1
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (mac64[arm] - Darwin 24.6.0 24G517)
+
+CPU model: Apple M4
+Thread count: 10 physical cores, 10 logical processors, using up to 10 threads
+
+Optimize a model with 7818 rows, 4998 columns and 26444 nonzeros (Min)
 Model fingerprint: 0xb82c65b3
+Model has 62 linear objective coefficients
 Variable types: 0 continuous, 4998 integer (4998 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 6e+00]
   Objective range  [1e+00, 1e+00]
   Bounds range     [1e+00, 1e+00]
   RHS range        [1e+00, 7e+01]
-Presolve removed 3182 rows and 2659 columns
-Presolve time: 0.08s
-Presolved: 4636 rows, 2339 columns, 17885 nonzeros
-Variable types: 0 continuous, 2339 integer (2339 binary)
+
+Presolve removed 3553 rows and 2883 columns
+Presolve time: 0.06s
+Presolved: 4265 rows, 2115 columns, 16730 nonzeros
+Variable types: 0 continuous, 2115 integer (2115 binary)
 Found heuristic solution: objective 4.0000000
 
-Root relaxation: objective 1.975190e-07, 5943 iterations, 0.79 seconds
+Root relaxation: objective 3.661531e-07, 4396 iterations, 0.26 seconds (0.92 work units)
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    0.00000    0 1097    4.00000    0.00000   100%     -    0s
-     0     0    0.00000    0 1242    4.00000    0.00000   100%     -    2s
-     0     0    0.00000    0 1230    4.00000    0.00000   100%     -    2s
-     0     0    0.00000    0 1248    4.00000    0.00000   100%     -    4s
-     0     0    0.00000    0 1247    4.00000    0.00000   100%     -    5s
+     0     0    0.00000    0 1080    4.00000    0.00000   100%     -    0s
+     0     0    0.00000    0 1161    4.00000    0.00000   100%     -    0s
+
+  4054  1589 infeasible   36         4.00000    1.00000  75.0%   825   80s
+^C
 Interrupt request received
-     0     0          -    0         4.00000    0.00000   100%     -    5s
 
-Cutting planes:
-  Cover: 98
-  Implied bound: 13
-  Clique: 380
-  MIR: 40
-  StrongCG: 1
-  Zero half: 13
-  RLT: 223
-  BQP: 23
-
-Explored 1 nodes (19162 simplex iterations) in 5.45 seconds
-Thread count was 12 (of 12 available processors)
+Explored 4205 nodes (3712088 simplex iterations) in 84.30 seconds (239.77 work units)
+Thread count was 10 (of 10 available processors)
 
 Solution count 1: 4 
 
 Solve interrupted
-Best objective 4.000000000000e+00, best bound 3.741577903488e-07, gap 100.0000%
-Solving process was finished after 5.45 seconds
-Number of guesses: 4
-Number of known variables in the final state: 70 out of 70
-The following 4 variable(s) are guessed:
-x_11_1, x_12_1, x_14_1, dummy_var
+Best objective 4.000000000000e+00, best bound 1.000000000000e+00, gap 75.0000%
+Solving process was finished after 84.30 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         4
+Known in final state:      70 / 70
+Max steps used:            16
+------------------------------------------------------------
+Guessed variable(s) (4):
+  x_11_1
+  x_12_1
+  x_14_1
+  dummy_var
+============================================================
 ```
 
 ***Groebner***
@@ -1889,20 +2652,41 @@ python3 autoguess.py --inputfile ciphers/Khudra/relationfile_khudra_alternative_
 Termnal output
 
 ```text
-Generating the Boolean Polynomial Ring in 70 variables
-Generation of Boolean polynomial ring was finished after 0.01 seconds
-Generation of Horn-Satisfiability problem was started - 2021-10-28 11:55:11.332241
-Generation of Horn-satisfiability problem was finished after 0.01 seconds
-CNF to ANF conversion using the simple method was started - 2021-10-28 11:55:11.341704
-Results were written into the temp/anf_23f64b9d82442ab97d6aea9761ef81.anf
-Algebraic representation in ANF form was generated after 0.00 seconds
-The main ideal was constructed and stored into temp/main_ideal_23f64b9d82442ab97d6aea9761ef81 as a SageMath object file
-Computing the Groebner basis was started - 2021-10-28 11:55:11.351257
-Computing the Groebner basis was finished after 1.21 seconds
-All guess bases were written into temp/guess_basis_23f64b9d82442ab97d6aea9761ef81.txt
-Number of guesses: 4
-The following 4 variable(s) are guessed:
-dummy_var, x_14_1, x_12_1, x_11_1
+============================================================
+GRÖBNER BASIS SOLVER — khudra_alternative 14 Rounds
+============================================================
+Variables: 70 | Relations: 61
+Term ordering: degrevlex | Overlapping: 2
+CNF→ANF method: simple
+------------------------------------------------------------
+POLYNOMIAL RING CONSTRUCTION
+------------------------------------------------------------
+Generating Boolean Polynomial Ring in 70 variables ...
+Ring constructed in 0.00 seconds
+------------------------------------------------------------
+HORN-SAT GENERATION
+------------------------------------------------------------
+Horn-SAT problem generated in 0.00 seconds
+------------------------------------------------------------
+CNF → ANF CONVERSION (simple)
+------------------------------------------------------------
+ANF representation generated in 0.00 seconds
+------------------------------------------------------------
+GRÖBNER BASIS COMPUTATION
+------------------------------------------------------------
+Gröbner basis computed in 0.21 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         4
+------------------------------------------------------------
+Guessed variable(s) (4):
+  k_3
+  x_0_3
+  x_2_1
+  x_3_3
+============================================================
 ```
 
 Mreover, after running the above command, basides the `[dummy_var, x_14_1, x_12_1, x_11_1]`, Autoguess discovered the following minimal guess bases as well:
@@ -1956,15 +2740,31 @@ python3 autoguess.py --inputfile ciphers/SKINNY-TK1/relationfile_skinnytk1_11r_m
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 1.31 seconds
+============================================================
+SAT SOLVER — skinnytk1 11 Rounds
+============================================================
+Variables: 384 | Relations: 352
+Max guess: 15 | Max steps: 75
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.40 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 8.62 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 14.71 seconds
-Number of guesses: 15
-Number of known variables in the final state: 384 out of 384
-The following 15 variable(s) are guessed:
-tk_15, y_1_2, x_2_1, x_3_4, x_3_1, x_3_2, x_3_3, y_3_2, y_4_5, y_4_6, y_4_9, x_8_10, y_8_5, y_9_4, x_10_2
+============================================================
+RESULTS
+============================================================
+Number of guesses:         15
+Known in final state:      384 / 384
+Max steps used:            75
+------------------------------------------------------------
+Guessed variable(s) (15):
+  tk_15, y_1_2, x_2_1, x_3_4, x_3_1, x_3_2, x_3_3, y_3_2, y_4_5, y_4_6, y_4_9, x_8_10, y_8_5, y_9_4, x_10_2
+============================================================
 ```
 
 ![skinny_tk1_11_rounds_gd_dg](ciphers/SKINNY-TK1/Shapes/skinny_tk1_11_rounds_gd_dg.svg)
@@ -1986,15 +2786,31 @@ python3 autoguess.py --inputfile ciphers/Enocoro128v2/relationfile_enocoro_16clk
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.20 seconds
+============================================================
+SAT SOLVER — enocoro 16 clock cycles
+============================================================
+Variables: 113 | Relations: 128
+Max guess: 18 | Max steps: 22
+Solver: minisat22
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.07 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 1.97 seconds
 
-Solving with minisat22 ...
-Time used by SAT solver: 0.69 seconds
-Number of guesses: 18
-Number of known variables in the final state: 113 out of 113
-The following 18 variable(s) are guessed:
-b_0, b_4, c_6, d_2, e_16, e_4, e_5, a_3, e_7, e_20, e_8, a_6, b_10, e_11, a_10, a_12, d_22, a_14
+============================================================
+RESULTS
+============================================================
+Number of guesses:         18
+Known in final state:      113 / 113
+Max steps used:            22
+------------------------------------------------------------
+Guessed variable(s) (18):
+  b_0, b_4, c_6, d_2, e_16, e_4, e_5, a_3, e_7, e_20, e_8, a_6, b_10, e_11, a_10, a_12, d_22, a_14
+============================================================
 ```
 
 As you can see, thansk to the SAT-based method implemented in Autoguess the current best guess-and-determine atack on Enocoro128-v2 can be found in less than a second, whereas finding this atack via the other methods such as MILP-based or Groebner basis approaches takes much longer. Autoguess also generates the following shape representing the determination flow in the discovered GD attack.
@@ -2010,14 +2826,31 @@ python3 autoguess.py --inputfile ciphers/Enocoro128v2/relationfile_enocoro_16clk
 Terminal output:
 
 ```text
-Generating the SMT model ...
-SMT model was generated after 1.14 seconds
-Checking the satisfiability of the constructed SMT model using btor ...
-Checking was finished after 3.17 seconds
-Number of guesses: 18
-Number of known variables in the final state: 113 out of 113
-The following 18 variable(s) are guessed:
-c_5, b_0, c_0, e_1, c_6, b_1, a_3, b_6, c_4, e_18, b_7, d_13, e_19, a_5, b_8, c_10, e_24, e_12
+============================================================
+SMT SOLVER — enocoro 16 clock cycles
+============================================================
+Variables: 113 | Relations: 128
+Max guess: 18 | Max steps: 22
+Solver: btor
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SMT model generated in 0.47 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 18.63 seconds
+
+============================================================
+RESULTS
+============================================================
+Number of guesses:         18
+Known in final state:      113 / 113
+Max steps used:            22
+------------------------------------------------------------
+Guessed variable(s) (18):
+  b_3, a_0, d_9, c_0, d_0, e_3, b_4, c_6, c_2, d_2, c_7, b_2, d_3, b_6, b_8, a_6, b_9, a_9
+============================================================
 ```
 
 ---
@@ -2035,15 +2868,31 @@ python3 autoguess.py --inputfile ciphers/KCipher2/relationfile_kcipher2_8clk_mg1
 Terminal output:
 
 ```text
-Generating the SAT model ...
-SAT model was generated after 0.29 seconds
+============================================================
+SAT SOLVER — %s %d Rounds
+============================================================
+Variables: 116 | Relations: 96
+Max guess: 10 | Max steps: 19
+Solver: cadical153
+------------------------------------------------------------
+MODEL GENERATION
+------------------------------------------------------------
+SAT model generated in 0.16 seconds
+------------------------------------------------------------
+SOLVING
+------------------------------------------------------------
+Solving finished in 63.56 seconds
 
-Solving with cadical153 ...
-Time used by SAT solver: 7.08 seconds
-Number of guesses: 10
-Number of known variables in the final state: 116 out of 116
-The following 10 variable(s) are guessed:
-A_0, B_1, B_6, L2_1, B_10, L1_3, A_8, L2_5, A_10, L2_8
+============================================================
+RESULTS
+============================================================
+Number of guesses:         10
+Known in final state:      116 / 116
+Max steps used:            19
+------------------------------------------------------------
+Guessed variable(s) (10):
+  A_0, B_1, B_6, L2_1, B_10, L1_3, A_8, L2_5, A_10, L2_8
+============================================================
 ```
 
 ![kcipher2_8clks_10g_19s_gd_dg](ciphers/KCipher2/Shapes/kcipher2_8clks_10g_19s_gd_dg.svg)
@@ -3052,6 +3901,6 @@ If you use the paper or the tool in your own work leading to an academic publica
 
 ## License
 
-[![license](./miscellaneous/license-MIT-informational.svg)](https://en.wikipedia.org/wiki/MIT_License)
+[![license](https://img.shields.io/badge/license-GPL--3.0-green.svg)](./LICENSE.txt)
 
-Autoguess is released under the [MIT](./LICENSE.txt) license.
+Autoguess is released under the [GPL-3.0](./LICENSE.txt) license.

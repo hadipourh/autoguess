@@ -24,11 +24,11 @@ from logging import root
 import os
 import time
 import random
-from core.inputparser import read_relation_file
+from .inputparser import read_relation_file
 from threading import Timer
-from core.parsesolution import parse_solver_solution
-from core.graphdrawer import draw_graph
-from config import TEMP_DIR
+from .parsesolution import parse_solver_solution
+from .graphdrawer import draw_graph
+from autoguess.config import TEMP_DIR
 from operator import itemgetter
 
 class Elim:

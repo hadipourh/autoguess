@@ -22,7 +22,7 @@ In case you use this tool please include the above copyright informations (name,
 
 from logging import log
 import subprocess
-from config import PATH_SAGE, TEMP_DIR
+from autoguess.config import PATH_SAGE, TEMP_DIR
 
 def search_using_cp(parameters):
     """
@@ -30,7 +30,7 @@ def search_using_cp(parameters):
     and then solve it
     """
 
-    from core.gdcp import ReduceGDtoCP
+    from .gdcp import ReduceGDtoCP
 
     gdsmt = ReduceGDtoCP(inputfile_name=parameters['inputfile'],
                     outputfile_name=parameters['outputfile'],
@@ -54,7 +54,7 @@ def search_using_milp(parameters):
     and then solve it
     """
     
-    from core.gdmilp import ReduceGDtoMILP
+    from .gdmilp import ReduceGDtoMILP
     
     gdmilp = ReduceGDtoMILP(inputfile_name=parameters['inputfile'],
                         outputfile_name=parameters['outputfile'],
@@ -76,8 +76,8 @@ def search_using_sat(parameters):
     Convert the guess-and-detrmine or key-bridging problem to a SAT problem,
     and then solve it
     """
-    from core.gdz3smt import ReduceGDtoZ3SMT
-    from core.gdsat import ReduceGDtoSAT
+    from .gdz3smt import ReduceGDtoZ3SMT
+    from .gdsat import ReduceGDtoSAT
 
     # Using Z3 CNF converter:
     # gdsat = ReduceGDtoZ3SMT(inputfile_name=parameters['inputfile'],
@@ -113,7 +113,7 @@ def search_using_smt(parameters):
     and then solve it
     """
 
-    from core.gdsmt import ReduceGDtoSMT
+    from .gdsmt import ReduceGDtoSMT
 
     gdsmt = ReduceGDtoSMT(inputfile_name=parameters['inputfile'],
                         outputfile_name=parameters['outputfile'],
@@ -135,8 +135,10 @@ def search_using_groebnerbasis(parameters):
     Convert the guess-and-determine or key-bridging problem to the problem of computing Groebner basis,
     and then solve it
     """
+    import pathlib
+    _gdgroebner_path = str(pathlib.Path(__file__).parent / "gdgroebner.py")
 
-    sage_process = subprocess.call([PATH_SAGE, "-python3", "./core/gdgroebner.py", 
+    sage_process = subprocess.call([PATH_SAGE, "-python3", _gdgroebner_path, 
     "--inputfile", parameters['inputfile'],
     "--output", parameters['outputfile'],
     "--preprocess", str(parameters['preprocess']),
@@ -148,7 +150,7 @@ def search_using_groebnerbasis(parameters):
     "--log", str(parameters['log'])])
 
 def search_using_mark(parameters):
-    from core.gdmark import Mark
+    from .gdmark import Mark
     gdmark = Mark(inputfile_name=parameters['inputfile'],
                 outputfile_name=parameters['outputfile'],
                 tikz=parameters['tikz'],
@@ -159,7 +161,7 @@ def search_using_mark(parameters):
 
 
 def search_using_elim(parameters):
-    from core.gdelim import Elim
+    from .gdelim import Elim
     gdmark = Elim(inputfile_name=parameters['inputfile'],
                 outputfile_name=parameters['outputfile'],
                 tikz=parameters['tikz'],
@@ -174,8 +176,8 @@ def search_using_propagate(parameters):
     Propagate knowledge through a system of connection relations
     starting from a given set of initially known variables.
     """
-    from core.propagate import propagate_knowledge
-    from core.inputparser import read_relation_file
+    from .propagate import propagate_knowledge
+    from .inputparser import read_relation_file
 
     parsed_data = read_relation_file(parameters['inputfile'],
                                      preprocess=parameters.get('preprocess', 0),
