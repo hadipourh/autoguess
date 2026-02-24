@@ -32,6 +32,7 @@ dependencies = [
     "pysmt",
     "graphviz",
     "dot2tex",
+    "setuptools",  # pysmt uses pyximport which needs distutils (removed in Python 3.12)
 ]
 
 [project.optional-dependencies]

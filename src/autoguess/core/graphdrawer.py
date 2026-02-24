@@ -68,7 +68,16 @@ def draw_graph(vertices, edges, known_variables, guessed_vars, output_dir, tikz,
         digraph_tikz.node(vertex_name, color=color, style="filled", shape=shape, texmode="math")
 
     graph_file_name = output_dir + "_graph"
-    directed_graph.render(graph_file_name)
+    try:
+        directed_graph.render(graph_file_name)
+    except Exception as exc:
+        # Save the .gv source even if the dot binary is missing
+        src_path = graph_file_name + ".gv"
+        directed_graph.save(src_path)
+        print(f"WARNING: Could not render graph ({exc}).")
+        print(f"  Graphviz source saved to: {src_path}")
+        print(f"  Install the Graphviz system package to enable rendering:")
+        print(f"    apt install graphviz  /  brew install graphviz")
 
     if tikz == 1:
         print("Generating the tikz code ...")

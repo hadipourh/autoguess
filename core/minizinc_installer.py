@@ -135,26 +135,22 @@ def _extract_dmg_fallback(archive_path, dest_dir):
 
 
 def _install_via_system_package_manager():
-    """Attempt to install MiniZinc via apt or snap on Linux ARM64."""
+    """Attempt to install MiniZinc IDE via snap on Linux ARM64.
+
+    The snap package ``minizinc`` ships the full MiniZinc IDE bundle
+    (with Gecode, Chuffed, etc.).  The apt package ``minizinc`` is a
+    bare-bones build without bundled solvers, so we do NOT use it.
+    """
     import subprocess as _sp
 
-    # Try snap first (MiniZinc publishes arm64 snaps)
+    # snap "minizinc" is the full IDE bundle with solver backends
     if shutil.which("snap"):
         print("Attempting: snap install minizinc --classic ...")
         rc = _sp.call(["snap", "install", "minizinc", "--classic"])
         if rc == 0 and shutil.which("minizinc"):
-            print("\nMiniZinc installed successfully via snap.")
+            print("\nMiniZinc IDE installed successfully via snap.")
             return True
         print("snap install failed or minizinc not found after install.\n")
-
-    # Try apt
-    if shutil.which("apt-get"):
-        print("Attempting: apt-get install -y minizinc ...")
-        rc = _sp.call(["apt-get", "install", "-y", "minizinc"])
-        if rc == 0 and shutil.which("minizinc"):
-            print("\nMiniZinc installed successfully via apt.")
-            return True
-        print("apt install failed or minizinc not found after install.\n")
 
     return False
 
@@ -178,17 +174,19 @@ def install_minizinc():
     # On Linux ARM64, MiniZinc doesn't provide pre-built binaries.
     # Try system package managers instead.
     if fmt == "system":
-        print("No pre-built MiniZinc binary available for this platform.")
+        print("No pre-built MiniZinc IDE binary available for this platform.")
         print("Trying system package manager ...\n")
         if _install_via_system_package_manager():
             print("Autoguess will automatically detect it on next run.")
             return
         print(
-            "ERROR: Could not install MiniZinc automatically.\n"
-            "Please install MiniZinc manually:\n"
-            "  - snap install minizinc --classic\n"
-            "  - apt install minizinc\n"
+            "ERROR: Could not install MiniZinc IDE automatically.\n"
+            "Please install MiniZinc IDE manually:\n"
+            "  - snap install minizinc --classic   (recommended — full IDE bundle)\n"
             "  - Or build from source: https://github.com/MiniZinc/MiniZincIDE\n"
+            "\n"
+            "NOTE: 'apt install minizinc' provides only a bare-bones build\n"
+            "without bundled solvers and is NOT recommended.\n"
         )
         sys.exit(1)
 
