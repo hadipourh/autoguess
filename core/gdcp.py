@@ -27,7 +27,7 @@ import minizinc
 from core.inputparser import read_relation_file
 from core.parsesolution import parse_solver_solution
 from core.graphdrawer import draw_graph
-from config import TEMP_DIR, ensure_minizinc_driver
+from config import TEMP_DIR, MINIZINC_LIB_DIR, ensure_minizinc_driver
 
 ensure_minizinc_driver()
 from core.varnames import step_var, path_var
@@ -262,7 +262,24 @@ class ReduceGDtoCP:
         print('SOLVING')
         print('-' * 60)
         start_time = time.time()
-        result = self.cp_inst.solve(timeout=time_limit, processes=nthreads, random_seed=rand_int)
+        # Temporarily set LD_LIBRARY_PATH for bundled solver shared libs
+        # (e.g. fzn-cp-sat / OR-Tools).  Scoped here so it does not pollute
+        # the environment for later subprocesses like Graphviz's dot.
+        _old_ld = os.environ.get("LD_LIBRARY_PATH")
+        if MINIZINC_LIB_DIR:
+            _ld = _old_ld or ""
+            if MINIZINC_LIB_DIR not in _ld.split(os.pathsep):
+                os.environ["LD_LIBRARY_PATH"] = (
+                    MINIZINC_LIB_DIR + os.pathsep + _ld if _ld else MINIZINC_LIB_DIR
+                )
+        try:
+            result = self.cp_inst.solve(timeout=time_limit, processes=nthreads, random_seed=rand_int)
+        finally:
+            # Restore original LD_LIBRARY_PATH
+            if _old_ld is None:
+                os.environ.pop("LD_LIBRARY_PATH", None)
+            else:
+                os.environ["LD_LIBRARY_PATH"] = _old_ld
         elapsed_time = time.time() - start_time
         print('Solving finished in %0.2f seconds' % elapsed_time)
         return self._handle_solver_result(result)

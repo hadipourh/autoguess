@@ -76,8 +76,9 @@ def draw_graph(vertices, edges, known_variables, guessed_vars, output_dir, tikz,
         directed_graph.save(src_path)
         print(f"WARNING: Could not render graph ({exc}).")
         print(f"  Graphviz source saved to: {src_path}")
-        print(f"  Install the Graphviz system package to enable rendering:")
-        print(f"    apt install graphviz  /  brew install graphviz")
+        print(f"  To enable rendering, install the system packages:")
+        print(f"    Debian/Ubuntu: apt install graphviz libpangocairo-1.0-0")
+        print(f"    macOS:         brew install graphviz")
 
     if tikz == 1:
         print("Generating the tikz code ...")

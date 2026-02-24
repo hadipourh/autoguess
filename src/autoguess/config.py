@@ -159,11 +159,10 @@ if MINIZINC_PATH is not None:
         os.environ["PATH"] = _mzn_bin_dir + os.pathsep + os.environ.get("PATH", "")
     # Bundled solver binaries (e.g. fzn-cp-sat / OR-Tools) link against
     # shared libraries shipped inside the MiniZinc bundle's lib/ directory.
-    # Prepend it to LD_LIBRARY_PATH so the dynamic linker can find them.
+    # We do NOT set LD_LIBRARY_PATH globally here because it would pollute
+    # the environment for other subprocesses (e.g. Graphviz's dot).  Instead
+    # we export the path so gdcp.py can set it only around the solve() call.
     _mzn_lib_dir = os.path.join(os.path.dirname(_mzn_bin_dir), "lib")
-    if os.path.isdir(_mzn_lib_dir):
-        _ld = os.environ.get("LD_LIBRARY_PATH", "")
-        if _mzn_lib_dir not in _ld.split(os.pathsep):
-            os.environ["LD_LIBRARY_PATH"] = (
-                _mzn_lib_dir + os.pathsep + _ld if _ld else _mzn_lib_dir
-            )
+    MINIZINC_LIB_DIR = _mzn_lib_dir if os.path.isdir(_mzn_lib_dir) else None
+else:
+    MINIZINC_LIB_DIR = None
