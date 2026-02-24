@@ -142,6 +142,7 @@ The following table summarizes the available extras:
 
 **System dependencies** (not installed by pip):
 
+- **Python development headers** (required for `[groebner]` / `[all]`): `sudo apt install python3-dev` (Debian/Ubuntu) / `sudo dnf install python3-devel` (Fedora) — needed to build native extensions like `cysignals`
 - **MiniZinc binary**: Run `autoguess --install-minizinc` to auto-download, or install via your package manager (`brew install minizinc` / `snap install minizinc --classic`)
 - **Graphviz binary** (optional, for visualization rendering): `brew install graphviz` / `apt install graphviz`
 
