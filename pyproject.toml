@@ -30,14 +30,17 @@ classifiers = [
 dependencies = [
     "python-sat[pblib,aiger]",
     "pysmt",
-    "z3-solver",
-    "cvc5",
-    "pyboolector",
     "graphviz",
     "dot2tex",
 ]
 
 [project.optional-dependencies]
+# SMT solver backends (z3-solver builds from source and needs a C++20 compiler)
+smt = [
+    "z3-solver",
+    "cvc5",
+    "pyboolector",
+]
 # CP solver backend (requires MiniZinc binary on system)
 cp = [
     "minizinc>=0.9.0",
@@ -52,7 +55,7 @@ gurobi = [
 ]
 # All optional backends
 all = [
-    "autoguess[cp,groebner,gurobi]",
+    "autoguess[smt,cp,groebner,gurobi]",
 ]
 # Development dependencies
 dev = [

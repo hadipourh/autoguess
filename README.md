@@ -96,7 +96,7 @@ The following shape represents the overall structure of Autoguess. As it can be 
 
 Before installing Autoguess, ensure you have the following:
 
-- **Python 3.10+**: Autoguess requires Python 3.10 or higher
+- **Python 3.8+**: Autoguess requires Python 3.8 or higher (Python 3.11+ needed for Groebner basis support)
 - **Docker** (alternative): For a self-contained installation
 - **Git**: For cloning the repository and dependencies
 
@@ -109,22 +109,36 @@ Autoguess can be installed via `pip` (recommended), Docker, or native installer 
 The simplest way to install Autoguess is via pip:
 
 ```bash
-# Core installation (SAT, SMT, and visualization)
+# Core installation (SAT solver and visualization)
 pip install autoguess
 
+# With SMT solver support (z3, cvc5, boolector -- requires a C++20 compiler for z3)
+pip install "autoguess[smt]"
+
 # With CP solver support (also install the MiniZinc binary)
-pip install autoguess[cp]
+pip install "autoguess[cp]"
 autoguess --install-minizinc
 
-# With Groebner basis support (via passagemath, pip-installable SageMath)
-pip install autoguess[groebner]
+# With Groebner basis support (via passagemath, pip-installable SageMath; requires Python >= 3.11)
+pip install "autoguess[groebner]"
 
 # With Gurobi MILP support (requires Gurobi license)
-pip install autoguess[gurobi]
+pip install "autoguess[gurobi]"
 
-# Everything
-pip install autoguess[all]
+# Everything (SMT + CP + Groebner + Gurobi)
+pip install "autoguess[all]"
 ```
+
+The following table summarizes the available extras:
+
+| Extra | Solvers included | Notes |
+|-------|-----------------|-------|
+| *(core)* | SAT (PySAT) | Always installed |
+| `[smt]` | z3, cvc5, boolector | z3-solver builds from source (needs C++20 compiler, e.g. GCC 11+) |
+| `[cp]` | MiniZinc CP | Also run `autoguess --install-minizinc` to download the MiniZinc binary |
+| `[groebner]` | Groebner basis (passagemath) | Requires Python >= 3.11 |
+| `[gurobi]` | Gurobi MILP | Requires a Gurobi license |
+| `[all]` | All of the above | |
 
 **System dependencies** (not installed by pip):
 
