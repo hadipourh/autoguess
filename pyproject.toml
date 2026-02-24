@@ -57,9 +57,9 @@ groebner = [
 gurobi = [
     "gurobipy>=10.0",
 ]
-# All optional backends
+# All optional backends (excluding SMT — see note below)
 all = [
-    "autoguess[smt,cp,groebner,gurobi]",
+    "autoguess[cp,groebner,gurobi]",
 ]
 # Development dependencies
 dev = [
