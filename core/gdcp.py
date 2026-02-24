@@ -62,13 +62,25 @@ class ReduceGDtoCP:
         self.draw_graph = drawgraph
         self.log = log  
         self.supported_cp_solvers = [solver_name for solver_name in minizinc.default_driver.available_solvers().keys()]
-        try:
-            if self.cp_solver_name not in self.supported_cp_solvers:
-                raise ValueError(f"Solver '{self.cp_solver_name}' is not supported. Supported solvers are: {self.supported_cp_solvers}")
-        except ValueError as e:
-            print(e)
-            print('The default CP solver is used instead: cp-sat (ortools)')
-            self.cp_solver_name = 'cp-sat' # for newer versions of MiniZinc, use 'cp-sat' to use Or-tools      
+        if self.cp_solver_name not in self.supported_cp_solvers:
+            # Try a ranked preference list of well-known solvers
+            _preferred = ["cp-sat", "gecode", "chuffed"]
+            fallback = None
+            for _s in _preferred:
+                if _s in self.supported_cp_solvers:
+                    fallback = _s
+                    break
+            if fallback is None and self.supported_cp_solvers:
+                fallback = self.supported_cp_solvers[0]
+            if fallback is None:
+                raise RuntimeError(
+                    f"Solver '{self.cp_solver_name}' is not available and no "
+                    f"fallback solver found.  Available: {self.supported_cp_solvers}"
+                )
+            print(f"WARNING: Solver '{self.cp_solver_name}' not available.")
+            print(f"  Available: {self.supported_cp_solvers}")
+            print(f"  Falling back to: {fallback}")
+            self.cp_solver_name = fallback
         self.cp_solver = minizinc.Solver.lookup(self.cp_solver_name)      
         self.cp_optimization = cp_optimization
         self.nthreads = threads if threads > 0 else (os.cpu_count() or 1)

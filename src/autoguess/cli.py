@@ -34,6 +34,15 @@ def _get_available_cp_solvers():
     return ["cp-sat", "gecode", "chuffed"]
 
 
+def _default_cp_solver():
+    """Pick the best available CP solver (prefer cp-sat > gecode > chuffed)."""
+    available = _get_available_cp_solvers()
+    for preferred in ("cp-sat", "gecode", "chuffed"):
+        if preferred in available:
+            return preferred
+    return available[0] if available else "gecode"
+
+
 def _get_available_sat_solvers():
     """Return list of available SAT solver names."""
     try:
@@ -110,7 +119,7 @@ def load_parameters(args):
         "solver": 'cp',
         "milpdirection": 'min',
         "timelimit": -1,
-        "cpsolver": "cp-sat",
+        "cpsolver": _default_cp_solver(),
         "satsolver": 'cadical153',
         "smtsolver": 'z3',
         "cpoptimization": 1,
@@ -162,7 +171,7 @@ def main():
     parser.add_argument('-milpd', '--milpdirection', nargs=1, choices=['min', 'max'], help="MILP direction")
     parser.add_argument('-cps', '--cpsolver', nargs=1, type=str,
                         choices=_get_available_cp_solvers(),
-                        help="CP solver choice", default=["cp-sat"])
+                        help="CP solver choice", default=[_default_cp_solver()])
     parser.add_argument('-sats', '--satsolver', nargs=1, type=str,
                         choices=_get_available_sat_solvers(),
                         help="SAT solver choice")
