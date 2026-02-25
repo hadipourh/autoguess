@@ -260,8 +260,38 @@ def install_minizinc():
 
     if os.path.isfile(minizinc_bin):
         os.chmod(minizinc_bin, 0o755)
-        print(f"\nMiniZinc installed successfully at: {minizinc_bin}")
-        print("Autoguess will automatically detect it on next run.")
+        # Verify the binary actually runs (catches glibc version mismatches)
+        import subprocess as _sp
+        try:
+            out = _sp.check_output([minizinc_bin, "--version"],
+                                   stderr=_sp.STDOUT, timeout=10)
+            print(f"\nMiniZinc installed successfully at: {minizinc_bin}")
+            print(f"  Version: {out.decode().strip()}")
+            print("Autoguess will automatically detect it on next run.")
+        except (OSError, _sp.CalledProcessError, _sp.TimeoutExpired) as exc:
+            err_msg = str(exc.output.decode().strip()) if hasattr(exc, 'output') and exc.output else str(exc)
+            print(f"\nWARNING: MiniZinc binary was extracted but cannot run:")
+            print(f"  {err_msg}")
+            if "GLIBC" in err_msg:
+                print(f"\nYour system glibc is too old for MiniZinc {tag}.")
+                print("Removing incompatible installation ...")
+                shutil.rmtree(MINIZINC_INSTALL_DIR, ignore_errors=True)
+                print("\nTrying snap instead (bundles its own libraries) ...")
+                if _install_via_system_package_manager():
+                    print("Autoguess will automatically detect it on next run.")
+                    return
+                print(
+                    "\nOptions to resolve this:\n"
+                    "  1. sudo snap install minizinc --classic  (recommended)\n"
+                    "  2. Upgrade your OS to get glibc >= 2.34\n"
+                    "  3. Download an older MiniZinc release (e.g. 2.6.4) manually:\n"
+                    "     https://github.com/MiniZinc/MiniZincIDE/releases\n"
+                    "     Extract to: ~/.autoguess/minizinc/\n"
+                )
+                sys.exit(1)
+            else:
+                print("\nYou may need to install missing system libraries.")
+                print(f"Try: ldd {minizinc_bin} | grep 'not found'")
     else:
         print(f"\nWARNING: Could not locate minizinc binary in {MINIZINC_INSTALL_DIR}")
         print("Contents:")
