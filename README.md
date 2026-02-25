@@ -29,7 +29,7 @@
 
 ## Overall Structure
 
-The following shape represents the overall structure of Autoguess. As it can be seen, Autoguess relies on [Minizinc](https://www.minizinc.org/), [PySAT](https://github.com/pysathq/pysat), [pySMT](https://github.com/pysmt/pysmt), [Gurobi](https://www.gurobi.com/) and [SageMath](https://www.sagemath.org/). Providing a Python interface, Autoguess translates the guess-and-determine problem to a SAT, SMT, MILP or Groebner basis computation problem and then calls an appropriate solver to solve it. It also provides a lightweight **knowledge-propagation** mode that iteratively deduces variables from an initial known set without invoking any external solver. Additionally, it utilizes [Graphviz](https://pypi.org/project/graphviz/) to visualize the discovered determination flow.
+The diagram below illustrates the overall structure of Autoguess. Autoguess leverages [MiniZinc](https://www.minizinc.org/), [PySAT](https://github.com/pysathq/pysat), [pySMT](https://github.com/pysmt/pysmt), [Gurobi](https://www.gurobi.com/), and [SageMath](https://www.sagemath.org/) ([passagemath](https://github.com/passagemath)). Through its Python interface, Autoguess translates guess-and-determine problems into SAT, SMT, MILP, or Groebner basis computations and invokes the appropriate solver. It also offers a lightweight knowledge-propagation mode, which iteratively deduces variables from an initial known set without external solvers. For visualization, Autoguess uses [Graphviz](https://pypi.org/project/graphviz/) to display the determination flow.
 
 ![programflow](miscellaneous/programflow.svg)
 
