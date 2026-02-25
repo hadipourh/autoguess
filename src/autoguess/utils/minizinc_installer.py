@@ -23,13 +23,22 @@ from autoguess.config import AUTOGUESS_HOME
 
 MINIZINC_INSTALL_DIR = os.path.join(AUTOGUESS_HOME, "minizinc")
 
-# GitHub API endpoint for latest release
+# GitHub API endpoints
 GITHUB_API_URL = "https://api.github.com/repos/MiniZinc/MiniZincIDE/releases/latest"
+GITHUB_RELEASES_URL = "https://api.github.com/repos/MiniZinc/MiniZincIDE/releases"
 
 
 def _get_latest_release_info():
     """Fetch latest release metadata from GitHub."""
     req = Request(GITHUB_API_URL, headers={"Accept": "application/vnd.github+json"})
+    with urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def _get_releases_list(per_page=30):
+    """Fetch a list of recent releases from GitHub."""
+    url = f"{GITHUB_RELEASES_URL}?per_page={per_page}"
+    req = Request(url, headers={"Accept": "application/vnd.github+json"})
     with urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
@@ -168,6 +177,73 @@ def _install_via_system_package_manager():
     return False
 
 
+def _try_install_release(release_info, suffix, fmt):
+    """Download, extract, and verify one MiniZinc release.
+
+    Returns ``(True, version_string)`` on success.
+    Returns ``(False, "glibc")`` when the system glibc is too old.
+    Returns ``(False, error_message)`` for other failures.
+    """
+    import subprocess as _sp
+
+    tag = release_info.get("tag_name", "unknown")
+
+    # On macOS prefer .tgz over .dmg when available
+    actual_suffix, actual_fmt = suffix, fmt
+    if fmt == "dmg":
+        tgz_suffix = suffix.replace(".dmg", ".tgz")
+        try:
+            _find_asset_url(release_info, tgz_suffix)
+            actual_suffix, actual_fmt = tgz_suffix, "tgz"
+        except RuntimeError:
+            pass
+
+    try:
+        url, name = _find_asset_url(release_info, actual_suffix)
+    except RuntimeError as e:
+        return False, str(e)
+
+    with tempfile.TemporaryDirectory(prefix="autoguess_mzn_") as tmpdir:
+        archive_path = os.path.join(tmpdir, name)
+        _download(url, archive_path)
+
+        if os.path.exists(MINIZINC_INSTALL_DIR):
+            shutil.rmtree(MINIZINC_INSTALL_DIR)
+        os.makedirs(MINIZINC_INSTALL_DIR, exist_ok=True)
+
+        print(f"Extracting to {MINIZINC_INSTALL_DIR} ...")
+        if actual_fmt == "tgz":
+            _extract_tgz(archive_path, MINIZINC_INSTALL_DIR)
+        elif actual_fmt == "dmg":
+            _extract_dmg_fallback(archive_path, MINIZINC_INSTALL_DIR)
+
+    # Locate binary
+    minizinc_bin = os.path.join(MINIZINC_INSTALL_DIR, "bin", "minizinc")
+    if not os.path.isfile(minizinc_bin):
+        minizinc_bin = os.path.join(MINIZINC_INSTALL_DIR, "minizinc")
+
+    if not os.path.isfile(minizinc_bin):
+        return False, "binary not found after extraction"
+
+    os.chmod(minizinc_bin, 0o755)
+
+    try:
+        out = _sp.check_output(
+            [minizinc_bin, "--version"], stderr=_sp.STDOUT, timeout=10
+        )
+        return True, out.decode().strip()
+    except (OSError, _sp.CalledProcessError, _sp.TimeoutExpired) as exc:
+        err_msg = (
+            exc.output.decode().strip()
+            if hasattr(exc, "output") and exc.output
+            else str(exc)
+        )
+        shutil.rmtree(MINIZINC_INSTALL_DIR, ignore_errors=True)
+        if "GLIBC" in err_msg:
+            return False, "glibc"
+        return False, err_msg
+
+
 def install_minizinc():
     """
     Download and install MiniZinc to ``~/.autoguess/minizinc/``.
@@ -206,7 +282,7 @@ def install_minizinc():
 
     print(f"Looking for asset matching: *{suffix}")
 
-    # Fetch release info
+    # Fetch latest release
     print("Fetching latest MiniZinc release info from GitHub...")
     try:
         release_info = _get_latest_release_info()
@@ -217,105 +293,95 @@ def install_minizinc():
     tag = release_info.get("tag_name", "unknown")
     print(f"Latest release: {tag}")
 
-    # For macOS, prefer .tgz over .dmg if available
-    if fmt == "dmg":
-        tgz_suffix = suffix.replace(".dmg", ".tgz")
-        try:
-            url, name = _find_asset_url(release_info, tgz_suffix)
-            suffix = tgz_suffix
-            fmt = "tgz"
-            print(f"Found .tgz bundle for macOS: {name}")
-        except RuntimeError:
-            # Try the .dmg
-            try:
-                url, name = _find_asset_url(release_info, suffix)
-            except RuntimeError as e:
-                print(f"Error: {e}")
-                sys.exit(1)
-    else:
+    # Windows: just download the installer and let the user run it
+    if fmt == "exe":
         try:
             url, name = _find_asset_url(release_info, suffix)
         except RuntimeError as e:
             print(f"Error: {e}")
             sys.exit(1)
-
-    # Download
-    with tempfile.TemporaryDirectory(prefix="autoguess_mzn_") as tmpdir:
-        archive_path = os.path.join(tmpdir, name)
-        _download(url, archive_path)
-
-        # Remove old installation
-        if os.path.exists(MINIZINC_INSTALL_DIR):
-            print(f"Removing previous installation at {MINIZINC_INSTALL_DIR}")
-            shutil.rmtree(MINIZINC_INSTALL_DIR)
-
-        os.makedirs(MINIZINC_INSTALL_DIR, exist_ok=True)
-
-        # Extract
-        print(f"Extracting to {MINIZINC_INSTALL_DIR} ...")
-        if fmt == "tgz":
-            _extract_tgz(archive_path, MINIZINC_INSTALL_DIR)
-        elif fmt == "dmg":
-            _extract_dmg_fallback(archive_path, MINIZINC_INSTALL_DIR)
-        elif fmt == "exe":
-            print(
-                f"Windows installer downloaded to: {archive_path}\n"
-                f"Please run the installer manually and ensure MiniZinc is on your PATH,\n"
-                f"or extract it to: {MINIZINC_INSTALL_DIR}"
-            )
-            # Copy the installer so user can find it
+        with tempfile.TemporaryDirectory(prefix="autoguess_mzn_") as tmpdir:
+            archive_path = os.path.join(tmpdir, name)
+            _download(url, archive_path)
             final_path = os.path.join(AUTOGUESS_HOME, name)
+            os.makedirs(AUTOGUESS_HOME, exist_ok=True)
             shutil.copy2(archive_path, final_path)
-            print(f"Installer saved to: {final_path}")
-            return
+        print(
+            f"\nWindows installer saved to: {final_path}\n"
+            f"Please run the installer manually and ensure MiniZinc is on your PATH,\n"
+            f"or extract it to: {MINIZINC_INSTALL_DIR}"
+        )
+        return
 
-    # Verify installation
-    minizinc_bin = os.path.join(MINIZINC_INSTALL_DIR, "bin", "minizinc")
-    if not os.path.isfile(minizinc_bin):
-        # Try without bin/ subfolder
-        minizinc_bin = os.path.join(MINIZINC_INSTALL_DIR, "minizinc")
+    # ---- Try latest release first -----------------------------------------
+    ok, detail = _try_install_release(release_info, suffix, fmt)
+    if ok:
+        print(f"\nMiniZinc installed successfully!")
+        print(f"  Version: {detail}")
+        print("Autoguess will automatically detect it on next run.")
+        return
 
-    if os.path.isfile(minizinc_bin):
-        os.chmod(minizinc_bin, 0o755)
-        # Verify the binary actually runs (catches glibc version mismatches)
-        import subprocess as _sp
-        try:
-            out = _sp.check_output([minizinc_bin, "--version"],
-                                   stderr=_sp.STDOUT, timeout=10)
-            print(f"\nMiniZinc installed successfully at: {minizinc_bin}")
-            print(f"  Version: {out.decode().strip()}")
+    if detail != "glibc":
+        print(f"\nMiniZinc binary failed to run: {detail}")
+        sys.exit(1)
+
+    # ---- glibc too old — try older releases automatically -----------------
+    print(f"\nYour system glibc is too old for MiniZinc {tag}.")
+    print("Searching for an older compatible release ...\n")
+
+    import re as _re
+    try:
+        all_releases = _get_releases_list(per_page=30)
+    except Exception:
+        all_releases = []
+
+    # Pick one release per minor-version line, skip the series we tried
+    seen_minor = set()
+    m0 = _re.match(r"(\d+\.\d+)", tag)
+    if m0:
+        seen_minor.add(m0.group(1))
+    candidates = []
+    for rel in all_releases:
+        rtag = rel.get("tag_name", "")
+        if rtag == tag or rel.get("prerelease") or rel.get("draft"):
+            continue
+        m = _re.match(r"(\d+\.\d+)", rtag)
+        minor = m.group(1) if m else rtag
+        if minor not in seen_minor:
+            seen_minor.add(minor)
+            candidates.append(rel)
+        if len(candidates) >= 4:
+            break
+
+    for rel in candidates:
+        rtag = rel.get("tag_name", "unknown")
+        print(f"--- Trying MiniZinc {rtag} ---")
+        ok, detail = _try_install_release(rel, suffix, fmt)
+        if ok:
+            print(f"\nMiniZinc {rtag} installed successfully!")
+            print(f"  Version: {detail}")
             print("Autoguess will automatically detect it on next run.")
-        except (OSError, _sp.CalledProcessError, _sp.TimeoutExpired) as exc:
-            err_msg = str(exc.output.decode().strip()) if hasattr(exc, 'output') and exc.output else str(exc)
-            print(f"\nWARNING: MiniZinc binary was extracted but cannot run:")
-            print(f"  {err_msg}")
-            if "GLIBC" in err_msg:
-                print(f"\nYour system glibc is too old for MiniZinc {tag}.")
-                print("Removing incompatible installation ...")
-                shutil.rmtree(MINIZINC_INSTALL_DIR, ignore_errors=True)
-                print("\nTrying snap instead (bundles its own libraries) ...")
-                if _install_via_system_package_manager():
-                    print("Autoguess will automatically detect it on next run.")
-                    return
-                print(
-                    "\nOptions to resolve this:\n"
-                    "  1. sudo snap install minizinc --classic  (recommended)\n"
-                    "  2. Upgrade your OS to get glibc >= 2.34\n"
-                    "  3. Download an older MiniZinc release (e.g. 2.6.4) manually:\n"
-                    "     https://github.com/MiniZinc/MiniZincIDE/releases\n"
-                    "     Extract to: ~/.autoguess/minizinc/\n"
-                )
-                sys.exit(1)
-            else:
-                print("\nYou may need to install missing system libraries.")
-                print(f"Try: ldd {minizinc_bin} | grep 'not found'")
-    else:
-        print(f"\nWARNING: Could not locate minizinc binary in {MINIZINC_INSTALL_DIR}")
-        print("Contents:")
-        for root, dirs, files in os.walk(MINIZINC_INSTALL_DIR):
-            for f in files[:20]:
-                print(f"  {os.path.join(root, f)}")
-        print("\nYou may need to adjust the installation manually.")
+            return
+        if detail == "glibc":
+            print(f"  Still too new for your glibc.\n")
+        else:
+            print(f"  Failed: {detail}\n")
+            break
+
+    # ---- All pre-built releases failed — try snap -------------------------
+    print("\nNo compatible pre-built MiniZinc version found.")
+    print("Trying snap instead (bundles its own libraries) ...\n")
+    if _install_via_system_package_manager():
+        print("Autoguess will automatically detect it on next run.")
+        return
+
+    print(
+        "\nOptions to resolve this:\n"
+        "  1. sudo snap install minizinc --classic  (recommended)\n"
+        "  2. Upgrade your OS to get glibc >= 2.34\n"
+        "  3. Build MiniZinc from source: https://github.com/MiniZinc/MiniZincIDE\n"
+    )
+    sys.exit(1)
 
 
 if __name__ == "__main__":
