@@ -17,15 +17,13 @@
   <img src="miscellaneous/logo.svg" width="400" alt="AutoGuess Logo">
 </p>
 
-**Autoguess** is a generic and easy-to-use tool designed to assist in solving the guess-and-determine problem. It is commonly applied in areas such as identifying guess-and-determine attacks and key bridging in cryptographic systems. The tool supports multiple solving approaches, including:
+**Autoguess** is a generic, easy-to-use tool for solving guess-and-determine problems. It is especially useful for identifying guess-and-determine attacks and key bridging in cryptanalysis, enabling researchers to find minimal guess bases for a variety of cryptographic primitives. The tool supports multiple solving approaches, including:
 
 - **Constraint Programming (CP)** via MiniZinc
 - **Mixed-Integer Linear Programming (MILP)** via Gurobi
 - **Boolean Satisfiability (SAT)** via PySAT
 - **Satisfiability Modulo Theories (SMT)** via pySMT
 - **Algebraic methods** via SageMath and Groebner basis computation
-
-The tool is particularly useful for cryptanalysis of symmetric-key primitives, helping researchers discover minimal guess bases for various cryptographic primitives and protocols.
 
 ---
 
