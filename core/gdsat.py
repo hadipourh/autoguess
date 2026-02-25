@@ -53,7 +53,7 @@ class ReduceGDtoSAT:
     count = 0
 
     def __init__(self, inputfile_name=None, outputfile_name='output', max_guess=0, max_steps=0, sat_solver='cadical153',\
-        tikz=0, preprocess=1, D=2, dglayout="dot", drawgraph=True, log=0):
+        tikz=0, preprocess=1, D=2, dglayout="dot", drawgraph=True, log=0, extra_known=None):
         ReduceGDtoSAT.count += 1
         self.inputfile_name = inputfile_name
         self.output_dir = outputfile_name
@@ -69,7 +69,7 @@ class ReduceGDtoSAT:
         self.log = log
         ###############################
         # Read and parse the input file
-        parsed_data = read_relation_file(self.inputfile_name, preprocess=preprocess, D=D, log=self.log)
+        parsed_data = read_relation_file(self.inputfile_name, preprocess=preprocess, D=D, log=self.log, extra_known=extra_known)
         self.problem_name = parsed_data['problem_name']
         self.variables = parsed_data['variables']
         self.known_variables = parsed_data['known_variables']

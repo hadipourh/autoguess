@@ -45,7 +45,7 @@ def ordered_set(seq):
     return [x for x in seq if not (x in seen or seen_add(x))]
 
 
-def read_relation_file(path, preprocess=1, D=2, log=0):
+def read_relation_file(path, preprocess=1, D=2, log=0, extra_known=None):
     """
     Reads a relation file in GD format and parses it into a systems of connection relations
     """
@@ -110,6 +110,10 @@ def read_relation_file(path, preprocess=1, D=2, log=0):
         known_variables = known_variables.split('\n')
     known_variables.extend([rel[0] for rel in symmetric_relations if len(rel) == 1])
     known_variables = ordered_set(known_variables)
+    if extra_known:
+        for v in extra_known:
+            if v not in known_variables:
+                known_variables.append(v)
     symmetric_relations = [rel for rel in symmetric_relations if len(rel) != 1]
     target_variables = sections.get('target', [])
     if target_variables != []:

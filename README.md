@@ -318,10 +318,9 @@ python3 autoguess.py -h
 ```
 
 ```text
-usage: autoguess.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-mg MAXGUESS] [-ms MAXSTEPS] [-s {cp,milp,sat,smt,groebner,propagate}] [-milpd {min,max}] [-cps {cp-sat,gecode,chuffed}]
-                    [-sats {cadical153,glucose4,minisat22}] [-smts {z3}] [-cpopt {0,1}] [-tl TIMELIMIT] [-tk TIKZ] [-prep PREPROCESS] [-D D] [-tord TERM_ORDERING]
-                    [-oln OVERLAPPING_NUMBER] [-cnf2anf {simple,blockwise}] [-dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}] [-log {0,1}] [-kn KNOWN] [-t THREADS]
-                    [--nograph] [--findmin] [--install-minizinc] [-V]
+usage: autoguess.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-mg MAXGUESS] [-ms MAXSTEPS] [-s {cp,milp,sat,smt,groebner,propagate}] [-milpd {min,max}] [-cps {cp-sat,gecode,chuffed}] [-sats {cadical153,glucose4,minisat22}] [-smts {z3}]
+                    [-cpopt {0,1}] [-tl TIMELIMIT] [-tk TIKZ] [-prep PREPROCESS] [-D D] [-tord TERM_ORDERING] [-oln OVERLAPPING_NUMBER] [-cnf2anf {simple,blockwise}]
+                    [-dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}] [-log {0,1}] [-kn KNOWN] [-t THREADS] [--nograph] [--findmin] [--reducebasis] [--install-minizinc] [-V]
 
 This tool automates the Guess-and-Determine and Key-Bridging techniques using a variety of CP, MILP, SMT and SAT solvers, as well as the algebraic method based on Groebner basis
 
@@ -364,12 +363,14 @@ options:
   -dgl, --dglayout {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}
                         Layout of determination flow graph
   -log, --log {0,1}     Store intermediate generated files and results
-  -kn, --known KNOWN    Comma-separated list of initially known variables (for 'propagate' solver)
+  -kn, --known KNOWN    Comma-separated list of additionally known variables
   -t, --threads THREADS
                         Number of threads for CP/MILP solvers
                         (default: 0 = use all available cores)
   --nograph             Skip generating the determination flow graph (faster)
   --findmin             Iteratively decrease max_guess to find the minimum number of guesses (SAT/SMT only)
+  --reducebasis         Reduce a known guess basis via propagation: test subsets of
+                        decreasing size (requires -s propagate and -kn)
   --install-minizinc    Download and install MiniZinc binary to ~/.autoguess/minizinc/
   -V, --version         show program's version number and exit
 ```

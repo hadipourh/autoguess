@@ -62,7 +62,8 @@ class ReduceGDtoGroebner:
                 overlapping_number=2,
                 temp_dir='temp',
                 cnf_to_anf_conversion='simple',
-                log=0):
+                log=0,
+                extra_known=None):
         self.inputfile_name = inputfile_name
         self.output_dir = outputfile_name
         self.term_ordering = term_ordering
@@ -75,7 +76,7 @@ class ReduceGDtoGroebner:
         self.log = log
         ###############################
         # Read and parse the input file
-        parsed_data = read_relation_file(path=self.inputfile_name, temp_dir=self.temp_dir, preprocess=preprocess, D=D, log=self.log)
+        parsed_data = read_relation_file(path=self.inputfile_name, temp_dir=self.temp_dir, preprocess=preprocess, D=D, log=self.log, extra_known=extra_known)
         self.problem_name = parsed_data['problem_name']
         self.variables = parsed_data['variables']
         self.known_variables = parsed_data['known_variables']
@@ -454,7 +455,7 @@ def ordered_set(seq):
     return [x for x in seq if not (x in seen or seen_add(x))]
 
 
-def read_relation_file(path, temp_dir, preprocess=1, D=2, log=0):
+def read_relation_file(path, temp_dir, preprocess=1, D=2, log=0, extra_known=None):
     """
     Reads a relation file in GD format and parses it into a systems of connection relations
     """
@@ -518,6 +519,10 @@ def read_relation_file(path, temp_dir, preprocess=1, D=2, log=0):
         known_variables = known_variables.split('\n')
     known_variables.extend([rel[0] for rel in symmetric_relations if len(rel) == 1])
     known_variables = ordered_set(known_variables)
+    if extra_known:
+        for v in extra_known:
+            if v not in known_variables:
+                known_variables.append(v)
     symmetric_relations = [rel for rel in symmetric_relations if len(rel) != 1]
     target_variables = sections.get('target', [])
     if target_variables != []:
@@ -758,7 +763,8 @@ def loadparameters(args):
               "overlapping_number": 2,
               "temp_dir": "temp",
               "cnf_to_anf_conversion": "simple",
-              "log": 0}
+              "log": 0,
+              "known": None}
 
     # Override parameters if they are set on commandline
     if args.inputfile:
@@ -787,6 +793,9 @@ def loadparameters(args):
     
     if args.log:
         params["log"] = args.log[0]    
+
+    if args.known:
+        params["known"] = args.known[0]
 
     return params
 
@@ -821,9 +830,14 @@ def main():
     parser.add_argument('--log', nargs=1, type=int, choices=[0, 1],
                         help="By setting this parameter to 1, the intermediate results are stored inside the temp folder\n")
 
+    parser.add_argument('--known', nargs=1, type=str,
+                        help="Comma-separated list of additionally known variables")
+
     # Parse command line arguments and construct parameter list.
     args = parser.parse_args()
     params = loadparameters(args)
+    known_str = params.get('known', None)
+    extra_known = [v.strip() for v in known_str.split(',') if v.strip()] if known_str else None
     gdgroebner = ReduceGDtoGroebner(inputfile_name=params['inputfile'], 
                                     outputfile_name=params['outputfile'],
                                     preprocess=params['preprocess'],
@@ -832,7 +846,8 @@ def main():
                                     overlapping_number=params['overlapping_number'],
                                     temp_dir=params['temp_dir'],
                                     cnf_to_anf_conversion=params['cnf_to_anf_conversion'],
-                                    log=params['log'])
+                                    log=params['log'],
+                                    extra_known=extra_known)
     gdgroebner.make_model()
     gdgroebner.solve()
 

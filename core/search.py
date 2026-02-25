@@ -28,6 +28,14 @@ import time
 from config import PATH_SAGE, SAGE_IMPORTABLE, TEMP_DIR
 
 
+def _parse_extra_known(parameters):
+    """Parse --known CLI string into a list of variable names, or None."""
+    known_str = parameters.get('known', None)
+    if not known_str:
+        return None
+    return [v.strip() for v in known_str.split(',') if v.strip()]
+
+
 def _findmin_descent(parameters, solver_type):
     """
     Shared helper for --findmin: iteratively decrease max_guess from the
@@ -45,6 +53,7 @@ def _findmin_descent(parameters, solver_type):
 
     def _build_and_solve(mg, quiet=False):
         """Create solver, build model, solve.  Returns (result, solver_instance)."""
+        _ek = _parse_extra_known(parameters)
         if solver_type == 'sat':
             solver = SolverClass(
                 inputfile_name=parameters['inputfile'],
@@ -57,7 +66,8 @@ def _findmin_descent(parameters, solver_type):
                 D=parameters['D'],
                 dglayout=parameters['dglayout'],
                 drawgraph=parameters.get('drawgraph', True),
-                log=parameters['log'])
+                log=parameters['log'],
+                extra_known=_ek)
         else:
             solver = SolverClass(
                 inputfile_name=parameters['inputfile'],
@@ -70,7 +80,8 @@ def _findmin_descent(parameters, solver_type):
                 D=parameters['D'],
                 dglayout=parameters['dglayout'],
                 drawgraph=parameters.get('drawgraph', True),
-                log=parameters['log'])
+                log=parameters['log'],
+                extra_known=_ek)
         if quiet:
             old_stdout = sys.stdout
             sys.stdout = io.StringIO()
@@ -180,7 +191,8 @@ def _findmin_sat_incremental(parameters, start_mg, _w):
             D=parameters['D'],
             dglayout=parameters['dglayout'],
             drawgraph=False,
-            log=0)
+            log=0,
+            extra_known=_parse_extra_known(parameters))
         solver_obj.generate_sat_constraints()
         solver_obj.generate_boundary_no_cardinality()
     finally:
@@ -296,7 +308,8 @@ def search_using_cp(parameters):
                     dglayout=parameters['dglayout'],
                     drawgraph=parameters.get('drawgraph', True),
                     log=parameters['log'],
-                    threads=parameters.get('threads', 0))
+                    threads=parameters.get('threads', 0),
+                    extra_known=_parse_extra_known(parameters))
     gdsmt.make_model()
     gdsmt.time_limit = parameters['timelimit']
     gdsmt.solve_via_cpsolver()
@@ -320,7 +333,8 @@ def search_using_milp(parameters):
                         dglayout=parameters['dglayout'],
                         drawgraph=parameters.get('drawgraph', True),
                         log=parameters['log'],
-                        threads=parameters.get('threads', 0))
+                        threads=parameters.get('threads', 0),
+                        extra_known=_parse_extra_known(parameters))
     gdmilp.make_model()
     gdmilp.time_limit = parameters['timelimit']
     gdmilp.solve_model()
@@ -346,7 +360,8 @@ def search_using_sat(parameters):
                             D=parameters['D'],
                             dglayout=parameters['dglayout'],
                             drawgraph=parameters.get('drawgraph', True),
-                            log=parameters["log"])
+                            log=parameters["log"],
+                            extra_known=_parse_extra_known(parameters))
         gdsat.make_model()
         gdsat.time_limit = parameters['timelimit']
         gdsat.solve_via_satsolver()
@@ -375,7 +390,8 @@ def search_using_smt(parameters):
                             D=parameters['D'],
                             dglayout=parameters['dglayout'],
                             drawgraph=parameters.get('drawgraph', True),
-                            log=parameters['log'])
+                            log=parameters['log'],
+                            extra_known=_parse_extra_known(parameters))
         gdsmt.make_model()
         gdsmt.time_limit = parameters['timelimit']
         gdsmt.solve_via_smtsolver()
@@ -401,6 +417,9 @@ def search_using_groebnerbasis(parameters):
         "--cnf_to_anf_conversion", parameters['cnf_to_anf_conversion'],
         "--log", str(parameters['log']),
     ]
+    known_str = parameters.get('known', None)
+    if known_str:
+        args.extend(["--known", known_str])
 
     if SAGE_IMPORTABLE:
         # passagemath is installed – run gdgroebner with the current Python
@@ -422,7 +441,8 @@ def search_using_mark(parameters):
                 outputfile_name=parameters['outputfile'],
                 tikz=parameters['tikz'],
                 preprocess=parameters['preprocess'],
-                D=parameters['D'])
+                D=parameters['D'],
+                extra_known=_parse_extra_known(parameters))
     gdmark.generate_and_triangulate_dependency_matrix()
     gdmark.find_minimal_guess_basis()
 
@@ -433,7 +453,8 @@ def search_using_elim(parameters):
                 outputfile_name=parameters['outputfile'],
                 tikz=parameters['tikz'],
                 preprocess=parameters['preprocess'],
-                D=parameters['D'])
+                D=parameters['D'],
+                extra_known=_parse_extra_known(parameters))
     gdmark.remove_the_known_variables()
     gdmark.find_minimal_guess_basis()
 
@@ -442,21 +463,26 @@ def search_using_propagate(parameters):
     """
     Propagate knowledge through a system of connection relations
     starting from a given set of initially known variables.
+
+    When --reducebasis is set, tries to shrink the basis given via -kn
+    by testing subsets of decreasing size.
     """
-    from core.propagate import propagate_knowledge
     from core.inputparser import read_relation_file
 
+    extra_known = _parse_extra_known(parameters)
     parsed_data = read_relation_file(parameters['inputfile'],
                                      preprocess=parameters.get('preprocess', 0),
                                      D=parameters.get('D', 2),
-                                     log=parameters.get('log', 0))
-    # Start with known variables from the input file
-    known_variables = list(parsed_data.get('known_variables', []))
-    # Merge any extra variables given via --known on the command line
-    known_str = parameters.get('known', None)
-    if known_str:
-        cli_vars = [v.strip() for v in known_str.split(',') if v.strip()]
-        for v in cli_vars:
-            if v not in known_variables:
-                known_variables.append(v)
-    propagate_knowledge(parsed_data=parsed_data, known_variables=known_variables)
+                                     log=parameters.get('log', 0),
+                                     extra_known=extra_known)
+
+    if parameters.get('reducebasis', False):
+        from core.propagate import reduce_basis
+        if not extra_known:
+            print("Error: --reducebasis requires -kn with the initial guess basis to reduce.")
+            return
+        reduce_basis(parsed_data=parsed_data, basis_variables=extra_known)
+    else:
+        from core.propagate import propagate_knowledge
+        known_variables = list(parsed_data.get('known_variables', []))
+        propagate_knowledge(parsed_data=parsed_data, known_variables=known_variables)

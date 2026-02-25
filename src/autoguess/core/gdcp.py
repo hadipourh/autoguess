@@ -51,7 +51,7 @@ class ReduceGDtoCP:
     count = 0
 
     def __init__(self, inputfile_name=None, outputfile_name='output', max_guess=0, max_steps=0, cp_solver_name="cp-sat", \
-        cp_optimization=0, tikz=0, preprocess=1, D=2, dglayout="dot", drawgraph=True, log="0", threads=0):
+        cp_optimization=0, tikz=0, preprocess=1, D=2, dglayout="dot", drawgraph=True, log="0", threads=0, extra_known=None):
         self.inputfile_name = inputfile_name
         self.output_dir = outputfile_name     
         self.rnd_string_tmp = '%030x' % random.randrange(16**30)
@@ -87,6 +87,7 @@ class ReduceGDtoCP:
         self.cp_boolean_variables = []
         self._cp_vars_set = set()
         self._constraint_lines = []
+        self.extra_known = extra_known
         self._parse_input_file(preprocess, D)
         self._set_max_guess()
         self.deductions = self.generate_possible_deductions()        
@@ -94,7 +95,7 @@ class ReduceGDtoCP:
         self.tikz = tikz
 
     def _parse_input_file(self, preprocess, D):
-        parsed_data = read_relation_file(self.inputfile_name, preprocess, D, self.log)
+        parsed_data = read_relation_file(self.inputfile_name, preprocess, D, self.log, extra_known=self.extra_known)
         self.problem_name = parsed_data['problem_name']
         self.variables = parsed_data['variables']
         self.known_variables = parsed_data['known_variables']

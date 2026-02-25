@@ -132,6 +132,7 @@ def load_parameters(args):
         "dglayout": "dot",
         "drawgraph": True,
         "findmin": False,
+        "reducebasis": False,
         "threads": 0,
         "log": 1,
         "known": None
@@ -147,6 +148,9 @@ def load_parameters(args):
 
     if getattr(args, 'findmin', False):
         params['findmin'] = True
+
+    if getattr(args, 'reducebasis', False):
+        params['reducebasis'] = True
 
     return params
 
@@ -198,13 +202,16 @@ def main():
     parser.add_argument('-log', '--log', nargs=1, type=int, choices=[0, 1],
                         help="Store intermediate generated files and results", default=[0])
     parser.add_argument('-kn', '--known', nargs=1, type=str,
-                        help="Comma-separated list of initially known variables (for 'propagate' solver)")
+                        help="Comma-separated list of additionally known variables")
     parser.add_argument('-t', '--threads', nargs=1, type=int,
                         help="Number of threads for CP/MILP solvers\n(default: 0 = use all available cores)")
     parser.add_argument('--nograph', action='store_true', default=False,
                         help="Skip generating the determination flow graph (faster)")
     parser.add_argument('--findmin', action='store_true', default=False,
                         help="Iteratively decrease max_guess to find the minimum number of guesses (SAT/SMT only)")
+    parser.add_argument('--reducebasis', action='store_true', default=False,
+                        help="Reduce a known guess basis via propagation: test subsets of\n"
+                             "decreasing size (requires -s propagate and -kn)")
 
     # MiniZinc installer command
     parser.add_argument('--install-minizinc', action='store_true',
