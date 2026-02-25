@@ -320,11 +320,10 @@ python3 autoguess.py -h
 ```
 
 ```text
-usage: autoguess.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-mg MAXGUESS] [-ms MAXSTEPS] [-s {cp,milp,sat,smt,groebner,propagate}] [-milpd {min,max}]
-                    [-cps {mip,float,api,osicbc,coinbc,cbc,org.minizinc.mip.coin-bc,coin-bc,org.minizinc.mip.cplex,cplex,org.minizinc.mip.gurobi,gurobi,highs,org.minizinc.mip.highs,cp-sat,cp,lcg,int,org.minizinc.mip.scip,scip,org.minizinc.mip.xpress,xpress}]
-                    [-sats {cadical103,cadical153,cadical195,cryptosat,gluecard3,gluecard4,glucose3,glucose4,glucose42,lingeling,maplechrono,maplecm,maplesat,mergesat3,minicard,minisat22,minisatgh}]
-                    [-smts {btor,cvc5,z3}] [-cpopt {0,1}] [-tl TIMELIMIT] [-tk TIKZ] [-prep PREPROCESS] [-D D] [-tord TERM_ORDERING] [-oln OVERLAPPING_NUMBER] [-cnf2anf {simple,blockwise}]
-                    [-dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}] [-log {0,1}] [--nograph] [--findmin] [--install-minizinc] [-kn KNOWN] [-V]
+usage: autoguess.py [-h] [-i INPUTFILE] [-o OUTPUTFILE] [-mg MAXGUESS] [-ms MAXSTEPS] [-s {cp,milp,sat,smt,groebner,propagate}] [-milpd {min,max}] [-cps {cp-sat,gecode,chuffed}]
+                    [-sats {cadical153,glucose4,minisat22}] [-smts {z3}] [-cpopt {0,1}] [-tl TIMELIMIT] [-tk TIKZ] [-prep PREPROCESS] [-D D] [-tord TERM_ORDERING]
+                    [-oln OVERLAPPING_NUMBER] [-cnf2anf {simple,blockwise}] [-dgl {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}] [-log {0,1}] [-kn KNOWN] [-t THREADS]
+                    [--nograph] [--findmin] [--install-minizinc] [-V]
 
 This tool automates the Guess-and-Determine and Key-Bridging techniques using a variety of CP, MILP, SMT and SAT solvers, as well as the algebraic method based on Groebner basis
 
@@ -336,17 +335,19 @@ options:
                         Use an output file to write the output into it
   -mg, --maxguess MAXGUESS
                         An upper bound for the number of guessed variables
+                        (default: number of target variables)
   -ms, --maxsteps MAXSTEPS
                         An integer number specifying the depth of search
+                        (default: number of variables before preprocessing)
   -s, --solver {cp,milp,sat,smt,groebner,propagate}
                         Solver choice
   -milpd, --milpdirection {min,max}
                         MILP direction
-  -cps, --cpsolver {mip,float,api,osicbc,coinbc,cbc,org.minizinc.mip.coin-bc,coin-bc,org.minizinc.mip.cplex,cplex,org.minizinc.mip.gurobi,gurobi,highs,org.minizinc.mip.highs,cp-sat,cp,lcg,int,org.minizinc.mip.scip,scip,org.minizinc.mip.xpress,xpress}
+  -cps, --cpsolver {cp-sat,gecode,chuffed}
                         CP solver choice
-  -sats, --satsolver {cadical103,cadical153,cadical195,cryptosat,gluecard3,gluecard4,glucose3,glucose4,glucose42,lingeling,maplechrono,maplecm,maplesat,mergesat3,minicard,minisat22,minisatgh}
+  -sats, --satsolver {cadical153,glucose4,minisat22}
                         SAT solver choice
-  -smts, --smtsolver {btor,cvc5,z3}
+  -smts, --smtsolver {z3}
                         SMT solver choice
   -cpopt, --cpoptimization {0,1}
                         CP optimization
@@ -365,10 +366,13 @@ options:
   -dgl, --dglayout {dot,circo,twopi,fdp,neato,nop,nop1,nop2,osage,patchwork,sfdp}
                         Layout of determination flow graph
   -log, --log {0,1}     Store intermediate generated files and results
+  -kn, --known KNOWN    Comma-separated list of initially known variables (for 'propagate' solver)
+  -t, --threads THREADS
+                        Number of threads for CP/MILP solvers
+                        (default: 0 = use all available cores)
   --nograph             Skip generating the determination flow graph (faster)
   --findmin             Iteratively decrease max_guess to find the minimum number of guesses (SAT/SMT only)
   --install-minizinc    Download and install MiniZinc binary to ~/.autoguess/minizinc/
-  -kn, --known KNOWN    Comma-separated list of initially known variables (for 'propagate' solver)
   -V, --version         show program's version number and exit
 ```
 
