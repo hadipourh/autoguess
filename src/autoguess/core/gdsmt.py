@@ -164,8 +164,9 @@ class ReduceGDtoSMT:
         known variables in the initial state
         """
 
+        _known_set = set(self.known_variables)
         initial_state_vars = [step_var(
-            v, 0) for v in self.variables if v not in self.known_variables]
+            v, 0) for v in self.variables if v not in _known_set]
         if initial_state_vars != []:
             self.update_variables_dictionary(initial_state_vars)
             bv_length = ceil(log2(len(initial_state_vars))) + 1

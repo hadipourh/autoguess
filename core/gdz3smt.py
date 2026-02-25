@@ -100,19 +100,27 @@ class ReduceGDtoZ3SMT:
             If there is a relation in which all terms are known except one, 
             then the value of the last term can be determined as well. 
         """
+        # Build inverted indices for O(1) lookup instead of O(|R|) scan per variable
+        from collections import defaultdict
+        sym_index = defaultdict(list)
+        for rel in self.symmetric_relations:
+            for v in rel:
+                sym_index[v].append(rel)
+        impl_index = defaultdict(list)
+        for rel in self.implication_relations:
+            impl_index[rel[-1]].append(rel)
+
         possible_deductions = {}
         for v in self.variables:
             possible_deductions[v] = [[v]]
-            for rel in self.symmetric_relations:
-                if v in rel:
-                    temp = rel.copy()
-                    temp.remove(v)
-                    possible_deductions[v].append(temp)
-            for rel in self.implication_relations:
-                if v == rel[-1]:
-                    temp = rel.copy()
-                    temp.remove(v)
-                    possible_deductions[v].append(temp)
+            for rel in sym_index.get(v, []):
+                temp = rel.copy()
+                temp.remove(v)
+                possible_deductions[v].append(temp)
+            for rel in impl_index.get(v, []):
+                temp = rel.copy()
+                temp.remove(v)
+                possible_deductions[v].append(temp)
         return possible_deductions
 
     def generate_initial_conditions(self):
@@ -125,8 +133,9 @@ class ReduceGDtoZ3SMT:
         #     v, 0) for v in self.variables if v not in self.known_variables]))
         # self.solver.add(z3.Sum([z3.If(initial_state_vars[i], 1, 0)
         #                     for i in range(len(initial_state_vars))]) <= self.max_guess)
+        _known_set = set(self.known_variables)
         initial_state_vars = list(map(lambda x: (z3.Bool(x), 1), [step_var(
-            v, 0) for v in self.variables if v not in self.known_variables]))
+            v, 0) for v in self.variables if v not in _known_set]))
         if initial_state_vars != []:
             self.solver.add(z3.PbLe([initial_state_vars[i] for i in range(
                 len(initial_state_vars))], self.max_guess))

@@ -136,7 +136,7 @@ class ReduceGDtoMILP:
         """
         This method generates the objective function of the MILP problem
         """
-
+        _known_set = set(self.known_variables)
         if self.direction == 'max':
             objective_function = 'Maximize\n'
             final_state = [step_var(v, self.max_steps)
@@ -144,7 +144,7 @@ class ReduceGDtoMILP:
             objective_function += ' + '.join(final_state)
         elif self.direction == 'min':
             objective_function = 'Minimize\n'
-            unknown_init_state_vars = [v for v in self.variables if v not in self.known_variables]
+            unknown_init_state_vars = [v for v in self.variables if v not in _known_set]
             if self.target_weights != None:
                 wights = [self.target_weights.get(v, 1) for v in unknown_init_state_vars]
                 weighted_init_state = zip(wights, unknown_init_state_vars)
@@ -163,8 +163,8 @@ class ReduceGDtoMILP:
         """
 
         initial_constraints = 'Subject To\n'
-
-        unknown_vars = ['%s' % v for v in self.variables if v not in self.known_variables]
+        _known_set = set(self.known_variables)
+        unknown_vars = ['%s' % v for v in self.variables if v not in _known_set]
         unknown_init_state_vars = [step_var(v, 0) for v in unknown_vars]
         if self.target_weights != None:
             LHS1 = ['%d %s' % (self.target_weights[v], step_var(v, 0)) for v in unknown_vars]
@@ -201,7 +201,7 @@ class ReduceGDtoMILP:
         obtained deductions.
         """
 
-        milp_constraints = ''
+        _lines = []
         for step in range(self.max_steps):
             for v in self.variables:
                 v_old = step_var(v, step)
@@ -214,13 +214,13 @@ class ReduceGDtoMILP:
                 ######################################################################################################
                 ######################################################################################################
                 LHS = ' + '.join(v_path_variables)
-                milp_constraints += '\\ Constraints corresponding to the state variable %s:\n' % v_new
+                _lines.append('\\ Constraints corresponding to the state variable %s:\n' % v_new)
                 if tau == 1:
-                    milp_constraints += '%s - %s = 0\n' % (v_new, LHS)
+                    _lines.append('%s - %s = 0\n' % (v_new, LHS))
                 else:
-                    milp_constraints += '-2 %s + %s >= -1\n' % (v_new, LHS)
-                    milp_constraints += '%d %s - %s >= 0\n' % (
-                        tau, v_new, LHS.replace('+', '-'))
+                    _lines.append('-2 %s + %s >= -1\n' % (v_new, LHS))
+                    _lines.append('%d %s - %s >= 0\n' % (
+                        tau, v_new, LHS.replace('+', '-')))
                 #####################################-Path variable constraints-######################################
                 ######################################################################################################
                 ######################################################################################################
@@ -229,15 +229,15 @@ class ReduceGDtoMILP:
                         var, step) for var in self.deductions[v][i]]
                     LHS = ' - '.join(v_connected_variables)
                     kapa = len(v_connected_variables)
-                    milp_constraints += '\\ Constraints corresponding to the path variable %s:\n' % v_path_variables[i]
+                    _lines.append('\\ Constraints corresponding to the path variable %s:\n' % v_path_variables[i])
                     if kapa == 1:
-                        milp_constraints += '%s - %s = 0\n' % (
-                            v_path_variables[i], LHS)
+                        _lines.append('%s - %s = 0\n' % (
+                            v_path_variables[i], LHS))
                     else:
-                        milp_constraints += '%s - %s >= %d\n' % (
-                            v_path_variables[i], LHS, 1 - kapa)
-                        milp_constraints += '-%d %s + %s >= 0\n' % (
-                            kapa, v_path_variables[i], LHS.replace('-', '+'))
+                        _lines.append('%s - %s >= %d\n' % (
+                            v_path_variables[i], LHS, 1 - kapa))
+                        _lines.append('-%d %s + %s >= 0\n' % (
+                            kapa, v_path_variables[i], LHS.replace('-', '+')))
                 #####################################-Path variable constraints-######################################
                 ######################################################################################################
                 ######################################################################################################
@@ -246,15 +246,15 @@ class ReduceGDtoMILP:
                         var, step) for var in self.deductions[v][i]]
                     LHS = ' - '.join(v_connected_variables)
                     kapa = len(v_connected_variables)
-                    milp_constraints += '\\ Constraints corresponding to the path variable %s:\n' % v_path_variables[i]
+                    _lines.append('\\ Constraints corresponding to the path variable %s:\n' % v_path_variables[i])
                     if kapa == 1:
-                        milp_constraints += '%s - %s = 0\n' % (
-                            v_path_variables[i], LHS)
+                        _lines.append('%s - %s = 0\n' % (
+                            v_path_variables[i], LHS))
                     else:
-                        milp_constraints += '%s - %s >= %d\n' % (
-                            v_path_variables[i], LHS, 1 - kapa)
-                        milp_constraints += '-%d %s + %s >= 0\n' % (
-                            kapa, v_path_variables[i], LHS.replace('-', '+'))
+                        _lines.append('%s - %s >= %d\n' % (
+                            v_path_variables[i], LHS, 1 - kapa))
+                        _lines.append('-%d %s + %s >= 0\n' % (
+                            kapa, v_path_variables[i], LHS.replace('-', '+')))
                 ######################################################################################################
                 ######################################################################################################
                 ######################################################################################################
@@ -264,17 +264,14 @@ class ReduceGDtoMILP:
                 # the theoretical point of view in general. However, according to my experiences it may be better to put the connected
                 # relations closer to each other. For example, change the order of the above blocks to see what impact it has
                 # on the performance.
-        return milp_constraints
+        return ''.join(_lines)
 
     def declare_binary_variables(self):
         """
         This function declares the binary variables into the generated LP file
         """
 
-        constraints = 'Binary\n'
-        for v in self.milp_variables:
-            constraints += '%s\n' % v
-        return constraints
+        return 'Binary\n' + ''.join('%s\n' % v for v in self.milp_variables)
 
     def make_model(self):
         """

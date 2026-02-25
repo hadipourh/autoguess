@@ -119,23 +119,36 @@ class ReduceGDtoGroebner:
             If there is a relation in which all terms are known except one, 
             then the value of the last term can be determined as well. 
         """
+        # Build inverted indices for O(1) lookup instead of O(|R|) scan per variable
+        from collections import defaultdict
+        sym_index = defaultdict(list)
+        for rel in self.symmetric_relations:
+            for v in rel:
+                sym_index[v].append(rel)
+        impl_index = defaultdict(list)
+        for rel in self.implication_relations:
+            impl_index[rel[-1]].append(rel)
+
         possible_deductions = {}
         for v in self.variables:
             possible_deductions[v] = [[v]]
-            for rel in self.symmetric_relations:
-                if v in rel:
-                    temp = rel.copy()
-                    temp.remove(v)
-                    temp.sort()
-                    if temp not in possible_deductions[v]:
-                        possible_deductions[v].append(temp)
-            for rel in self.implication_relations:
-                if v == rel[-1]:
-                    temp = rel.copy()
-                    temp.remove(v)
-                    temp.sort()
-                    if temp not in possible_deductions[v]:
-                        possible_deductions[v].append(temp)
+            _seen = set()
+            for rel in sym_index.get(v, []):
+                temp = rel.copy()
+                temp.remove(v)
+                temp.sort()
+                key = tuple(temp)
+                if key not in _seen:
+                    _seen.add(key)
+                    possible_deductions[v].append(temp)
+            for rel in impl_index.get(v, []):
+                temp = rel.copy()
+                temp.remove(v)
+                temp.sort()
+                key = tuple(temp)
+                if key not in _seen:
+                    _seen.add(key)
+                    possible_deductions[v].append(temp)
         return possible_deductions
 
     @parallel

@@ -122,17 +122,22 @@ class ReduceGDtoSAT:
         possible_deductions = {}
         for v in self.variables:
             possible_deductions[v] = [[v]]
+            _seen = set()
             for rel in sym_index.get(v, []):
                 temp = rel.copy()
                 temp.remove(v)
                 temp.sort()
-                if temp not in possible_deductions[v]:
+                key = tuple(temp)
+                if key not in _seen:
+                    _seen.add(key)
                     possible_deductions[v].append(temp)
             for rel in impl_index.get(v, []):
                 temp = rel.copy()
                 temp.remove(v)
                 temp.sort()
-                if temp not in possible_deductions[v]:
+                key = tuple(temp)
+                if key not in _seen:
+                    _seen.add(key)
                     possible_deductions[v].append(temp)
         return possible_deductions
 
@@ -170,7 +175,8 @@ class ReduceGDtoSAT:
                 self.update_variables_dictionary([temp])
                 self.cnf_formula.append([-self.variables_dictionary[temp]])
         # Cardinality constraint
-        unknown_init_state_vars = [v for v in self.variables if v not in self.known_variables]
+        _known_set = set(self.known_variables)
+        unknown_init_state_vars = [v for v in self.variables if v not in _known_set]
         initial_state_vars = [step_var(v, 0) for v in unknown_init_state_vars]
         if self.target_weights != None:
             weights = [self.target_weights.get(v, 1) for v in unknown_init_state_vars]
@@ -223,7 +229,8 @@ class ReduceGDtoSAT:
                 self.update_variables_dictionary([temp])
                 self.cnf_formula.append([-self.variables_dictionary[temp]])
         # Register initial-state unknown variables (needed for external cardinality)
-        unknown_init_state_vars = [v for v in self.variables if v not in self.known_variables]
+        _known_set = set(self.known_variables)
+        unknown_init_state_vars = [v for v in self.variables if v not in _known_set]
         initial_state_vars = [step_var(v, 0) for v in unknown_init_state_vars]
         self.update_variables_dictionary(initial_state_vars)
 
@@ -233,7 +240,8 @@ class ReduceGDtoSAT:
         initial-state unknown variables.
         Must be called after generate_boundary_no_cardinality().
         """
-        unknown_init_state_vars = [v for v in self.variables if v not in self.known_variables]
+        _known_set = set(self.known_variables)
+        unknown_init_state_vars = [v for v in self.variables if v not in _known_set]
         initial_state_vars = [step_var(v, 0) for v in unknown_init_state_vars]
         lits = [self.variables_dictionary[v] for v in initial_state_vars]
         if self.target_weights is not None:

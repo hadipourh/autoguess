@@ -85,7 +85,8 @@ class ReduceGDtoCP:
         self.cp_optimization = cp_optimization
         self.nthreads = threads if threads > 0 else (os.cpu_count() or 1)
         self.cp_boolean_variables = []
-        self.cp_constraints = ''
+        self._cp_vars_set = set()
+        self._constraint_lines = []
         self._parse_input_file(preprocess, D)
         self._set_max_guess()
         self.deductions = self.generate_possible_deductions()        
@@ -150,7 +151,10 @@ class ReduceGDtoCP:
         return possible_deductions
     
     def update_variables_list(self, new_vars):
-        self.cp_boolean_variables.extend(v for v in new_vars if v not in self.cp_boolean_variables)
+        for v in new_vars:
+            if v not in self._cp_vars_set:
+                self._cp_vars_set.add(v)
+                self.cp_boolean_variables.append(v)
         
     def generate_initial_conditions(self):
         """
@@ -167,23 +171,23 @@ class ReduceGDtoCP:
         initial_state_vars = [step_var(v, 0) for v in self.variables if v not in self.known_variables]
         if initial_state_vars:
             self.update_variables_list(initial_state_vars)
-            self.cp_constraints += 'constraint %s <= %d;\n' % (' + '.join(initial_state_vars), self.max_guess)
+            self._constraint_lines.append('constraint %s <= %d;\n' % (' + '.join(initial_state_vars), self.max_guess))
 
     def _force_target_variables_known(self):
         final_state_target_vars = [step_var(v, self.max_steps) for v in self.target_variables]
         self.update_variables_list(final_state_target_vars)
         for fv in final_state_target_vars:
-            self.cp_constraints += 'constraint %s = 1;\n' % fv
+            self._constraint_lines.append('constraint %s = 1;\n' % fv)
 
     def _set_known_variables(self):
         for v in self.known_variables:
             if v:
-                self.cp_constraints += 'constraint %s = 1;\n' % step_var(v, 0)
+                self._constraint_lines.append('constraint %s = 1;\n' % step_var(v, 0))
 
     def _set_notguessed_variables(self):
         for v in self.notguessed_variables:
             if v:
-                self.cp_constraints += 'constraint %s = 0;\n' % step_var(v, 0)
+                self._constraint_lines.append('constraint %s = 0;\n' % step_var(v, 0))
     
     def generate_objective_function(self):
         """
@@ -192,9 +196,9 @@ class ReduceGDtoCP:
         """
         initial_state_vars = [step_var(v, 0) for v in self.variables if v not in self.known_variables]
         if self.cp_optimization == 1 and initial_state_vars:
-            self.cp_constraints += 'solve minimize %s;\n' % ' + '.join(initial_state_vars)
+            self._constraint_lines.append('solve minimize %s;\n' % ' + '.join(initial_state_vars))
         else:
-            self.cp_constraints += 'solve satisfy;\n'
+            self._constraint_lines.append('solve satisfy;\n')
       
     def generate_cp_constraints(self):
         """
@@ -212,14 +216,14 @@ class ReduceGDtoCP:
 
     def _add_state_variable_constraints(self, v_new, v_path_variables):
         RHS = ' \\/ '.join(v_path_variables)
-        self.cp_constraints += 'constraint %s <-> %s;\n' % (v_new, RHS)
+        self._constraint_lines.append('constraint %s <-> %s;\n' % (v_new, RHS))
 
     def _add_path_variable_constraints(self, v, step, tau, v_path_variables):
         for i in range(tau):
             v_connected_variables = [step_var(var, step) for var in self.deductions[v][i]]
             self.update_variables_list(v_connected_variables)
             RHS = ' /\\ '.join(v_connected_variables)
-            self.cp_constraints += 'constraint %s <-> %s;\n' % (v_path_variables[i], RHS)
+            self._constraint_lines.append('constraint %s <-> %s;\n' % (v_path_variables[i], RHS))
 
     def make_model(self):
         """
@@ -237,9 +241,11 @@ class ReduceGDtoCP:
         start_time = time.time()
         self.generate_cp_constraints()
         self.generate_initial_conditions()
-        boolean_variables = ''.join('var bool: %s;\n' % bv for bv in self.cp_boolean_variables)
-        self.cp_constraints = boolean_variables + self.cp_constraints
         self.generate_objective_function()
+        # Assemble the full model: variable declarations + constraints
+        parts = ['var bool: %s;\n' % bv for bv in self.cp_boolean_variables]
+        parts.extend(self._constraint_lines)
+        self.cp_constraints = ''.join(parts)
         self.cp_file_path = os.path.join(TEMP_DIR, 'cpmodel_mg%d_ms%d_%s.mzn' % (
             self.max_guess, self.max_steps, self.rnd_string_tmp))
         elapsed_time = time.time() - start_time
