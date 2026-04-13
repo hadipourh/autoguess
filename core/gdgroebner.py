@@ -377,7 +377,13 @@ class ReduceGDtoGroebner:
         monomial_filter = lambda f : len(f.monomials()) == 1
         gb_monomials = list(filter(monomial_filter, self.groebner_basis))
         minimal_monomial = min(gb_monomials)
-        self.guessed_vars = list(map(str, minimal_monomial.variables()))
+        # PolyBoRi/Sage: BooleanPolynomial.variables() can disagree with str(m)
+        # for single monomials; recover support from the printed monomial text.
+        monomial_text = str(minimal_monomial).strip()
+        if not monomial_text or monomial_text == '1':
+            self.guessed_vars = []
+        else:
+            self.guessed_vars = [name.strip() for name in monomial_text.split('*') if name.strip()]
         guess_basis_path = os.path.join(self.temp_dir, 'guess_basis_%s.txt' % self.rnd_string_tmp)
         if self.log == 1:
             with open(guess_basis_path, 'w') as guess_basis_file:
